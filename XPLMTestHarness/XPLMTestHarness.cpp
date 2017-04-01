@@ -321,7 +321,7 @@ XPLM_API void                 XPLMSetFlightLoopCallbackInterval(
 	int                  inRelativeToNow,
 	void *               inRefcon)
 {
-	// TODO: Implement.
+	// ENHANCE: Implement.
 }
 
 XPLM_API XPLMFlightLoopID     XPLMCreateFlightLoop(

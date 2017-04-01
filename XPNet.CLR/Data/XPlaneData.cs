@@ -41,7 +41,7 @@ namespace XPNet
     public interface IXPlaneData
     {
         // TODO: Support for publishing our own datarefs.
-        // TODO: Support for many, many more fluent datarefs, if that capability
+        // ENHANCE: Support for many, many more fluent datarefs, if that capability
         // proves useful.  I have just put a relative handful in here just as
         // a proof of concept for the feature.
 
@@ -166,10 +166,11 @@ namespace XPNet
 
     internal class XPlaneData : IXPlaneData
     {
-        // TODO: Register for whatever event will tell us that the plugins are being unloaded and
-        // unregister all registered datarefs.  The X-Plane docs say you should do that, but need
-        // to track down exactly which event they meant by "unload".  Is it disabled?  Or actually
-        // unloading?
+        // MAINT: Whenever we add support for registering DataRefs from XPNet,
+        // then we are also responsible for unregistering them when plugins are
+        // unloaded; consider whether bulk-unregistering them here for that
+        // case would be appropriate, or whether the plugin class should always
+        // be responsible for that.
 
         private readonly Dictionary<string, IXPDataRef<int>> m_intRefs
             = new Dictionary<string, IXPDataRef<int>>();
@@ -269,8 +270,7 @@ namespace XPNet
                 var actualTypes = PluginBridge.ApiFunctions.XPLMGetDataRefTypes(dataref);
                 if ((actualTypes & expectedType) == 0)
                 {
-                    // TODO: Log this - if the dataref is found but isn't of the type the
-                    // user asked about, seeing that in the log output would be very useful.
+                    PluginBridge.Log.Log($"Warning: DataRef ({dataRefName}) was found but is not of the indicated type ({expectedType}).  Will tell caller it was not found.");
                     return null;
                 }
 

@@ -219,9 +219,6 @@ rem msbuild "$(SolutionDir)XPNet.CLR\XPNet.CLR.csproj" /t:Publish /p:OutputPath=
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="XPMock.h" />

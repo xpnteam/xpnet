@@ -129,7 +129,6 @@ namespace XPNet
 
         public event EventHandler<XPMessageEventArgs> AirplaneCountChanged;
 
-        // TODO: Must have missed this one, got "never used" warning.  Check.
         public event EventHandler<XPMessageEventArgs> WillWritePreferences;
 
         public event EventHandler<XPMessageEventArgs> MessageReceived;
@@ -163,7 +162,7 @@ namespace XPNet
                     goto default;
 
                 case 107: // XPLM_MSG_WILL_WRITE_PREFS
-                    AirplaneCountChanged?.Invoke(this, new XPMessageEventArgs(fromPluginId, msg, (IntPtr)inParam));
+                    WillWritePreferences?.Invoke(this, new XPMessageEventArgs(fromPluginId, msg, (IntPtr)inParam));
                     goto default;
 
                 case 108: // XPLM_MSG_LIVERY_LOADED

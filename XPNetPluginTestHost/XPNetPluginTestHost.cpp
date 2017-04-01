@@ -213,5 +213,5 @@ int main()
     return 0;
 }
 
-// TODO: Test for InvalidOperationException trying to get something that X-Plane doesn't respond to.
+// ENHANCE: Test for InvalidOperationException trying to get something that X-Plane doesn't respond to.
  
