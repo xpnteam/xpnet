@@ -104,7 +104,8 @@ namespace XPNet
                 return true;
             }
             catch (Exception exc)
-            { File.WriteAllText(@"D:\Games\X-Plane\X-Plane 11 Beta\Resources\plugins\XPNetDev\64\Emergency.txt", "Error: " + exc);
+            {
+                // File.WriteAllText(@"D:\Games\X-Plane\X-Plane 11 Beta\Resources\plugins\XPNetDev\64\Emergency.txt", "Error: " + exc);
                 m_log?.Log(exc);
                 return false;
             }

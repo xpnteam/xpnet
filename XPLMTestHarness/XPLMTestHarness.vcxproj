@@ -77,10 +77,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>XPLM</TargetName>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>XPLM</TargetName>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -93,7 +97,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>APL=0;IBM=1;_DEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -106,7 +110,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>APL=0;IBM=1;WIN32;_DEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -121,7 +125,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>APL=0;IBM=1;WIN32;NDEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,7 +142,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>APL=0;IBM=1;NDEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

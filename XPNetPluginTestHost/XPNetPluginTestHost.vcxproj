@@ -89,12 +89,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>APL=0;IBM=1;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>XPLM_64.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp1.1\XPNet.CLR.dll" "$(OutputPath)"
@@ -121,12 +121,12 @@ rem msbuild "$(SolutionDir)XPNet.CLR\XPNet.CLR.csproj" /t:Publish /p:OutputPath=
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>APL=0;IBM=1;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>XPLM.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp1.1\XPNet.CLR.dll" "$(OutputPath)"
@@ -155,14 +155,14 @@ rem msbuild "$(SolutionDir)XPNet.CLR\XPNet.CLR.csproj" /t:Publish /p:OutputPath=
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>APL=0;IBM=1;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>XPLM.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp1.1\XPNet.CLR.dll" "$(OutputPath)"
@@ -191,14 +191,14 @@ rem msbuild "$(SolutionDir)XPNet.CLR\XPNet.CLR.csproj" /t:Publish /p:OutputPath=
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>APL=0;IBM=1;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Projects\XPlane\SDK\CHeaders\Widgets;D:\Projects\XPlane\SDK\CHeaders\Wrappers;D:\Projects\XPlane\SDK\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native;$(SolutionDir)XPLMTestHarness;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>XPLM_64.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp1.1\XPNet.CLR.dll" "$(OutputPath)"
