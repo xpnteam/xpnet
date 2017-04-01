@@ -1,1 +1,6 @@
 .vs
+*/bin
+*/obj
+*/Win32
+*/Debug
+*/Release
