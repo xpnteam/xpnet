@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>XPNet</PackageId>
+    <Authors>Stephen Quattlebaum</Authors>
+    <Company />
+    <Product>XPNet</Product>
+    <Description>Develop plugins for X-Plane in .NET.</Description>
+    <PackageProjectUrl>https://github.com/jaurenq/XPNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jaurenq/XPNet</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Version>0.8.0</Version>
+    <PackageReleaseNotes>Preprelease package for testing.</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Stephen Quattlebaum</Copyright>
+    <PackageTags>x-plane xplane plugin</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Widgets\**" />
+    <EmbeddedResource Remove="Widgets\**" />
+    <None Remove="Widgets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1">
+      <IncludeAssets>All</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1">
+      <IncludeAssets>All</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+  </ItemGroup>
+  
+</Project>
