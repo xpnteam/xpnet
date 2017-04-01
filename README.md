@@ -216,7 +216,7 @@ From X-Plane's standpoint, the actual plugin is a DLL or SO that is
 named win.xpl, lin.xpl or mac.xpl.  XPNet provides this library via
 a native "shim" project called XPNet.Native, which on Windows / VS 2017
 builds a file named XPNet.Native.dll.  Rename that file to win.xpl and drop it into
-the correct location.  In the future, Linux and macOS builds of the that
+the correct location.  In the future, Linux and macOS builds of that
 native shim would provide us with lin.xpl and mac.xpl as well.
 
 This is all straightforward, but it should be automatable as well, so
@@ -225,7 +225,7 @@ tree for you in a cross-platform way, ready to copy into X-Plane.
 
 ## Configuring XPNet
 
-To get XPNet to load your plugin, you give it a configuration file, xpnetcfg.json.
+To get XPNet to load your plugin, you give it a configuration file, _xpnetcfg.json_.
 Here is an example configuration file that tells XPNet to load the XPNet.LoggerPlugin
 example plugin.  Replace the assembly name and class name here with your own info to
 get XPNet to load your own plugin.
@@ -240,11 +240,11 @@ get XPNet to load your own plugin.
 
 ## Logging
 
-On initial startup, XPNet writes into the X-Plane log (Log.txt).  Look in that
+On initial startup, XPNet writes into the X-Plane log (_Log.txt_).  Look in that
 log for information about whether the plugin can load in the first place.  If
 X-Plane is unable to load the XPNet plugin, or if the XPNet plugin is unable to
 initialize the .NET runtime, then error messages about that will appear in the
-X-Plane Log.txt
+X-Plane _Log.txt_.
 
 Once XPNet gets going, it provides a separate logging mechanism that can be turned on and
 off by setting the LoggingEnabled property in the _xpnetcfg.json_ configuration file.  Extensive logging can be a significant
@@ -258,7 +258,7 @@ directory.
 ## The XPNet.LoggerPlugin Example
 
 XPNet includes a sample plugin which logs the output of DataRefs.  You configure which
-DataRefs to log via the xpnetcfg.json configuration file.  Here is an example config
+DataRefs to log via the _xpnetcfg.json_ configuration file.  Here is an example config
 file which logs various types of DataRefs.
 
 ```JSON
