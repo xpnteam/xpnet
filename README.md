@@ -93,11 +93,11 @@ download from Microsoft.  You'll need 2017 or higher because XPNet is written us
 6. Deploy into X-Plane.  See below for more details.
 
 The XPLANESDKPATH environment variable tells the build where the X-Plane SDK has been
-installed.  For instance, on my system I have it set like so:
+installed.  For instance:
 
 > XPLANESDKPATH=D:\Projects\XPlane\SDK
 
-That points to the location where I unzipped the X-Plane SDK; the subdirectories in that
+It should point to the location where you unzipped the X-Plane SDK; the subdirectories in that
 SDK directory are CHeaders, Delphi and Libraries.
 
 ## Writing a Plugin Class
