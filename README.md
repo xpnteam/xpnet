@@ -1,4 +1,4 @@
-# XPNet
+﻿# XPNet
 
 Develop [X-Plane](http://www.x-plane.com/) plugins in .NET.
 
@@ -36,8 +36,8 @@ An XPNet plugin consists of three parts:
 
 XPNet currently runs on Windows and exposes the following subsystems of the X-Plane API:
 
-* DataRefs (reading and writing data fields in X-Plane)
-* Processing (plugging into the X-Plane processing loop to do periodic processing)
+- [x] Reading and writing DataRefs (data fields provided by X-Plane or other plugins)
+- [x] Processing (plugging into the X-Plane processing loop to do periodic processing)
 
 XPNet is a new project and there are a ton of ways it could be improved.  At present, someone
 with a fair amount of experience with .NET, DLLs and dependencies, and software deployment, or who is willing to
@@ -47,19 +47,36 @@ being used in the development of just such a plugin.
 
 The following are currently actively being worked on:
 
-* Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed, with an immediate focus on Windows 32-bit and 64-bit.
+- [ ] Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed, with an immediate focus on Windows 32-bit and 64-bit.
 
 With the help of contributors, I'd like to see XPNet grow in at least the following ways:
 
-* Expand to macOS and Linux.  (Most of the native code is written in standard C or C++ so the effort here should be moderate for someone with good C/C++ and relevant platform experience.)
-* Expose more of the X-Plane API.  We've got Data and Processing covered so far; there are several other major subsystems, like Graphics, Camera, Planes, Navigation, and so on.
+- [ ] Expand to macOS and Linux.  (Most of the native code is written in standard C or C++ so the effort here should be moderate for someone with good C/C++ and relevant platform experience.)
+- [ ] Expose more of the X-Plane API.  We've got Data and Processing covered so far; there are several other major subsystems, like Graphics, Camera, Planes, Navigation, and so on.
 
 There are also some specific parts of the API and usage experience that could be improved.
 
-* Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it.)  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
-* Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
-* Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
-* Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
+- [ ] Autoamtically detect and use any compatible .NET Core install found in <Plugin-Path>/64/dotnet (or <Plugin-Path>/32/dotnet) instead of assuming release 1.1.1.
+- [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
+- [ ] Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
+- [ ] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
+- [ ] Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
+
+Additionally, the following aspects of the X-Plane API need mappings to XPNet.
+
+- [ ] Registering custom DataRefs (to expose to other plugins).
+- [ ] XPLMDisplay
+- [ ] XPLMMenus
+- [ ] XPLMGraphics
+- [ ] XPLMUtilities
+- [ ] XPLMCamera
+- [ ] XPLMPlanes
+- [ ] XPLMNavigation
+- [ ] Widgets (XPLMWidgets / XPLMWidgetDefs / XPLMWidgetUtils / XPLMStandardWidgets)
+- [ ] XPUIGraphics
+- [ ] XPLMScenery
+- [ ] XPLM Feature Keys
+
 
 ## Developing a Plugin
 
@@ -90,7 +107,7 @@ You should read the docs for writing plugins in X-Plane.  The core concepts are 
 * [X-Plane API Docs](http://www.xsquawkbox.net/xpsdk/mediawiki/Main_Page)
 * Your plugin's constructor corresponds to XPluginStart.
 * Your plugin's Dispose method corresponds to XPluginStop.
-* IXPlanePlugin.Enable corresopnds to XPluginEnable.
+* IXPlanePlugin.Enable corresponds to XPluginEnable.
 * IXPlanePlugin.Disable corresponds to XPluginDisable.
 
 During your development, you'll have to be sure that you stay within the confines of
@@ -99,7 +116,11 @@ of this document.  .NET Core is a full-featured CLR runtime, not a "stripped-dow
 of .NET, but it /does/ have some differences from the traditional .NET Framework.
 
 Additionally, if you really only care if your plugin works on Windows, you could make
-some modifications to the
+some modifications to the build dependencies and build against the .NET Framework instead
+of .NET Core.  Contributions that provide such a build path will be (carefully) considered,
+if they do not get in the way of the default being cross-platform, .NET Core-based development.
+You'll have to require the appropriate version of the .NET Framework to be installed on the
+computer running X-Plane if you do that.
 
 Here's a minimal plugin class.  See the LoggerPlugin example in the source
 code for a more interesting example.
@@ -147,10 +168,79 @@ code for a more interesting example.
     }
 ```
 
-## Deploying into X-Plane
+## Installing into X-Plane
 
-TODO: Write about the directory structure and where to put the plugin.
+Installing into X-Plane involves copying various files into the correct place in
+an X-Plane install.  You must build or obtain either or both 32-bit and 64-bit
+builds of the following:
 
+* [.NET Core](https://www.microsoft.com/net/download/core)
+
+For .NET Core, you want the binaries (.zip file), not the installer,
+because you'll unzip and copy the .NET Core install into the correct location.
+
+XPNet currently assumes that it will be running against .NET Core 1.1.1.  It
+can be easily built against other versions.  In the future, we want to have XPNet
+auto-detect and use whatever version you give it.
+
+As with all other X-Plane plugins, you install an XPNet-based
+plugin by copying the necessary files into your X-Plane install at 
+
+> <X-Plane-Directory>/Resources/Plugins/<Your-Plugin-Directory>
+
+You create a directory that matches the name of your plugin.  So let's assume
+that X-Plane is installed at "D:\X-Plane 11" and we want to install the
+XPNet.LoggerPlugin that comes with XPNet.  On disk, we'll have a directory
+structure like this:
+
+
+```
+D:\X-Plane 11\Resources\plugins
+|
+└───32                             <-- Same as 64 below, but with 32-bit binaries.
+|
+└───64
+    |
+    └─── dotnet                    <-- Unzip dotnet-win-x64.1.1.1.zip here.
+    |    └───host
+    |    └───shared
+    |    └───etc.
+    └───win.xpl                    <-- Rename XPNet.Native.xpl and place it here.
+    └───XPNet.CLR.dll
+    └───XPNet.LoggerPlugin.dll     <-- Your plugin DLL.
+    └───xpnetcfg.json              <-- The XPNet Configuration File
+    └───Microsoft.Extensions.*.dll <-- These and other DLLs that are required dependencies of XPNet.
+```
+
+From X-Plane's standpoint, the actual plugin is a DLL or SO that is
+named win.xpl, lin.xpl or mac.xpl.  XPNet provides this library via
+a native "shim" project called XPNet.Native, which on Windows / VS 2017
+builds a file named XPNet.Native.dll.  Rename that file to win.xpl and drop it into
+the correct location.  In the future, Linux and macOS builds of the that
+native shim would provide us with lin.xpl and mac.xpl as well.
+
+This is all straightforward but it's should be automatable as well, so
+a nice future enhancement is tooling or build outputs that build this
+tree for you in a cross-platform way, ready to copy into X-Plane.
+
+## Configuring XPNet
+
+To get XPNet to load your plugin, you give it a configuration file, xpnetcfg.json.
+Here is an example configuration file that tells XPNet to load the XPNet.LoggerPlugin
+example plugin.  Replace the assembly name and class name here with your own info to
+get XPNet to load your own plugin.
+
+```JSON
+{
+  "PluginAssemblyName": "XPNet.LoggerPlugin.dll",
+  "PluginType": "XPNet.LoggerPlugin",
+  "LoggingEnabled": false
+}
+```
+
+You should have LoggingEnabled set to true during development and when debugging
+a problem in the field, and leave it set to false otherwise, since extensive logging
+could cause a drag on framerate.
 
 ## Logging
 
@@ -169,6 +259,37 @@ to end-users for how to turn logging on if it is necessary to find a solution to
 When enabled, the log file is written in UTF-8 encoding to the file _xpnet.log_ in the plugin
 directory.
 
+## The XPNet.LoggerPlugin Example
+
+XPNet includes a sample plugin which logs the output of DataRefs.  You configure which
+DataRefs to log via the xpnetcfg.json configuration file.  Here is an example config
+file which logs various types of DataRefs.
+
+```JSON
+{
+  "PluginAssemblyName": "XPNet.LoggerPlugin.dll",
+  "PluginType": "XPNet.LoggerPlugin",
+  "LoggingEnabled": true,
+  "XPNetLogger": {
+    "StringData": [ 
+      "sim/aircraft/view/acf_tailnum",
+    ],
+    "IntData": [ 
+      "sim/aircraft/electrical/num_buses",
+    ],
+    "BoolArrayData": [ 
+      "sim/cockpit/engine/fadec_on",
+    ],
+    "FloatData": [ 
+      "sim/cockpit/electrical/instrument_brightness",
+    ],
+    "BoolData": [ 
+      "sim/cockpit/engine/inverter_eq",
+    ]
+  }
+}
+```
+
 
 ## Async / Threading
 
@@ -181,7 +302,7 @@ library performant, and frankly many scenarios don't need any asynchronous behav
 
 If your scenario does need threaded or asynchronous behavior, however, by all means kick off
 what you need to.  The rule is: if you're calling back to X-Plane or XPNet, including reading
-DataRefs or writing to the log, make that call on the UI thread.
+DataRefs or writing to the log, make that call on the thread that your plugin was constructed on.
 
 You should consider using constructs like the async/await keywords in C#, rather than directly
 working with Threads.  Threaded operation is beyond the scope of this documentation, but it is
