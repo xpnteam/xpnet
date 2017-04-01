@@ -171,6 +171,8 @@ an X-Plane install.  You must build or obtain either or both 32-bit and 64-bit
 builds of the following:
 
 * [.NET Core](https://www.microsoft.com/net/download/core)
+* XPNet Build Outputs (XPNet.Native.dll, XPNet.CLR.dll, and nuget dependencies like Newtonsoft.Json).
+* Your built plugin DLL and its dependencies (if any).
 
 For .NET Core, you want the binaries (.zip file), not the installer,
 because you'll unzip and copy the .NET Core install into the correct location.
