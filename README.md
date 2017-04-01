@@ -302,4 +302,6 @@ DataRefs or writing to the log, make that call on the thread that your plugin wa
 
 You should consider using constructs like the async/await keywords in C#, rather than directly
 working with Threads.  Threaded operation is beyond the scope of this documentation, but it is
-not discouraged for those who know what they're doing.
+not discouraged for those who know what they're doing.  Contributions that provide high-level
+(but performant) Task- or queue-based asynchronous capabilities that work well in the X-Plane
+environment (i.e., that make it easy to do asynchronous operations in a plugin) would be welcomed.
