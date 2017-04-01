@@ -182,30 +182,32 @@ auto-detect and use whatever version you give it.
 As with all other X-Plane plugins, you install an XPNet-based
 plugin by copying the necessary files into your X-Plane install at 
 
-> X-Plane-Directory/Resources/Plugins/Your-Plugin-Directory
+> _X-Plane-Directory_/Resources/Plugins/_Your-Plugin-Directory_
 
 You create a directory that matches the name of your plugin.  So let's assume
-that X-Plane is installed at "D:\X-Plane 11" and we want to install the
+that X-Plane is installed at _D:\X-Plane 11_ and we want to install the
 XPNet.LoggerPlugin that comes with XPNet.  On disk, we'll have a directory
 structure like this:
 
 
 ```
-D:\X-Plane 11\Resources\plugins
+D:\X-Plane 11\Resources\plugins\
 |
-└───32                             <-- Same as 64 below, but with 32-bit binaries.
-|
-└───64
+└───XPNet.Logger\                      <-- Directory containing your plugin.  Give it some appropriate name.
     |
-    └─── dotnet                    <-- Unzip dotnet-win-x64.1.1.1.zip here.
-    |    └───host
-    |    └───shared
-    |    └───etc.
-    └───win.xpl                    <-- Rename XPNet.Native.xpl and place it here.
-    └───XPNet.CLR.dll
-    └───XPNet.LoggerPlugin.dll     <-- Your plugin DLL.
-    └───xpnetcfg.json              <-- The XPNet Configuration File
-    └───Microsoft.Extensions.*.dll <-- These and other DLLs that are required dependencies of XPNet.
+    └───32\                            <-- Same as 64 below, but with 32-bit binaries.
+    |
+    └───64\
+        |
+        └─── dotnet\                   <-- Unzip dotnet-win-x64.1.1.1.zip here.
+        |    └───host\
+        |    └───shared\
+        |    └───etc.
+        └───win.xpl                    <-- Rename XPNet.Native.xpl and place it here.
+        └───XPNet.CLR.dll
+        └───XPNet.LoggerPlugin.dll     <-- Your plugin DLL.
+        └───xpnetcfg.json              <-- The XPNet Configuration File
+        └───Microsoft.Extensions.*.dll <-- These and other DLLs that are required dependencies of XPNet.
 ```
 
 From X-Plane's standpoint, the actual plugin is a DLL or SO that is
@@ -215,7 +217,7 @@ builds a file named XPNet.Native.dll.  Rename that file to win.xpl and drop it i
 the correct location.  In the future, Linux and macOS builds of the that
 native shim would provide us with lin.xpl and mac.xpl as well.
 
-This is all straightforward but it's should be automatable as well, so
+This is all straightforward, but it should be automatable as well, so
 a nice future enhancement is tooling or build outputs that build this
 tree for you in a cross-platform way, ready to copy into X-Plane.
 
@@ -234,10 +236,6 @@ get XPNet to load your own plugin.
 }
 ```
 
-You should have LoggingEnabled set to true during development and when debugging
-a problem in the field, and leave it set to false otherwise, since extensive logging
-could cause a drag on framerate.
-
 ## Logging
 
 On initial startup, XPNet writes into the X-Plane log (Log.txt).  Look in that
@@ -247,7 +245,7 @@ initialize the .NET runtime, then error messages about that will appear in the
 X-Plane Log.txt
 
 Once XPNet gets going, it provides a separate logging mechanism that can be turned on and
-off by editing the _xpnetcfg.json_ configuration file.  Extensive logging can be a significant
+off by setting the LoggingEnabled property in the _xpnetcfg.json_ configuration file.  Extensive logging can be a significant
 performance hit, so it is recommended that you use logging to test your plugin but deliver
 the plugin to users with logging turned off, and provide instructions
 to end-users for how to turn logging on if it is necessary to find a solution to a problem.
