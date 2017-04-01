@@ -52,7 +52,7 @@ The following are currently actively being worked on:
 With the help of contributors, I'd like to see XPNet grow in at least the following ways:
 
 - [ ] Expand to macOS and Linux.  (Most of the native code is written in standard C or C++ so the effort here should be moderate for someone with good C/C++ and relevant platform experience.)
-- [ ] Autoamtically detect and use any compatible .NET Core install found in <Plugin-Path>/64/dotnet (or <Plugin-Path>/32/dotnet) instead of assuming release 1.1.1.
+- [ ] Automatically detect and use any compatible .NET Core install found in <Plugin-Path>/64/dotnet (or <Plugin-Path>/32/dotnet) instead of assuming release 1.1.1.
 - [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
 - [ ] Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
 - [ ] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
@@ -182,7 +182,7 @@ auto-detect and use whatever version you give it.
 As with all other X-Plane plugins, you install an XPNet-based
 plugin by copying the necessary files into your X-Plane install at 
 
-> <X-Plane-Directory>/Resources/Plugins/<Your-Plugin-Directory>
+> X-Plane-Directory/Resources/Plugins/Your-Plugin-Directory
 
 You create a directory that matches the name of your plugin.  So let's assume
 that X-Plane is installed at "D:\X-Plane 11" and we want to install the
