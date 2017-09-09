@@ -17,6 +17,7 @@
 #include "XPLMDefs.h"
 #include "XPLMDataAccess.h"
 #include "XPLMProcessing.h"
+#include "XPLMUtilities.h"
 
 // Test Harness Functions
 //

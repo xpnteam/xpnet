@@ -7,6 +7,9 @@
 #include <stdint.h>
 #include <string>
 #include <Shlwapi.h>
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
 
 #define strcp(dest, str) strcpy_s(dest, strlen(str) + 1, str)
 
@@ -95,7 +98,7 @@ typedef struct
 
 } ApiFunctions;
 
-std::wstring GetPluginDirectory()
+fs::path GetPluginDirectory()
 {
 	// ENHANCE: Will need to work differently on different platforms.  Don't
 	// know how to write a cross-platform version of this.
@@ -125,9 +128,7 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 {
 	if (!s_clrToken)
 	{
-		std::wstring pluginDir = GetPluginDirectory();
-		if (!pluginDir.empty() && pluginDir.back() != '\\')
-			pluginDir += '\\';
+		fs::path pluginDir = GetPluginDirectory();
 
 //#if defined(ARCH_32)
 //		std::wstring archSubdir = L"32";
@@ -139,14 +140,16 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 
 		XPLMDebugString(("XPNet: Loading plugins from " + narrow(pluginDir) + "\n").c_str());
 
-		// ENHANCE: Be able to work with either 64 or 32 bit X-Plane and to
-		// work with different versions of .NET Core than just 1.1.1.   Should
-		// be able to autodetect both of those: we'll know at build time if
-		// we're building 32- or 64-, and we can just look at what we find on
-		// disk below pluginDir for detecting a .NET install.
+		// In the Microsoft.NETCore.App folder, we expect to find exactly one directory,
+		// whose name is the specific version number of Core.  If there is more than one
+		// directory, we just use the first one we find there - we expect an installation
+		// to put exactly one version there.
+
+		fs::path sharedAppPath = pluginDir / "dotnet" / "shared" / "Microsoft.NETCore.App";
+		fs::path dotnetPath = fs::directory_iterator(sharedAppPath)->path();
 
 		s_clrToken = LoadClr(
-			pluginDir + L"\\dotnet\\shared\\Microsoft.NETCore.App\\1.1.1\\",
+			dotnetPath.generic_wstring() + L"/",
 			pluginDir,
 			pluginDir,
 			L"XPNet"

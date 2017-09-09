@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 using std::map;
 using std::string;
@@ -117,6 +118,11 @@ DEFINE_DATA_SET_VECTOR(f, float)
 DEFINE_DATA_SET(d, double)
 DEFINE_DATA_SET_VECTOR(b, BYTE)
 
+XPLM_API void                 XPLMDebugString(
+	const char *         inString)
+{
+	std::cout << inString << std::endl;
+}
 
 XPLM_API XPLMDataRef          XPLMFindDataRef(
 	const char *         inDataRefName)
