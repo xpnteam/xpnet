@@ -32,73 +32,6 @@ An XPNet plugin consists of three parts:
 2. A .NET API layer, which implements the XPNet API on top of the X-Plane API.  XPNet provides this piece.
 3. A .NET class that implements IXPlanePlugin and provides your plugin logic.  You provide this piece.
 
-## TODOs
-
-XPNet currently runs on Windows and exposes the following subsystems of the X-Plane API:
-
-- [x] Reading and writing DataRefs (data fields provided by X-Plane or other plugins)
-- [x] Processing (plugging into the X-Plane processing loop to do periodic processing)
-
-XPNet is a new project and there are a ton of ways it could be improved.  At present, someone
-with a fair amount of experience with .NET, DLLs and dependencies, and software deployment, or who is willing to
-jump in and learn those things, can use XPNet develop a plugin that reads and writes DataRefs and does
-scheduled background processing (such as communicating on a network or serial port).  XPNet is
-being used in the development of just such a plugin.
-
-The following are currently actively being worked on:
-
-- [ ] Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed, with an immediate focus on Windows 32-bit and 64-bit.
-
-With the help of contributors, I'd like to see XPNet grow in at least the following ways:
-
-- [ ] Expand to macOS and Linux.  (Most of the native code is written in standard C or C++ so the effort here should be moderate for someone with good C/C++ and relevant platform experience.)
-- [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
-- [ ] Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
-- [ ] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
-- [ ] Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
-- [ ] Improve the native output directory structure for the C++ VS 2017 projects - by default, for backwards compatibility, MS makes project outputs inconsistent between x86 and x64 builds.  It all works...but is unnecessarily confusing.
-- [x] 2017-09-08 - Automatically detect and use any compatible .NET Core install found in <Plugin-Path>/64/dotnet (or <Plugin-Path>/32/dotnet) instead of assuming release 1.1.1.
-
-Additionally, the following aspects of the X-Plane API need mappings to XPNet.
-
-- [ ] Registering custom DataRefs (to expose to other plugins).
-- [ ] XPLMDisplay
-- [ ] XPLMMenus
-- [ ] XPLMGraphics
-- [ ] XPLMUtilities
-- [ ] XPLMCamera
-- [ ] XPLMPlanes
-- [ ] XPLMNavigation
-- [ ] Widgets (XPLMWidgets / XPLMWidgetDefs / XPLMWidgetUtils / XPLMStandardWidgets)
-- [ ] XPUIGraphics
-- [ ] XPLMScenery
-- [ ] XPLM Feature Keys
-
-
-## Developing a Plugin
-
-These instructions are for developing on Windows.  XPNet is intended to build on macOS
-and Linux as well.  Contributions of build scripts, project files and instructions for
-building on other platforms are welcome.
-
-These instructions assume Visual Studio 2017.  XPNet can be built using Visual Studio
-Community 2017, which is a free [(as in beer)](https://en.wikipedia.org/wiki/Gratis_versus_libre)
-download from Microsoft.  You'll need 2017 or higher because XPNet is written using C# 7 syntax.
-
-1. Download the [X-Plane SDK](http://www.xsquawkbox.net/xpsdk/mediawiki/Download) and set the XPLANESDKPATH environment variable on your system.
-2. Download and build XPNet in Release/x86 or Release/x64.  (In the future, we want to have a nuget project for this, but in a final solution there are multi-platform native binaries involved so this will take some work.)
-3. Start a new "Class Library (.NET Core)" project.  (You want ".NET Core", not ".NET Standard".  Look under "Templates -> Visual C# -> .NET Core").
-4. Add a reference to XPNet.CLR.dll.
-5. Create a plugin class and develop your plugin.  See below for more details.
-6. Deploy into X-Plane.  See below for more details.
-
-The XPLANESDKPATH environment variable tells the build where the X-Plane SDK has been
-installed.  For instance:
-
-> XPLANESDKPATH=D:\Projects\XPlane\SDK
-
-It should point to the location where you unzipped the X-Plane SDK; the subdirectories in that
-SDK directory are CHeaders, Delphi and Libraries.
 
 ## Writing a Plugin Class
 
@@ -173,6 +106,76 @@ code for a more interesting example.
         }
     }
 ```
+
+
+## TODOs
+
+XPNet currently runs on Windows and exposes the following subsystems of the X-Plane API:
+
+- [x] Reading and writing DataRefs (data fields provided by X-Plane or other plugins)
+- [x] Processing (plugging into the X-Plane processing loop to do periodic processing)
+
+XPNet is a new project and there are a ton of ways it could be improved.  At present, someone
+with a fair amount of experience with .NET, DLLs and dependencies, and software deployment, or who is willing to
+jump in and learn those things, can use XPNet develop a plugin that reads and writes DataRefs and does
+scheduled background processing (such as communicating on a network or serial port).  XPNet is
+being used in the development of just such a plugin.
+
+The following are currently actively being worked on:
+
+- [ ] Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed, with an immediate focus on Windows 32-bit and 64-bit.
+
+With the help of contributors, I'd like to see XPNet grow in at least the following ways:
+
+- [ ] Expand to macOS and Linux.  (Most of the native code is written in standard C or C++ so the effort here should be moderate for someone with good C/C++ and relevant platform experience.)
+- [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
+- [ ] Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
+- [ ] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
+- [ ] Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
+- [ ] Improve the native output directory structure for the C++ VS 2017 projects - by default, for backwards compatibility, MS makes project outputs inconsistent between x86 and x64 builds.  It all works...but is unnecessarily confusing.
+- [x] 2017-09-08 - Automatically detect and use any compatible .NET Core install found in <Plugin-Path>/64/dotnet (or <Plugin-Path>/32/dotnet) instead of assuming release 1.1.1.
+
+Additionally, the following aspects of the X-Plane API need mappings to XPNet.
+
+- [ ] Registering custom DataRefs (to expose to other plugins).
+- [ ] XPLMDisplay
+- [ ] XPLMMenus
+- [ ] XPLMGraphics
+- [ ] XPLMUtilities
+- [ ] XPLMCamera
+- [ ] XPLMPlanes
+- [ ] XPLMNavigation
+- [ ] Widgets (XPLMWidgets / XPLMWidgetDefs / XPLMWidgetUtils / XPLMStandardWidgets)
+- [ ] XPUIGraphics
+- [ ] XPLMScenery
+- [ ] XPLM Feature Keys
+
+
+## Developing a Plugin
+
+These instructions are for developing on Windows.  XPNet is intended to build on macOS
+and Linux as well.  Contributions of build scripts, project files and instructions for
+building on other platforms are welcome.
+
+These instructions assume Visual Studio 2017.  XPNet can be built using Visual Studio
+Community 2017, which is a free [(as in beer)](https://en.wikipedia.org/wiki/Gratis_versus_libre)
+download from Microsoft.  You'll need 2017 or higher because XPNet is written using C# 7 syntax.
+
+1. Download the [X-Plane SDK](http://www.xsquawkbox.net/xpsdk/mediawiki/Download) and set the XPLANESDKPATH environment variable on your system.
+2. Download and build XPNet in Release/x86 or Release/x64.  (In the future, we want to have a nuget project for this, but in a final solution there are multi-platform native binaries involved so this will take some work.)
+3. Start a new "Class Library (.NET Core)" project.  (You want ".NET Core", not ".NET Standard".  Look under "Templates -> Visual C# -> .NET Core").
+4. Add a reference to XPNet.CLR.dll.
+5. Create a plugin class and develop your plugin.  See below for more details.
+6. Deploy into X-Plane.  See below for more details.
+
+The XPLANESDKPATH environment variable tells the build where the X-Plane SDK has been
+installed.  For instance:
+
+> XPLANESDKPATH=D:\Projects\XPlane\SDK
+
+It should point to the location where you unzipped the X-Plane SDK; the subdirectories in that
+SDK directory are CHeaders, Delphi and Libraries.
+
 
 ## Installing into X-Plane
 
