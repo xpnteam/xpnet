@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>XPNet</PackageId>
     <Authors>Stephen Quattlebaum</Authors>
@@ -32,10 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0">
       <IncludeAssets>All</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1">
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0">
       <IncludeAssets>All</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
