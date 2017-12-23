@@ -17,7 +17,7 @@ namespace XPNet
     /// in XPNet, do something like the following:
     /// </para>
     /// <code>
-    /// var refX = api.Data.Sim.FlightModel.Position.LocalY;
+    /// var refY = api.Data.Sim.FlightModel.Position.LocalY;
     /// // - or, for any generic dataref -
     /// var refY = api.Data.GetFloat("sim/flightmodel/position/local_y");
     /// </code>

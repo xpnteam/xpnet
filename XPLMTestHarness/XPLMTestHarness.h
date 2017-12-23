@@ -1,4 +1,6 @@
 
+#pragma once
+
 // If building the test harness itself, pretend for purposes of the X-Plane headers that
 // we're actually compiling XPLM itself, so that X-Plane will define XPLM_API to mean
 // export.
@@ -19,6 +21,13 @@
 #include "XPLMProcessing.h"
 #include "XPLMUtilities.h"
 
+typedef enum {
+	CommandPhase_Begin,
+	CommandPhase_End,
+	CommandPhase_Once
+} CommandPhase;
+using CommandCallback = void(*)(CommandPhase phase);
+
 // Test Harness Functions
 //
 // These exports extend the X-Plane API to allow a
@@ -38,6 +47,7 @@ DECLARE_DATA_SET_VECTOR(f, float)
 DECLARE_DATA_SET(d, double)
 DECLARE_DATA_SET_VECTOR(b, BYTE)
 
+XPLM_API void XPHarnessSetCommandCallback(const char* commandName, CommandCallback cb);
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter);
 

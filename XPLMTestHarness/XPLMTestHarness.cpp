@@ -46,6 +46,26 @@ struct dataref
 	}
 };
 
+struct command
+{
+	command(const string n, CommandCallback cb)
+		: id(++idSource), name(n), callback(cb)
+	{ }
+
+	command(const command& other)
+		: id(other.id), name(other.name), callback(other.callback)
+	{ }
+
+	int id;
+	string name;
+	CommandCallback callback;
+
+	operator XPLMCommandRef ()
+	{
+		return reinterpret_cast<XPLMCommandRef>(static_cast<uintptr_t>(id));
+	}
+};
+
 struct flightloop
 {
 	flightloop(const XPLMFlightLoop_f fl, float i)
@@ -69,6 +89,9 @@ static datarefmap<float> fData;
 static datarefmap<vector<float>> fvData;
 static datarefmap<double> dData;
 static datarefmap<vector<BYTE>> bvData;
+
+using commandmap = map<string, command>;
+static commandmap configuredCommands;
 
 static map<XPLMFlightLoop_f, flightloop> registeredFlightLoops;
 
@@ -94,14 +117,15 @@ dataref<T>* FindDataRef(XPLMDataRef id, datarefmap<T>& container)
 	return nullptr;
 }
 
-template <typename T>
-dataref<T>* FindDataRef(const string name, datarefmap<T>& container)
+command* FindCommand(XPLMCommandRef id, commandmap& container)
 {
-	auto it = container.find(name);
-	if (it == container.end())
-		return nullptr;
-	else
-		return &it->second;
+	for (auto i = container.begin(), end = container.end(); i != end; ++i)
+	{
+		if (i->second == id)
+			return &i->second;
+	}
+
+	return nullptr;
 }
 
 
@@ -294,6 +318,50 @@ XPLM_API void                 XPLMSetDatab(
 		return; // Dataref isn't defined, can't set it.
 	BYTE* inValueBytes = reinterpret_cast<BYTE*>(inValue);
 	d->value = vector<BYTE>(inValueBytes + inOffset, inValueBytes + inOffset + inLength);
+}
+
+XPLM_API void XPHarnessSetCommandCallback(const char* commandName, CommandCallback cb)
+{
+	configuredCommands.emplace(commandName, command(commandName, cb));
+}
+
+XPLM_API XPLMCommandRef       XPLMFindCommand(
+	const char *         inName)
+{
+	auto it = configuredCommands.find(inName);
+	if (it != configuredCommands.end())
+		return it->second;
+	return nullptr;
+}
+
+XPLM_API void                 XPLMCommandBegin(
+	XPLMCommandRef       inCommand)
+{
+	auto c = FindCommand(inCommand, configuredCommands);
+	if (!c)
+		return; // Command isn't defined, can't invoke it.
+
+	c->callback(CommandPhase_Begin);
+}
+
+XPLM_API void                 XPLMCommandEnd(
+	XPLMCommandRef       inCommand)
+{
+	auto c = FindCommand(inCommand, configuredCommands);
+	if (!c)
+		return; // Command isn't defined, can't invoke it.
+
+	c->callback(CommandPhase_End);
+}
+
+XPLM_API void                 XPLMCommandOnce(
+	XPLMCommandRef       inCommand)
+{
+	auto c = FindCommand(inCommand, configuredCommands);
+	if (!c)
+		return; // Command isn't defined, can't invoke it.
+
+	c->callback(CommandPhase_Once);
 }
 
 XPLM_API float                XPLMGetElapsedTime(void)

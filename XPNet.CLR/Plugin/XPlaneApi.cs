@@ -38,6 +38,11 @@ namespace XPNet
         IXPlaneData Data { get; }
 
         /// <summary>
+        /// Gets the commands API.
+        /// </summary>
+        IXPlaneCommands Commands { get; }
+
+        /// <summary>
         /// Gets the processing API.
         /// </summary>
         IXPlaneProcessing Processing { get; }
@@ -53,6 +58,7 @@ namespace XPNet
             Config = config;
             Messages = new XPlaneMessages();
             Data = new XPlaneData();
+            Commands = new XPlaneCommands();
             Processing = new XPlaneProcessing();
         }
 
@@ -88,6 +94,16 @@ namespace XPNet
         }
 
         public XPlaneData Data
+        {
+            get;
+        }
+
+        IXPlaneCommands IXPlaneApi.Commands
+        {
+            get { return Commands; }
+        }
+
+        public XPlaneCommands Commands
         {
             get;
         }

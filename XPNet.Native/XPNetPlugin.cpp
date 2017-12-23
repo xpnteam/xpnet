@@ -29,6 +29,12 @@ typedef void(*PXPLMSetDatad)(XPLMDataRef, double);
 typedef int(*PXPLMGetDatab)(XPLMDataRef, void*, int, int);
 typedef void(*PXPLMSetDatab)(XPLMDataRef, void*, int, int);
 
+// Commands - X-Plane API Function Pointer Types
+typedef XPLMCommandRef(*PXPLMFindCommand)(const char*);
+typedef void(*PXPLMCommandBegin)(XPLMCommandRef);
+typedef void(*PXPLMCommandEnd)(XPLMCommandRef);
+typedef void(*PXPLMCommandOnce)(XPLMCommandRef);
+
 // Processing - X-Plane API Function Pointer Types
 typedef float(*PXPLMGetElapsedTime)();
 typedef int(*PXPLMGetCycleNumber)();
@@ -85,6 +91,12 @@ typedef struct
 	PXPLMSetDatavf XPLMSetDatavf;
 	PXPLMGetDatab XPLMGetDatab;
 	PXPLMSetDatab XPLMSetDatab;
+
+	// Commands
+	PXPLMFindCommand XPLMFindCommand;
+	PXPLMCommandBegin XPLMCommandBegin;
+	PXPLMCommandEnd XPLMCommandEnd;
+	PXPLMCommandOnce XPLMCommandOnce;
 
 	// Processing
 	PXPLMGetElapsedTime XPLMGetElapsedTime;
@@ -185,6 +197,12 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 		XPLMSetDatavf,
 		XPLMGetDatab,
 		XPLMSetDatab,
+
+		// Commands
+		XPLMFindCommand,
+		XPLMCommandBegin,
+		XPLMCommandEnd,
+		XPLMCommandOnce,
 
 		// Processing
 		XPLMGetElapsedTime,

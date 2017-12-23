@@ -114,6 +114,7 @@ XPNet currently runs on Windows and exposes the following subsystems of the X-Pl
 
 - [x] Reading and writing DataRefs (data fields provided by X-Plane or other plugins)
 - [x] Processing (plugging into the X-Plane processing loop to do periodic processing)
+- [x] 2017-12-22 - Invoking Commands (XPLMCommandBegin/End/Once)
 
 XPNet is a new project and there are a ton of ways it could be improved.  At present, someone
 with a fair amount of experience with .NET, DLLs and dependencies, and software deployment, or who is willing to

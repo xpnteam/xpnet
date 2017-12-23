@@ -64,4 +64,9 @@ public:
 	//	SetDataReffv(name, v.data(), static_cast<int>(v.size()));
 	//}
 
+	void CreateCommand(const char* name, CommandCallback cb)
+	{
+		XPHarnessSetCommandCallback(name, cb);
+	}
+
 } XPMock;

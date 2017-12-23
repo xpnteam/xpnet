@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "XPNetPluginTestHost.h"
 #include <XPNetPlugin.h>
 #include <XPLMTestHarness.h>
 #include <iostream>
@@ -20,6 +21,9 @@ typedef enum {
 } XPNetConfigFlags;
 
 #define XPNET_MSG_PLUGIN_IDENT (0x8000000 | 0x01)
+#define XPNET_MSG_PLUGIN_CMDTEST_BEGIN  (0x8000000 | 0x02)
+#define XPNET_MSG_PLUGIN_CMDTEST_END  (0x8000000 | 0x03)
+#define XPNET_MSG_PLUGIN_CMDTEST_INVOKE  (0x8000000 | 0x04)
 
 inline bool file_exists(const std::string& name)
 {
@@ -142,6 +146,47 @@ bool TestShutdown()
 	return true;
 }
 
+bool TestCommands()
+{
+	int nBegins = 0, nEnds = 0, nInvokes = 0;
+
+	auto handler = [&nBegins, &nEnds, &nInvokes](CommandPhase phase) {
+		switch (phase)
+		{
+		case CommandPhase_Begin:
+			++nBegins;
+			break;
+
+		case CommandPhase_End:
+			++nEnds;
+			break;
+
+		case CommandPhase_Once:
+			++nInvokes;
+			break;
+		}
+	};
+
+	XPMock.CreateCommand("sim/autopilot/heading_up", fnptr<void(CommandPhase)>(handler));
+
+	cout << "Test Host: The next line should be 0 0 0." << endl;
+	cout << nBegins << " " << nEnds << " " << nInvokes << endl;
+
+	XPluginReceiveMessage(0, XPNET_MSG_PLUGIN_CMDTEST_BEGIN, nullptr);
+	cout << "Test Host: The next line should be 1 0 0." << endl;
+	cout << nBegins << " " << nEnds << " " << nInvokes << endl;
+
+	XPluginReceiveMessage(0, XPNET_MSG_PLUGIN_CMDTEST_INVOKE, nullptr);
+	cout << "Test Host: The next line should be 1 0 1." << endl;
+	cout << nBegins << " " << nEnds << " " << nInvokes << endl;
+
+	XPluginReceiveMessage(0, XPNET_MSG_PLUGIN_CMDTEST_END, nullptr);
+	cout << "Test Host: The next line should be 1 1 1." << endl;
+	cout << nBegins << " " << nEnds << " " << nInvokes << endl;
+
+	return true;
+}
+
 bool TestFlightLoop()
 {
 	XPHarnessInvokeFlightLoop(1.0f, 2.0f, 1);
@@ -174,6 +219,10 @@ int main()
 
 	Spacer();
 	if (!TestLogging())
+		return 1;
+
+	Spacer();
+	if (!TestCommands())
 		return 1;
 
 	Spacer();

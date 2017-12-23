@@ -16,6 +16,9 @@ namespace XPNet
         private readonly IXPFlightLoopHook m_flightLoopHook;
 
         private const int XPNET_MSG_PLUGIN_IDENT = (0x8000000 | 0x01);
+        private const int XPNET_MSG_PLUGIN_CMDTEST_BEGIN = (0x8000000 | 0x02);
+        private const int XPNET_MSG_PLUGIN_CMDTEST_END = (0x8000000 | 0x03);
+        private const int XPNET_MSG_PLUGIN_CMDTEST_ONCE = (0x8000000 | 0x04);
 
         private readonly List<Action> m_datarefLoggers = new List<Action>();
 
@@ -73,6 +76,42 @@ namespace XPNet
                 case XPNET_MSG_PLUGIN_IDENT:
                     m_api.Log.Log("LoggerPlugin: IDENT");
                     break;
+
+                    // TODO: The rest of what's in this plugin is generally useful, but this command stuff is
+                    // really just specific to the test harness.  It could also be made generally
+                    // useful I guess - we could define in the logger config file some way to identify
+                    // that a given (set of) command(s) should be invoked any time that some signal is
+                    // received, like say a custom message.  That's pushing the edge of the definition
+                    // of "generally useful", but it would at least be better than hardcoded commands
+                    // here.
+                    //
+                    // NOTE: See the TODO above - for test purposes, we don't cache the result of
+                    // GetCommand the way we normally would/should.
+
+                case XPNET_MSG_PLUGIN_CMDTEST_BEGIN:
+                    {
+                        var cmd = m_api.Commands.GetCommand("sim/autopilot/heading_up");
+                        cmd.Begin();
+                        break;
+                    }
+
+                case XPNET_MSG_PLUGIN_CMDTEST_END:
+                    {
+                        // NOTE: See the TODO above - for test purposes, we don't cache the result of
+                        // GetCommand the way we normally would/should.
+                        var cmd = m_api.Commands.GetCommand("sim/autopilot/heading_up");
+                        cmd.End();
+                        break;
+                    }
+
+                case XPNET_MSG_PLUGIN_CMDTEST_ONCE:
+                    {
+                        // NOTE: See the TODO above - for test purposes, we don't cache the result of
+                        // GetCommand the way we normally would/should.
+                        var cmd = m_api.Commands.GetCommand("sim/autopilot/heading_up");
+                        cmd.InvokeOnce();
+                        break;
+                    }
 
                 default:
                     // Nothing to do.

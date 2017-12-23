@@ -349,6 +349,24 @@ namespace XPNet
 
     #endregion X-Plane Data API
 
+    #region X-Plane Command API
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal unsafe delegate void* XPLMFindCommand(
+        [MarshalAs(UnmanagedType.LPStr)] string inCommandName
+    );
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal unsafe delegate int XPLMCommandBegin(void* cmdref);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal unsafe delegate int XPLMCommandEnd(void* cmdref);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    internal unsafe delegate int XPLMCommandOnce(void* cmdref);
+
+    #endregion X-Plane Command API
+
     #region X-Plane Processing API
 
     internal enum XPLMFlightLoopPhaseType : int
@@ -443,6 +461,13 @@ namespace XPNet
         internal IntPtr XPLMGetDatab;
         internal IntPtr XPLMSetDatab;
 
+        // Commands
+        internal IntPtr XPLMFindCommand;
+        internal IntPtr XPLMCommandBegin;
+        internal IntPtr XPLMCommandEnd;
+        internal IntPtr XPLMCommandOnce;
+
+
         // Processing
         internal IntPtr XPLMGetElapsedTime;
         internal IntPtr XPLMGetCycleNumber;
@@ -476,6 +501,12 @@ namespace XPNet
             XPLMGetDatab = Marshal.GetDelegateForFunctionPointer<XPLMGetDatab>(p.XPLMGetDatab);
             XPLMSetDatab = Marshal.GetDelegateForFunctionPointer<XPLMSetDatab>(p.XPLMSetDatab);
 
+            // Commands
+            XPLMFindCommand = Marshal.GetDelegateForFunctionPointer<XPLMFindCommand>(p.XPLMFindCommand);
+            XPLMCommandBegin = Marshal.GetDelegateForFunctionPointer<XPLMCommandBegin>(p.XPLMCommandBegin);
+            XPLMCommandEnd = Marshal.GetDelegateForFunctionPointer<XPLMCommandEnd>(p.XPLMCommandEnd);
+            XPLMCommandOnce = Marshal.GetDelegateForFunctionPointer<XPLMCommandOnce>(p.XPLMCommandOnce);
+
             // Processing
             XPLMGetElapsedTime = Marshal.GetDelegateForFunctionPointer<XPLMGetElapsedTime>(p.XPLMGetElapsedTime);
             XPLMGetCycleNumber = Marshal.GetDelegateForFunctionPointer<XPLMGetCycleNumber>(p.XPLMGetCycleNumber);
@@ -502,6 +533,12 @@ namespace XPNet
         internal XPLMSetDatavf XPLMSetDatavf;
         internal XPLMGetDatab XPLMGetDatab;
         internal XPLMSetDatab XPLMSetDatab;
+
+        // Commands
+        internal XPLMFindCommand XPLMFindCommand;
+        internal XPLMCommandBegin XPLMCommandBegin;
+        internal XPLMCommandEnd XPLMCommandEnd;
+        internal XPLMCommandOnce XPLMCommandOnce;
 
         // Processing
         internal XPLMGetElapsedTime XPLMGetElapsedTime;
