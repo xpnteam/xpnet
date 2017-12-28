@@ -173,7 +173,14 @@ namespace XPNet
 
         public static unsafe void ReceiveMessage(int fromPluginId, int msg, void* inParam)
         {
-            m_api.Messages.RaiseMessage(fromPluginId, msg, inParam);
+            try
+            {
+                m_api.Messages.RaiseMessage(fromPluginId, msg, inParam);
+            }
+            catch (Exception exc)
+            {
+                m_log?.Log(exc);
+            }
         }
 
         private static unsafe ILog InitLogging(ref StartParams startParams)
