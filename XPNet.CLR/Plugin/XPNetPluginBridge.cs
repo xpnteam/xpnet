@@ -35,6 +35,46 @@ namespace XPNet
 
         public static bool Start(ref StartParams startParams, ref ApiFunctionPointers apiFunctionPointers)
         {
+            // MAINT: This is the initial entry point that gets called from C++ when the plugin system is
+            // initialized.
+            //
+            // * Do not call anything from _this_ method that requires any other DLLs, other than those
+            //   that come with the framework itself.  (Put such calls into StartInternal instead).
+            //
+            // * Do not introduce anything in a static constructor of this class that requires any
+            //   other DLLs, other than those that come with the framework itself.
+            //
+            // Violating either of those rules makes debugging "missing dependency" problems much more
+            // difficult.  When the framework finds a missing dependency, it throws an exception.  If that
+            // happens at a place where we cannot catch it in C#, then it will make it back to C++-land
+            // as a hard crash.  (It is actually an NT exception and could be handled with __try/__except,
+            // but that wouldn't work on other macOS or Linux, and we wouldn't be able to log any information
+            // about the exception, so that's a non-optimal solution).
+            //
+            // The reason you can't call methods that are loaded from other DLLs here, but can in StartInternal,
+            // is to do with how the JIT compiler works.  If it encounters a method it can't compile because
+            // of a missing DLL, it will fail to compile _that_ method with an exception.  If one of the core
+            // dependencies (like Microsoft.Configuration.*) is missing, we want that failure to occur while
+            // compiling StartInternal, which we call from here.  That way, we can catch it with our try/catch
+            // here, and report a good error message.  If _this_ method were to fail to JIT-compile, there are
+            // no other .NET methods higher in the stack to catch and properly report the error, and the result
+            // looks to the user like a hard crash.
+            //
+            // Logically, this method should be very small, just a try/catch wrapper around StartInternal.
+            // However,
+            //
+            // 1. Logging is safe, because we specifically make sure that it doesn't require any external
+            //    dependencies.  (That is one of the reasons that we aren't using something like log4net).
+            // 2. Setting up logging (but nothing else!) at this level lets us pass back to the host environment
+            //    a useful message about exactly which DLL is missing, because in practice the host environment
+            //    is our C++ X-Plane plugin DLL, which passes a log handle, so it can catch what we log.
+            //    Without that, we might as well just be telling the user "¯\_(ツ)_/¯ sucks to be you..."
+            //
+            // NOTE: There's not much we can do right now about unhandled exceptions on other threads.
+            // Plugin writers will have to be conscientious about taking care of that themselves.  When/if
+            // .NET Core adds an equivalent to AppDomain.UnhandledException, we could give it a try.
+            //
+
             try
             {
                 var thisAssemblyPath = typeof(PluginBridge).GetTypeInfo().Assembly.Location;
@@ -48,60 +88,7 @@ namespace XPNet
 
                 m_log.Log("XPNet CLR: Start");
 
-                if (!File.Exists(m_configFilePath))
-                {
-                    m_log.Log($"XPNet CLR: Will not load plugin because config file does not exist: (Path = {m_configFilePath}).");
-                    return false;
-                }
-
-                m_config = GetConfig(m_configFilePath);
-                if (m_config == null)
-                {
-                    m_log.Log($"XPNet CLR: Will not load plugin because config file was unusable: (Path = {m_configFilePath}).");
-                    return false;
-                }
-
-                m_configReloadToken = m_config.GetReloadToken();
-                m_configReloadTokenDisposer = m_configReloadToken.RegisterChangeCallback(o =>
-                {
-                    m_log.Log($"XPNet CLR: Config file change detected: (Path = {m_configFilePath}).");
-
-                    m_log.Log($"XPNet CLR: Will reconfigure logging.");
-                    m_api.Log = m_log = ReconfigureLogging(forceLogging: false);
-
-                    m_log.Log($"XPNet CLR: Will tell plugin that config changed.");
-                    m_api.RaiseConfigChanged();
-
-                }, state: null);
-
-                // Make a local copy of the given set of API function pointers.
-                ApiFunctions = new ApiFunctions(apiFunctionPointers);
-
-                m_api = new XPlaneApi(m_log, m_config);
-
-                m_plugin = LoadPlugin(rootDir);
-                if (m_plugin == null)
-                {
-                    m_log.Log("XPNet CLR: Failed to find a plugin to load.  Will tell X-Plane we failed to start.");
-                    return false;
-                }
-
-                var typeInfo = m_plugin.GetType().GetTypeInfo();
-                var xpattr = typeInfo.GetCustomAttribute<XPlanePluginAttribute>();
-
-                unsafe
-                {
-                    fixed (byte* pc = startParams.Name)
-                        Interop.CopyCString(pc, 256, xpattr.Name);
-
-                    fixed (byte* pc = startParams.Signature)
-                        Interop.CopyCString(pc, 256, xpattr.Signature);
-
-                    fixed (byte* pc = startParams.Description)
-                        Interop.CopyCString(pc, 256, xpattr.Description);
-                }
-
-                return true;
+                return StartInternal(ref startParams, ref apiFunctionPointers, rootDir);
             }
             catch (Exception exc)
             {
@@ -111,8 +98,74 @@ namespace XPNet
             }
         }
 
+        internal static bool StartInternal(ref StartParams startParams, ref ApiFunctionPointers apiFunctionPointers, string rootDir)
+        {
+            if (!File.Exists(m_configFilePath))
+            {
+                m_log.Log($"XPNet CLR: Will not load plugin because config file does not exist: (Path = {m_configFilePath}).");
+                return false;
+            }
+
+            m_config = GetConfig(m_configFilePath);
+            if (m_config == null)
+            {
+                m_log.Log($"XPNet CLR: Will not load plugin because config file was unusable: (Path = {m_configFilePath}).");
+                return false;
+            }
+
+            m_configReloadToken = m_config.GetReloadToken();
+            m_configReloadTokenDisposer = m_configReloadToken.RegisterChangeCallback(o =>
+            {
+                m_log.Log($"XPNet CLR: Config file change detected: (Path = {m_configFilePath}).");
+
+                m_log.Log($"XPNet CLR: Will reconfigure logging.");
+                m_api.Log = m_log = ReconfigureLogging(forceLogging: false);
+
+                m_log.Log($"XPNet CLR: Will tell plugin that config changed.");
+                m_api.RaiseConfigChanged();
+
+            }, state: null);
+
+            // Make a local copy of the given set of API function pointers.
+            ApiFunctions = new ApiFunctions(apiFunctionPointers);
+
+            m_api = new XPlaneApi(m_log, m_config);
+
+            m_plugin = LoadPlugin(rootDir);
+            if (m_plugin == null)
+            {
+                m_log.Log("XPNet CLR: Failed to find a plugin to load.  Will tell X-Plane we failed to start.");
+                return false;
+            }
+
+            var typeInfo = m_plugin.GetType().GetTypeInfo();
+            var xpattr = typeInfo.GetCustomAttribute<XPlanePluginAttribute>();
+
+            unsafe
+            {
+                fixed (byte* pc = startParams.Name)
+                    Interop.CopyCString(pc, 256, xpattr.Name);
+
+                fixed (byte* pc = startParams.Signature)
+                    Interop.CopyCString(pc, 256, xpattr.Signature);
+
+                fixed (byte* pc = startParams.Description)
+                    Interop.CopyCString(pc, 256, xpattr.Description);
+            }
+
+            return true;
+        }
+
         public static bool Enable()
         {
+            // MAINT: The same concern described in Start(), about not making any calls to
+            // external DLLs directly from this method, also applies here.  Caveat: m_plugin
+            // of course comes from an external DLL, but it _must_ have already successfully
+            // loaded or it wouldn't be set.  We don't try to handle the case where methods
+            // are called in an order that is different from the guarantees that X-Plane gives
+            // us, so if called when m_plugin is null, behavior is officially undefined (though
+            // you can see pretty easily what it'll do below).
+
             try
             {
                 m_api.Log.Log("XPNet CLR: Enable");
@@ -130,6 +183,8 @@ namespace XPNet
 
         public static void Disable()
         {
+            // MAINT: Ditto the note at the top of Enable().
+
             try
             {
                 m_api.Log.Log("XPNet CLR: Disable");
@@ -144,6 +199,8 @@ namespace XPNet
 
         public static bool Stop()
         {
+            // MAINT: Ditto the note at the top of Enable().
+
             try
             {
                 m_api.Log.Log("XPNet CLR: Stop");
@@ -173,6 +230,8 @@ namespace XPNet
 
         public static unsafe void ReceiveMessage(int fromPluginId, int msg, void* inParam)
         {
+            // MAINT: Ditto the note at the top of Enable().
+
             try
             {
                 m_api.Messages.RaiseMessage(fromPluginId, msg, inParam);
