@@ -46,6 +46,10 @@ namespace XPNet
             m_ownsStream = ownsStream;
             m_stream = stream;
             m_writer = new StreamWriter(m_stream, new UTF8Encoding(false), bufferSize: 4096, leaveOpen: true);
+
+            m_writer.WriteLine("**********");
+            m_writer.WriteLine($"[{DateTime.Now:G}] Logging Started");
+            m_writer.Flush();
         }
 
         public void Dispose()
@@ -59,18 +63,23 @@ namespace XPNet
 
         public void Log(string str)
         {
-            m_writer.WriteLine(str);
+            m_writer.WriteLine($"[{DateString()}] {str}");
             m_writer.Flush();
         }
 
         public void Log(Exception exc)
         {
             m_writer.WriteLine("----------");
-            m_writer.WriteLine($"Exception: {exc.GetType().Name}: {exc.Message}");
+            m_writer.WriteLine($"[{DateString()}] Exception: {exc.GetType().Name}: {exc.Message}");
             m_writer.WriteLine("Stack: ");
             m_writer.WriteLine(exc.StackTrace);
             m_writer.WriteLine("----------");
             m_writer.Flush();
+        }
+
+        private string DateString()
+        {
+            return $"{DateTime.Now:hh:mm:ss t}";
         }
     }
 
