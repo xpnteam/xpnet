@@ -159,13 +159,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="coreclrhost.h" />
+    <ClInclude Include="xpnetclrhost.h" />
     <ClInclude Include="mscoree.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="XPNetPlugin.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="coreclrhost.cpp" />
+    <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="xpnetclrhost.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -179,12 +180,6 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="XPNetPlugin.cpp" />
   </ItemGroup>

@@ -1,12 +1,11 @@
 
 // XPNetPlugin.cpp
 
-#include "stdafx.h"
+#include "Platform.h"
 #include "XPNetPlugin.h"
-#include "coreclrhost.h"
+#include "xpnetclrhost.h"
 #include <stdint.h>
 #include <string>
-#include <Shlwapi.h>
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
@@ -110,24 +109,6 @@ typedef struct
 
 } ApiFunctions;
 
-fs::path GetPluginDirectory()
-{
-	// ENHANCE: Will need to work differently on different platforms.  Don't
-	// know how to write a cross-platform version of this.
-
-	WCHAR path[MAX_PATH];
-	HMODULE hm;
-	if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
-		GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-		(LPWSTR)&XPNetPluginSetExternalLoggingHandle, &hm))
-	{
-		GetModuleFileNameW(hm, path, sizeof(path));
-		PathRemoveFileSpecW(path);
-		return path;
-	}
-
-	return L"";
-}
 
 // This function is used for testing, to get logging to a different location
 // than the normal log file.

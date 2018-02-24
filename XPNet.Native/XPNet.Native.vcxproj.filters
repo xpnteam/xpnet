@@ -15,33 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="XPNetPlugin.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="coreclrhost.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="mscoree.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xpnetclrhost.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="coreclrhost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="coreclrhost.cpp">
+    <ClCompile Include="XPNetPlugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XPNetPlugin.cpp">
+    <ClCompile Include="xpnetclrhost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

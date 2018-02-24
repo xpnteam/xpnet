@@ -1,35 +1,67 @@
-#pragma once
-
-#include <string>
-#include <codecvt>
-
-typedef void* ClrToken;
-
-ClrToken LoadClr(std::wstring coreClrFolderPath, std::wstring appBase, std::wstring appPaths, std::wstring appDomainName);
-void UnloadClr(ClrToken clrToken);
-
-INT_PTR GetClrMethod(ClrToken clrToken, std::wstring assemblyName, std::wstring typeName, std::wstring methodName);
-
-template <typename TFunction>
-TFunction GetClrMethod(ClrToken clrToken, std::wstring assemblyName, std::wstring typeName, std::wstring methodName)
-{
-	return reinterpret_cast<TFunction>(GetClrMethod(clrToken, assemblyName, typeName, methodName));
-}
+//
+// NOTE: This is from https://github.com/dotnet/coreclr/
+//
+// Included here to avoid having a dependency from xpnet to a .NET Core SDK on
+// a target system.  If we had any extensive dependencies, we'd just require
+// you to install the Core SDK and point us to it, but this tiny hosting API
+// is all we need.
+//
 
 
+////////
 
-inline std::wstring widen(const std::string& str)
-{
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
-	return converterX.from_bytes(str);
-}
+//
+// APIs for hosting CoreCLR
+//
 
-inline std::string narrow(const std::wstring& wstr)
-{
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
+#ifndef __CORECLR_HOST_H__
+#define __CORECLR_HOST_H__
 
-	return converterX.to_bytes(wstr);
-}
+// For each hosting API, we define a function prototype and a function pointer
+// The prototype is useful for implicit linking against the dynamic coreclr
+// library and the pointer for explicit dynamic loading (dlopen, LoadLibrary)
+#define CORECLR_HOSTING_API(function, ...) \
+    extern "C" int function(__VA_ARGS__); \
+    typedef int (*function##_ptr)(__VA_ARGS__)
+
+CORECLR_HOSTING_API(coreclr_initialize,
+	const char* exePath,
+	const char* appDomainFriendlyName,
+	int propertyCount,
+	const char** propertyKeys,
+	const char** propertyValues,
+	void** hostHandle,
+	unsigned int* domainId);
+
+CORECLR_HOSTING_API(coreclr_shutdown,
+	void* hostHandle,
+	unsigned int domainId);
+
+CORECLR_HOSTING_API(coreclr_shutdown_2,
+	void* hostHandle,
+	unsigned int domainId,
+	int* latchedExitCode);
+
+CORECLR_HOSTING_API(coreclr_create_delegate,
+	void* hostHandle,
+	unsigned int domainId,
+	const char* entryPointAssemblyName,
+	const char* entryPointTypeName,
+	const char* entryPointMethodName,
+	void** delegate);
+
+CORECLR_HOSTING_API(coreclr_execute_assembly,
+	void* hostHandle,
+	unsigned int domainId,
+	int argc,
+	const char** argv,
+	const char* managedAssemblyPath,
+	unsigned int* exitCode);
+
+#undef CORECLR_HOSTING_API
+
+#endif // __CORECLR_HOST_H__

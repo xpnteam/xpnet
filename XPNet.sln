@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XPNet.Native", "XPNet.Native\XPNet.Native.vcxproj", "{87713CD7-AD3D-458C-AC9B-2473B718D473}"
 EndProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{5D4A2D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{5F89BBF4-DCEF-4C0B-8BAB-25CCA2560D11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPNet.LoggerPlugin", "XPNet.LoggerPlugin\XPNet.LoggerPlugin.csproj", "{249C55B9-487D-45EA-A9A0-521B30FF7586}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPNet.LoggerPlugin", "XPNet.LoggerPlugin\XPNet.LoggerPlugin.csproj", "{249C55B9-487D-45EA-A9A0-521B30FF7586}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,5 +101,8 @@ Global
 		{76888D68-5BAF-4D23-8328-A347AFA914F9} = {5D4A2D3A-4CBF-409B-B473-2E222218B350}
 		{C80B5F58-CDB8-4D36-803F-235A8671BE5E} = {5F89BBF4-DCEF-4C0B-8BAB-25CCA2560D11}
 		{249C55B9-487D-45EA-A9A0-521B30FF7586} = {5D4A2D3A-4CBF-409B-B473-2E222218B350}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5F9C0EC-549E-4DE5-91D5-63AC95EC9A26}
 	EndGlobalSection
 EndGlobal
