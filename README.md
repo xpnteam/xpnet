@@ -43,16 +43,16 @@ A plugin class must meet three requirements.
 
 You should read the docs for writing plugins in X-Plane.  The core concepts are the same.
 
-* [X-Plane API Docs](http://www.xsquawkbox.net/xpsdk/mediawiki/Main_Page)
+* [X-Plane API Docs](https://developer.x-plane.com/sdk/)
 * Your plugin's constructor corresponds to XPluginStart.
 * Your plugin's Dispose method corresponds to XPluginStop.
-* IXPlanePlugin.Enable corresponds to XPluginEnable.
-* IXPlanePlugin.Disable corresponds to XPluginDisable.
+* IXPlanePlugin.Enable() corresponds to XPluginEnable.
+* IXPlanePlugin.Disable() corresponds to XPluginDisable.
 
 During your development, you'll have to be sure that you stay within the confines of
 what is available on .NET Core.  Describing exactly what that means is beyond the scope
 of this document.  .NET Core is a full-featured CLR runtime, not a "stripped-down" version
-of .NET, but it /does/ have some differences from the traditional .NET Framework.
+of .NET, but it _does_ have some differences from the traditional .NET Framework.
 
 Additionally, if you really only care if your plugin works on Windows, you could make
 some modifications to the build dependencies and build against the .NET Framework instead
@@ -110,7 +110,7 @@ code for a more interesting example.
 
 ## TODOs
 
-XPNet currently runs on Windows and exposes the following subsystems of the X-Plane API:
+XPNet currently runs on Windows and macOS and exposes the following subsystems of the X-Plane API:
 
 - [x] Reading and writing DataRefs (data fields provided by X-Plane or other plugins)
 - [x] Processing (plugging into the X-Plane processing loop to do periodic processing)
@@ -128,7 +128,8 @@ The following are currently actively being worked on:
 
 With the help of contributors, I'd like to see XPNet grow in at least the following ways:
 
-- [ ] Expand to macOS and Linux.  (Most of the native code is written in standard C or C++ so the effort here should be moderate for someone with good C/C++ and relevant platform experience.)
+- [x] 2018-02-25 - Expand to macOS.
+- [ ] Expand to Linux.  (We already run on macOS, so we're most of the way to Linux, for someone with good C/C++ and relevant platform experience.)
 - [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
 - [ ] Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
 - [ ] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
@@ -154,16 +155,12 @@ Additionally, the following aspects of the X-Plane API need mappings to XPNet.
 
 ## Developing a Plugin
 
-These instructions are for developing on Windows.  XPNet is intended to build on macOS
-and Linux as well.  Contributions of build scripts, project files and instructions for
-building on other platforms are welcome.
-
 These instructions assume Visual Studio 2017.  XPNet can be built using Visual Studio
 Community 2017, which is a free [(as in beer)](https://en.wikipedia.org/wiki/Gratis_versus_libre)
 download from Microsoft.  You'll need 2017 or higher because XPNet is written using C# 7 syntax.
 
 1. Download the [X-Plane SDK](http://www.xsquawkbox.net/xpsdk/mediawiki/Download) and set the XPLANESDKPATH environment variable on your system.
-2. Download and build XPNet in Release/x86 or Release/x64.  (In the future, we want to have a nuget project for this, but in a final solution there are multi-platform native binaries involved so this will take some work.)
+2. Download and build XPNet in Release/x86 or Release/x64.  (See Building XPNet below.  In the future, we want to have a nuget project for this, but in a final solution there are multi-platform native binaries involved so this will take some work.)
 3. Start a new "Class Library (.NET Core)" project.  (You want ".NET Core", not ".NET Standard".  Look under "Templates -> Visual C# -> .NET Core").
 4. Add a reference to XPNet.CLR.dll.
 5. Create a plugin class and develop your plugin.  See below for more details.
@@ -228,14 +225,7 @@ D:\X-Plane 11\Resources\plugins\
 
 From X-Plane's standpoint, the actual plugin is a DLL or SO that is
 named win.xpl, lin.xpl or mac.xpl.  XPNet provides this library via
-a native "shim" project called XPNet.Native, which on Windows / VS 2017
-builds a file named XPNet.Native.dll.  Rename that file to win.xpl and drop it into
-the correct location.  In the future, Linux and macOS builds of that
-native shim would provide us with lin.xpl and mac.xpl as well.
-
-This is all straightforward, but it should be automatable as well, so
-a nice future enhancement is tooling or build outputs that build this
-tree for you in a cross-platform way, ready to copy into X-Plane.
+a native "shim" project called XPNet.Native.
 
 ## Configuring XPNet
 
@@ -319,3 +309,72 @@ working with Threads.  Threaded operation is beyond the scope of this documentat
 not discouraged for those who know what they're doing.  Contributions that provide high-level
 (but performant) Task- or queue-based asynchronous capabilities that work well in the X-Plane
 environment (i.e., that make it easy to do asynchronous operations in a plugin) would be welcomed.
+
+
+## Building XPNet
+
+XPNet consists of three parts:
+
+1. A native shim (XPNet.Native)
+2. The core XPNet .NET DLL (XPNet.CLR), along with several dependent DLLs.
+3. Your code, packaged as a second .NET DLL.
+
+The native shim has to be named win.xpl, lin.xpl or mac.xpl, depending on the platform,
+and dropped into a plugin folder alongside the other DLLs and config files as described
+in "Installing Into X-Plane" above.
+
+<aside class="notice">
+XPNet does not currently have a cross-compiler set up.  If you want to build a plugin
+on Windows, you have to build on Windows.  If you want o run on macOS, you have to
+build on macOS.  In the future, we may create official binary releases, so you
+</aside>
+
+<aside class="notice">
+Eventually we should have a binary release, and you won't have to build XPNet
+just to create a plugin.  Then this section will just be for if you want to modify
+XPNet itself, and most people won't have to do this part.
+</aside>
+
+### Building XPNet on Windows
+
+Use Visual Studio 2017 or above to open and build XPNet.sln.  Gather the output files
+and drop them into a folder in X-Plane as described in "Installing Into X-Plane" above.
+
+NOTE: Gathering the "output files" in Windows involves tracking down the several
+dependent DLLs that XPNet.CLR references.  A high priority enhancement for this
+project is to create tooling or build outputs that build this
+tree for you in a cross-platform way, ready to copy into X-Plane.  This may take the
+form of a nuget packge, or other kind of binary package, to which you can simply
+add your own plugin DLLs.
+
+
+### Building XPNet on macOS
+
+To build on macOS, use make.  You'll need recent versions of clang or gcc.
+This process was developed and tested on macOS High Sierra using the toolset
+that comes with Xcode 9.
+
+```
+cd path/to/where/you/downloaded/xpnet
+make
+```
+
+If all goes well, you'll have a bunch of .dll files and a mac.xpl file in a directory
+named `plugin` when that completes.  Create a plugin directory structure as described in
+"Installing into X-Plane" above, including those .dll and .xpl files from the `plugin`
+folder you just built.
+
+<aside class="notice">
+The macOS build currently only supports creating 64-bit binaries.  Making a 32-bit
+build shouldn't be hard, and I would accept a pull request to add one.  We would
+want a result that builds both platforms side-by-side, ready to drop into the 32
+and 64 directories in an X-Plane plugin directory.
+</aside>
+
+
+### Building XPNet on Linux
+
+Now that XPNet runs on macOS, we're probably 90% of the way to running on Linux.
+The project maintainer doesn't currently have a Linux box with an X-Plane license,
+so if someone wants to run that ball the last few yards across the finish line,
+I'll look at your pull request.
