@@ -4,19 +4,6 @@
 #include <locale>
 #include <codecvt>
 
-// TODO: It won't be long before we can rely on std::filesystem to be available
-// everywhere, now that it's in the standard.  But in Feb 2018, we're not there
-// yet.  In MSVC, we can get it via <experimental/filesystem>.  On macOS and Linux,
-// we require Boost's implementation.  I don't want boost to be required for
-// xpnet, but we'll make do in the short term here.
-#if defined(WIN32)
-#  include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
-#else
-#  include <boost/filesystem.hpp>
-namespace fs = boost::filesystem;
-#endif
-
 inline std::wstring widen(const std::string& str)
 {
 	using convert_typeX = std::codecvt_utf8<wchar_t>;
@@ -34,8 +21,6 @@ inline std::string narrow(const std::wstring& wstr)
 }
 
 std::wstring GetEntrypointExecutablePath();
-
-//std::wstring GetPluginDirectory();
 
 #if defined(_MSC_VER)
 
@@ -60,7 +45,7 @@ std::wstring GetEntrypointExecutablePath();
 
 #  define strcp(dest, str) strcpy_s(dest, strlen(str) + 1, str)
 
-#elif defined(__GNUC__) // GNU or a gnu-alike (like LLVM)
+#elif defined(__GNUC__) // GNU or a gnu-alike (like Clang)
 
 #  include <dlfcn.h>
 #  include <assert.h>
@@ -95,4 +80,17 @@ std::wstring GetEntrypointExecutablePath();
 
 #  error Compilation on this platform is not yet supported.
 
+#endif
+
+// TODO: It won't be long before we can rely on std::filesystem to be available
+// everywhere, now that it's in the standard.  But in Feb 2018, we're not there
+// yet.  In MSVC, we can get it via <experimental/filesystem>.  On macOS and Linux,
+// we require Boost's implementation.  I don't want boost to be required for
+// xpnet, but we'll make do in the short term here.
+#if defined(WIN32)
+#  include <experimental/filesystem>
+   namespace fs = std::experimental::filesystem;
+#else
+#  include <boost/filesystem.hpp>
+   namespace fs = boost::filesystem;
 #endif
