@@ -18,9 +18,6 @@
     <ClInclude Include="XPNetPlugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mscoree.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -160,7 +160,6 @@
   <ItemGroup>
     <ClInclude Include="coreclrhost.h" />
     <ClInclude Include="xpnetclrhost.h" />
-    <ClInclude Include="mscoree.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="XPNetPlugin.h" />
   </ItemGroup>
