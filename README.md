@@ -323,7 +323,7 @@ in "Installing Into X-Plane" above.
 
 ```
 NOTE: XPNet does not currently have a cross-compiler set up.  If you want to build a plugin
-to run on Windows, you have to build on Windows.  If you want o run on macOS, you have to
+to run on Windows, you have to build on Windows.  If you want to run on macOS, you have to
 build on macOS.  In the future, we intend to create official binary releases, so that
 most people can develop on any platform and run on every platform, because you won't
 have to build XPNet just to create a plugin.  Then this section will just be for if
