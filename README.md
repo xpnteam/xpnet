@@ -315,35 +315,38 @@ XPNet consists of three parts:
 
 1. A native shim (XPNet.Native)
 2. The core XPNet .NET DLL (XPNet.CLR), along with several dependent DLLs.
-3. Your code, packaged as a second .NET DLL.
+3. Your code, packaged as a .NET DLL.
 
 The native shim has to be named win.xpl, lin.xpl or mac.xpl, depending on the platform,
 and dropped into a plugin folder alongside the other DLLs and config files as described
 in "Installing Into X-Plane" above.
 
-<aside class="notice">
-XPNet does not currently have a cross-compiler set up.  If you want to build a plugin
+```
+NOTE: XPNet does not currently have a cross-compiler set up.  If you want to build a plugin
 to run on Windows, you have to build on Windows.  If you want o run on macOS, you have to
 build on macOS.  In the future, we may create official binary releases, so you
-</aside>
+```
 
-<aside class="notice">
+```
 Eventually we should have a binary release, and you won't have to build XPNet
 just to create a plugin.  Then this section will just be for if you want to modify
 XPNet itself, and most people won't have to do this part.
-</aside>
+```
+
 
 ### Building XPNet on Windows
 
 Use Visual Studio 2017 or above to open and build XPNet.sln.  Gather the output files
 and drop them into a folder in X-Plane as described in "Installing Into X-Plane" above.
 
-NOTE: Gathering the "output files" in Windows involves tracking down the several
+```
+Gathering the "output files" in Windows involves tracking down the several
 dependent DLLs that XPNet.CLR references.  A high priority enhancement for this
 project is to create tooling or build outputs that build this
 tree for you in a cross-platform way, ready to copy into X-Plane.  This may take the
 form of a nuget packge, or other kind of binary package, to which you can simply
 add your own plugin DLLs.
+```
 
 
 ### Building XPNet on macOS
@@ -352,7 +355,7 @@ To build on macOS, use make.  You'll need recent versions of clang or gcc.
 This process was developed and tested on macOS High Sierra using the toolset
 that comes with Xcode 9.
 
-```
+```bash
 cd path/to/where/you/downloaded/xpnet
 make
 ```
