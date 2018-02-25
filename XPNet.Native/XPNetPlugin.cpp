@@ -127,7 +127,7 @@ std::wstring GetPluginDirectory()
 	XPLMGetPluginInfo(XPLMGetMyID(), NULL, filePath, NULL, NULL);
 
 	fs::path fp = filePath;
-	return fp.branch_path().generic_wstring();
+	return fp.parent_path().generic_wstring();
 }
 
 // This function is used for testing, to get logging to a different location
