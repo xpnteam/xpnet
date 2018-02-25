@@ -188,9 +188,7 @@ builds of the following:
 For .NET Core, you want the binaries (.zip file), not the installer,
 because you'll unzip and copy the .NET Core install into the correct location.
 
-XPNet currently assumes that it will be running against .NET Core 1.1.1.  It
-can be easily built against other versions.  In the future, we want to have XPNet
-auto-detect and use whatever version you give it.
+XPNet currently assumes that it will be running against .NET Core 2.0 or above.
 
 As with all other X-Plane plugins, you install an XPNet-based
 plugin by copying the necessary files into your X-Plane install at 
@@ -212,7 +210,7 @@ D:\X-Plane 11\Resources\plugins\
     |
     └───64\
         |
-        └─── dotnet\                   <-- Unzip dotnet-win-x64.1.1.1.zip here.
+        └─── dotnet\                   <-- Unzip dotnet-win-x64.2.x.x.zip (or other zip for your platform) here.
         |    └───host\
         |    └───shared\
         |    └───etc.
@@ -325,7 +323,7 @@ in "Installing Into X-Plane" above.
 
 <aside class="notice">
 XPNet does not currently have a cross-compiler set up.  If you want to build a plugin
-on Windows, you have to build on Windows.  If you want o run on macOS, you have to
+to run on Windows, you have to build on Windows.  If you want o run on macOS, you have to
 build on macOS.  In the future, we may create official binary releases, so you
 </aside>
 
