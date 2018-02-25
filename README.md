@@ -124,7 +124,7 @@ being used in the development of just such a plugin.
 
 The following are currently actively being worked on:
 
-- [ ] Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed, with an immediate focus on Windows 32-bit and 64-bit.
+- [ ] Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed.
 
 With the help of contributors, I'd like to see XPNet grow in at least the following ways:
 
