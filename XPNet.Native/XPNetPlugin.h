@@ -18,16 +18,23 @@ extern "C" {
 // XPNETPLUGIN_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
 #if defined XPNETPLUGIN_EXPORTS
-#  if defined __cplusplus
-#    define XPNETPLUGIN_API extern "C" __declspec(dllexport)
-#  else
-#    define XPNETPLUGIN_API __declspec(dllexport)
-#  endif
+#    if defined __cplusplus
+#      define XPNETPLUGIN_API extern "C" __declspec(dllexport)
+#    else
+#      define XPNETPLUGIN_API __declspec(dllexport)
+#    endif
 #else
-#  if defined __cplusplus
-#    define XPNETPLUGIN_API extern "C" __declspec(dllimport)
+#  if defined WIN32
+#    if defined __cplusplus
+#      define XPNETPLUGIN_API extern "C" __declspec(dllimport)
+#    else
+#      define XPNETPLUGIN_API __declspec(dllimport)
+#    endif
 #  else
-#    define XPNETPLUGIN_API __declspec(dllimport)
+     // For non-Windows, just use the macro that X-Plane defines.  We'll have to
+     // change this to do our own defs if we want to start running our test host
+     // on non-Windows.
+#    define XPNETPLUGIN_API PLUGIN_API
 #  endif
 #endif
 

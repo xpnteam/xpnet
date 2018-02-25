@@ -3,7 +3,6 @@
 
 #if defined(WIN32)
 
-#  define PATH_MAX MAX_PATH
 #  include <Shlwapi.h>
 
 #elif defined(__linux__)
@@ -120,23 +119,4 @@ std::wstring GetEntrypointExecutablePath()
 		return L"";
 }
 
-std::wstring GetPluginDirectory()
-{
-#if defined(WIN32)
 
-	WCHAR path[MAX_PATH];
-	HMODULE hm;
-	if (GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
-		GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-		(LPWSTR)&GetEntrypointExecutableAbsolutePath, &hm))
-	{
-		GetModuleFileNameW(hm, path, sizeof(path));
-		PathRemoveFileSpecW(path);
-		return path;
-	}
-#else
-#  error Platform not yet supported.
-#endif
-
-	return L"";
-}

@@ -1,7 +1,21 @@
 #pragma once
 
 #include <string>
+#include <locale>
 #include <codecvt>
+
+// TODO: It won't be long before we can rely on std::filesystem to be available
+// everywhere, now that it's in the standard.  But in Feb 2018, we're not there
+// yet.  In MSVC, we can get it via <experimental/filesystem>.  On macOS and Linux,
+// we require Boost's implementation.  I don't want boost to be required for
+// xpnet, but we'll make do in the short term here.
+#if defined(WIN32)
+#  include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#else
+#  include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+#endif
 
 inline std::wstring widen(const std::string& str)
 {
@@ -21,7 +35,7 @@ inline std::string narrow(const std::wstring& wstr)
 
 std::wstring GetEntrypointExecutablePath();
 
-std::wstring GetPluginDirectory();
+//std::wstring GetPluginDirectory();
 
 #if defined(_MSC_VER)
 
@@ -40,7 +54,24 @@ std::wstring GetPluginDirectory();
 		return ::GetProcAddress(hModule, name);
 	}
 
+#  define PATH_MAX MAX_PATH
+
+#  define PATH_ENTRY_SEP ";"
+
+#  define strcp(dest, str) strcpy_s(dest, strlen(str) + 1, str)
+
 #elif defined(__GNUC__) // GNU or a gnu-alike (like LLVM)
+
+#  include <dlfcn.h>
+#  include <assert.h>
+
+#  if defined(__APPLE__)
+#    include <mach-o/dyld.h>
+#  endif
+
+#  define STDMETHODCALLTYPE
+
+#  define FAILED(hr) (((int)(hr)) < 0)
 
 	typedef void* HMODULE;
 
@@ -53,6 +84,12 @@ std::wstring GetPluginDirectory();
 	{
 		return dlsym(hModule, name);
 	}
+
+#  define MAX_PATH PATH_MAX
+
+#  define PATH_ENTRY_SEP ":"
+
+#  define strcp(dest, str) strcpy(dest, str)
 
 #else
 

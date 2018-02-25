@@ -15,22 +15,19 @@
 
 // Include common header files
 #include <stdio.h>
-#include <tchar.h>
+// #include <tchar.h>
 
-// Include common stuff required from standard template library
 #include <vector>
 #include <string>
-#include <experimental/filesystem>
 
 #include "coreclrhost.h"
 
 using namespace std;
-namespace fs = std::experimental::filesystem;
 
 vector<string> ListAssembliesInDirectory(const char* dirPath);
 
 struct ClrTokenImp {
-	DWORD domainId;
+	unsigned int domainId;
 	void* pCLRRuntimeHost;
 
 	coreclr_initialize_ptr      coreclr_initialize;
@@ -49,10 +46,17 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 	string appDomainName = narrow(wAppDomainName);
 	string appBase = narrow(wAppBase);
 
+#if APL
+	string coreClrFilePath = coreClrFolderPath + "libcoreclr.dylib";
+#else
 	string coreClrFilePath = coreClrFolderPath + "coreclr.dll";
+#endif
+
+	XPLMDebugString(("Will load CLR from: " + coreClrFilePath + "\n").c_str());
+
 	if (appPaths.length() > 0)
-		appPaths += ";";
-	appPaths += appBase + ";" + coreClrFolderPath;
+		appPaths += PATH_ENTRY_SEP;
+	appPaths += appBase + PATH_ENTRY_SEP + coreClrFolderPath;
 
 	// For simplicity we add here all assemblies of the core clr to the list of fully trusted assemblies
 	vector<string> files = ListAssembliesInDirectory(coreClrFolderPath.c_str());
@@ -64,12 +68,11 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 	{
 		fullTrustedAssemblies.append(coreClrFolderPath);
 		fullTrustedAssemblies.append(files[i]);
-		fullTrustedAssemblies.append(";");
+		fullTrustedAssemblies.append(PATH_ENTRY_SEP);
 	}
 
 	// Load the CoreCRL dll into the process
 	HMODULE hCoreCLRModule = SysLoadLibrary(coreClrFilePath);
-
 	if (!hCoreCLRModule)
 	{
 		string msg = "Could not load CoreCLR from path (" + coreClrFilePath + ").\n";
@@ -164,6 +167,7 @@ void* GetClrMethod(ClrToken clrToken, std::wstring assemblyName, std::wstring ty
 	int st = clr->coreclr_create_delegate(
 		clr->pCLRRuntimeHost, clr->domainId, narrow(assemblyName).c_str(), narrow(typeName).c_str(), narrow(methodName).c_str(), &pMethod
 	);
+
 	if (FAILED(st))
 	{
 		string msg = "coreclr_create_delegate - failed to create a delegate to managed method (" + narrow(methodName) + "): (" + to_string(st) + ").\n";
@@ -181,7 +185,7 @@ vector<string> ListAssembliesInDirectory(const char* dirPath)
 
 	for (auto& dirEntry : fs::recursive_directory_iterator(dirPath))
 	{
-		auto& filename = dirEntry.path().filename();
+		const auto& filename = dirEntry.path().filename();
 		if (filename.extension() == ".dll")
 			result.push_back(filename.string());
 	}

@@ -4,5 +4,9 @@
 */Win32
 */Debug
 */Release
+*/.depend
+XPNet.Native/lib
 Debug
 Release
+plugin
+.DS_Store

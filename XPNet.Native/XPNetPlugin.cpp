@@ -6,11 +6,22 @@
 #include "xpnetclrhost.h"
 #include <stdint.h>
 #include <string>
-#include <experimental/filesystem>
 
-namespace fs = std::experimental::filesystem;
+#if defined(WIN32)
+#  include <experimental/filesystem>
+   namespace fs = std::experimental::filesystem;
+#else
+#  include <boost/filesystem.hpp>
+   namespace fs = boost::filesystem;
+#endif
 
-#define strcp(dest, str) strcpy_s(dest, strlen(str) + 1, str)
+// TODO: It would help with distribution if we had the macOS dotnet
+// path look in dotnet-macos or something like that.  Then we could
+// also do dotnet-win and dotnet-linux.  If we want backwards compat,
+// we could keep falling back to dotnet as well.  With that change,
+// we could have private side-by-side .NET installs for all three
+// platforms.
+
 
 // Data - X-Plane API Function Pointer Types
 typedef XPLMDataRef(*PXPLMFindDataRef)(const char*);
@@ -110,6 +121,15 @@ typedef struct
 } ApiFunctions;
 
 
+std::wstring GetPluginDirectory()
+{
+	char filePath[MAX_PATH];
+	XPLMGetPluginInfo(XPLMGetMyID(), NULL, filePath, NULL, NULL);
+
+	fs::path fp = filePath;
+	return fp.branch_path().generic_wstring();
+}
+
 // This function is used for testing, to get logging to a different location
 // than the normal log file.
 XPNETPLUGIN_API void XPNetPluginSetExternalLoggingHandle(void* externalLoggingHandle)
@@ -121,6 +141,11 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 {
 	if (!s_clrToken)
 	{
+		// The _very_ first thing to do is tell X-Plane to opt into Posix paths.
+		// Otherwise, on macOS, it assumes the ancient Drive:Path:To:File convention.
+		// We work entirely in Posix paths on all platforms.
+		XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
+
 		fs::path pluginDir = GetPluginDirectory();
 
 //#if defined(ARCH_32)
@@ -131,7 +156,7 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 //#  error "You must define either ARCH_32 or ARCH_64."
 //#endif
 
-		XPLMDebugString(("XPNet: Loading plugins from " + narrow(pluginDir) + "\n").c_str());
+		XPLMDebugString(("XPNet: Loading plugins from " + pluginDir.generic_string() + "\n").c_str());
 
 		// In the Microsoft.NETCore.App folder, we expect to find exactly one directory,
 		// whose name is the specific version number of Core.  If there is more than one
@@ -143,8 +168,8 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 
 		s_clrToken = LoadClr(
 			dotnetPath.generic_wstring() + L"/",
-			pluginDir,
-			pluginDir,
+			pluginDir.generic_wstring(),
+			pluginDir.generic_wstring(),
 			L"XPNet"
 		);
 		if (!s_clrToken)
