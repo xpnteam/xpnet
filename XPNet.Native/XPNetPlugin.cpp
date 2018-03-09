@@ -164,6 +164,13 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 		// to put exactly one version there.
 
 		fs::path sharedAppPath = pluginDir / "dotnet" / "shared" / "Microsoft.NETCore.App";
+
+		if (!fs::exists(sharedAppPath))
+		{
+			XPLMDebugString(("XPNet: No CLR found at " + sharedAppPath.generic_string() + "\n").c_str());
+			return 0;
+		}
+
 		fs::path dotnetPath = fs::directory_iterator(sharedAppPath)->path();
 
 		s_clrToken = LoadClr(
