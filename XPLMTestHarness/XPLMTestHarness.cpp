@@ -9,12 +9,16 @@
 #include <algorithm>
 #include <iostream>
 
+#include <Shlwapi.h>
+
 using std::map;
 using std::string;
 using std::vector;
 using std::remove;
 
 static int idSource;
+
+#  define strcp(dest, str) strcpy_s(dest, strlen(str) + 1, str)
 
 // NOTE: The data type naming conventions in this file match those used in the X-Plane API.
 // E.g., int is 'i' and int array is 'iv'.  But I defined 'data' as 'bv' (byte vector) instead
@@ -128,6 +132,13 @@ command* FindCommand(XPLMCommandRef id, commandmap& container)
 	return nullptr;
 }
 
+bool GetEntrypointExecutableAbsolutePath(std::string& entrypointExecutable)
+{
+	CHAR path[MAX_PATH];
+	GetModuleFileNameA(NULL, path, sizeof(path));
+	entrypointExecutable = path;
+	return true;
+}
 
 #define DEFINE_DATA_SET(code, type) \
 	XPLM_API void XPHarnessSetDataRef##code (const char* dataRefName, type data) { SetDataRef(dataRefName, data, code##Data); }
@@ -142,10 +153,46 @@ DEFINE_DATA_SET_VECTOR(f, float)
 DEFINE_DATA_SET(d, double)
 DEFINE_DATA_SET_VECTOR(b, BYTE)
 
+XPLM_API XPLMPluginID         XPLMGetMyID(void)
+{
+	return 1;
+}
+
 XPLM_API void                 XPLMDebugString(
 	const char *         inString)
 {
 	std::cout << inString << std::endl;
+}
+
+XPLM_API void                 XPLMEnableFeature(
+	const char *         inFeature,
+	int                  inEnable)
+{
+	// Not implemented.
+}
+
+XPLM_API void                 XPLMGetPluginInfo(
+	XPLMPluginID         inPlugin,
+	char *               outName,    /* Can be NULL */
+	char *               outFilePath,    /* Can be NULL */
+	char *               outSignature,    /* Can be NULL */
+	char *               outDescription)    /* Can be NULL */
+{
+	if (outName)
+		strcp(outName, "XPLMTestHarness");
+
+	if (outFilePath)
+	{
+		std::string hostPath;
+		GetEntrypointExecutableAbsolutePath(hostPath);
+		strcp(outFilePath, hostPath.c_str());
+	}
+
+	if (outSignature)
+		strcp(outSignature, "1234");
+
+	if (outDescription)
+		strcp(outDescription, "Info provided by the test harness for XPNet, which simulates the X-Plane API.");
 }
 
 XPLM_API XPLMDataRef          XPLMFindDataRef(
