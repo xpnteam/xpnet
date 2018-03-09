@@ -120,15 +120,26 @@ namespace XPNet
 
                 EnsureBuffer(nValues);
 
-                fixed (int* p = &m_buffer[0])
-                    PluginBridge.ApiFunctions.XPLMGetDatavi(DataRef, p, 0, nValues);
+                if (nValues > 0)
+                {
+                    fixed (int* p = &m_buffer[0])
+                        PluginBridge.ApiFunctions.XPLMGetDatavi(DataRef, p, 0, nValues);
+                }
+
                 return m_buffer;
             }
 
             set
             {
-                fixed (int* p = &value[0])
-                    PluginBridge.ApiFunctions.XPLMSetDatavi(DataRef, p, 0, value.Length);
+                if (value.Length > 0)
+                {
+                    fixed (int* p = &value[0])
+                        PluginBridge.ApiFunctions.XPLMSetDatavi(DataRef, p, 0, value.Length);
+                }
+                else
+                {
+                    PluginBridge.ApiFunctions.XPLMSetDatavi(DataRef, null, 0, 0);
+                }
             }
         }
 
@@ -167,15 +178,26 @@ namespace XPNet
 
                 EnsureBuffer(nValues);
 
-                fixed (bool* p = &m_buffer[0])
-                    PluginBridge.ApiFunctions.XPLMGetDatavi(DataRef, (int*)p, 0, nValues);
+                if (nValues > 0)
+                {
+                    fixed (bool* p = &m_buffer[0])
+                        PluginBridge.ApiFunctions.XPLMGetDatavi(DataRef, (int*)p, 0, nValues);
+                }
+
                 return m_buffer;
             }
 
             set
             {
-                fixed (bool* p = &value[0])
-                    PluginBridge.ApiFunctions.XPLMSetDatavi(DataRef, (int*)p, 0, value.Length);
+                if (value.Length > 0)
+                {
+                    fixed (bool* p = &value[0])
+                        PluginBridge.ApiFunctions.XPLMSetDatavi(DataRef, (int*)p, 0, value.Length);
+                }
+                else
+                {
+                    PluginBridge.ApiFunctions.XPLMSetDatavi(DataRef, null, 0, 0);
+                }
             }
         }
 
@@ -210,19 +232,30 @@ namespace XPNet
         {
             get
             {
-                int nValues = PluginBridge.ApiFunctions.XPLMGetDatavi(DataRef, null, 0, 0);
+                int nValues = PluginBridge.ApiFunctions.XPLMGetDatavf(DataRef, null, 0, 0);
 
                 EnsureBuffer(nValues);
 
-                fixed (float* p = &m_buffer[0])
-                    PluginBridge.ApiFunctions.XPLMGetDatavf(DataRef, p, 0, nValues);
+                if (nValues > 0)
+                {
+                    fixed (float* p = &m_buffer[0])
+                        PluginBridge.ApiFunctions.XPLMGetDatavf(DataRef, p, 0, nValues);
+                }
+
                 return m_buffer;
             }
 
             set
             {
-                fixed (float* p = &value[0])
-                    PluginBridge.ApiFunctions.XPLMSetDatavf(DataRef, p, 0, value.Length);
+                if (value.Length > 0)
+                {
+                    fixed (float* p = &value[0])
+                        PluginBridge.ApiFunctions.XPLMSetDatavf(DataRef, p, 0, value.Length);
+                }
+                else
+                {
+                    PluginBridge.ApiFunctions.XPLMSetDatavf(DataRef, null, 0, 0);
+                }
             }
         }
 
@@ -257,19 +290,30 @@ namespace XPNet
         {
             get
             {
-                int nValues = PluginBridge.ApiFunctions.XPLMGetDatavi(DataRef, null, 0, 0);
+                int nValues = PluginBridge.ApiFunctions.XPLMGetDatab(DataRef, null, 0, 0);
 
                 EnsureBuffer(nValues);
 
-                fixed (byte* p = &m_buffer[0])
-                    PluginBridge.ApiFunctions.XPLMGetDatab(DataRef, p, 0, nValues);
+                if (nValues > 0)
+                {
+                    fixed (byte* p = &m_buffer[0])
+                        PluginBridge.ApiFunctions.XPLMGetDatab(DataRef, p, 0, nValues);
+                }
+
                 return m_buffer;
             }
 
             set
             {
-                fixed (byte* p = &value[0])
-                    PluginBridge.ApiFunctions.XPLMSetDatab(DataRef, p, 0, value.Length);
+                if (value.Length > 0)
+                {
+                    fixed (byte* p = &value[0])
+                        PluginBridge.ApiFunctions.XPLMSetDatab(DataRef, p, 0, value.Length);
+                }
+                else
+                {
+                    PluginBridge.ApiFunctions.XPLMSetDatab(DataRef, null, 0, 0);
+                }
             }
         }
 
@@ -309,6 +353,9 @@ namespace XPNet
 
                 EnsureBuffer(nBytes);
 
+                if (nBytes == 0)
+                    return string.Empty;
+
                 fixed (byte* pb = &m_buffer[0])
                 {
                     PluginBridge.ApiFunctions.XPLMGetDatab(DataRef, pb, 0, nBytes);
@@ -318,14 +365,21 @@ namespace XPNet
 
             set
             {
-                int nMaxBytes = m_encoding.GetMaxByteCount(value.Length);
-                EnsureBuffer(nMaxBytes);
-
-                fixed (char* vc = value)
-                fixed (byte* pb = &m_buffer[0])
+                if (value.Length > 0)
                 {
-                    int nBytes = m_encoding.GetBytes(vc, value.Length, pb, m_buffer.Length);
-                    PluginBridge.ApiFunctions.XPLMSetDatab(DataRef, pb, 0, nBytes);
+                    int nMaxBytes = m_encoding.GetMaxByteCount(value.Length);
+                    EnsureBuffer(nMaxBytes);
+
+                    fixed (char* vc = value)
+                    fixed (byte* pb = &m_buffer[0])
+                    {
+                        int nBytes = m_encoding.GetBytes(vc, value.Length, pb, m_buffer.Length);
+                        PluginBridge.ApiFunctions.XPLMSetDatab(DataRef, pb, 0, nBytes);
+                    }
+                }
+                else
+                {
+                    PluginBridge.ApiFunctions.XPLMSetDatab(DataRef, null, 0, 0);
                 }
             }
         }

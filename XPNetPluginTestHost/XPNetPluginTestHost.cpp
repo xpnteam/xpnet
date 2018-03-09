@@ -64,6 +64,11 @@ void WriteXPNetConfig(XPNetConfigFlags flags)
 
 	cfg << "    \"BoolData\": [ " << endl;
 	cfg << "      \"sim/cockpit/engine/inverter_eq\"," << endl;
+	cfg << "    ]," << endl;
+
+	cfg << "    \"FloatArrayData\": [ " << endl;
+	cfg << "      \"sim/joystick/joystick_axis_values\"," << endl;
+	cfg << "      \"sim/joystick/joystick_axis_minimum\"," << endl;
 	cfg << "    ]" << endl;
 
 	cfg << "  }" << endl;
@@ -208,6 +213,8 @@ int main()
 	XPMock.SetBool("sim/cockpit/engine/fadec_on", { true, false, true });
 	XPMock.SetFloat("sim/cockpit/electrical/instrument_brightness", 0.8f);
 	XPMock.SetBool("sim/cockpit/engine/inverter_eq", true);
+	XPMock.SetFloat("sim/joystick/joystick_axis_values", { 0.1f, 0.0f, 0.8f });
+	XPMock.SetFloat("sim/joystick/joystick_axis_minimum", std::vector<float>()); // Intentionally of Length zero to test handling zero-length arrays.
 
 	Spacer();
 	if (!TestStartup(XPNC_None))
