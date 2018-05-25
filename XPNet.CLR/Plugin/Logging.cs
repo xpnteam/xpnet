@@ -2,6 +2,7 @@
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace XPNet
@@ -70,9 +71,23 @@ namespace XPNet
         public void Log(Exception exc)
         {
             m_writer.WriteLine("----------");
-            m_writer.WriteLine($"[{DateString()}] Exception: {exc.GetType().Name}: {exc.Message}");
+            m_writer.WriteLine($"[{DateString()}] Exception:");
+            m_writer.WriteLine($"{ exc.GetType().Name}: {exc.Message}");
             m_writer.WriteLine("Stack: ");
             m_writer.WriteLine(exc.StackTrace);
+
+            while (exc.InnerException != null)
+            {
+                exc = exc.InnerException;
+
+                m_writer.WriteLine("");
+                m_writer.WriteLine("Inner Exception: ");
+
+                m_writer.WriteLine($"{exc.GetType().Name}: {exc.Message}");
+                m_writer.WriteLine("Stack: ");
+                m_writer.WriteLine(exc.StackTrace);
+            }
+
             m_writer.WriteLine("----------");
             m_writer.Flush();
         }
