@@ -214,7 +214,7 @@ D:\X-Plane 11\Resources\plugins\
         |    └───host\
         |    └───shared\
         |    └───etc.
-        └───win.xpl                    <-- Rename XPNet.Native.xpl and place it here.
+        └───win.xpl                    <-- Rename XPNet.Native.dll and place it here.
         └───XPNet.CLR.dll
         └───XPNet.LoggerPlugin.dll     <-- Your plugin DLL.
         └───xpnetcfg.json              <-- The XPNet Configuration File
