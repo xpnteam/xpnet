@@ -14,6 +14,7 @@ namespace XPNet
 		private readonly IXPlaneApi m_api;
 		private readonly IXPProbe m_probe;
 		private readonly IXPDrawingLoopHook drawingLoopHook;
+		private readonly IXPSceneryObject myPrivateBoeing;
 
 		public DisplaytestPlugin(IXPlaneApi api)
 		{
@@ -24,16 +25,17 @@ namespace XPNet
 			m_api.Log.Log("And now create a probe");
 			m_probe = m_api.Scenery.CreateProbe();
 			m_api.Log.Log("Probe created");
+			m_api.Log.Log("Loading my private Boeing 737-800");
+			myPrivateBoeing = m_api.Scenery.LoadObject(@"/Users/markusb/Desktop/X-Plane 11/Resources/plugins/disabled/XPlanePlugin/Resources/CSL/BB_Boeing/B738/B738_NAX.obj");
+			m_api.Log.Log("Loaded and still living");
 		}
 
 		private int DoSomething(XPLMDrawingPhase inPhase, int inIsBefore)
 		{
 			var (x,y,z) = m_api.Graphics.WorldToLocal(47.439444, 19.261944, 151);
-			m_api.Log.Log($"The coordinate is {x}, {y}, {z}!");
 			var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
 			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
-			m_api.Log.Log($"Altitude in meters is {alt}");
-			m_api.Log.Log($"Result is {res.Result}");
+			myPrivateBoeing.Draw(0, 1, new XPLMDrawInfo_t[] { new XPLMDrawInfo_t((float)x, res.LocationY, (float)z, 0, 0, 0) });
 
 			return 1;
 		}
@@ -42,6 +44,7 @@ namespace XPNet
 		{
 			// Clean up whatever we attached / registered for / etc.
 			drawingLoopHook.Dispose();
+			myPrivateBoeing.Dispose();
 			m_probe.Dispose();
 		}
 

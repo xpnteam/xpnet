@@ -44,6 +44,5 @@ namespace XPNet
 			double newOutAltitude = outAltitude;
 			return (newOutLatitude, newOutLongitude, newOutAltitude);
 		}
-
 	}
 }

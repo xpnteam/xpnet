@@ -611,7 +611,7 @@ namespace XPNet
 								   XPLMProbeInfo_t* outInfo);
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
-	internal unsafe struct XPLMDrawInfo_t
+	public struct XPLMDrawInfo_t
 	{
 		int structSize;
 
@@ -626,6 +626,17 @@ namespace XPNet
 		float heading;
 
 		float roll;
+
+		public XPLMDrawInfo_t(float x, float y, float z, float pitch, float heading, float roll)
+		{
+			structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(XPLMDrawInfo_t));
+			this.x = x;
+			this.y = y;
+			this.z = z;
+			this.pitch = pitch;
+			this.heading = heading;
+			this.roll = roll;
+		}
 	};
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -636,7 +647,7 @@ namespace XPNet
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate void* XPLMLoadObject(
-		char* inPath
+		[MarshalAs(UnmanagedType.LPStr)] string inPath
 	);
 	
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -662,13 +673,13 @@ namespace XPNet
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate void XPLMLibraryEnumerator_f(
-		char* inFilePath,
+		[MarshalAs(UnmanagedType.LPStr)] string inFilePath,
 		void* inRef
 	);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate int XPLMLookupObjects(
-		char* inPath,
+		[MarshalAs(UnmanagedType.LPStr)] string inPath,
 		float inLatitude,
 		float inLongitude,
 		XPLMLibraryEnumerator_f enumerator,

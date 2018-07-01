@@ -13,6 +13,8 @@ namespace XPNet
 	public interface IXPlaneScenery
 	{
 		IXPProbe CreateProbe();
+
+		IXPSceneryObject LoadObject(string path);
 	}
 
 	internal class XPlaneScenery : IXPlaneScenery
@@ -21,7 +23,40 @@ namespace XPNet
 		{
 			return new XPProbe(XPLMProbeType.xplm_ProbeY);
 		}
+
+		public IXPSceneryObject LoadObject(string path)
+		{
+			return new XPSceneryObject(path);
+		}
 	}
+
+	public interface IXPSceneryObject : IDisposable
+	{
+		void Draw(int lighting, int earthRelativ, XPLMDrawInfo_t[] drawInfos);
+	}
+
+	internal unsafe class XPSceneryObject : IXPSceneryObject
+	{
+		private void* m_objectRef;
+
+		public XPSceneryObject(string path)
+		{
+			m_objectRef = PluginBridge.ApiFunctions.XPLMLoadObject(path);
+			if (m_objectRef == null) throw new System.IO.FileNotFoundException();
+		}
+
+		public unsafe void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
+		{
+			fixed (XPLMDrawInfo_t* drawInfosP = &drawInfos[0])
+				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, drawInfosP, lighting, earthRelative);
+		}
+
+		public void Dispose()
+		{
+			PluginBridge.ApiFunctions.XPLMUnloadObject(m_objectRef);
+		}
+	}
+
 
 	public interface IXPProbe : IDisposable
 	{
@@ -61,7 +96,6 @@ namespace XPNet
 
 		internal unsafe XPProbeResult(void* probeRef, float inX, float inY, float inZ)
 		{
-			PluginBridge.Log.Log("Making a Proberesult");
 			_probeInfo = new XPLMProbeInfo_t();
 			_probeInfo.structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(XPLMProbeInfo_t));
 
