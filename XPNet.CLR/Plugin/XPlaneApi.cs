@@ -46,9 +46,26 @@ namespace XPNet
         /// Gets the processing API.
         /// </summary>
         IXPlaneProcessing Processing { get; }
-    }
 
-    internal class XPlaneApi : IXPlaneApi, IDisposable
+		/// <summary>
+		/// Gets the display API.
+		/// </summary>
+		IXPlaneDisplay Display { get; }
+
+		/// <summary>
+		/// Gets the scenery API.
+		/// </summary>
+		IXPlaneScenery Scenery { get; }
+
+		/// <summary>
+		/// Gets the graphics API.
+		/// </summary>
+		IXPlaneGraphics Graphics { get; }
+
+
+	}
+
+	internal class XPlaneApi : IXPlaneApi, IDisposable
     {
         public event EventHandler ConfigChanged;
 
@@ -60,7 +77,10 @@ namespace XPNet
             Data = new XPlaneData();
             Commands = new XPlaneCommands();
             Processing = new XPlaneProcessing();
-        }
+			Display = new XPlaneDisplay();
+			Scenery = new XPlaneScenery();
+			Graphics = new XPlaneGraphics();
+		}
 
         public void Dispose()
         {
@@ -122,5 +142,34 @@ namespace XPNet
         {
             ConfigChanged?.Invoke(this, EventArgs.Empty);
         }
-    }
+
+		IXPlaneDisplay IXPlaneApi.Display
+		{
+			get { return Display; }
+		}
+
+		public IXPlaneDisplay Display
+		{
+			get;
+		}
+
+		IXPlaneScenery IXPlaneApi.Scenery
+		{
+			get { return Scenery; }
+		}
+
+		public IXPlaneScenery Scenery
+		{
+			get;
+		}
+		IXPlaneGraphics IXPlaneApi.Graphics
+		{
+			get { return Graphics; }
+		}
+
+		public IXPlaneGraphics Graphics
+		{
+			get;
+		}
+	}
 }

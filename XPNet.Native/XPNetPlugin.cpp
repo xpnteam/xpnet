@@ -55,6 +55,24 @@ typedef XPLMFlightLoopID(*PXPLMCreateFlightLoop)(XPLMCreateFlightLoop_t*);
 typedef void(*PXPLMDestroyFlightLoop)(XPLMFlightLoopID);
 typedef void(*PXPLMScheduleFlightLoop)(XPLMFlightLoopID, float, int);
 
+// Display - X-Plane API Function Pointer Types
+typedef int(*PXPLMRegisterDrawCallback)(XPLMDrawCallback_f, XPLMDrawingPhase, int, void*);
+typedef int(*PXPLMUnregisterDrawCallback)(XPLMDrawCallback_f, XPLMDrawingPhase, int, void*);
+
+// Scenery - X-Plane API Function Pointer Types
+typedef XPLMProbeRef(*PXPLMCreateProbe)(XPLMProbeType);
+typedef void(*PXPLMDestroyProbe)(XPLMProbeRef);
+typedef XPLMProbeResult(*PXPLMProbeTerrainXYZ)(XPLMProbeRef, float, float, float, XPLMProbeInfo_t*);
+typedef XPLMObjectRef(*PXPLMLoadObject)(const char*);
+typedef void(*PXPLMLoadObjectAsync)(const char*, XPLMObjectLoaded_f, void*);
+typedef void(*PXPLMDrawObjects)(XPLMObjectRef, int, XPLMDrawInfo_t*, int, int);
+typedef void(*PXPLMUnloadObject)(XPLMObjectRef);
+typedef int(*PXPLMLookupObjects)(const char*, float, float, XPLMLibraryEnumerator_f, void*);
+
+// Graphics - X-Plane API Function Pointer Types
+typedef void(*PXPLMWorldToLocal)(double, double, double, double*, double*, double*);
+typedef void(*PXPLMLocalToWorld)(double, double, double, double*, double*, double*);
+
 // Function types for calling into XPNet.PluginBridge in the CLR.
 typedef int (STDMETHODCALLTYPE *PXPluginStart)(void*, void*);
 typedef void (STDMETHODCALLTYPE *PXPluginStop)();
@@ -117,6 +135,25 @@ typedef struct
 	PXPLMCreateFlightLoop XPLMCreateFlightLoop;
 	PXPLMDestroyFlightLoop XPLMDestroyFlightLoop;
 	PXPLMScheduleFlightLoop XPLMScheduleFlightLoop;
+
+	// Display
+	PXPLMRegisterDrawCallback XPLMRegisterDrawCallback;
+	PXPLMUnregisterDrawCallback XPLMUnregisterDrawCallback;
+
+	// Scenery
+	PXPLMCreateProbe XPLMCreateProbe;
+	PXPLMDestroyProbe XPLMDestroyProbe;
+	PXPLMProbeTerrainXYZ XPLMProbeTerrainXYZ;
+	PXPLMLoadObject XPLMLoadObject;
+	PXPLMLoadObjectAsync XPLMLoadObjectAsync;
+	PXPLMDrawObjects XPLMDrawObjects;
+	PXPLMUnloadObject XPLMUnloadObject;
+	PXPLMLookupObjects XPLMLookupObjects;
+
+
+	// Graphics
+	PXPLMWorldToLocal XPLMWorldToLocal;
+	PXPLMLocalToWorld XPLMLocalToWorld;
 
 } ApiFunctions;
 
@@ -225,7 +262,25 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 		XPLMSetFlightLoopCallbackInterval,
 		XPLMCreateFlightLoop,
 		XPLMDestroyFlightLoop,
-		XPLMScheduleFlightLoop
+		XPLMScheduleFlightLoop,
+
+		// Display
+		XPLMRegisterDrawCallback,
+		XPLMUnregisterDrawCallback,
+
+		// Scenery
+		XPLMCreateProbe,
+		XPLMDestroyProbe,
+		XPLMProbeTerrainXYZ,
+		XPLMLoadObject,
+		XPLMLoadObjectAsync,
+		XPLMDrawObjects,
+		XPLMUnloadObject,
+		XPLMLookupObjects,
+
+		// Graphics
+		XPLMWorldToLocal,
+		XPLMLocalToWorld
 	};
 	
 	auto ret = ClrPluginStart(&sp, &api);

@@ -23,7 +23,7 @@
     <ProjectGuid>{22B62521-93DC-4E9B-AA44-774FDD3E3413}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>XPNetPluginTestHost</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -99,6 +99,7 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.CLR.dll" "$(OutputPath)"
 copy "$(SolutionDir)XPNet.LoggerPlugin\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.LoggerPlugin.dll" "$(OutputPath)"
+copy "$(SolutionDir)XPNet.GraphicsTest\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.GraphicsTest.dll" "$(OutputPath)"
 
 rem copy "$(USERPROFILE)\.nuget\packages\microsoft.extensions.configuration\1.1.1\lib\netstandard1.1\*.dll" "$(OutputPath)"
 rem copy "$(USERPROFILE)\.nuget\packages\microsoft.extensions.configuration.abstractions\1.1.1\lib\netstandard1.0\*.dll" "$(OutputPath)"
@@ -203,6 +204,7 @@ rem msbuild "$(SolutionDir)XPNet.CLR\XPNet.CLR.csproj" /t:Publish /p:OutputPath=
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.CLR.dll" "$(OutputPath)"
 copy "$(SolutionDir)XPNet.LoggerPlugin\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.LoggerPlugin.dll" "$(OutputPath)"
+copy "$(SolutionDir)XPNet.GraphicsTest\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.GraphicsTest.dll" "$(OutputPath)"
 
 rem copy "$(USERPROFILE)\.nuget\packages\microsoft.extensions.configuration\1.1.1\lib\netstandard1.1\*.dll" "$(OutputPath)"
 rem copy "$(USERPROFILE)\.nuget\packages\microsoft.extensions.configuration.abstractions\1.1.1\lib\netstandard1.0\*.dll" "$(OutputPath)"

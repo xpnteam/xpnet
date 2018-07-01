@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include <conio.h>
 #include "XPNetPluginTestHost.h"
 #include <XPNetPlugin.h>
 #include <XPLMTestHarness.h>
@@ -197,6 +198,7 @@ bool TestFlightLoop()
 	XPHarnessInvokeFlightLoop(1.0f, 2.0f, 1);
 	XPHarnessInvokeFlightLoop(1.2f, 1.8f, 2);
 	XPHarnessInvokeFlightLoop(1.0f, 2.2f, 3);
+	
 	return true;
 }
 
@@ -265,7 +267,7 @@ int main()
 
 	Spacer();
 	cout << "Test Host: The last test tested both restarting the plugin engine in the same process, and writing to xpnet.log.  See xpnet.log for results." << endl;
-
+	_getch();
     return 0;
 }
 

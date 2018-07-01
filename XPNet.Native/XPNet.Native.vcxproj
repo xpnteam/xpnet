@@ -23,7 +23,7 @@
     <ProjectGuid>{87713CD7-AD3D-458C-AC9B-2473B718D473}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>XPNetPlugin</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>XPNet.Native</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

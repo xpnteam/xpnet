@@ -506,9 +506,204 @@ namespace XPNet
          int inRelativeToNow
     );
 
-    #endregion X-Plane Processing API
+	#endregion X-Plane Processing API
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
+	#region X-Plane Display API
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate int XPLMRegisterDrawCallback(
+		XPLMDrawCallback_f inCallback,
+		XPLMDrawingPhase inPhase,
+		int inWantsBefore,
+		void* inRefcon
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate int XPLMUnregisterDrawCallback(
+		XPLMDrawCallback_f inCallback,
+		XPLMDrawingPhase inPhase,
+		int inWantsBefore,
+		void* inRefcon
+	);
+
+	public enum XPLMDrawingPhase : int
+	{
+		xplm_Phase_FirstScene = 0,
+		xplm_Phase_Terrain = 5,
+		xplm_Phase_Airports = 10,
+		xplm_Phase_Vectors = 15,
+		xplm_Phase_Objects = 20,
+		xplm_Phase_Airplanes = 25,
+		xplm_Phase_LastScene = 30,
+		xplm_Phase_FirstCockpit = 35,
+		xplm_Phase_Panel = 40,
+		xplm_Phase_Gauges = 45,
+		xplm_Phase_Window = 50,
+		xplm_Phase_LastCockpit = 55,
+		xplm_Phase_LocalMap3D = 100,
+		xplm_Phase_LocalMap2D = 101,
+		xplm_Phase_LocalMapProfile = 102
+	}
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate int XPLMDrawCallback_f(
+		XPLMDrawingPhase inPhase,
+		int inIsBefore,
+		void* inRefcon
+	);
+
+	#endregion X-Plane Display API
+
+	#region X-Plane Scenery API
+
+	internal enum XPLMProbeType : int
+	{
+		xplm_ProbeY = 0,
+	}
+
+	public enum XPLMProbeResult : int
+	{
+		xplm_ProbeHitTerrain = 0,
+		xplm_ProbeError = 1,
+		xplm_ProbeMissed = 2
+	}
+
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
+	internal unsafe struct XPLMProbeInfo_t
+	{
+		public int structSize;
+
+		public float locationX;
+
+		public float locationY;
+
+		public float locationZ;
+
+		public float normalX;
+
+		public float normalY;
+
+		public float normalZ;
+
+		public float velocityX;
+
+		public float velocityY;
+
+		public float velocityZ;
+
+		public int is_wet;
+	};
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void* XPLMCreateProbe(
+		XPLMProbeType inProbeType
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void XPLMDestroyProbe(void* inProbe);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate XPLMProbeResult XPLMProbeTerrainXYZ(
+								   void* inProbe,
+								   float inX,
+								   float inY,
+								   float inZ,
+								   XPLMProbeInfo_t* outInfo);
+
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
+	internal unsafe struct XPLMDrawInfo_t
+	{
+		int structSize;
+
+		float x;
+
+		float y;
+
+		float z;
+
+		float pitch;
+
+		float heading;
+
+		float roll;
+	};
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate int XPLMObjectLoaded_f(
+		void* inObject,
+		void* inRefcon
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void* XPLMLoadObject(
+		char* inPath
+	);
+	
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void XPLMLoadObjectAsync(
+		char* inPath,
+		XPLMObjectLoaded_f inCallback,
+		void* inRefcon
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void XPLMDrawObjects(
+		void* inObject,
+		int inCount,
+		XPLMDrawInfo_t* inLocations,
+		int lighting,
+		int earth_relative
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void XPLMUnloadObject(
+		void* inObject
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void XPLMLibraryEnumerator_f(
+		char* inFilePath,
+		void* inRef
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate int XPLMLookupObjects(
+		char* inPath,
+		float inLatitude,
+		float inLongitude,
+		XPLMLibraryEnumerator_f enumerator,
+		void* reference
+	);
+
+	#endregion X-Plane Scenery API
+
+	#region X-Plane Graphics API
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate int XPLMWorldToLocal
+	(
+		double inLatitude,
+		double inLongitude,
+		double inAltitude,
+		double* outX,
+		double* outY,
+		double* outZ
+	);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate int XPLMLocalToWorld
+	(
+		double inX,
+		double inY,
+		double inZ,
+		double* outLatitude,
+		double* outLongitude,
+		double* outAltitude
+	);
+
+	#endregion X-Plane Graphics API
+
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
     public struct ApiFunctionPointers
     {
         // Data
@@ -533,7 +728,6 @@ namespace XPNet
         internal IntPtr XPLMCommandEnd;
         internal IntPtr XPLMCommandOnce;
 
-
         // Processing
         internal IntPtr XPLMGetElapsedTime;
         internal IntPtr XPLMGetCycleNumber;
@@ -543,7 +737,26 @@ namespace XPNet
         internal IntPtr XPLMCreateFlightLoop;
         internal IntPtr XPLMDestroyFlightLoop;
         internal IntPtr XPLMScheduleFlightLoop;
-    }
+
+		// Display
+		internal IntPtr XPLMRegisterDrawCallback;
+		internal IntPtr XPLMUnregisterDrawCallback;
+
+		// Scenery
+		internal IntPtr XPLMCreateProbe;
+		internal IntPtr XPLMDestroyProbe;
+		internal IntPtr XPLMProbeTerrainXYZ;
+		internal IntPtr XPLMLoadObject;
+		internal IntPtr XPLMLoadObjectAsync;
+		internal IntPtr XPLMDrawObjects;
+		internal IntPtr XPLMUnloadObject;
+		internal IntPtr XPLMLookupObjects;
+
+		// Graphics
+		internal IntPtr XPLMWorldToLocal;
+		internal IntPtr XPLMLocalToWorld;
+
+	}
 
     public unsafe struct ApiFunctions
     {
@@ -582,10 +795,29 @@ namespace XPNet
             XPLMCreateFlightLoop = Marshal.GetDelegateForFunctionPointer<XPLMCreateFlightLoop>(p.XPLMCreateFlightLoop);
             XPLMDestroyFlightLoop = Marshal.GetDelegateForFunctionPointer<XPLMDestroyFlightLoop>(p.XPLMDestroyFlightLoop);
             XPLMScheduleFlightLoop = Marshal.GetDelegateForFunctionPointer<XPLMScheduleFlightLoop>(p.XPLMScheduleFlightLoop);
-        }
 
-        // Data
-        internal XPLMFindDataRef XPLMFindDataRef;
+			// Display
+			XPLMRegisterDrawCallback = Marshal.GetDelegateForFunctionPointer<XPLMRegisterDrawCallback>(p.XPLMRegisterDrawCallback);
+			XPLMUnregisterDrawCallback = Marshal.GetDelegateForFunctionPointer<XPLMUnregisterDrawCallback>(p.XPLMUnregisterDrawCallback);
+
+			// Scenery
+			XPLMCreateProbe = Marshal.GetDelegateForFunctionPointer <XPLMCreateProbe>(p.XPLMCreateProbe);
+			XPLMDestroyProbe = Marshal.GetDelegateForFunctionPointer <XPLMDestroyProbe>(p.XPLMDestroyProbe);
+			XPLMProbeTerrainXYZ = Marshal.GetDelegateForFunctionPointer <XPLMProbeTerrainXYZ>(p.XPLMProbeTerrainXYZ);
+			XPLMLoadObject = Marshal.GetDelegateForFunctionPointer <XPLMLoadObject>(p.XPLMLoadObject);
+			XPLMLoadObjectAsync = Marshal.GetDelegateForFunctionPointer <XPLMLoadObjectAsync>(p.XPLMLoadObjectAsync);
+			XPLMDrawObjects = Marshal.GetDelegateForFunctionPointer <XPLMDrawObjects>(p.XPLMDrawObjects);
+			XPLMUnloadObject = Marshal.GetDelegateForFunctionPointer <XPLMUnloadObject>(p.XPLMUnloadObject);
+			XPLMLookupObjects = Marshal.GetDelegateForFunctionPointer <XPLMLookupObjects>(p.XPLMLookupObjects);
+
+
+			// Graphics
+			XPLMWorldToLocal = Marshal.GetDelegateForFunctionPointer<XPLMWorldToLocal>(p.XPLMWorldToLocal);
+			XPLMLocalToWorld = Marshal.GetDelegateForFunctionPointer<XPLMLocalToWorld>(p.XPLMLocalToWorld);
+		}
+
+		// Data
+		internal XPLMFindDataRef XPLMFindDataRef;
         internal XPLMGetDataRefTypes XPLMGetDataRefTypes;
         internal XPLMGetDatai XPLMGetDatai;
         internal XPLMSetDatai XPLMSetDatai;
@@ -615,7 +847,26 @@ namespace XPNet
         internal XPLMCreateFlightLoop XPLMCreateFlightLoop;
         internal XPLMDestroyFlightLoop XPLMDestroyFlightLoop;
         internal XPLMScheduleFlightLoop XPLMScheduleFlightLoop;
-    }
+
+		// Display
+		internal XPLMRegisterDrawCallback XPLMRegisterDrawCallback;
+		internal XPLMUnregisterDrawCallback XPLMUnregisterDrawCallback;
+
+		// Scenery
+		internal XPLMCreateProbe XPLMCreateProbe;
+		internal XPLMDestroyProbe XPLMDestroyProbe;
+		internal XPLMProbeTerrainXYZ XPLMProbeTerrainXYZ;
+		internal XPLMLoadObject XPLMLoadObject;
+		internal XPLMLoadObjectAsync XPLMLoadObjectAsync;
+		internal XPLMDrawObjects XPLMDrawObjects;
+		internal XPLMUnloadObject XPLMUnloadObject;
+		internal XPLMLookupObjects XPLMLookupObjects;
+
+		// Graphics
+		internal XPLMWorldToLocal XPLMWorldToLocal;
+		internal XPLMLocalToWorld XPLMLocalToWorld;
+
+	}
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
     public unsafe struct StartParams

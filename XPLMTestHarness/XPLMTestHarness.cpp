@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "XPLMTestHarness.h"
+#include "XPLMScenery.h"
+#include "XPLMGraphics.h"
 #include <map>
 #include <vector>
 #include <string>
@@ -464,6 +466,108 @@ XPLM_API void                 XPLMScheduleFlightLoop(
 	int                  inRelativeToNow)
 {
 	// Not implemented b/c we don't use it in XPNet.
+}
+
+XPLM_API int                  XPLMRegisterDrawCallback(
+	XPLMDrawCallback_f   inCallback,
+	XPLMDrawingPhase     inPhase,
+	int                  inWantsBefore,
+	void *               inRefcon)
+{
+	// Not implemented b/c we don't use it in XPNet.
+	return 1;
+}
+
+XPLM_API int                  XPLMUnregisterDrawCallback(
+	XPLMDrawCallback_f   inCallback,
+	XPLMDrawingPhase     inPhase,
+	int                  inWantsBefore,
+	void *               inRefcon)
+{
+	// Not implemented b/c we don't use it in XPNet.
+	return 1;
+}
+
+XPLM_API XPLMProbeRef         XPLMCreateProbe(
+	XPLMProbeType        inProbeType) 
+{
+	return 0;
+}
+
+XPLM_API void                 XPLMDestroyProbe(
+	XPLMProbeRef         inProbe) 
+{
+}
+
+
+XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
+	XPLMProbeRef         inProbe,
+	float                inX,
+	float                inY,
+	float                inZ,
+	XPLMProbeInfo_t *    outInfo)
+{
+	return 0;
+}
+
+XPLM_API XPLMObjectRef        XPLMLoadObject(
+	const char *         inPath) 
+{
+	return 0;
+}
+
+XPLM_API void                 XPLMLoadObjectAsync(
+	const char *         inPath,
+	XPLMObjectLoaded_f   inCallback,
+	void *               inRefcon) 
+{
+}
+
+
+XPLM_API void                 XPLMDrawObjects(
+	XPLMObjectRef        inObject,
+	int                  inCount,
+	XPLMDrawInfo_t *     inLocations,
+	int                  lighting,
+	int                  earth_relative)
+{
+}
+
+XPLM_API void                 XPLMUnloadObject(
+	XPLMObjectRef        inObject)
+{
+}
+
+XPLM_API int                  XPLMLookupObjects(
+	const char *         inPath,
+	float                inLatitude,
+	float                inLongitude,
+	XPLMLibraryEnumerator_f enumerator,
+	void *               ref)
+{
+	return 1;
+}
+
+XPLM_API void                 XPLMWorldToLocal(
+	double               inLatitude,
+	double               inLongitude,
+	double               inAltitude,
+	double *             outX,
+	double *             outY,
+	double *             outZ)
+{
+
+}
+
+XPLM_API void                 XPLMLocalToWorld(
+	double               inX,
+	double               inY,
+	double               inZ,
+	double *             outLatitude,
+	double *             outLongitude,
+	double *             outAltitude)
+{
+
 }
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)

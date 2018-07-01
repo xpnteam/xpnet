@@ -8,6 +8,9 @@ extern "C" {
 #  include "XPLMDefs.h"
 #  include "XPLMDataAccess.h"
 #  include "XPLMProcessing.h"
+#  include "XPLMDisplay.h"
+#  include "XPLMScenery.h"
+#  include "XPLMGraphics.h"
 #  include "XPLMUtilities.h"
 }
 
