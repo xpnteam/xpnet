@@ -14,9 +14,12 @@ RM            :=rm -f
 CPPFLAGS      :=-g -Wall -std=c++1z -m64 -c
 OUTDIR        :=lib
 OBJDIR        :=obj
+BINDIR        :=bin
 SRCDIR        :=.
 LDFLAGS       :=-g -Wall
 LDLIBS        :=
+
+Configuration :=Release
 
 INC           :=-I$(XPLANESDKPATH)/CHeaders/Widgets -I$(XPLANESDKPATH)/CHeaders/Wrappers -I$(XPLANESDKPATH)/CHeaders/XPLM
 
@@ -39,8 +42,9 @@ ifeq ($(UNAME),Darwin)
 
   PLATFORM    :=macOS
   DEFINES     :=-DAPL=1 -DIBM=0 -DLIN=0
-  FRAMEWORKS  :=-F$(XPLANESDKPATH)/Libraries/Mac -framework XPLM
   XPLNAME     :=mac.xpl
+  PKGPROJ     :=XPNet.Native.NuSpec.macOS.csproj
+  FRAMEWORKS  :=-F$(XPLANESDKPATH)/Libraries/Mac -framework XPLM
   LDFLAGS     :=$(LDFLAGS) $(BOOSTLIB)/libboost_system.a $(BOOSTLIB)/libboost_filesystem.a
 
 endif
@@ -58,13 +62,18 @@ XPL           =$(OUTDIR)/$(XPLNAME)
 
 # ================================================
 
-all: $(OUTDIR)/$(XPLNAME)
+all: plugin package
+
+plugin: $(OUTDIR)/$(XPLNAME)
 
 $(OUTDIR)/$(XPLNAME): buildprep $(OBJS)
 	$(CXX) $(LDFLAGS) -shared -o $(OUTDIR)/$(XPLNAME) $(OBJS) $(LDLIBS) $(FRAMEWORKS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CPPFLAGS) $(DEFINES) $(INC) -o $@ $<
+
+package: plugin
+	dotnet pack $(PKGPROJ) -c $(Configuration)
 
 depend: .depend
 
@@ -74,6 +83,7 @@ depend: .depend
 
 clean:
 	$(RM) $(OBJS)
+	$(RM) -r $(OUTDIR) $(OBJDIR) $(BINDIR)
 
 distclean: clean
 	$(RM) *~ .depend

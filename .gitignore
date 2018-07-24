@@ -9,4 +9,5 @@ XPNet.Native/lib
 Debug
 Release
 plugin
+package
 .DS_Store
