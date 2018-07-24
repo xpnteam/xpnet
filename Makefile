@@ -32,6 +32,8 @@
 #
 # dotnet nuget push packages/XPNet.CLR.1.2.0.nupkg -k <the_api_key>
 #
+# (Or login on nuget.org and just drag+drop the new .nupkg files on the Upload page.)
+#
 
 #######################################################################################3
 
