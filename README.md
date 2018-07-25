@@ -23,7 +23,7 @@ To accomplish the goal of being cross-platform, XPNet is based on
 with .NET Core, it is essentially the result of Microsoft open-sourcing the .NET
 base libraries, runtime and compilers.  It runs on Windows, Linux and macOS.  The core things
 you expect from a .NET environment are there: String and Stream and List<T>, but it
-works on more than just Windows, and many of the "edges" of the base class library
+works on more than just Windows, and some of the "rough edges" of the base class library
 have been cleaned up.
 
 An XPNet plugin consists of three parts:
@@ -122,19 +122,16 @@ jump in and learn those things, can use XPNet develop a plugin that reads and wr
 scheduled background processing (such as communicating on a network or serial port).  XPNet is
 being used in the development of just such a plugin.
 
-The following are currently actively being worked on:
-
-- [ ] Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed.
-
 With the help of contributors, I'd like to see XPNet grow in at least the following ways:
 
-- [x] 2018-02-25 - Expand to macOS.
 - [ ] Expand to Linux.  (We already run on macOS, so we're most of the way to Linux, for someone with good C/C++ and relevant platform experience.)
 - [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
-- [ ] Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
 - [ ] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
 - [ ] Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
 - [ ] Improve the native output directory structure for the C++ VS 2017 projects - by default, for backwards compatibility, MS makes project outputs inconsistent between x86 and x64 builds.  It all works...but is unnecessarily confusing.
+- [x] Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
+- [x] 2018-02-25 - Expand to macOS.
+- [x] 2018-07-25 - Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed.  ('dotnet new' template)
 - [x] 2017-09-08 - Automatically detect and use any compatible .NET Core install found in <Plugin-Path>/64/dotnet (or <Plugin-Path>/32/dotnet) instead of assuming release 1.1.1.
 
 Additionally, the following aspects of the X-Plane API need mappings to XPNet.
@@ -155,24 +152,79 @@ Additionally, the following aspects of the X-Plane API need mappings to XPNet.
 
 ## Developing a Plugin
 
-These instructions assume Visual Studio 2017.  XPNet can be built using Visual Studio
-Community 2017, which is a free [(as in beer)](https://en.wikipedia.org/wiki/Gratis_versus_libre)
-download from Microsoft.  You'll need 2017 or higher because XPNet is written using C# 7 syntax.
+You can develop plugins with Visual Studio 2017 Community or higher, or with the .NET Core SDK 2.0 or higher.
+Both Visual Studio 2017 Community, and the .NET Core SDK, are free [(as in beer)](https://en.wikipedia.org/wiki/Gratis_versus_libre)
+downloads from Microsoft.
 
-1. Download the [X-Plane SDK](http://www.xsquawkbox.net/xpsdk/mediawiki/Download) and set the XPLANESDKPATH environment variable on your system.
-2. Download and build XPNet in Release/x86 or Release/x64.  (See Building XPNet below.  In the future, we want to have a nuget project for this, but in a final solution there are multi-platform native binaries involved so this will take some work.)
-3. Start a new "Class Library (.NET Core)" project.  (You want ".NET Core", not ".NET Standard".  Look under "Templates -> Visual C# -> .NET Core").
-4. Add a reference to XPNet.CLR.dll.
-5. Create a plugin class and develop your plugin.  See below for more details.
-6. Deploy into X-Plane.  See below for more details.
+2. Start a new .NET Core Class Library project.
+3. Either install the XPNet nuget packages, or download and build XPNet and reference XPNet.CLR.dll it from your project.
+4. Create a plugin class and develop your plugin.  See below for more details.
+5. Deploy into X-Plane.  See below for more details.
 
-The XPLANESDKPATH environment variable tells the build where the X-Plane SDK has been
-installed.  For instance:
+The recommended way to start a new project is to use the "dotnet new" command with the
+XPNet project template and use the pre-built nuget binaries.  Even if you want to work in
+Visual Studio, starting from the project template at the command line will give you a
+starting point with the correct nuget packages and a plugin class to start with.
 
-> XPLANESDKPATH=D:\Projects\XPlane\SDK
+### Starting a New Project with `dotnet new`
 
-It should point to the location where you unzipped the X-Plane SDK; the subdirectories in that
-SDK directory are CHeaders, Delphi and Libraries.
+If you don't know which option you want, you probably want this option.  You'll need the
+.NET SDK v2.0 or higher installed.  These instructions work for Windows and macOS.
+
+1. Create a directory for your new project.
+
+2. Install or update the 'dotnet new' template for XPNet.
+
+```
+dotnet new -i XPNet.CLR.Template
+```
+
+3. Create a new plugin project.
+```
+dotnet new xpnetplugin -n YourPluginName
+```
+
+That will leave you with a new project (a .csproj file) and a single C# code file with an
+empty plugin class.  Happy coding!
+
+When you're ready to build and run your plugin, run the following command from the
+directory that contains your .csproj file.
+
+```
+dotnet publish -c Debug
+```
+
+Running the publish command will build your plugin and place it, and most of
+the rest of what you need, in a directory on disk like so:
+
+```
+<YourProjectRoot>/bin/Debug/netcoreapp2.0/publish
+```
+
+The exact location will vary depending on which version of .NET Core you are
+targetting, your release configuration, etc.  To deploy to X-Plane, copy the
+contents of that publish directory into a new plugin folder in X-Plane,
+download and place a compatible .NET Core hosting runtime in the same folder,
+and start X-Plane.  See the section `Installing into X-Plane` below for
+details.
+
+To build in Release mode for distribution, just specify Release configuration
+and look in the corresponding Release directory on disk for the output.
+
+```
+dotnet publish -c Release
+```
+
+
+### Creating a Project Manually with Visual Studio
+
+If you're intent on rolling your own instead of using the starter project, or if you want to
+build XPNet yourself instead of using the prebuilt nuget packages, you can start a
+project from Visual Studio and set it all up manually.  Some pointers for doing it this way:
+
+1. When creating your plugin project, start a new "Class Library (.NET Core)" project.  (You want ".NET Core", not ".NET Standard".  Look under "Templates -> Visual C# -> .NET Core").
+2. If you're using the nuget packages instead of building XPNet yourself, the packages to get are `XPNet.CLR`, `XPNet.Native.macOS` and `XPNet.Native.Windows`.  You want _all_ the native packages, not just the ones for the platform you're buliding on, or your plugin won't be able to work on any platform other than the one you developed it on.
+
 
 
 ## Installing into X-Plane
@@ -206,19 +258,25 @@ D:\X-Plane 11\Resources\plugins\
 |
 └───XPNet.Logger\                      <-- Directory containing your plugin.  Give it some appropriate name.
     |
+    └───XPNet.CLR.dll
+    └───XPNet.LoggerPlugin.dll         <-- Your plugin DLL.
+    └───xpnetcfg.json                  <-- The XPNet Configuration File
+    └───Microsoft.Extensions.*.dll     <-- These and other DLLs that are required dependencies of XPNet.
+    |
+    └─── dotnet-windows\               <-- Unzip dotnet-win-x64.2.x.x.zip here.
+    |    └───host\
+    |    └───shared\
+    |    └───etc.
+    |
+    └─── dotnet-macos\                 <-- Same as Windows version above, but mac hosting.
+	|    └───host,shared,etc.
+    |
     └───32\                            <-- Same as 64 below, but with 32-bit binaries.
     |
     └───64\
         |
-        └─── dotnet\                   <-- Unzip dotnet-win-x64.2.x.x.zip (or other zip for your platform) here.
-        |    └───host\
-        |    └───shared\
-        |    └───etc.
-        └───win.xpl                    <-- Rename XPNet.Native.dll and place it here.
-        └───XPNet.CLR.dll
-        └───XPNet.LoggerPlugin.dll     <-- Your plugin DLL.
-        └───xpnetcfg.json              <-- The XPNet Configuration File
-        └───Microsoft.Extensions.*.dll <-- These and other DLLs that are required dependencies of XPNet.
+        └───win.xpl                    <-- Output of XPNet.Native project built for Windows.
+        └───mac.xpl                    <-- Output of XPNet.Native project built for macOS.
 ```
 
 From X-Plane's standpoint, the actual plugin is a DLL or SO that is
@@ -311,6 +369,14 @@ environment (i.e., that make it easy to do asynchronous operations in a plugin) 
 
 ## Building XPNet
 
+```
+You don't need to build XPNet if all you want to do is create your own plugin,
+because there are prebuilt binaries available via nuget.  See the instructions above
+in the `Developing a Plugin` section.
+
+These instructions are for if you want to contribute to or modify XPNet itself.
+```
+
 XPNet consists of three parts:
 
 1. A native shim (XPNet.Native)
@@ -322,27 +388,57 @@ and dropped into a plugin folder alongside the other DLLs and config files as de
 in "Installing Into X-Plane" above.
 
 ```
-NOTE: XPNet does not currently have a cross-compiler set up.  If you want to build a plugin
-to run on Windows, you have to build on Windows.  If you want to run on macOS, you have to
-build on macOS.  In the future, we intend to create official binary releases, so that
-most people can develop on any platform and run on every platform, because you won't
-have to build XPNet just to create a plugin.  Then this section will just be for if
-you want to modify XPNet itself, and most people won't have to do this part.
+Starting with X-Plane 11.10, X-Plane allows a new optional naming convention for plugins.
+XPNet has not yet adopted the new convention because it is not backward compatible to
+older versions of X-Plane.  We will consider adopting the new naming convention when and
+if we reach the point where XPNet plugins are no longer supported on any version of X-Plane
+old enough to only support the old convention.
 ```
+
+NOTE: XPNet does not currently have a cross-compiler set up.  To build the native Windows
+shim, you have to build on Windows.  To build the macOS shim, you have to build on macOS.
+Once the native shims are built, however, you can put them all into the same Plugin folder
+(as shown in the `Installing into X-Plane` section above) and distribute that same folder to
+any platform you've built for.
+
+No matter what environment you're working in, to build XPNet you'll need the X-Plane SDK first.
+
+1. Download the [X-Plane SDK](http://www.xsquawkbox.net/xpsdk/mediawiki/Download)
+2. Set the XPLANESDKPATH environment variable on your system.
+
+The XPLANESDKPATH environment variable tells the build where the X-Plane SDK has been
+installed.  For instance:
+
+> XPLANESDKPATH=D:\Projects\XPlane\SDK
+
+It should point to the location where you unzipped the X-Plane SDK; the subdirectories in that
+SDK directory are CHeaders, Delphi and Libraries.
 
 
 ### Building XPNet on Windows
 
-Use Visual Studio 2017 or above to open and build XPNet.sln.  Gather the output files
+Use Visual Studio 2017 or above to open and build XPNet.sln.  To build for both 32-bit
+and 64-bit, you will build twice: once with the x64 configuration selected and once
+with the x86 configuration selected.  Gather the output files
 and drop them into a folder in X-Plane as described in "Installing Into X-Plane" above.
 
 ```
-Gathering the "output files" in Windows involves tracking down the several
-dependent DLLs that XPNet.CLR references.  A high priority enhancement for this
-project is to create tooling or build outputs that build this
-tree for you in a cross-platform way, ready to copy into X-Plane.  This may take the
-form of a nuget packge, or other kind of binary package, to which you can simply
-add your own plugin DLLs.
+"Gathering the output files" in Windows involves tracking down the several
+dependent DLLs that XPNet.CLR references, and grabbing the native and .NET
+outputs from a couple of different projects in the solution file.  It would be great to
+have a working 'dotnet publish' command for Windows (like how it
+works for macOS; see below), but the build includes native components so
+'dotnet publish' won't work on its own.  The likely improvement to make is
+to create an MSBuild target that could be invoked from
+the command line.  You _can_ do a Publish action from Visual Studio and have it
+gather all the files for you, but it's a more complicated and cumbersome process
+to set up than the command line version.  Now that we have the nuget packages,
+most people should be using them, so there are no immediate plans to further
+automate the process of building a Plugin folder in the Visual Studio workflow.
+If someone is interested, though, I would consider pull requests for better instruction
+text to place here, or tooling improvements for building on Windows, especially
+an MSBuild target that builds everything for both 32-bit and 64-bit and drops it
+all in a Plugin folder with the right structure.
 ```
 
 
@@ -359,7 +455,7 @@ make
 
 If all goes well, you'll have a bunch of .dll files and a mac.xpl file in a directory
 named `plugin` when that completes.  Create a plugin directory structure as described in
-"Installing into X-Plane" above, including those .dll and .xpl files from the `plugin`
+"Installing into X-Plane" above, and copy everything from the `plugin`
 folder you just built.
 
 <aside class="notice">
