@@ -11,3 +11,4 @@ Release
 plugin
 package
 .DS_Store
+/XPNet.Native/obj_core

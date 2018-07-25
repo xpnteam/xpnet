@@ -8,22 +8,32 @@
 #             nuget.org or another gallery.
 #
 # There are the following packages:
-#  XPNet.CLR           - The .NET assembly that you reference to write your plugin code.
-#  XPNet.Native.macOS  - Built macOS binary.
-#  XPNet.Native.win    - Built Windows binary.
-#  XPNet.CLR.Starter   - The starter project, for use with 'dotnet new'
+#  XPNet.CLR            - The .NET assembly that you reference to write your plugin code.
+#  XPNet.Native.macOS   - Built macOS binary.
+#  XPNet.Native.Windows - Built Windows binary.
+#  XPNet.CLR.Starter    - The starter project, for use with 'dotnet new'
 #
 # For deployment to nuget, the policy is to always deploy all packages at the same time
 # (within a reasonable number of minutes of each other), with matched versions.  That
 # way, if you have XPNet.CLR v1.2, and XPNet.Native.* v1.2, you know they all match.
 #
-# Before you upload new packages, be sure to update the package vesrsion numbers in the
+# Before you upload new packages, be sure to update the package version numbers in the
 # various .nuspec files to all match.
 #
 # The 'package' target will build as many of the packages as can be built on the current
 # OS.  To do a full deploy to nuget, you have to build and deploy the non-native packages
 # on whatever OS is convenient, and each native package on the OS for that package.
 # (We're not set up to do any cross-compiling).  Upload them all to nuget.
+#
+# The packages for non-Windows platforms can be built from this Makefile.  To build the
+# package for the Windows platform, open the SLN file in Visual Studio, build XPNet.native
+# in x64/Release and x32/Release (you must build both; the package includes both), then
+# run this from the XPNet.Native folder:
+#
+# dotnet pack XPNet.Native.NuSpec.win.csproj
+#
+# The output nupkg will end up in bin\x64\Debug.  I don't know why; it's neither x64-specific
+# nor Debug in any way.  You can probably improve this with edits to XPNet.Native.NuSpec.win.csproj.
 #
 # For safety purposes, and because you need the key to deploy the packages anyway,
 # (which is not included in this repository) this Makefile does not actually deploy
