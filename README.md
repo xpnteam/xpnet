@@ -156,10 +156,10 @@ You can develop plugins with Visual Studio 2017 Community or higher, or with the
 Both Visual Studio 2017 Community, and the .NET Core SDK, are free [(as in beer)](https://en.wikipedia.org/wiki/Gratis_versus_libre)
 downloads from Microsoft.
 
-2. Start a new .NET Core Class Library project.
-3. Either install the XPNet nuget packages, or download and build XPNet and reference XPNet.CLR.dll it from your project.
-4. Create a plugin class and develop your plugin.  See below for more details.
-5. Deploy into X-Plane.  See below for more details.
+1. Start a new .NET Core Class Library project.
+2. Either install the XPNet nuget packages, or download and build XPNet and reference XPNet.CLR.dll it from your project.
+3. Create a plugin class and develop your plugin.  See below for more details.
+4. Deploy into X-Plane.  See below for more details.
 
 The recommended way to start a new project is to use the "dotnet new" command with the
 XPNet project template and use the pre-built nuget binaries.  Even if you want to work in
@@ -185,7 +185,9 @@ dotnet new xpnetplugin -n YourPluginName
 ```
 
 That will leave you with a new project (a .csproj file) and a single C# code file with an
-empty plugin class.  Happy coding!
+empty plugin class.
+
+Happy coding!
 
 When you're ready to build and run your plugin, run the following command from the
 directory that contains your .csproj file.
@@ -197,9 +199,7 @@ dotnet publish -c Debug
 Running the publish command will build your plugin and place it, and most of
 the rest of what you need, in a directory on disk like so:
 
-```
-<YourProjectRoot>/bin/Debug/netcoreapp2.0/publish
-```
+> <YourProjectRoot>/bin/Debug/netcoreapp2.0/publish
 
 The exact location will vary depending on which version of .NET Core you are
 targetting, your release configuration, etc.  To deploy to X-Plane, copy the
@@ -269,7 +269,7 @@ D:\X-Plane 11\Resources\plugins\
     |    └───etc.
     |
     └─── dotnet-macos\                 <-- Same as Windows version above, but mac hosting.
-	|    └───host,shared,etc.
+    |    └───host,shared,etc.
     |
     └───32\                            <-- Same as 64 below, but with 32-bit binaries.
     |
