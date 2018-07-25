@@ -199,7 +199,7 @@ dotnet publish -c Debug
 Running the publish command will build your plugin and place it, and most of
 the rest of what you need, in a directory on disk like so:
 
-> <YourProjectRoot>/bin/Debug/netcoreapp2.0/publish
+> YourProjectRoot/bin/Debug/netcoreapp2.0/publish
 
 The exact location will vary depending on which version of .NET Core you are
 targetting, your release configuration, etc.  To deploy to X-Plane, copy the
