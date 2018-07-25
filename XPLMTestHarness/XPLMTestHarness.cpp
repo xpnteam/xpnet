@@ -161,7 +161,7 @@ XPLM_API XPLMPluginID         XPLMGetMyID(void)
 XPLM_API void                 XPLMDebugString(
 	const char *         inString)
 {
-	std::cout << inString << std::endl;
+	std::cout << inString;
 }
 
 XPLM_API void                 XPLMEnableFeature(

@@ -15,14 +15,6 @@
    namespace fs = boost::filesystem;
 #endif
 
-// TODO: It would help with distribution if we had the macOS dotnet
-// path look in dotnet-macos or something like that.  Then we could
-// also do dotnet-win and dotnet-linux.  If we want backwards compat,
-// we could keep falling back to dotnet as well.  With that change,
-// we could have private side-by-side .NET installs for all three
-// platforms.
-
-
 // Data - X-Plane API Function Pointer Types
 typedef XPLMDataRef(*PXPLMFindDataRef)(const char*);
 typedef XPLMDataTypeID(*PXPLMGetDataRefTypes)(XPLMDataRef);
@@ -148,35 +140,61 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 
 		fs::path pluginDir = GetPluginDirectory();
 
-//#if defined(ARCH_32)
-//		std::wstring archSubdir = L"32";
-//#elif defined(ARCH_64)
-//		std::wstring archSubdir = L"64";
-//#else
-//#  error "You must define either ARCH_32 or ARCH_64."
-//#endif
+		XPLMDebugString(("XPNet: X-Plane reports plugin dir as " + pluginDir.generic_string() + "\n").c_str());
 
-		XPLMDebugString(("XPNet: Loading plugins from " + pluginDir.generic_string() + "\n").c_str());
+		fs::path dotnetProbePaths[] {
+#           if defined(__APPLE__)
+			  pluginDir / "dotnet-macos",
+			  pluginDir.parent_path() / "dotnet-macos",
+#           endif
+
+#           if defined(_MSC_VER)
+			  pluginDir / "dotnet-windows",
+			  pluginDir.parent_path() / "dotnet-windows",
+#           endif
+
+			// Fall back to the older name if no platform-specific folder found.
+			pluginDir / "dotnet",
+			pluginDir.parent_path() / "dotnet"
+		};
+
+		fs::path sharedAppPath, effectivePluginDir;
+		for (auto& dotnetPath : dotnetProbePaths)
+		{
+			fs::path probeSharedAppPath = dotnetPath / "shared" / "Microsoft.NETCore.App";
+			XPLMDebugString(("XPNet: Probing for a CLR at " + probeSharedAppPath.generic_string()).c_str());
+			if (fs::exists(probeSharedAppPath))
+			{
+				sharedAppPath = probeSharedAppPath;
+				effectivePluginDir = dotnetPath.parent_path();
+
+				XPLMDebugString("...FOUND\n");
+				XPLMDebugString(("XPNet: Will load plugins from " + effectivePluginDir.generic_string() + "\n").c_str());
+
+				break;
+			}
+			else
+			{
+				XPLMDebugString("...NO\n");
+			}
+		}
+
+		if (sharedAppPath.empty())
+		{
+			XPLMDebugString("XPNet: Probing found no CLR paths.\n");
+			return 0;
+		}
 
 		// In the Microsoft.NETCore.App folder, we expect to find exactly one directory,
 		// whose name is the specific version number of Core.  If there is more than one
 		// directory, we just use the first one we find there - we expect an installation
 		// to put exactly one version there.
-
-		fs::path sharedAppPath = pluginDir / "dotnet" / "shared" / "Microsoft.NETCore.App";
-
-		if (!fs::exists(sharedAppPath))
-		{
-			XPLMDebugString(("XPNet: No CLR found at " + sharedAppPath.generic_string() + "\n").c_str());
-			return 0;
-		}
-
 		fs::path dotnetPath = fs::directory_iterator(sharedAppPath)->path();
 
 		s_clrToken = LoadClr(
 			dotnetPath.generic_wstring() + L"/",
-			pluginDir.generic_wstring(),
-			pluginDir.generic_wstring(),
+			effectivePluginDir.generic_wstring(),
+			effectivePluginDir.generic_wstring(),
 			L"XPNet"
 		);
 		if (!s_clrToken)

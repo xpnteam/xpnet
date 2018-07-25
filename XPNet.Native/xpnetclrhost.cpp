@@ -52,7 +52,7 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 	string coreClrFilePath = coreClrFolderPath + "coreclr.dll";
 #endif
 
-	XPLMDebugString(("Will load CLR from: " + coreClrFilePath + "\n").c_str());
+	XPLMDebugString(("XPNet: Will load CLR from: " + coreClrFilePath + "\n").c_str());
 
 	if (appPaths.length() > 0)
 		appPaths += PATH_ENTRY_SEP;
@@ -75,7 +75,7 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 	HMODULE hCoreCLRModule = SysLoadLibrary(coreClrFilePath);
 	if (!hCoreCLRModule)
 	{
-		string msg = "Could not load CoreCLR from path (" + coreClrFilePath + ").\n";
+		string msg = "XPNet: Could not load CoreCLR from path (" + coreClrFilePath + ").\n";
 		XPLMDebugString(msg.c_str());
 		return nullptr;
 	}
@@ -86,19 +86,19 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 
 	if (!coreclr_initialize)
 	{
-		XPLMDebugString("Failed to find coreclr export: coreclr_initialize.\n");
+		XPLMDebugString("XPNet: Failed to find coreclr export: coreclr_initialize.\n");
 		return nullptr;
 	}
 
 	if (!coreclr_create_delegate)
 	{
-		XPLMDebugString("Failed to find coreclr export: coreclr_create_delegate.\n");
+		XPLMDebugString("XPNet: Failed to find coreclr export: coreclr_create_delegate.\n");
 		return nullptr;
 	}
 
 	if (!coreclr_shutdown_2)
 	{
-		XPLMDebugString("Failed to find coreclr export: coreclr_shutdown_2.\n");
+		XPLMDebugString("XPNet: Failed to find coreclr export: coreclr_shutdown_2.\n");
 		return nullptr;
 	}
 
@@ -136,7 +136,7 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 	{
 		//wprintf_s(L"Full trusted assemblies: %S\n", pCoreClrStartupParams->FullTrustedAssembliePaths.c_str());
 		//wprintf_s(L"AppPaths: %S\n", pCoreClrStartupParams->AppPaths.c_str());
-		string msg = "coreclr_initialize failed - status:  (" + to_string(st) + ").\n";
+		string msg = "XPNet: coreclr_initialize failed - status:  (" + to_string(st) + ").\n";
 		XPLMDebugString(msg.c_str());
 		return nullptr;
 	}
@@ -152,7 +152,7 @@ void UnloadClr(ClrToken clrToken)
 	int st = clr->coreclr_shutdown_2(clr->pCLRRuntimeHost, clr->domainId, &latchedExitCode);
 	if (FAILED(st))
 	{
-		string msg = "coreclr_shutdown_2 failed - status:  (" + to_string(st) + ").\n";
+		string msg = "XPNet: coreclr_shutdown_2 failed - status:  (" + to_string(st) + ").\n";
 		XPLMDebugString(msg.c_str());
 	}
 
@@ -170,7 +170,7 @@ void* GetClrMethod(ClrToken clrToken, std::wstring assemblyName, std::wstring ty
 
 	if (FAILED(st))
 	{
-		string msg = "coreclr_create_delegate - failed to create a delegate to managed method (" + narrow(methodName) + "): (" + to_string(st) + ").\n";
+		string msg = "XPNet: coreclr_create_delegate - failed to create a delegate to managed method (" + narrow(methodName) + "): (" + to_string(st) + ").\n";
 		XPLMDebugString(msg.c_str());
 		return 0;
 	}
