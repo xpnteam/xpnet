@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="XPNet.CLR" Version="0.1.3" />
-    <PackageReference Include="XPNet.Native.macOS" Version="0.1.3" />
-    <PackageReference Include="XPNet.Native.Windows" Version="0.1.3" />
+    <PackageReference Include="XPNet.CLR" Version="0.1.4" />
+    <PackageReference Include="XPNet.Native.macOS" Version="0.1.4" />
+    <PackageReference Include="XPNet.Native.Windows" Version="0.1.4" />
   </ItemGroup>
 
   <ItemGroup>
