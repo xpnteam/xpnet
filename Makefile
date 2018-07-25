@@ -60,13 +60,19 @@ RM             :=rm -f
 all: plugin package
 
 clean:
-	$(RM) -r XPNet.CLR/obj XPNet.CLR/bin XPNet.LoggerPlugin/obj XPNet.LoggerPlugin/bin
+	$(RM) -r XPNet.CLR/obj XPNet.CLR/bin
+	$(RM) -r XPNet.LoggerPlugin/obj XPNet.LoggerPlugin/bin
+	$(RM) -r XPNet.CLR.Template/obj XPNet.CLR.Template/bin
 	$(RM) -r $(OutDir)
 	$(RM) -r $(PakDir)
 	cd XPNet.Native && $(MAKE) clean
 
 xpnetclr:
 	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) && dotnet pack -c $(Configuration)
+
+
+template:
+	cd XPNet.CLR.Template && nuget pack XPNet.CLR.Template.nuspec -OutputDirectory ../package
 
 
 loggerplugin:
@@ -94,7 +100,7 @@ plugin: prepare_plugin builds
 	cp XPNet.LoggerPlugin/bin/$(Configuration)/$(Platform)/publish/*.dll $(OutDir)
 
 
-package: prepare_package builds
+package: prepare_package builds template
 	cp XPNet.Native/bin/$(Configuration)/*.nupkg $(PakDir)
 	cp XPNet.CLR/bin/$(Configuration)/*.nupkg $(PakDir)
 

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="XPNet.CLR" Version="0.1.3" />
+    <PackageReference Include="XPNet.Native.macOS" Version="0.1.3" />
+    <PackageReference Include="XPNet.Native.Windows" Version="0.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="xpnetcfg.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

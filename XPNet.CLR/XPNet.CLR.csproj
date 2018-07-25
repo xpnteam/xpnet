@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/jaurenq/XPNet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jaurenq/XPNet</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <PackageReleaseNotes>Preprelease package for testing.</PackageReleaseNotes>
     <Copyright>Copyright 2018 (c) Stephen Quattlebaum</Copyright>
     <PackageTags>x-plane dotnet xplane plugin</PackageTags>
