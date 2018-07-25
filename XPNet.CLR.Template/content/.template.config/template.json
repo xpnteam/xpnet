@@ -4,6 +4,8 @@
     "classifications": [ "Plugin" ],
     "identity": "XPNet.CLR.Template",
     "name": "XPNet X-Plane Plugin",
-    "shortName": "xpnetplugin"
+    "shortName": "xpnetplugin",
+    "sourceName": "XPNet.CLR.Template",
+    "preferNameDirectory": "true"
 }
 
