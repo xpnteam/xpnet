@@ -15,7 +15,7 @@ namespace XPNet.CLR.Template
 
         public Plugin(IXPlaneApi api)
         {
-            m_api = api ?? throw new ArgumentNullException("api");
+            m_api = api ?? throw new ArgumentNullException(nameof(api));
         }
 
         public void Dispose()
