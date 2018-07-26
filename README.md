@@ -2,6 +2,8 @@
 
 Develop [X-Plane](http://www.x-plane.com/) plugins in .NET.
 
+Follow [XPNetSim](http://twitter.com/xpnetsim) on Twitter for release notifications and news.
+
 ## What Is This?
 
 XPNet is an API binding for writing plugins in C# or other .NET languages for the X-Plane
