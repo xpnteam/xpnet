@@ -120,7 +120,7 @@ XPNet currently runs on Windows and macOS and exposes the following subsystems o
 
 XPNet is a new project and there are a ton of ways it could be improved.  At present, someone
 with a fair amount of experience with .NET, DLLs and dependencies, and software deployment, or who is willing to
-jump in and learn those things, can use XPNet develop a plugin that reads and writes DataRefs and does
+jump in and learn those things, can use XPNet to develop a plugin that reads and writes DataRefs and does
 scheduled background processing (such as communicating on a network or serial port).  XPNet is
 being used in the development of just such a plugin.
 
