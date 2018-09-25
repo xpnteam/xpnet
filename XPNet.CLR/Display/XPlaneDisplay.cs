@@ -42,7 +42,6 @@ namespace XPNet
 		private readonly DrawCallbackDelegate m_loopDelegate;
 		private readonly XPLMDrawCallback_f m_hookDelegate;
 
-		private bool m_inLoopDelegate;
 		private XPLMDrawingPhase m_inPhase;
 		private int m_inWantsBefore;
 		private unsafe void* m_inRefcon;
@@ -62,7 +61,6 @@ namespace XPNet
 		{
 			try
 			{
-				m_inLoopDelegate = true;
 				var ret = m_loopDelegate(inPhase, inIsBefore);
 				return ret;
 			}
@@ -70,10 +68,6 @@ namespace XPNet
 			{
 				PluginBridge.Log.Log($"XPNet CLR Drawing hook: {exc}");
 				return 0;
-			}
-			finally
-			{
-				m_inLoopDelegate = false;
 			}
 		}
 
