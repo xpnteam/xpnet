@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <NuspecFile>XPNet.Native.win.nuspec</NuspecFile>
+    
+    <!--
+    VS fails to build the .vcxproj file after having built this
+    file once due to special/heuristicy rules it applies when it
+    sees certain files in the /obj path, if this project and the
+    .vcxproj share the same obj path.  Resolve that by giving
+    this project its own obj path.
+    -->
+    <BaseIntermediateOutputPath>obj_core\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,5 @@
+{
+    "PluginAssemblyName": "XPNet.CLR.Template.dll",
+    "PluginType": "XPNet.CLR.Template.Plugin",
+    "LoggingEnabled": true
+}

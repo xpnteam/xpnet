@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Stephen Quattlebaum",
+    "classifications": [ "Plugin" ],
+    "identity": "XPNet.CLR.Template",
+    "name": "XPNet X-Plane Plugin",
+    "shortName": "xpnetplugin",
+    "sourceName": "XPNet.CLR.Template",
+    "preferNameDirectory": "true"
+}
+
