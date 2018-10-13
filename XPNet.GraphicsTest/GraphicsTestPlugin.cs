@@ -26,7 +26,7 @@ namespace XPNet
 
 		public GraphicsTestPlugin(IXPlaneApi api)
 		{
-			m_api = api ?? throw new ArgumentNullException("api");
+			m_api = api ?? throw new ArgumentNullException(nameof(api));
 
 			m_api.Log.Log("Displaytest started");
 			drawingLoopHook = m_api.Display.RegisterDrawCallback(DoSomething, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);

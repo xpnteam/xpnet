@@ -474,7 +474,6 @@ XPLM_API int                  XPLMRegisterDrawCallback(
 	int                  inWantsBefore,
 	void *               inRefcon)
 {
-	// Not implemented b/c we don't use it in XPNet.
 	return 1;
 }
 
@@ -484,7 +483,6 @@ XPLM_API int                  XPLMUnregisterDrawCallback(
 	int                  inWantsBefore,
 	void *               inRefcon)
 {
-	// Not implemented b/c we don't use it in XPNet.
 	return 1;
 }
 
