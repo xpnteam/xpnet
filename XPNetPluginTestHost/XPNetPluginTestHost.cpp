@@ -32,7 +32,7 @@ inline bool file_exists(const std::string& name)
 	return (stat(name.c_str(), &buffer) == 0);
 }
 
-void WriteXPNetConfig(XPNetConfigFlags flags)
+void WriteXPNetLoggerPluginConfig(XPNetConfigFlags flags)
 {
 	fstream cfg;
 	cfg.exceptions(fstream::failbit | fstream::badbit);
@@ -79,6 +79,23 @@ void WriteXPNetConfig(XPNetConfigFlags flags)
 	cfg.close();
 }
 
+void WriteXPNetGraphicsTestPluginConfig(XPNetConfigFlags flags) {
+	fstream cfg;
+	cfg.exceptions(fstream::failbit | fstream::badbit);
+	cfg.open("xpnetcfg.json", fstream::out | fstream::out);
+
+	cfg << "{" << endl;
+
+	cfg << "  \"PluginAssemblyName\": \"XPNet.GraphicsTestPlugin.dll\"," << endl;
+	cfg << "  \"PluginType\": \"XPNet.GraphicsTestPlugin\"," << endl;
+
+	cfg << "  \"LoggingEnabled\": " << ((flags & XPNC_EnableLogging) ? "true" : "false") << "," << endl;
+
+	cfg << "}" << endl;
+
+	cfg.close();
+}
+
 void Spacer()
 {
 	cout << endl << "-------------------------------------" << endl << endl;
@@ -86,8 +103,17 @@ void Spacer()
 
 bool TestStartup(XPNetConfigFlags configFlags)
 {
-	WriteXPNetConfig(configFlags);
+	WriteXPNetLoggerPluginConfig(configFlags);
+	return StartupPlugin();
+}
 
+bool TestGraphics(XPNetConfigFlags configFlags) {
+	WriteXPNetGraphicsTestPluginConfig(configFlags);
+	return StartupPlugin();
+}
+
+bool StartupPlugin()
+{
 	char outName[256] = "", outSig[256] = "", outDesc[256] = "";
 
 	int res;
@@ -259,6 +285,7 @@ int main()
 
 	Spacer();
 	XPNetPluginSetExternalLoggingHandle(nullptr);
+	
 	if (!TestStartup(XPNC_EnableLogging))
 		return 1;
 
@@ -267,6 +294,19 @@ int main()
 
 	Spacer();
 	cout << "Test Host: The last test tested both restarting the plugin engine in the same process, and writing to xpnet.log.  See xpnet.log for results." << endl;
+	
+	Spacer();
+	XPNetPluginSetExternalLoggingHandle(GetStdHandle(STD_OUTPUT_HANDLE));
+	//XPNetPluginSetExternalLoggingHandle(nullptr);
+
+	if (!TestGraphics(XPNC_EnableLogging))
+		return 1;
+
+	XPHarnessInvokeDrawCallback();
+
+	if (!TestShutdown())
+		return 1;
+
 	_getch();
     return 0;
 }

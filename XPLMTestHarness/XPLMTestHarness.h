@@ -52,3 +52,4 @@ XPLM_API void XPHarnessSetCommandCallback(const char* commandName, CommandCallba
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter);
 
+XPLM_API void XPHarnessInvokeDrawCallback();

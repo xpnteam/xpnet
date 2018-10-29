@@ -6,6 +6,7 @@
 #include "XPLMScenery.h"
 #include "XPLMGraphics.h"
 #include <map>
+#include <tuple>
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -14,6 +15,8 @@
 #include <Shlwapi.h>
 
 using std::map;
+using std::tuple;
+using std::make_tuple;
 using std::string;
 using std::vector;
 using std::remove;
@@ -86,6 +89,17 @@ struct flightloop
 	float interval;
 };
 
+struct drawcallback {
+	drawcallback(const XPLMDrawCallback_f dc, const XPLMDrawingPhase phase, int wb)
+		: drawCallback(dc), drawingPhase(phase), wantsBefore(wb) 
+	{
+	}
+
+	XPLMDrawCallback_f drawCallback;
+	XPLMDrawingPhase drawingPhase;
+	int wantsBefore;
+};
+
 template <typename T>
 using datarefmap = map<string, dataref<T>>;
 
@@ -100,6 +114,7 @@ using commandmap = map<string, command>;
 static commandmap configuredCommands;
 
 static map<XPLMFlightLoop_f, flightloop> registeredFlightLoops;
+static map<tuple<XPLMDrawCallback_f, XPLMDrawingPhase, int>, drawcallback> registeredDrawCallbacks;
 
 template <typename T>
 void SetDataRef(const string name, const T& value, datarefmap<T>& container)
@@ -474,6 +489,7 @@ XPLM_API int                  XPLMRegisterDrawCallback(
 	int                  inWantsBefore,
 	void *               inRefcon)
 {
+	registeredDrawCallbacks.emplace(make_tuple(inCallback, inPhase, inWantsBefore), drawcallback(inCallback, inPhase, inWantsBefore));
 	return 1;
 }
 
@@ -483,6 +499,7 @@ XPLM_API int                  XPLMUnregisterDrawCallback(
 	int                  inWantsBefore,
 	void *               inRefcon)
 {
+	registeredDrawCallbacks.erase(make_tuple(inCallback, inPhase, inWantsBefore));
 	return 1;
 }
 
@@ -505,13 +522,18 @@ XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
 	float                inZ,
 	XPLMProbeInfo_t *    outInfo)
 {
+	std::cout << "Invoked XPLMProbeTerrainXYZ with X " << inX
+		<< ", Y " << inY << ", Z " << inZ << std::endl;
+	outInfo->locationX = inX;
+	outInfo->locationY = 42;
+	outInfo->locationZ = inZ;
 	return 0;
 }
 
 XPLM_API XPLMObjectRef        XPLMLoadObject(
 	const char *         inPath) 
 {
-	return 0;
+	return reinterpret_cast<XPLMObjectRef>(static_cast<uintptr_t>(42));
 }
 
 XPLM_API void                 XPLMLoadObjectAsync(
@@ -529,11 +551,13 @@ XPLM_API void                 XPLMDrawObjects(
 	int                  lighting,
 	int                  earth_relative)
 {
+	std::cout << "Drawing object " << inObject << std::endl;
 }
 
 XPLM_API void                 XPLMUnloadObject(
 	XPLMObjectRef        inObject)
 {
+	std::cout << "Unloading object " << inObject << std::endl;
 }
 
 XPLM_API int                  XPLMLookupObjects(
@@ -543,6 +567,9 @@ XPLM_API int                  XPLMLookupObjects(
 	XPLMLibraryEnumerator_f enumerator,
 	void *               ref)
 {
+	std::string fullPath ("/realpath/");
+	fullPath.append(inPath);
+	enumerator(fullPath.c_str(), ref);
 	return 1;
 }
 
@@ -554,7 +581,11 @@ XPLM_API void                 XPLMWorldToLocal(
 	double *             outY,
 	double *             outZ)
 {
-
+	std::cout << "Invoked XPLMWorldToLocal with lat " << inLatitude
+		<< ", lon " << inLongitude << ", alt " << inAltitude << std::endl;
+	*outX = inLongitude;
+	*outY = inAltitude;
+	*outZ = inLatitude;
 }
 
 XPLM_API void                 XPLMLocalToWorld(
@@ -565,11 +596,20 @@ XPLM_API void                 XPLMLocalToWorld(
 	double *             outLongitude,
 	double *             outAltitude)
 {
-
+	std::cout << "Invoked XPLMLocalToWorld with X " << inX
+		<< ", Y " << inY << ", Z " << inZ << std::endl;
+	*outLongitude = inX;
+	*outAltitude = inY;
+	*outLatitude = inZ;
 }
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
 {
 	for (auto p = registeredFlightLoops.begin(); p != registeredFlightLoops.end(); ++p)
 		p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
+}
+
+XPLM_API void XPHarnessInvokeDrawCallback() {
+	for (auto p = registeredDrawCallbacks.begin(); p != registeredDrawCallbacks.end(); ++p)
+		p->second.drawCallback(p->second.drawingPhase, p->second.wantsBefore, nullptr);
 }

@@ -38,3 +38,7 @@ Fn* fnptr(Callable&& c)
 {
 	return fnptr_<N>(std::forward<Callable>(c), (Fn*)nullptr);
 }
+
+int main();
+
+bool StartupPlugin();

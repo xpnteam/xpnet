@@ -15,10 +15,14 @@ namespace XPNet
 		IXPProbe CreateProbe();
 
 		IXPSceneryObject LoadObject(string path);
+
+		IEnumerable<string> LookupObjects(string path, float latitude, float longitude);
 	}
 
 	internal class XPlaneScenery : IXPlaneScenery
 	{
+		private List<string> lookupObjectPaths;
+
 		public IXPProbe CreateProbe()
 		{
 			return new XPProbe(XPLMProbeType.xplm_ProbeY);
@@ -27,6 +31,22 @@ namespace XPNet
 		public IXPSceneryObject LoadObject(string path)
 		{
 			return new XPSceneryObject(path);
+		}
+
+		public unsafe IEnumerable<string> LookupObjects(string path, float latitude, float longitude)
+		{
+			var en = new XPLMLibraryEnumerator_f(Enumerator);
+			lookupObjectPaths = new List<string>();
+			PluginBridge.Log.Log($"Now calling API function with path {path}");
+			int numObjects = PluginBridge.ApiFunctions.XPLMLookupObjects(path, latitude, longitude, en, null);
+			PluginBridge.Log.Log($"API function called, {numObjects} objects were found");
+			return lookupObjectPaths;
+		}
+
+		private unsafe void Enumerator(string inFilePath, void* inRef)
+		{
+			PluginBridge.Log.Log($"Enumerator called with path {inFilePath}");
+			lookupObjectPaths.Add(inFilePath);
 		}
 	}
 

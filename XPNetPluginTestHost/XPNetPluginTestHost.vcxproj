@@ -99,7 +99,7 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.CLR.dll" "$(OutputPath)"
 copy "$(SolutionDir)XPNet.LoggerPlugin\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.LoggerPlugin.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.GraphicsTest\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.GraphicsTest.dll" "$(OutputPath)"
+copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp2.0\XPNet.GraphicsTestPlugin.dll" "$(OutputPath)"
 
 rem copy "$(USERPROFILE)\.nuget\packages\microsoft.extensions.configuration\1.1.1\lib\netstandard1.1\*.dll" "$(OutputPath)"
 rem copy "$(USERPROFILE)\.nuget\packages\microsoft.extensions.configuration.abstractions\1.1.1\lib\netstandard1.0\*.dll" "$(OutputPath)"
