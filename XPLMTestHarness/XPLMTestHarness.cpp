@@ -510,12 +510,14 @@ XPLM_API int                  XPLMUnregisterDrawCallback(
 XPLM_API XPLMProbeRef         XPLMCreateProbe(
 	XPLMProbeType        inProbeType) 
 {
-	return 0;
+	std::cout << "XPLMTestHarness: Created probe of type " << inProbeType << std::endl;
+	return reinterpret_cast<XPLMProbeRef>(static_cast<uintptr_t>(43));
 }
 
 XPLM_API void                 XPLMDestroyProbe(
 	XPLMProbeRef         inProbe) 
 {
+	std::cout << "XPLMTestHarness: Destroyed probe with reference " << inProbe << std::endl;
 }
 
 
@@ -526,7 +528,7 @@ XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
 	float                inZ,
 	XPLMProbeInfo_t *    outInfo)
 {
-	std::cout << "Invoked XPLMProbeTerrainXYZ with X " << inX
+	std::cout << "XPLMTestHarness: Invoked XPLMProbeTerrainXYZ with X " << inX
 		<< ", Y " << inY << ", Z " << inZ << std::endl;
 	outInfo->locationX = inX;
 	outInfo->locationY = 42;
@@ -556,13 +558,13 @@ XPLM_API void                 XPLMDrawObjects(
 	int                  lighting,
 	int                  earth_relative)
 {
-	std::cout << "Drawing object " << inObject << std::endl;
+	std::cout << "XPLMTestHarness: Drawing object " << inObject << std::endl;
 }
 
 XPLM_API void                 XPLMUnloadObject(
 	XPLMObjectRef        inObject)
 {
-	std::cout << "Unloading object " << inObject << std::endl;
+	std::cout << "XPLMTestHarness: Unloading object " << inObject << std::endl;
 }
 
 XPLM_API int                  XPLMLookupObjects(
@@ -586,7 +588,7 @@ XPLM_API void                 XPLMWorldToLocal(
 	double *             outY,
 	double *             outZ)
 {
-	std::cout << "Invoked XPLMWorldToLocal with lat " << inLatitude
+	std::cout << "XPLMTestHarness: Invoked XPLMWorldToLocal with lat " << inLatitude
 		<< ", lon " << inLongitude << ", alt " << inAltitude << std::endl;
 	*outX = inLongitude;
 	*outY = inAltitude;
@@ -601,7 +603,7 @@ XPLM_API void                 XPLMLocalToWorld(
 	double *             outLongitude,
 	double *             outAltitude)
 {
-	std::cout << "Invoked XPLMLocalToWorld with X " << inX
+	std::cout << "XPLMTestHarness: Invoked XPLMLocalToWorld with X " << inX
 		<< ", Y " << inY << ", Z " << inZ << std::endl;
 	*outLongitude = inX;
 	*outAltitude = inY;
