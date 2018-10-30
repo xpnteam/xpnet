@@ -87,6 +87,7 @@ struct flightloop
 
 	XPLMFlightLoop_f flightLoop;
 	float interval;
+	bool deleted = false;
 };
 
 struct drawcallback {
@@ -98,6 +99,7 @@ struct drawcallback {
 	XPLMDrawCallback_f drawCallback;
 	XPLMDrawingPhase drawingPhase;
 	int wantsBefore;
+	bool deleted = false;
 };
 
 template <typename T>
@@ -450,7 +452,8 @@ XPLM_API void                 XPLMUnregisterFlightLoopCallback(
 	XPLMFlightLoop_f     inFlightLoop,
 	void *               inRefcon)
 {
-	registeredFlightLoops.erase(inFlightLoop);
+	auto cb = registeredFlightLoops.find(inFlightLoop);
+	cb->second.deleted = true;
 }
 
 XPLM_API void                 XPLMSetFlightLoopCallbackInterval(
@@ -499,7 +502,8 @@ XPLM_API int                  XPLMUnregisterDrawCallback(
 	int                  inWantsBefore,
 	void *               inRefcon)
 {
-	registeredDrawCallbacks.erase(make_tuple(inCallback, inPhase, inWantsBefore));
+	auto cb = registeredDrawCallbacks.find(make_tuple(inCallback, inPhase, inWantsBefore));
+	cb->second.deleted = true;
 	return 1;
 }
 
@@ -527,7 +531,7 @@ XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
 	outInfo->locationX = inX;
 	outInfo->locationY = 42;
 	outInfo->locationZ = inZ;
-	return 0;
+	return xplm_ProbeHitTerrain;
 }
 
 XPLM_API XPLMObjectRef        XPLMLoadObject(
@@ -541,6 +545,7 @@ XPLM_API void                 XPLMLoadObjectAsync(
 	XPLMObjectLoaded_f   inCallback,
 	void *               inRefcon) 
 {
+	inCallback(reinterpret_cast<XPLMObjectRef>(static_cast<uintptr_t>(42)), nullptr);
 }
 
 
@@ -605,11 +610,29 @@ XPLM_API void                 XPLMLocalToWorld(
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
 {
+	// Before invoking clean up all the unregistered flight loops
+	auto it = registeredFlightLoops.begin();
+	while (it != registeredFlightLoops.end()) {
+		if (it->second.deleted)
+			it = registeredFlightLoops.erase(it);
+		else
+			it++;
+	}
+
 	for (auto p = registeredFlightLoops.begin(); p != registeredFlightLoops.end(); ++p)
-		p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
+			p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
 }
 
 XPLM_API void XPHarnessInvokeDrawCallback() {
+	// Before invoking clean up all the unregistered flight loops
+	auto it = registeredFlightLoops.begin();
+	while (it != registeredFlightLoops.end()) {
+		if (it->second.deleted)
+			it = registeredFlightLoops.erase(it);
+		else
+			it++;
+	}
+
 	for (auto p = registeredDrawCallbacks.begin(); p != registeredDrawCallbacks.end(); ++p)
 		p->second.drawCallback(p->second.drawingPhase, p->second.wantsBefore, nullptr);
 }

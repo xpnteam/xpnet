@@ -302,6 +302,8 @@ int main()
 	if (!TestGraphics(XPNC_EnableLogging))
 		return 1;
 
+	XPHarnessInvokeFlightLoop(1.0f, 2.0f, 1);
+
 	XPHarnessInvokeDrawCallback();
 
 	if (!TestShutdown())

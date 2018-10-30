@@ -652,7 +652,7 @@ namespace XPNet
 	
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate void XPLMLoadObjectAsync(
-		char* inPath,
+		[MarshalAs(UnmanagedType.LPStr)] string inPath,
 		XPLMObjectLoaded_f inCallback,
 		void* inRefcon
 	);

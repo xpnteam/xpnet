@@ -1,8 +1,5 @@
-﻿using XPNet;
-using System;
-using System.Numerics;
+﻿using System;
 //using OpenTK
-using XPNet.CLR;
 using System.Linq;
 
 namespace XPNet
@@ -23,8 +20,8 @@ namespace XPNet
 		private readonly IXPlaneApi m_api;
 		private readonly IXPProbe m_probe;
 		private readonly IXPDrawingLoopHook drawingLoopHook;
+		private readonly IXPFlightLoopHook flightLoopHook;
 		private IXPSceneryObject testTug;
-		private double incYaw;
 
 
 		public GraphicsTestPlugin(IXPlaneApi api)
@@ -33,30 +30,37 @@ namespace XPNet
 
 			m_api.Log.Log("Displaytest started");
 			drawingLoopHook = m_api.Display.RegisterDrawCallback(DoSomething, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);
+			flightLoopHook = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), SimLoaded);
 			m_api.Log.Log("And now create a probe");
 			m_probe = m_api.Scenery.CreateProbe();
 			m_api.Log.Log("Probe created");
-
-			incYaw = 0;
-
+			m_api.Messages.MessageReceived += Messages_MessageReceived;
 		}
 
+		private FlightLoopTime SimLoaded(TimeSpan elapsedTimeSinceLastCall, TimeSpan elapsedTimeSinceLastFlightLoop, int counter)
+		{
+			m_api.Log.Log($"Loading objects with path {TUGPATH}");
+			var tugs = m_api.Scenery.LookupObjects(TUGPATH, 0, 0);
+			foreach (var p in tugs)
+			{
+				m_api.Log.Log($"Filename: {p}");
+			}
+			testTug = m_api.Scenery.LoadObject(tugs.First());
+			m_api.Log.Log($"Loaded and still living, reference is {testTug}");
 
+			flightLoopHook.Dispose();
+			return FlightLoopTime.Unscheduled;
+		}
+
+		private void Messages_MessageReceived(object sender, XPMessageEventArgs e)
+		{
+			m_api.Log.Log($"Received message {e.MessageId} from plugin {e.SentFromPluginId}");
+		}
 
 		private int DoSomething(XPLMDrawingPhase inPhase, int inIsBefore)
 		{
 			m_api.Log.Log("Entering drawing callback");
-			if (testTug == null)
-			{
-				m_api.Log.Log($"Loading objects with path {TUGPATH}");
-				var tugs = m_api.Scenery.LookupObjects(TUGPATH, 0, 0);
-				foreach (var p in tugs)
-				{
-					m_api.Log.Log($"Filename: {p}");
-				}
-				testTug = m_api.Scenery.LoadObject(tugs.First());
-				m_api.Log.Log($"Loaded and still living, reference is {testTug}");
-			}
+
 			var (x, y, z) = m_api.Graphics.WorldToLocal(47.439444, 19.261944, 0);
 			var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
 
