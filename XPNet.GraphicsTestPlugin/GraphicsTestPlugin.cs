@@ -29,7 +29,7 @@ namespace XPNet
 			m_api = api ?? throw new ArgumentNullException(nameof(api));
 
 			m_api.Log.Log("Displaytest started");
-			drawingLoopHook = m_api.Display.RegisterDrawCallback(DoSomething, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);
+			drawingLoopHook = m_api.Display.RegisterDrawHook(DoSomething, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);
 			flightLoopHook = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), SimLoaded);
 			m_api.Log.Log("And now create a probe");
 			m_probe = m_api.Scenery.CreateProbe();

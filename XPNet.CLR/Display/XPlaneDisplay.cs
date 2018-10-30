@@ -7,7 +7,7 @@ namespace XPNet
 	/// <summary>
 	/// Delegate for C# code that wants to be called as part of the render loop.
 	/// </summary>
-	public delegate int DrawCallbackDelegate(
+	public delegate int DrawDelegate(
 		XPLMDrawingPhase inPhase,
 		int inIsBefore
 	);
@@ -18,14 +18,14 @@ namespace XPNet
 	/// </summary>
 	public interface IXPlaneDisplay
 	{
-		IXPDrawingLoopHook RegisterDrawCallback(DrawCallbackDelegate drawCallbackDelegate, XPLMDrawingPhase inPhase, int inWantsBefore);
+		IXPDrawingLoopHook RegisterDrawHook(DrawDelegate drawDelegate, XPLMDrawingPhase inPhase, int inWantsBefore);
 	}
 
 	internal class XPlaneDisplay : IXPlaneDisplay
 	{
-		public IXPDrawingLoopHook RegisterDrawCallback(DrawCallbackDelegate drawCallbackDelegate, XPLMDrawingPhase inPhase, int inWantsBefore)
+		public IXPDrawingLoopHook RegisterDrawHook(DrawDelegate drawDelegate, XPLMDrawingPhase inPhase, int inWantsBefore)
 		{
-			return new XPDrawingLoopHook(drawCallbackDelegate, inPhase, inWantsBefore);
+			return new XPDrawingLoopHook(drawDelegate, inPhase, inWantsBefore);
 		}
 	}
 
@@ -39,25 +39,25 @@ namespace XPNet
 
 	internal class XPDrawingLoopHook : IXPDrawingLoopHook
 	{
-		private readonly DrawCallbackDelegate m_loopDelegate;
+		private readonly DrawDelegate m_loopDelegate;
 		private readonly XPLMDrawCallback_f m_hookDelegate;
 
 		private XPLMDrawingPhase m_inPhase;
 		private int m_inWantsBefore;
 		private unsafe void* m_inRefcon;
 
-		public unsafe XPDrawingLoopHook(DrawCallbackDelegate drawCallbackDelegate, XPLMDrawingPhase inPhase, int inWantsBefore)
+		public unsafe XPDrawingLoopHook(DrawDelegate drawCallbackDelegate, XPLMDrawingPhase inPhase, int inWantsBefore)
 		{
 			m_loopDelegate = drawCallbackDelegate;
 			m_inPhase = inPhase;
 			m_inWantsBefore = inWantsBefore;
 			m_inRefcon = null;
-			m_hookDelegate = new XPLMDrawCallback_f(XPLMDrawCallback);
+			m_hookDelegate = new XPLMDrawCallback_f(XPLMDrawHook);
 			
 			var x = PluginBridge.ApiFunctions.XPLMRegisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, m_inRefcon);
 		}
 
-		private unsafe int XPLMDrawCallback(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon)
+		private unsafe int XPLMDrawHook(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon)
 		{
 			try
 			{
