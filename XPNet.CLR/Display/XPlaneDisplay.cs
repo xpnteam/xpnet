@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace XPNet
 {
@@ -42,19 +40,24 @@ namespace XPNet
 		private readonly DrawDelegate m_loopDelegate;
 		private readonly XPLMDrawCallback_f m_hookDelegate;
 
-		private XPLMDrawingPhase m_inPhase;
-		private int m_inWantsBefore;
-		private unsafe void* m_inRefcon;
+		private readonly XPLMDrawingPhase m_inPhase;
+		private readonly int m_inWantsBefore;
 
 		public unsafe XPDrawingLoopHook(DrawDelegate drawCallbackDelegate, XPLMDrawingPhase inPhase, int inWantsBefore)
 		{
 			m_loopDelegate = drawCallbackDelegate;
 			m_inPhase = inPhase;
 			m_inWantsBefore = inWantsBefore;
-			m_inRefcon = null;
 			m_hookDelegate = new XPLMDrawCallback_f(XPLMDrawHook);
-			
-			var x = PluginBridge.ApiFunctions.XPLMRegisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, m_inRefcon);
+
+			var res = PluginBridge.ApiFunctions.XPLMRegisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, null);
+			if (res == 0)
+			{
+				throw new ArgumentException($"Phase {m_inPhase} does not exist in this version of X-Plane");
+			} else if (res > 1)
+			{
+				throw new Exception($"Return value {res} is undefined");
+			}
 		}
 
 		private unsafe int XPLMDrawHook(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon)
@@ -73,7 +76,7 @@ namespace XPNet
 
 		public unsafe void Dispose()
 		{
-			PluginBridge.ApiFunctions.XPLMUnregisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, m_inRefcon);
+			PluginBridge.ApiFunctions.XPLMUnregisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, null);
 		}
 	}
 }
