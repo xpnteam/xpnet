@@ -1,5 +1,4 @@
 ﻿using System;
-//using OpenTK
 using System.Linq;
 
 namespace XPNet
