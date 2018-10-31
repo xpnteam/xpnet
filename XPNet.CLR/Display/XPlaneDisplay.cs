@@ -69,8 +69,8 @@ namespace XPNet
 			}
 			catch (Exception exc)
 			{
-				PluginBridge.Log.Log($"XPNet CLR Drawing hook: {exc}");
-				return 0;
+				PluginBridge.Log.Log(exc);
+				return 1; // If an exception happens in the draw hook, then let X-Plane draw
 			}
 		}
 
