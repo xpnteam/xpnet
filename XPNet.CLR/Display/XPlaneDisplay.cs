@@ -60,6 +60,11 @@ namespace XPNet
 			}
 		}
 
+		public unsafe void Dispose()
+		{
+			PluginBridge.ApiFunctions.XPLMUnregisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, null);
+		}
+
 		private unsafe int XPLMDrawHook(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon)
 		{
 			try
@@ -74,9 +79,5 @@ namespace XPNet
 			}
 		}
 
-		public unsafe void Dispose()
-		{
-			PluginBridge.ApiFunctions.XPLMUnregisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, null);
-		}
 	}
 }

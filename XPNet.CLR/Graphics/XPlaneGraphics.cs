@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XPNet
+﻿namespace XPNet
 {
 	public interface IXPlaneGraphics
 	{
@@ -12,20 +8,19 @@ namespace XPNet
 
 	internal class XPlaneGraphics : IXPlaneGraphics
 	{
-
 		public unsafe (double X, double Y, double Z) WorldToLocal(double inLatitude, double inLongitude, double inAltitude)
 		{
-			double m_outX;
-			double m_outY;
-			double m_outZ;
+			double outX;
+			double outY;
+			double outZ;
 
-			PluginBridge.ApiFunctions.XPLMWorldToLocal(inLatitude, inLongitude, inAltitude, &m_outX, &m_outY, &m_outZ);
+			PluginBridge.ApiFunctions.XPLMWorldToLocal(inLatitude, inLongitude, inAltitude, &outX, &outY, &outZ);
 
 			// The following is needed to make a copy from the result variables that can be given back. Otherwise they can be collected
 			// later on by the GC, leading to crashes
-			double newOutX = m_outX;
-			double newOutY = m_outY;
-			double newOutZ = m_outZ;
+			double newOutX = outX;
+			double newOutY = outY;
+			double newOutZ = outZ;
 			return (newOutX, newOutY, newOutZ);
 		}
 
