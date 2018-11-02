@@ -57,23 +57,26 @@ namespace XPNet
 
 	internal unsafe class XPSceneryObject : IXPSceneryObject
 	{
-		private void* m_objectRef;
+		private readonly void* m_objectRef;
 
 		public XPSceneryObject(string path)
 		{
 			m_objectRef = PluginBridge.ApiFunctions.XPLMLoadObject(path);
-			if (m_objectRef == null) throw new System.IO.FileNotFoundException();
-		}
-
-		public unsafe void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
-		{
-			fixed (XPLMDrawInfo_t* drawInfosP = &drawInfos[0])
-				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, drawInfosP, lighting, earthRelative);
+			if (m_objectRef == null)
+			{
+				throw new System.IO.FileNotFoundException();
+			}
 		}
 
 		public void Dispose()
 		{
 			PluginBridge.ApiFunctions.XPLMUnloadObject(m_objectRef);
+		}
+
+		public void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
+		{
+			fixed (XPLMDrawInfo_t* drawInfosP = &drawInfos[0])
+				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, drawInfosP, lighting, earthRelative);
 		}
 	}
 
@@ -111,60 +114,61 @@ namespace XPNet
 
 	internal class XPProbeResult : IXPProbeResult
 	{
-		private XPLMProbeInfo_t _probeInfo;
-		private XPLMProbeResult _result;
+		private readonly XPLMProbeInfo_t m_probeInfo;
+		private readonly XPLMProbeResult m_result;
 
 		internal unsafe XPProbeResult(void* probeRef, float inX, float inY, float inZ)
 		{
-			_probeInfo = new XPLMProbeInfo_t();
-			_probeInfo.structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(XPLMProbeInfo_t));
+			m_probeInfo = new XPLMProbeInfo_t();
+			m_probeInfo.structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(XPLMProbeInfo_t));
 
-			fixed (XPLMProbeInfo_t* probeInfoP = &_probeInfo)
+			fixed (XPLMProbeInfo_t* probeInfoP = &m_probeInfo)
 			{
-				_result = PluginBridge.ApiFunctions.XPLMProbeTerrainXYZ(probeRef, inX, inY, inZ, probeInfoP);
+				m_result = PluginBridge.ApiFunctions.XPLMProbeTerrainXYZ(probeRef, inX, inY, inZ, probeInfoP);
+				//TODO: What to do with the m_result? We should deliver back this info.
 			}
 		}
 
-		public float LocationX => _probeInfo.locationX;
+		public float LocationX => m_probeInfo.locationX;
 
-		public float LocationY => _probeInfo.locationY;
+		public float LocationY => m_probeInfo.locationY;
 
-		public float LocationZ => _probeInfo.locationZ;
+		public float LocationZ => m_probeInfo.locationZ;
 
-		public float NormalX => _probeInfo.normalX;
+		public float NormalX => m_probeInfo.normalX;
 
-		public float NormalY => _probeInfo.normalY;
+		public float NormalY => m_probeInfo.normalY;
 
-		public float NormalZ => _probeInfo.normalZ;
+		public float NormalZ => m_probeInfo.normalZ;
 
-		public float VelocityX => _probeInfo.velocityX;
+		public float VelocityX => m_probeInfo.velocityX;
 
-		public float VelocityY => _probeInfo.velocityY;
+		public float VelocityY => m_probeInfo.velocityY;
 
-		public float VelocityZ => _probeInfo.velocityZ;
+		public float VelocityZ => m_probeInfo.velocityZ;
 
-		public int IsWet => _probeInfo.is_wet;
+		public int IsWet => m_probeInfo.is_wet;
 
-		public XPLMProbeResult Result => _result;
+		public XPLMProbeResult Result => m_result;
 	}
 
 	internal class XPProbe : IXPProbe
 	{
-		private unsafe void* probeRef;
+		private unsafe readonly void* m_probeRef;
 
 		public unsafe XPProbe(XPLMProbeType probeType)
 		{
-			probeRef = PluginBridge.ApiFunctions.XPLMCreateProbe(probeType);
+			m_probeRef = PluginBridge.ApiFunctions.XPLMCreateProbe(probeType);
 		}
 
 		public unsafe void Dispose()
 		{
-			PluginBridge.ApiFunctions.XPLMDestroyProbe(probeRef);
+			PluginBridge.ApiFunctions.XPLMDestroyProbe(m_probeRef);
 		}
 
 		public unsafe IXPProbeResult ProbeTerrainXYZ(float inX, float inY, float inZ)
 		{
-			return new XPProbeResult(probeRef, inX, inY, inZ);
+			return new XPProbeResult(m_probeRef, inX, inY, inZ);
 		}
 	}
 
