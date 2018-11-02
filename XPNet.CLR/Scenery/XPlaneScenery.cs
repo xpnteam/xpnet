@@ -125,7 +125,6 @@ namespace XPNet
 			fixed (XPLMProbeInfo_t* probeInfoP = &m_probeInfo)
 			{
 				m_result = PluginBridge.ApiFunctions.XPLMProbeTerrainXYZ(probeRef, inX, inY, inZ, probeInfoP);
-				//TODO: What to do with the m_result? We should deliver back this info.
 			}
 		}
 
