@@ -9,4 +9,8 @@
     <ProjectReference Include="..\XPNet.CLR\XPNet.CLR.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>
