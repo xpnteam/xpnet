@@ -569,9 +569,11 @@ namespace XPNet
 	}
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
-	internal unsafe struct XPLMProbeInfo_t
+	internal unsafe class XPLMProbeInfo_t
 	{
-		public int structSize;
+		private static readonly int m_structSizeInit;
+
+		public int m_structSize;
 
 		public float locationX;
 
@@ -592,6 +594,16 @@ namespace XPNet
 		public float velocityZ;
 
 		public int is_wet;
+
+		static XPLMProbeInfo_t()
+		{
+			m_structSizeInit = Marshal.SizeOf(typeof(XPLMProbeInfo_t));
+		}
+
+		public XPLMProbeInfo_t()
+		{
+			m_structSize = m_structSizeInit;
+		}
 	};
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -608,22 +620,28 @@ namespace XPNet
 								   float inX,
 								   float inY,
 								   float inZ,
-								   XPLMProbeInfo_t* outInfo);
+								   [In, Out] XPLMProbeInfo_t outInfo);
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
-	public struct XPLMDrawInfo_t
+	public class XPLMDrawInfo_t
 	{
-		readonly int structSize;
-		readonly float x;
-		readonly float y;
-		readonly float z;
-		readonly float pitch;
-		readonly float heading;
-		readonly float roll;
+		private static readonly int m_structSizeInit;
+		private readonly int m_structSize;
+		public float x;
+		public float y;
+		public float z;
+		public float pitch;
+		public float heading;
+		public float roll;
 
-		public XPLMDrawInfo_t(float x, float y, float z, float pitch, float heading, float roll)
+		static XPLMDrawInfo_t()
 		{
-			structSize = Marshal.SizeOf(typeof(XPLMDrawInfo_t));
+			m_structSizeInit = Marshal.SizeOf(typeof(XPLMDrawInfo_t));
+		}
+
+		public XPLMDrawInfo_t(float x = default(float), float y = default(float), float z = default(float), float pitch = default(float), float heading = default(float), float roll = default(float))
+		{
+			m_structSize = m_structSizeInit;
 			this.x = x;
 			this.y = y;
 			this.z = z;
@@ -655,7 +673,7 @@ namespace XPNet
 	internal unsafe delegate void XPLMDrawObjects(
 		void* inObject,
 		int inCount,
-		XPLMDrawInfo_t* inLocations,
+		XPLMDrawInfo_t inLocations,
 		int lighting,
 		int earth_relative
 	);

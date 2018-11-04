@@ -62,6 +62,7 @@ namespace XPNet
 
 			var (x, y, z) = m_api.Graphics.WorldToLocal(47.439444, 19.261944, 0);
 			var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
+			m_api.Log.Log($"Probed terrain, got result {res.LocationY} with code {res.Result}");
 
 			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
 

@@ -75,8 +75,7 @@ namespace XPNet
 
 		public void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
 		{
-			fixed (XPLMDrawInfo_t* drawInfosP = &drawInfos[0])
-				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, drawInfosP, lighting, earthRelative);
+			PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, drawInfos[0], lighting, earthRelative);
 		}
 	}
 
@@ -120,12 +119,7 @@ namespace XPNet
 		internal unsafe XPProbeResult(void* probeRef, float inX, float inY, float inZ)
 		{
 			m_probeInfo = new XPLMProbeInfo_t();
-			m_probeInfo.structSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(XPLMProbeInfo_t));
-
-			fixed (XPLMProbeInfo_t* probeInfoP = &m_probeInfo)
-			{
-				m_result = PluginBridge.ApiFunctions.XPLMProbeTerrainXYZ(probeRef, inX, inY, inZ, probeInfoP);
-			}
+			m_result = PluginBridge.ApiFunctions.XPLMProbeTerrainXYZ(probeRef, inX, inY, inZ, m_probeInfo);
 		}
 
 		public float LocationX => m_probeInfo.locationX;
