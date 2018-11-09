@@ -118,6 +118,9 @@ static commandmap configuredCommands;
 static map<XPLMFlightLoop_f, flightloop> registeredFlightLoops;
 static map<tuple<XPLMDrawCallback_f, XPLMDrawingPhase, int>, drawcallback> registeredDrawCallbacks;
 
+static unsigned int instanceCounter = 0;
+static map<XPLMInstanceRef, const char **> registeredInstances;
+
 template <typename T>
 void SetDataRef(const string name, const T& value, datarefmap<T>& container)
 {
@@ -609,6 +612,33 @@ XPLM_API void                 XPLMLocalToWorld(
 	*outAltitude = inY;
 	*outLatitude = inZ;
 }
+
+XPLM_API XPLMInstanceRef XPLMCreateInstance(XPLMObjectRef obj, const char ** datarefs)
+{
+	instanceCounter++;
+	std::cout << "XPLMTestHarness: Creating instance for object " <<  obj << std::endl;
+	unsigned int i = 0;
+	for (i = 0; datarefs[i] != NULL; i++) {
+		std::cout << "XPLMTestHarness: DataRef " << *datarefs[i]  << std::endl;
+	}
+	XPLMInstanceRef instRef = reinterpret_cast<XPLMInstanceRef>(static_cast<uintptr_t>(instanceCounter));
+	registeredInstances.emplace(instRef, datarefs);
+
+	return instRef;
+}
+
+XPLM_API void XPLMDestroyInstance(XPLMInstanceRef instance)
+{
+	std::cout << "XPLMTestHarness: Destroying instance " << instance << std::endl;
+	registeredInstances.erase(instance);
+}
+
+XPLM_API void XPLMInstanceSetPosition(XPLMInstanceRef instance, const XPLMDrawInfo_t * new_position, const float * data)
+{
+	std::cout << "XPLMTestHarness: Instance set position for instance " << instance << std::endl;
+}
+
+
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
 {

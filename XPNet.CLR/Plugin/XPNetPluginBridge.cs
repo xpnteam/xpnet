@@ -726,6 +726,26 @@ namespace XPNet
 
 	#endregion X-Plane Graphics API
 
+	#region X-Plane Instance API
+	internal unsafe delegate void* XPLMCreateInstance
+	(
+		void* inObj,
+		[MarshalAs(UnmanagedType.LPStr)] string[] inDataRefs
+	);
+
+	internal unsafe delegate void XPLMDestroyInstance
+	(
+		void* inObj
+	);
+
+	internal unsafe delegate void XPLMInstanceSetPosition
+	(
+		void* inObj,
+		XPLMDrawInfo_t inNewPosition,
+		float* data
+	);
+	#endregion X-Plane Instance API
+
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
 	public struct ApiFunctionPointers
 	{
@@ -779,6 +799,10 @@ namespace XPNet
 		internal IntPtr XPLMWorldToLocal;
 		internal IntPtr XPLMLocalToWorld;
 
+		// Instance
+		internal IntPtr XPLMCreateInstance;
+		internal IntPtr XPLMDestroyInstance;
+		internal IntPtr XPLMInstanceSetPosition;
 	}
 
 	public unsafe struct ApiFunctions
@@ -833,10 +857,14 @@ namespace XPNet
 			XPLMUnloadObject = Marshal.GetDelegateForFunctionPointer<XPLMUnloadObject>(p.XPLMUnloadObject);
 			XPLMLookupObjects = Marshal.GetDelegateForFunctionPointer<XPLMLookupObjects>(p.XPLMLookupObjects);
 
-
 			// Graphics
 			XPLMWorldToLocal = Marshal.GetDelegateForFunctionPointer<XPLMWorldToLocal>(p.XPLMWorldToLocal);
 			XPLMLocalToWorld = Marshal.GetDelegateForFunctionPointer<XPLMLocalToWorld>(p.XPLMLocalToWorld);
+
+			// InstanceDrawing
+			XPLMCreateInstance = Marshal.GetDelegateForFunctionPointer<XPLMCreateInstance>(p.XPLMCreateInstance);
+			XPLMDestroyInstance = Marshal.GetDelegateForFunctionPointer<XPLMDestroyInstance>(p.XPLMDestroyInstance);
+			XPLMInstanceSetPosition = Marshal.GetDelegateForFunctionPointer<XPLMInstanceSetPosition>(p.XPLMInstanceSetPosition);
 		}
 
 		// Data
@@ -889,6 +917,10 @@ namespace XPNet
 		internal XPLMWorldToLocal XPLMWorldToLocal;
 		internal XPLMLocalToWorld XPLMLocalToWorld;
 
+		// Instance
+		internal XPLMCreateInstance XPLMCreateInstance;
+		internal XPLMDestroyInstance XPLMDestroyInstance;
+		internal XPLMInstanceSetPosition XPLMInstanceSetPosition;
 	}
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
