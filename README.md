@@ -139,16 +139,18 @@ With the help of contributors, I'd like to see XPNet grow in at least the follow
 Additionally, the following aspects of the X-Plane API need mappings to XPNet.
 
 - [ ] Registering custom DataRefs (to expose to other plugins).
-- [ ] XPLMDisplay
-- [ ] XPLMMenus
-- [ ] XPLMGraphics
-- [ ] XPLMUtilities
 - [ ] XPLMCamera
-- [ ] XPLMPlanes
+- [ ] XPLMDisplay
+- [ ] XPLMGraphics
+- [ ] XPLMInstance
+- [ ] XPLMMap
+- [ ] XPLMMenus
 - [ ] XPLMNavigation
+- [ ] XPLMPlanes
+- [ ] XPLMScenery
+- [ ] XPLMUtilities
 - [ ] Widgets (XPLMWidgets / XPLMWidgetDefs / XPLMWidgetUtils / XPLMStandardWidgets)
 - [ ] XPUIGraphics
-- [ ] XPLMScenery
 - [ ] XPLM Feature Keys
 
 
