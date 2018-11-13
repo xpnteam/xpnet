@@ -28,9 +28,15 @@ namespace XPNet
 			return new XPProbe(XPLMProbeType.xplm_ProbeY);
 		}
 
-		public IXPSceneryObject LoadObject(string path)
+		public unsafe IXPSceneryObject LoadObject(string path)
 		{
-			return new XPSceneryObject(path);
+			var objectRef = PluginBridge.ApiFunctions.XPLMLoadObject(path);
+			if (objectRef == null)
+			{
+				throw new System.IO.FileNotFoundException();
+			}
+
+			return new XPSceneryObject(objectRef);
 		}
 
 		public unsafe IEnumerable<string> LookupObjects(string path, float latitude, float longitude)
@@ -59,13 +65,9 @@ namespace XPNet
 	{
 		private readonly void* m_objectRef;
 
-		public XPSceneryObject(string path)
+		public XPSceneryObject(void* objectRef)
 		{
-			m_objectRef = PluginBridge.ApiFunctions.XPLMLoadObject(path);
-			if (m_objectRef == null)
-			{
-				throw new System.IO.FileNotFoundException();
-			}
+			m_objectRef = objectRef;
 		}
 
 		public void Dispose()
