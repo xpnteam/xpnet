@@ -59,7 +59,6 @@ namespace XPNet
 	public interface IXPSceneryObject : IDisposable
 	{
 		void Draw(int lighting, int earthRelativ, XPLMDrawInfo_t[] drawInfos);
-		IXPInstance CreateInstance(string[] inDataRefs);
 	}
 
 	internal unsafe class XPSceneryObject : IXPSceneryObject
@@ -69,12 +68,6 @@ namespace XPNet
 		public XPSceneryObject(void* objectRef)
 		{
 			m_objectRef = objectRef;
-		}
-
-		public IXPInstance CreateInstance(string[] inDataRefs)
-		{
-			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, inDataRefs);
-			return new XPInstance(instanceRef);
 		}
 
 		public void Dispose()
