@@ -59,6 +59,22 @@ namespace XPNet
 				m_api.Log.Log($"Filename: {p}");
 			}
 			testTug = m_api.Scenery.LoadObject(tugs.First());
+			var testTugInstance = testTug.CreateInstance(new string[]
+			{
+				"Test1",
+				"Test2",
+				null
+			});
+
+			var (x, y, z) = m_api.Graphics.WorldToLocal(47.439444, 19.261944, 0);
+			var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
+			m_api.Log.Log($"Probed terrain, got result {res.LocationY} with code {res.Result}");
+
+			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
+
+			testTugInstance.SetPosition(new XPLMDrawInfo_t((float)res.LocationX, (float)res.LocationY, (float)res.LocationZ, (float)0, (float)0, (float)0),
+				new float[] { 1, 2 });
+
 			m_api.Log.Log($"Loaded and still living, reference is {testTug}");
 
 			flightLoopHook.Dispose();

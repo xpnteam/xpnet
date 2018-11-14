@@ -725,7 +725,6 @@ namespace XPNet
 	);
 
 	#endregion X-Plane Graphics API
-
 	#region X-Plane Instance API
 	internal unsafe delegate void* XPLMCreateInstance
 	(
@@ -735,12 +734,12 @@ namespace XPNet
 
 	internal unsafe delegate void XPLMDestroyInstance
 	(
-		void* inObj
+		void* instance
 	);
 
 	internal unsafe delegate void XPLMInstanceSetPosition
 	(
-		void* inObj,
+		void* instance,
 		XPLMDrawInfo_t inNewPosition,
 		float* data
 	);

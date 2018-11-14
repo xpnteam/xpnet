@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace XPNet
 {
@@ -59,6 +58,7 @@ namespace XPNet
 	public interface IXPSceneryObject : IDisposable
 	{
 		void Draw(int lighting, int earthRelativ, XPLMDrawInfo_t[] drawInfos);
+		IXPInstance CreateInstance(string[] inDataRefs);
 	}
 
 	internal unsafe class XPSceneryObject : IXPSceneryObject
@@ -73,6 +73,11 @@ namespace XPNet
 		public void Dispose()
 		{
 			PluginBridge.ApiFunctions.XPLMUnloadObject(m_objectRef);
+		}
+		public IXPInstance CreateInstance(string[] inDataRefs)
+		{
+			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, inDataRefs);
+			return new XPInstance(instanceRef);
 		}
 
 		public void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
