@@ -90,11 +90,11 @@ struct flightloop
 	bool deleted = false;
 };
 
-struct drawcallback {
+struct drawcallback
+{
 	drawcallback(const XPLMDrawCallback_f dc, const XPLMDrawingPhase phase, int wb)
 		: drawCallback(dc), drawingPhase(phase), wantsBefore(wb) 
-	{
-	}
+	{ }
 
 	XPLMDrawCallback_f drawCallback;
 	XPLMDrawingPhase drawingPhase;
@@ -520,7 +520,6 @@ XPLM_API void                 XPLMDestroyProbe(
 	std::cout << "XPLMTestHarness: Destroyed probe with reference " << inProbe << std::endl;
 }
 
-
 XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
 	XPLMProbeRef         inProbe,
 	float                inX,
@@ -549,7 +548,6 @@ XPLM_API void                 XPLMLoadObjectAsync(
 {
 	inCallback(reinterpret_cast<XPLMObjectRef>(static_cast<uintptr_t>(42)), nullptr);
 }
-
 
 XPLM_API void                 XPLMDrawObjects(
 	XPLMObjectRef        inObject,
@@ -612,27 +610,30 @@ XPLM_API void                 XPLMLocalToWorld(
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
 {
-	// Before invoking clean up all the unregistered flight loops
+	// Before invoking clean up all the unregistered flight loops.
 	auto it = registeredFlightLoops.begin();
-	while (it != registeredFlightLoops.end()) {
+	while (it != registeredFlightLoops.end())
+	{
 		if (it->second.deleted)
 			it = registeredFlightLoops.erase(it);
 		else
-			it++;
+			++it;
 	}
 
 	for (auto p = registeredFlightLoops.begin(); p != registeredFlightLoops.end(); ++p)
-			p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
+		p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
 }
 
-XPLM_API void XPHarnessInvokeDrawCallback() {
-	// Before invoking clean up all the unregistered flight loops
+XPLM_API void XPHarnessInvokeDrawCallback()
+{
+	// Before invoking clean up all the unregistered draw callbacks.
 	auto it = registeredFlightLoops.begin();
-	while (it != registeredFlightLoops.end()) {
+	while (it != registeredFlightLoops.end())
+	{
 		if (it->second.deleted)
 			it = registeredFlightLoops.erase(it);
 		else
-			it++;
+			++it;
 	}
 
 	for (auto p = registeredDrawCallbacks.begin(); p != registeredDrawCallbacks.end(); ++p)

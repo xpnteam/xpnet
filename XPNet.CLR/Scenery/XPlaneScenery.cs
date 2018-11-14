@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace XPNet
 {
 	/// <summary>
 	/// Provides access to the X-Plane scenery API, which allows working with the scenery.
-	/// On one hand, it provides probes for locating the physical scenery mesh (get the Y-coordinate of the ground for 
-	/// a defined X-Z coordinate).
-	/// Furthermore, it allows loading, drawing and managing scenery objects.
+	/// Provides probes for locating the physical scenery mesh (i.e., to get the Y-coordinate
+    /// of the ground for a defined X-Z coordinate).  Allows loading, drawing and managing
+    /// scenery objects.
 	/// </summary>
 	public interface IXPlaneScenery
 	{
@@ -21,8 +20,6 @@ namespace XPNet
 
 	internal class XPlaneScenery : IXPlaneScenery
 	{
-		private List<string> lookupObjectPaths;
-
 		public IXPProbe CreateProbe()
 		{
 			return new XPProbe(XPLMProbeType.xplm_ProbeY);
@@ -32,27 +29,27 @@ namespace XPNet
 		{
 			var objectRef = PluginBridge.ApiFunctions.XPLMLoadObject(path);
 			if (objectRef == null)
-			{
-				throw new System.IO.FileNotFoundException();
-			}
+				throw new System.IO.FileNotFoundException(path);
 
 			return new XPSceneryObject(objectRef);
 		}
 
 		public unsafe IEnumerable<string> LookupObjects(string path, float latitude, float longitude)
 		{
-			var en = new XPLMLibraryEnumerator_f(Enumerator);
-			lookupObjectPaths = new List<string>();
-			PluginBridge.Log.Log($"Now calling API function with path {path}");
-			int numObjects = PluginBridge.ApiFunctions.XPLMLookupObjects(path, latitude, longitude, en, null);
-			PluginBridge.Log.Log($"API function called, {numObjects} objects were found");
-			return lookupObjectPaths;
-		}
+            var lookupObjectPaths = new List<string>();
 
-		private unsafe void Enumerator(string inFilePath, void* inRef)
-		{
-			PluginBridge.Log.Log($"Enumerator called with path {inFilePath}");
-			lookupObjectPaths.Add(inFilePath);
+            unsafe void Enumerator(string inFilePath, void* inRef)
+            {
+                // PluginBridge.Log.Log($"Enumerator called with path {inFilePath}");
+                lookupObjectPaths.Add(inFilePath);
+            }
+
+            var en = new XPLMLibraryEnumerator_f(Enumerator);
+
+			// PluginBridge.Log.Log($"Now calling API function with path {path}");
+			int numObjects = PluginBridge.ApiFunctions.XPLMLookupObjects(path, latitude, longitude, en, null);
+			// PluginBridge.Log.Log($"API function called, {numObjects} objects were found");
+			return lookupObjectPaths;
 		}
 	}
 
@@ -166,6 +163,4 @@ namespace XPNet
 			return new XPProbeResult(m_probeRef, inX, inY, inZ);
 		}
 	}
-
-
 }

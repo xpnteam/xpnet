@@ -3,7 +3,7 @@
 namespace XPNet
 {
 	/// <summary>
-	/// Delegate for C# code that wants to be called as part of the render loop.
+	/// Delegate for .NET code that wants to be called as part of the render loop.
 	/// </summary>
 	public delegate int DrawDelegate(
 		XPLMDrawingPhase inPhase,
@@ -52,12 +52,9 @@ namespace XPNet
 
 			var res = PluginBridge.ApiFunctions.XPLMRegisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, null);
 			if (res == 0)
-			{
 				throw new ArgumentException($"Phase {m_inPhase} does not exist in this version of X-Plane");
-			} else if (res > 1)
-			{
-				throw new Exception($"Return value {res} is undefined");
-			}
+            else if (res > 1)
+				throw new Exception($"Unexpected return value {res}.");
 		}
 
 		public unsafe void Dispose()
