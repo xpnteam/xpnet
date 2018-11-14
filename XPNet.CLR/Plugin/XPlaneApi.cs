@@ -1,126 +1,174 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 
 namespace XPNet
 {
-    /// <summary>
-    /// Provides access to the X-Plane API from a plugin.
-    /// </summary>
-    public interface IXPlaneApi
-    {
-        /// <summary>
-        /// Raised when the configuration in the xpnetcfg.json file has changed.
-        /// </summary>
-        event EventHandler ConfigChanged;
+	/// <summary>
+	/// Provides access to the X-Plane API from a plugin.
+	/// </summary>
+	public interface IXPlaneApi
+	{
+		/// <summary>
+		/// Raised when the configuration in the xpnetcfg.json file has changed.
+		/// </summary>
+		event EventHandler ConfigChanged;
 
-        /// <summary>
-        /// Gets the log.
-        /// </summary>
-        ILog Log { get; }
+		/// <summary>
+		/// Gets the log.
+		/// </summary>
+		ILog Log { get; }
 
-        /// <summary>
-        /// Gets the configuration for the plugin (from the xpnetcfg.json file).
-        /// </summary>
-        IConfiguration Config { get; }
+		/// <summary>
+		/// Gets the configuration for the plugin (from the xpnetcfg.json file).
+		/// </summary>
+		IConfiguration Config { get; }
 
-        /// <summary>
-        /// Gets the X-Plane messages API.  Use this API to get access
-        /// to events that map closely to the X-Plane API documentation.
-        /// Sometimes, there will also be a higher-level API provided by
-        /// XPNet, as an alternative to the Messages API.
-        /// </summary>
-        IXPlaneMessages Messages { get; }
+		/// <summary>
+		/// Gets the X-Plane messages API.  Use this API to get access
+		/// to events that map closely to the X-Plane API documentation.
+		/// Sometimes, there will also be a higher-level API provided by
+		/// XPNet, as an alternative to the Messages API.
+		/// </summary>
+		IXPlaneMessages Messages { get; }
 
-        /// <summary>
-        /// Gets the data access API (i.e., DataRefs).
-        /// </summary>
-        IXPlaneData Data { get; }
+		/// <summary>
+		/// Gets the data access API (i.e., DataRefs).
+		/// </summary>
+		IXPlaneData Data { get; }
 
-        /// <summary>
-        /// Gets the commands API.
-        /// </summary>
-        IXPlaneCommands Commands { get; }
+		/// <summary>
+		/// Gets the commands API.
+		/// </summary>
+		IXPlaneCommands Commands { get; }
 
-        /// <summary>
-        /// Gets the processing API.
-        /// </summary>
-        IXPlaneProcessing Processing { get; }
-    }
+		/// <summary>
+		/// Gets the processing API.
+		/// </summary>
+		IXPlaneProcessing Processing { get; }
 
-    internal class XPlaneApi : IXPlaneApi, IDisposable
-    {
-        public event EventHandler ConfigChanged;
+		/// <summary>
+		/// Gets the display API.
+		/// </summary>
+		IXPlaneDisplay Display { get; }
 
-        public XPlaneApi(ILog log, IConfiguration config)
-        {
-            Log = log;
-            Config = config;
-            Messages = new XPlaneMessages();
-            Data = new XPlaneData();
-            Commands = new XPlaneCommands();
-            Processing = new XPlaneProcessing();
-        }
+		/// <summary>
+		/// Gets the scenery API.
+		/// </summary>
+		IXPlaneScenery Scenery { get; }
 
-        public void Dispose()
-        {
-            // Currently nothing to do.
-        }
+		/// <summary>
+		/// Gets the graphics API.
+		/// </summary>
+		IXPlaneGraphics Graphics { get; }
 
-        public ILog Log
-        {
-            get;
-            internal set;
-        }
 
-        public IConfiguration Config
-        {
-            get;
-        }
+	}
 
-        IXPlaneMessages IXPlaneApi.Messages
-        {
-            get { return Messages; }
-        }
+	internal class XPlaneApi : IXPlaneApi, IDisposable
+	{
+		public event EventHandler ConfigChanged;
 
-        public XPlaneMessages Messages
-        {
-            get;
-        }
+		public XPlaneApi(ILog log, IConfiguration config)
+		{
+			Log = log;
+			Config = config;
+			Messages = new XPlaneMessages();
+			Data = new XPlaneData();
+			Commands = new XPlaneCommands();
+			Processing = new XPlaneProcessing();
+			Display = new XPlaneDisplay();
+			Scenery = new XPlaneScenery();
+			Graphics = new XPlaneGraphics();
+		}
 
-        IXPlaneData IXPlaneApi.Data
-        {
-            get { return Data; }
-        }
+		public void Dispose()
+		{
+			// Currently nothing to do.
+		}
 
-        public XPlaneData Data
-        {
-            get;
-        }
+		public ILog Log
+		{
+			get;
+			internal set;
+		}
 
-        IXPlaneCommands IXPlaneApi.Commands
-        {
-            get { return Commands; }
-        }
+		public IConfiguration Config
+		{
+			get;
+		}
 
-        public XPlaneCommands Commands
-        {
-            get;
-        }
+		IXPlaneMessages IXPlaneApi.Messages
+		{
+			get { return Messages; }
+		}
 
-        IXPlaneProcessing IXPlaneApi.Processing
-        {
-            get { return Processing; }
-        }
+		public XPlaneMessages Messages
+		{
+			get;
+		}
 
-        public XPlaneProcessing Processing
-        {
-            get;
-        }
+		IXPlaneData IXPlaneApi.Data
+		{
+			get { return Data; }
+		}
 
-        internal void RaiseConfigChanged()
-        {
-            ConfigChanged?.Invoke(this, EventArgs.Empty);
-        }
-    }
+		public XPlaneData Data
+		{
+			get;
+		}
+
+		IXPlaneCommands IXPlaneApi.Commands
+		{
+			get { return Commands; }
+		}
+
+		public XPlaneCommands Commands
+		{
+			get;
+		}
+
+		IXPlaneProcessing IXPlaneApi.Processing
+		{
+			get { return Processing; }
+		}
+
+		public XPlaneProcessing Processing
+		{
+			get;
+		}
+
+		IXPlaneDisplay IXPlaneApi.Display
+		{
+			get { return Display; }
+		}
+
+		public IXPlaneDisplay Display
+		{
+			get;
+		}
+
+		IXPlaneScenery IXPlaneApi.Scenery
+		{
+			get { return Scenery; }
+		}
+
+		public IXPlaneScenery Scenery
+		{
+			get;
+		}
+		IXPlaneGraphics IXPlaneApi.Graphics
+		{
+			get { return Graphics; }
+		}
+
+		public IXPlaneGraphics Graphics
+		{
+			get;
+		}
+
+		internal void RaiseConfigChanged()
+		{
+			ConfigChanged?.Invoke(this, EventArgs.Empty);
+		}
+	}
 }

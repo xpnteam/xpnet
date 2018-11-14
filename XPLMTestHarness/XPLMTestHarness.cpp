@@ -3,7 +3,10 @@
 
 #include "stdafx.h"
 #include "XPLMTestHarness.h"
+#include "XPLMScenery.h"
+#include "XPLMGraphics.h"
 #include <map>
+#include <tuple>
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -12,6 +15,8 @@
 #include <Shlwapi.h>
 
 using std::map;
+using std::tuple;
+using std::make_tuple;
 using std::string;
 using std::vector;
 using std::remove;
@@ -82,6 +87,19 @@ struct flightloop
 
 	XPLMFlightLoop_f flightLoop;
 	float interval;
+	bool deleted = false;
+};
+
+struct drawcallback {
+	drawcallback(const XPLMDrawCallback_f dc, const XPLMDrawingPhase phase, int wb)
+		: drawCallback(dc), drawingPhase(phase), wantsBefore(wb) 
+	{
+	}
+
+	XPLMDrawCallback_f drawCallback;
+	XPLMDrawingPhase drawingPhase;
+	int wantsBefore;
+	bool deleted = false;
 };
 
 template <typename T>
@@ -98,6 +116,7 @@ using commandmap = map<string, command>;
 static commandmap configuredCommands;
 
 static map<XPLMFlightLoop_f, flightloop> registeredFlightLoops;
+static map<tuple<XPLMDrawCallback_f, XPLMDrawingPhase, int>, drawcallback> registeredDrawCallbacks;
 
 template <typename T>
 void SetDataRef(const string name, const T& value, datarefmap<T>& container)
@@ -433,7 +452,8 @@ XPLM_API void                 XPLMUnregisterFlightLoopCallback(
 	XPLMFlightLoop_f     inFlightLoop,
 	void *               inRefcon)
 {
-	registeredFlightLoops.erase(inFlightLoop);
+	auto cb = registeredFlightLoops.find(inFlightLoop);
+	cb->second.deleted = true;
 }
 
 XPLM_API void                 XPLMSetFlightLoopCallbackInterval(
@@ -466,8 +486,155 @@ XPLM_API void                 XPLMScheduleFlightLoop(
 	// Not implemented b/c we don't use it in XPNet.
 }
 
+XPLM_API int                  XPLMRegisterDrawCallback(
+	XPLMDrawCallback_f   inCallback,
+	XPLMDrawingPhase     inPhase,
+	int                  inWantsBefore,
+	void *               inRefcon)
+{
+	registeredDrawCallbacks.emplace(make_tuple(inCallback, inPhase, inWantsBefore), drawcallback(inCallback, inPhase, inWantsBefore));
+	return 1;
+}
+
+XPLM_API int                  XPLMUnregisterDrawCallback(
+	XPLMDrawCallback_f   inCallback,
+	XPLMDrawingPhase     inPhase,
+	int                  inWantsBefore,
+	void *               inRefcon)
+{
+	auto cb = registeredDrawCallbacks.find(make_tuple(inCallback, inPhase, inWantsBefore));
+	cb->second.deleted = true;
+	return 1;
+}
+
+XPLM_API XPLMProbeRef         XPLMCreateProbe(
+	XPLMProbeType        inProbeType) 
+{
+	std::cout << "XPLMTestHarness: Created probe of type " << inProbeType << std::endl;
+	return reinterpret_cast<XPLMProbeRef>(static_cast<uintptr_t>(43));
+}
+
+XPLM_API void                 XPLMDestroyProbe(
+	XPLMProbeRef         inProbe) 
+{
+	std::cout << "XPLMTestHarness: Destroyed probe with reference " << inProbe << std::endl;
+}
+
+
+XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
+	XPLMProbeRef         inProbe,
+	float                inX,
+	float                inY,
+	float                inZ,
+	XPLMProbeInfo_t *    outInfo)
+{
+	std::cout << "XPLMTestHarness: Invoked XPLMProbeTerrainXYZ with X " << inX
+		<< ", Y " << inY << ", Z " << inZ << std::endl;
+	outInfo->locationX = inX;
+	outInfo->locationY = 42;
+	outInfo->locationZ = inZ;
+	return xplm_ProbeHitTerrain;
+}
+
+XPLM_API XPLMObjectRef        XPLMLoadObject(
+	const char *         inPath) 
+{
+	return reinterpret_cast<XPLMObjectRef>(static_cast<uintptr_t>(42));
+}
+
+XPLM_API void                 XPLMLoadObjectAsync(
+	const char *         inPath,
+	XPLMObjectLoaded_f   inCallback,
+	void *               inRefcon) 
+{
+	inCallback(reinterpret_cast<XPLMObjectRef>(static_cast<uintptr_t>(42)), nullptr);
+}
+
+
+XPLM_API void                 XPLMDrawObjects(
+	XPLMObjectRef        inObject,
+	int                  inCount,
+	XPLMDrawInfo_t *     inLocations,
+	int                  lighting,
+	int                  earth_relative)
+{
+	std::cout << "XPLMTestHarness: Drawing object " << inObject << std::endl;
+}
+
+XPLM_API void                 XPLMUnloadObject(
+	XPLMObjectRef        inObject)
+{
+	std::cout << "XPLMTestHarness: Unloading object " << inObject << std::endl;
+}
+
+XPLM_API int                  XPLMLookupObjects(
+	const char *         inPath,
+	float                inLatitude,
+	float                inLongitude,
+	XPLMLibraryEnumerator_f enumerator,
+	void *               ref)
+{
+	std::string fullPath ("/realpath/");
+	fullPath.append(inPath);
+	enumerator(fullPath.c_str(), ref);
+	return 1;
+}
+
+XPLM_API void                 XPLMWorldToLocal(
+	double               inLatitude,
+	double               inLongitude,
+	double               inAltitude,
+	double *             outX,
+	double *             outY,
+	double *             outZ)
+{
+	std::cout << "XPLMTestHarness: Invoked XPLMWorldToLocal with lat " << inLatitude
+		<< ", lon " << inLongitude << ", alt " << inAltitude << std::endl;
+	*outX = inLongitude;
+	*outY = inAltitude;
+	*outZ = inLatitude;
+}
+
+XPLM_API void                 XPLMLocalToWorld(
+	double               inX,
+	double               inY,
+	double               inZ,
+	double *             outLatitude,
+	double *             outLongitude,
+	double *             outAltitude)
+{
+	std::cout << "XPLMTestHarness: Invoked XPLMLocalToWorld with X " << inX
+		<< ", Y " << inY << ", Z " << inZ << std::endl;
+	*outLongitude = inX;
+	*outAltitude = inY;
+	*outLatitude = inZ;
+}
+
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
 {
+	// Before invoking clean up all the unregistered flight loops
+	auto it = registeredFlightLoops.begin();
+	while (it != registeredFlightLoops.end()) {
+		if (it->second.deleted)
+			it = registeredFlightLoops.erase(it);
+		else
+			it++;
+	}
+
 	for (auto p = registeredFlightLoops.begin(); p != registeredFlightLoops.end(); ++p)
-		p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
+			p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
+}
+
+XPLM_API void XPHarnessInvokeDrawCallback() {
+	// Before invoking clean up all the unregistered flight loops
+	auto it = registeredFlightLoops.begin();
+	while (it != registeredFlightLoops.end()) {
+		if (it->second.deleted)
+			it = registeredFlightLoops.erase(it);
+		else
+			it++;
+	}
+
+	for (auto p = registeredDrawCallbacks.begin(); p != registeredDrawCallbacks.end(); ++p)
+		p->second.drawCallback(p->second.drawingPhase, p->second.wantsBefore, nullptr);
 }
