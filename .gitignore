@@ -6,10 +6,11 @@
 */Release
 */.depend
 XPNet.Native/lib
+XPNet.Native/obj_core
 Debug
 Release
+PublishProfiles
 plugin
 package
 .DS_Store
-/XPNet.Native/obj_core
 *.user
