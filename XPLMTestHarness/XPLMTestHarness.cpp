@@ -6,6 +6,7 @@
 #include "XPLMScenery.h"
 #include "XPLMGraphics.h"
 #include <map>
+#include <list>
 #include <tuple>
 #include <vector>
 #include <string>
@@ -119,7 +120,7 @@ static map<XPLMFlightLoop_f, flightloop> registeredFlightLoops;
 static map<tuple<XPLMDrawCallback_f, XPLMDrawingPhase, int>, drawcallback> registeredDrawCallbacks;
 
 static unsigned int instanceCounter = 0;
-static map<XPLMInstanceRef, const char **> registeredInstances;
+static map<XPLMInstanceRef, std::list<string>> registeredInstances;
 
 template <typename T>
 void SetDataRef(const string name, const T& value, datarefmap<T>& container)
@@ -618,11 +619,13 @@ XPLM_API XPLMInstanceRef XPLMCreateInstance(XPLMObjectRef obj, const char ** dat
 	instanceCounter++;
 	std::cout << "XPLMTestHarness: Creating instance for object " <<  obj << std::endl;
 	unsigned int i = 0;
+	std::list<string> dRefList;
 	for (i = 0; datarefs[i] != NULL; i++) {
-		std::cout << "XPLMTestHarness: DataRef " << *datarefs[i]  << std::endl;
+		std::cout << "XPLMTestHarness: DataRef " << datarefs[i]  << std::endl;
+		dRefList.push_back(datarefs[i]);
 	}
 	XPLMInstanceRef instRef = reinterpret_cast<XPLMInstanceRef>(static_cast<uintptr_t>(instanceCounter));
-	registeredInstances.emplace(instRef, datarefs);
+	registeredInstances.emplace(instRef, dRefList);
 
 	return instRef;
 }
@@ -636,6 +639,14 @@ XPLM_API void XPLMDestroyInstance(XPLMInstanceRef instance)
 XPLM_API void XPLMInstanceSetPosition(XPLMInstanceRef instance, const XPLMDrawInfo_t * new_position, const float * data)
 {
 	std::cout << "XPLMTestHarness: Instance set position for instance " << instance << std::endl;
+	auto it = registeredInstances.find(instance);
+	if (it != registeredInstances.end()) {
+		auto datarefs = it->second;
+		unsigned int i = 0;
+		for (string dref : datarefs) {
+			std::cout << "XPLMTestHarness: DataRef " << dref << " set to value " << data[i++] << std::endl;
+		}
+	}
 }
 
 

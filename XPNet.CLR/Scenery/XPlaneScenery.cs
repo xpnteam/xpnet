@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace XPNet
 {
@@ -58,7 +59,7 @@ namespace XPNet
 	public interface IXPSceneryObject : IDisposable
 	{
 		void Draw(int lighting, int earthRelativ, XPLMDrawInfo_t[] drawInfos);
-		IXPInstance CreateInstance(string[] inDataRefs);
+		IXPInstance CreateInstance(IEnumerable<string> inDataRefs);
 	}
 
 	internal unsafe class XPSceneryObject : IXPSceneryObject
@@ -74,9 +75,12 @@ namespace XPNet
 		{
 			PluginBridge.ApiFunctions.XPLMUnloadObject(m_objectRef);
 		}
-		public IXPInstance CreateInstance(string[] inDataRefs)
+		public IXPInstance CreateInstance(IEnumerable<string> inDataRefs)
 		{
-			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, inDataRefs);
+			List<string> dataRefList = inDataRefs.ToList();
+			dataRefList.Add(null);
+			string[] dataRefArray = dataRefList.ToArray();
+			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, dataRefArray);
 			return new XPInstance(instanceRef);
 		}
 

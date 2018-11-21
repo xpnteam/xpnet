@@ -21,7 +21,13 @@ namespace XPNet
 		private readonly IXPDrawingLoopHook drawingLoopHook;
 		private readonly IXPFlightLoopHook flightLoopHook;
 		private IXPSceneryObject testTug;
-
+		private IXPInstance testTugInstance;
+		private IXPInstance boeingInstance;
+		private IXPFlightLoopHook tireTurning;
+		private float tireAngle = 0;
+		private float angleIncrement = 2;
+		private float sweeper = 0;
+		private float sweeperIncrement = 0.05f;
 
 		public GraphicsTestPlugin(IXPlaneApi api)
 		{
@@ -40,6 +46,7 @@ namespace XPNet
 			// Clean up whatever we attached / registered for / etc.
 			drawingLoopHook.Dispose();
 			testTug.Dispose();
+			tireTurning.Dispose();
 			m_probe.Dispose();
 		}
 
@@ -59,26 +66,57 @@ namespace XPNet
 				m_api.Log.Log($"Filename: {p}");
 			}
 			testTug = m_api.Scenery.LoadObject(tugs.First());
-			var testTugInstance = testTug.CreateInstance(new string[]
+			testTugInstance = testTug.CreateInstance(new string[]
 			{
-				"Test1",
-				"Test2",
-				null
+				"sim/graphics/animation/ground_traffic/tire_steer_deg"
 			});
 
-			var (x, y, z) = m_api.Graphics.WorldToLocal(47.439444, 19.261944, 0);
-			var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
-			m_api.Log.Log($"Probed terrain, got result {res.LocationY} with code {res.Result}");
+			var myBoeing = m_api.Scenery.LoadObject(@"C:\Users\markusb\Desktop\X-Plane 11\Resources\plugins\XPNet.GraphicsTest\Resources\CSL\BB_Boeing\B738\B738_NAX.obj");
+			boeingInstance = myBoeing.CreateInstance(new string[] {
+				"libxplanemp/controls/gear_ratio",
+				"libxplanemp/controls/strobe_lites_on",
+				"libxplanemp/controls/flap_ratio",
+				"libxplanemp/engines/thrust_ratio",
+				"libxplanemp/controls/yoke_pitch_ratio"
+			});
 
-			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
 
-			testTugInstance.SetPosition(new XPLMDrawInfo_t((float)res.LocationX, (float)res.LocationY, (float)res.LocationZ, (float)0, (float)0, (float)0),
-				new float[] { 1, 2 });
+			tireTurning = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), TurnTheWheel);
 
 			m_api.Log.Log($"Loaded and still living, reference is {testTug}");
 
 			flightLoopHook.Dispose();
 			return FlightLoopTime.Unscheduled;
+		}
+
+		private FlightLoopTime TurnTheWheel(TimeSpan elapsedTimeSinceLastCall, TimeSpan elapsedTimeSinceLastFlightLoop, int counter)
+		{
+			{
+				var (x, y, z) = m_api.Graphics.WorldToLocal(47.437644, 19.259498, 0);
+				var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
+				m_api.Log.Log($"Probed terrain, got result {res.LocationY} with code {res.Result}");
+
+				var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
+
+				testTugInstance.SetPosition(new XPLMDrawInfo_t((float)res.LocationX, (float)res.LocationY, (float)res.LocationZ, (float)0, (float)0, (float)0),
+					new float[] { tireAngle });
+			}
+			{
+
+				var (x, y, z) = m_api.Graphics.WorldToLocal(47.437799, 19.264403, 0);
+				var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
+
+				var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
+
+				sweeper += sweeperIncrement;
+				boeingInstance.SetPosition(new XPLMDrawInfo_t((float)res.LocationX, (float)res.LocationY + 30, (float)res.LocationZ, (float)0, (float)0, (float)0),
+					new float[] { sweeper, sweeper, sweeper, sweeper, sweeper });
+				if (sweeper >= 1 || sweeper <= 0)
+					sweeperIncrement *= -1;
+
+
+			}
+			return FlightLoopTime.FromCycles(1);
 		}
 
 		private int DrawingHook(XPLMDrawingPhase inPhase, int inIsBefore)

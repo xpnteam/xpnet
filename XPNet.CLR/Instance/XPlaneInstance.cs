@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace XPNet
 {
@@ -23,7 +25,7 @@ namespace XPNet
 
 	public interface IXPInstance : IDisposable
 	{
-		void SetPosition(XPLMDrawInfo_t xPLMDrawInfo_t, float[] v);
+		void SetPosition(XPLMDrawInfo_t xPLMDrawInfo_t, IEnumerable<float> v);
 	}
 
 	internal unsafe class XPInstance : IXPInstance
@@ -40,9 +42,10 @@ namespace XPNet
 			PluginBridge.ApiFunctions.XPLMDestroyInstance(m_instanceRef);
 		}
 
-		public void SetPosition(XPLMDrawInfo_t xPLMDrawInfo_t, float[] v)
+		public void SetPosition(XPLMDrawInfo_t xPLMDrawInfo_t, IEnumerable<float> v)
 		{
-			fixed (float* p = &v[0])
+			var floatArray = v.ToArray();
+			fixed (float* p = &floatArray[0])
 			{
 				PluginBridge.ApiFunctions.XPLMInstanceSetPosition(m_instanceRef, xPLMDrawInfo_t, p);
 			}
