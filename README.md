@@ -2,6 +2,12 @@
 
 Develop [X-Plane](http://www.x-plane.com/) plugins in .NET.
 
+<p align="center">
+    <a href="https://www.nuget.org/packages/XPNet.CLR.Template/" alt="NuGet">
+        <img src="https://buildstats.info/nuget/XPNet.CLR.Template" />
+    </a>
+</p>
+
 :email: Follow [XPNetSim](http://twitter.com/xpnetsim) on Twitter for release notifications and news.
 
 ## What Is This?
