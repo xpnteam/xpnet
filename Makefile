@@ -11,7 +11,7 @@
 #  XPNet.CLR            - The .NET assembly that you reference to write your plugin code.
 #  XPNet.Native.macOS   - Built macOS binary.
 #  XPNet.Native.Windows - Built Windows binary.
-#  XPNet.CLR.Starter    - The starter project, for use with 'dotnet new'
+#  XPNet.CLR.Template   - The starter project, for use with 'dotnet new'
 #
 # For deployment to nuget, the policy is to always deploy all packages at the same time
 # (within a reasonable number of minutes of each other), with matched versions.  That
@@ -48,12 +48,16 @@
 #######################################################################################3
 
 Configuration   =Release
-Platform        =netcoreapp2.0
+Platform        =netcoreapp2.1
 
 OutDir          =plugin
 PakDir          =package
 
+#######################################################################################3
+
 RM             :=rm -f
+MKDIR          :=mkdir -p
+CP             :=cp
 
 #######################################################################################3
 
@@ -84,23 +88,23 @@ native:
 
 
 prepare_plugin:
-	mkdir -p $(OutDir)
+	$(MKDIR) $(OutDir)
 
 
 prepare_package:
-	mkdir -p $(PakDir)
+	$(MKDIR) $(PakDir)
 
 
 builds: xpnetclr loggerplugin native
 
 
 plugin: prepare_plugin builds
-	cp XPNet.Native/lib/*.xpl $(OutDir)
-	cp XPNet.CLR/bin/$(Configuration)/$(Platform)/publish/*.dll $(OutDir)
-	cp XPNet.LoggerPlugin/bin/$(Configuration)/$(Platform)/publish/*.dll $(OutDir)
+	$(CP) XPNet.Native/lib/*.xpl $(OutDir)
+	$(CP) XPNet.CLR/bin/$(Configuration)/$(Platform)/publish/*.dll $(OutDir)
+	$(CP) XPNet.LoggerPlugin/bin/$(Configuration)/$(Platform)/publish/*.dll $(OutDir)
 
 
 package: prepare_package builds template
-	cp XPNet.Native/bin/$(Configuration)/*.nupkg $(PakDir)
-	cp XPNet.CLR/bin/$(Configuration)/*.nupkg $(PakDir)
+	$(CP) XPNet.Native/bin/$(Configuration)/*.nupkg $(PakDir)
+	$(CP) XPNet.CLR/bin/$(Configuration)/*.nupkg $(PakDir)
 
