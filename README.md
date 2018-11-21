@@ -491,12 +491,8 @@ named `plugin` when that completes.  Create a plugin directory structure as desc
 "Installing into X-Plane" above, and copy everything from the `plugin`
 folder you just built.
 
-<aside class="notice">
-The macOS build currently only supports creating 64-bit binaries.  Making a 32-bit
-build shouldn't be hard, and I would accept a pull request to add one.  We would
-want a result that builds both platforms side-by-side, ready to drop into the 32
-and 64 directories in an X-Plane plugin directory.
-</aside>
+There is only a 64-bit build for macOS because the .NET Core Runtime does not
+support 32-bit MacOS.
 
 
 ### Building XPNet on Linux
