@@ -212,7 +212,7 @@ When you're ready to build and run your plugin, run the following command from t
 directory that contains your .csproj file.
 
 ```
-dotnet publish -c Debug -o <Path-To-X-Plane>/Resources/plugins/<Your-Plugin-Name>"
+dotnet publish -c Debug -o "<Path-To-X-Plane>/Resources/plugins/<Your-Plugin-Name>"
 ```
 
 Then just start up X-Plane.  If everything has gone as expected, your plugin should
