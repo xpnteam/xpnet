@@ -26,14 +26,14 @@
 # (We're not set up to do any cross-compiling).  Upload them all to nuget.
 #
 # The packages for non-Windows platforms can be built from this Makefile.  To build the
-# package for the Windows platform, open the SLN file in Visual Studio, build XPNet.native
+# package for the Windows platform, open the SLN file in Visual Studio, build XPNet.Native
 # in x64/Release and x32/Release (you must build both; the package includes both), then
 # run this from the XPNet.Native folder:
 #
-# dotnet pack XPNet.Native.NuSpec.win.csproj
+# dotnet pack -c Release XPNet.Native.NuSpec.win.csproj
 #
-# The output nupkg will end up in bin\x64\Debug.  I don't know why; it's neither x64-specific
-# nor Debug in any way.  You can probably improve this with edits to XPNet.Native.NuSpec.win.csproj.
+# The output nupkg will end up in bin\x64\Release.  I don't know why; it's not x64-specific
+# in any way.  You can probably improve this with edits to XPNet.Native.NuSpec.win.csproj.
 #
 # For safety purposes, and because you need the key to deploy the packages anyway,
 # (which is not included in this repository) this Makefile does not actually deploy
