@@ -26,6 +26,9 @@ namespace XPNet.CLR.Template
         public void Enable()
         {
             // Called when the plugin is enabled in X-Plane.
+
+            // Replace this with your own initialization code.
+            m_api.Log.Log("Hello world");
         }
 
         public void Disable()

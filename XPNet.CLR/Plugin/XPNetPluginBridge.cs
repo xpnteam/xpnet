@@ -573,7 +573,7 @@ namespace XPNet
 	{
 		private static readonly int m_structSizeInit;
 
-		public int m_structSize;
+		public int structSize;
 
 		public float locationX;
 
@@ -602,7 +602,7 @@ namespace XPNet
 
 		public XPLMProbeInfo_t()
 		{
-			m_structSize = m_structSizeInit;
+			structSize = m_structSizeInit;
 		}
 	};
 

@@ -1,5 +1,8 @@
 ﻿namespace XPNet
 {
+    /// <summary>
+    /// Provides access to the X-Plane graphics API.
+    /// </summary>
 	public interface IXPlaneGraphics
 	{
 		(double X, double Y, double Z) WorldToLocal(double inLatitude, double inLongitude, double inAltitude);
@@ -17,7 +20,7 @@
 			PluginBridge.ApiFunctions.XPLMWorldToLocal(inLatitude, inLongitude, inAltitude, &outX, &outY, &outZ);
 
 			// The following is needed to make a copy from the result variables that can be given back. Otherwise they can be collected
-			// later on by the GC, leading to crashes
+			// later on by the GC, leading to crashes.
 			double newOutX = outX;
 			double newOutY = outY;
 			double newOutZ = outZ;
@@ -33,7 +36,7 @@
 			PluginBridge.ApiFunctions.XPLMLocalToWorld(inX, inY, inZ, &outLatitude, &outLongitude, &outAltitude);
 
 			// The following is needed to make a copy from the result variables that can be given back. Otherwise they can be collected
-			// later on by the GC, leading to crashes
+			// later on by the GC, leading to crashes.
 			double newOutLatitude = outLatitude;
 			double newOutLongitude = outLongitude;
 			double newOutAltitude = outAltitude;

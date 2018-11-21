@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>XPNet.CLR</PackageId>
     <Authors>Stephen Quattlebaum</Authors>
@@ -11,9 +11,9 @@
     <PackageProjectUrl>https://github.com/jaurenq/XPNet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jaurenq/XPNet</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <Version>0.1.4</Version>
-    <PackageReleaseNotes>Preprelease package for testing.</PackageReleaseNotes>
-    <Copyright>Copyright 2018 (c) Stephen Quattlebaum</Copyright>
+    <Version>0.1.5</Version>
+    <PackageReleaseNotes>Standard release.</PackageReleaseNotes>
+    <Copyright>Copyright 2018 © Stephen Quattlebaum</Copyright>
     <PackageTags>x-plane dotnet xplane plugin</PackageTags>
   </PropertyGroup>
 
@@ -42,4 +42,9 @@
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
+  <!-- Want this, when we can get it to work.  Wasn't working.  -->
+  <!--<ItemGroup>
+    <DotNetCliToolReference Include="QB.DotNetCoreInstaller" Version="0.*" />
+  </ItemGroup>-->
+  
 </Project>
