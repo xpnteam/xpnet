@@ -14,3 +14,4 @@ plugin
 package
 .DS_Store
 *.user
+/XPNetPluginTestHost/xpnetcfg.json
