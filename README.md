@@ -177,7 +177,7 @@ starting point with the correct nuget packages and a plugin class to start with.
 If you don't know which option you want, you probably want this option.  You'll need the
 .NET SDK v2.1 or higher installed.  These instructions work for Windows and macOS.
 
-0. One Time - Get the dotnet-install tool installed.
+Step Zero - One Time - Get the dotnet-install tool installed.
 
 We hope to make this step unnecessary in the future by including that command as a project
 dependency so that it gets installed automatically when needed.  If you skip this step, your
