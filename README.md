@@ -177,6 +177,22 @@ starting point with the correct nuget packages and a plugin class to start with.
 If you don't know which option you want, you probably want this option.  You'll need the
 .NET SDK v2.1 or higher installed.  These instructions work for Windows and macOS.
 
+0. One Time - Get the dotnet-install tool installed.
+
+We hope to make this step unnecessary in the future by including that command as a project
+dependency so that it gets installed automatically when needed.  If you skip this step, your
+project will build but fail to publish correctly later.  
+```
+dotnet tool install -g QB.DotNetCoreInstaller
+```
+After installing this tool, type `dotnet install -h` at your command prompt and see
+if you get useful help; if not, you may have to close and reopen your terminal/console
+window (or restart your computer in the worst case).
+
+Once you can type `dotnet install -h` and get the help page rather than "command not found",
+you are ready to proceed.
+
+
 1. Create a directory for your new project.
 
 2. Install or update the 'dotnet new' template for XPNet.
@@ -184,17 +200,8 @@ If you don't know which option you want, you probably want this option.  You'll 
 dotnet new -i XPNet.CLR.Template
 ```
 
-3. Install the dotnet-install command.
-```
-dotnet tool install -g QB.DotNetCoreInstaller
-```
 
-We hope to make this step unnecessary in the future by including that command as
-a project dependency so that it gets installed automatically when needed.  If you
-skip this step, your project will build but fail to publish correctly later.
-
-
-4. Create a new plugin project.
+3. Create a new plugin project.
 ```
 dotnet new xpnetplugin -n YourPluginName
 ```
