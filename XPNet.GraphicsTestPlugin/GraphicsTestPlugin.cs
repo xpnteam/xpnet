@@ -113,8 +113,11 @@ namespace XPNet
 			m_api.Log.Log($"Probed terrain, got result {res.LocationY} with code {res.Result}");
 
 			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
-
-			m_testTug.Draw(0, 0, new XPLMDrawInfo_t[] { new XPLMDrawInfo_t(res.LocationX, res.LocationY, res.LocationZ, 0.0f, 0.0f, 0.0f) });
+			var positions = Enumerable
+				.Range(0, 10)
+				.Select(i => new XPLMDrawInfo_t(res.LocationX, res.LocationY+i*10, res.LocationZ, 0.0f, 0.0f, 0.0f))
+				.ToArray();
+			m_testTug.Draw(0, 0, positions );
 
 			m_api.Log.Log("GraphicsTestPlugin: Leaving drawing hook");
 			return 1;

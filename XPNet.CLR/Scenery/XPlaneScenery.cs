@@ -7,8 +7,8 @@ namespace XPNet
 	/// <summary>
 	/// Provides access to the X-Plane scenery API, which allows working with the scenery.
 	/// Provides probes for locating the physical scenery mesh (i.e., to get the Y-coordinate
-    /// of the ground for a defined X-Z coordinate).  Allows loading, drawing and managing
-    /// scenery objects.
+	/// of the ground for a defined X-Z coordinate).  Allows loading, drawing and managing
+	/// scenery objects.
 	/// </summary>
 	public interface IXPlaneScenery
 	{
@@ -37,15 +37,15 @@ namespace XPNet
 
 		public unsafe IEnumerable<string> LookupObjects(string path, float latitude, float longitude)
 		{
-            var lookupObjectPaths = new List<string>();
+			var lookupObjectPaths = new List<string>();
 
-            unsafe void Enumerator(string inFilePath, void* inRef)
-            {
-                // PluginBridge.Log.Log($"Enumerator called with path {inFilePath}");
-                lookupObjectPaths.Add(inFilePath);
-            }
+			unsafe void Enumerator(string inFilePath, void* inRef)
+			{
+				// PluginBridge.Log.Log($"Enumerator called with path {inFilePath}");
+				lookupObjectPaths.Add(inFilePath);
+			}
 
-            var en = new XPLMLibraryEnumerator_f(Enumerator);
+			var en = new XPLMLibraryEnumerator_f(Enumerator);
 
 			// PluginBridge.Log.Log($"Now calling API function with path {path}");
 			int numObjects = PluginBridge.ApiFunctions.XPLMLookupObjects(path, latitude, longitude, en, null);
@@ -56,7 +56,7 @@ namespace XPNet
 
 	public interface IXPSceneryObject : IDisposable
 	{
-		void Draw(int lighting, int earthRelativ, XPLMDrawInfo_t[] drawInfos);
+		void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos);
 		IXPInstance CreateInstance(IEnumerable<string> inDataRefs);
 	}
 
@@ -84,7 +84,11 @@ namespace XPNet
 
 		public void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
 		{
-			PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, drawInfos[0], lighting, earthRelative);
+			fixed (void* p = &drawInfos[0].m_structSize)
+			{
+				PluginBridge.Log.Log($"Drawing {drawInfos.Length} objects");
+				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, p, lighting, earthRelative);
+			}
 		}
 	}
 

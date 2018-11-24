@@ -626,7 +626,7 @@ namespace XPNet
 	public class XPLMDrawInfo_t
 	{
 		private static readonly int m_structSizeInit;
-		private readonly int m_structSize;
+		internal readonly int m_structSize;
 		public float x;
 		public float y;
 		public float z;
@@ -673,7 +673,7 @@ namespace XPNet
 	internal unsafe delegate void XPLMDrawObjects(
 		void* inObject,
 		int inCount,
-		XPLMDrawInfo_t inLocations,
+		void* inLocations,
 		int lighting,
 		int earth_relative
 	);

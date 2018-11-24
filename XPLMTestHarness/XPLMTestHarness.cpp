@@ -561,6 +561,11 @@ XPLM_API void                 XPLMDrawObjects(
 	int                  earth_relative)
 {
 	std::cout << "XPLMTestHarness: Drawing object " << inObject << std::endl;
+	for (int c = 0; c < inCount; c++) 
+	{
+		std::cout << "XPLMTestHarness: Position #" << c << ": (" 
+			<< inLocations[c].x << ", " << inLocations[c].y << ", " << inLocations[c].z << ")" << std::endl;
+	}
 }
 
 XPLM_API void                 XPLMUnloadObject(
@@ -668,11 +673,11 @@ XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapse
 XPLM_API void XPHarnessInvokeDrawCallback()
 {
 	// Before invoking clean up all the unregistered draw callbacks.
-	auto it = registeredFlightLoops.begin();
-	while (it != registeredFlightLoops.end())
+	auto it = registeredDrawCallbacks.begin();
+	while (it != registeredDrawCallbacks.end())
 	{
 		if (it->second.deleted)
-			it = registeredFlightLoops.erase(it);
+			it = registeredDrawCallbacks.erase(it);
 		else
 			++it;
 	}
