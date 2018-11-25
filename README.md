@@ -19,7 +19,7 @@ The design goals for XPNet are:
 
 1. Provide excellent performance: it should be possible to write plugins in C# that don't kill your framerate.
 2. Provide an idiomatic .NET programming environment: that means classes, events and properties, where doing so does not conflict too badly with #1.
-3. Don't stray too far from X-Plane core concepts: meaning #2 only goes so far, so the X-Plane API documentation is a decent guide to the concepts neeed to write a plugin for X-Plane in C#.
+3. Don't stray too far from X-Plane core concepts: meaning #2 only goes so far, so the X-Plane API documentation is a decent guide to the concepts needed to write a plugin for X-Plane in C#.
 4. Be cross-platform: X-Plane works on Windows, macOS and Linux, so your plugins should too.
 
 XPNet is an attempt to create a .NET plugin environment for X-Plane that strikes a reasonable
@@ -209,7 +209,7 @@ dotnet new -i XPNet.CLR.Template
 
 3. Create a new plugin project.
 ```
-dotnet new xpnetplugin -n YourPluginName
+dotnet new xpnetplugin -n <Your-Plugin-Name>
 ```
 
 That will leave you with a new project (a .csproj file) and a single C# code file with a
