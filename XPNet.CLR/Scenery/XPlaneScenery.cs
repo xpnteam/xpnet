@@ -84,7 +84,7 @@ namespace XPNet
 
 		public void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
 		{
-			fixed (void* p = &drawInfos[0].m_structSize)
+			fixed (XPLMDrawInfo_t* p = drawInfos)
 			{
 				PluginBridge.Log.Log($"Drawing {drawInfos.Length} objects");
 				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, p, lighting, earthRelative);

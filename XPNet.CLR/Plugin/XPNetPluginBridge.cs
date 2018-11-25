@@ -623,7 +623,7 @@ namespace XPNet
 								   [In, Out] XPLMProbeInfo_t outInfo);
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
-	public class XPLMDrawInfo_t
+	public struct XPLMDrawInfo_t
 	{
 		private static readonly int m_structSizeInit;
 		internal readonly int m_structSize;
@@ -673,7 +673,7 @@ namespace XPNet
 	internal unsafe delegate void XPLMDrawObjects(
 		void* inObject,
 		int inCount,
-		void* inLocations,
+		XPLMDrawInfo_t* inLocations,
 		int lighting,
 		int earth_relative
 	);
