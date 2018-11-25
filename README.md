@@ -415,13 +415,13 @@ environment (i.e., that make it easy to do asynchronous operations in a plugin) 
 
 ## Building XPNet
 
-```
+<aside class="notice">
 You don't need to build XPNet if all you want to do is create your own plugin,
 because there are prebuilt binaries available via nuget.  See the instructions above
 in the `Developing a Plugin` section.
 
 These instructions are for if you want to contribute to or modify XPNet itself.
-```
+</aside>
 
 XPNet consists of three parts:
 
@@ -433,13 +433,13 @@ The native shim has to be named win.xpl, lin.xpl or mac.xpl, depending on the pl
 and dropped into a plugin folder alongside the other DLLs and config files as described
 in "Installing Into X-Plane" above.
 
-```
+<aside class="notice">
 Starting with X-Plane 11.10, X-Plane allows a new optional naming convention for plugins.
 XPNet has not yet adopted the new convention because it is not backward compatible to
 older versions of X-Plane.  We will consider adopting the new naming convention when and
 if we reach the point where XPNet plugins are no longer supported on any version of X-Plane
 old enough to only support the old convention.
-```
+</aside>
 
 NOTE: XPNet does not currently have a cross-compiler set up.  To build the native Windows
 shim, you have to build on Windows.  To build the macOS shim, you have to build on macOS.
@@ -468,7 +468,7 @@ and 64-bit, you will build twice: once with the x64 configuration selected and o
 with the x86 configuration selected.  Gather the output files
 and drop them into a folder in X-Plane as described in "Installing Into X-Plane" above.
 
-```
+<aside class="notice">
 "Gathering the output files" in Windows involves tracking down the several
 dependent DLLs that XPNet.CLR references, and grabbing the native and .NET
 outputs from a couple of different projects in the solution file.  It would be great to
@@ -485,7 +485,7 @@ If someone is interested, though, I would consider pull requests for better inst
 text to place here, or tooling improvements for building on Windows, especially
 an MSBuild target that builds everything for both 32-bit and 64-bit and drops it
 all in a Plugin folder with the right structure.
-```
+</aside>
 
 
 ### Building XPNet on macOS
