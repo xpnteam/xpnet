@@ -25,7 +25,7 @@ namespace XPNet
 
 	public interface IXPInstance : IDisposable
 	{
-		void SetPosition(XPLMDrawInfo_t xPLMDrawInfo_t, IEnumerable<float> v);
+		void SetPosition(XPDrawInfo xPLMDrawInfo_t, IEnumerable<float> v);
 	}
 
 	internal unsafe class XPInstance : IXPInstance
@@ -42,7 +42,7 @@ namespace XPNet
 			PluginBridge.ApiFunctions.XPLMDestroyInstance(m_instanceRef);
 		}
 
-		public void SetPosition(XPLMDrawInfo_t xPLMDrawInfo_t, IEnumerable<float> v)
+		public void SetPosition(XPDrawInfo xPLMDrawInfo_t, IEnumerable<float> v)
 		{
 			var floatArray = v.ToArray();
 			fixed (float* p = &floatArray[0])

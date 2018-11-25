@@ -6,7 +6,7 @@ namespace XPNet
 	/// Delegate for .NET code that wants to be called as part of the render loop.
 	/// </summary>
 	public delegate int DrawDelegate(
-		XPLMDrawingPhase inPhase,
+		XPDrawingPhase inPhase,
 		int inIsBefore
 	);
 
@@ -16,12 +16,12 @@ namespace XPNet
 	/// </summary>
 	public interface IXPlaneDisplay
 	{
-		IXPDrawingLoopHook RegisterDrawHook(DrawDelegate drawDelegate, XPLMDrawingPhase inPhase, int inWantsBefore);
+		IXPDrawingLoopHook RegisterDrawHook(DrawDelegate drawDelegate, XPDrawingPhase inPhase, int inWantsBefore);
 	}
 
 	internal class XPlaneDisplay : IXPlaneDisplay
 	{
-		public IXPDrawingLoopHook RegisterDrawHook(DrawDelegate drawDelegate, XPLMDrawingPhase inPhase, int inWantsBefore)
+		public IXPDrawingLoopHook RegisterDrawHook(DrawDelegate drawDelegate, XPDrawingPhase inPhase, int inWantsBefore)
 		{
 			return new XPDrawingLoopHook(drawDelegate, inPhase, inWantsBefore);
 		}
@@ -40,10 +40,10 @@ namespace XPNet
 		private readonly DrawDelegate m_loopDelegate;
 		private readonly XPLMDrawCallback_f m_hookDelegate;
 
-		private readonly XPLMDrawingPhase m_inPhase;
+		private readonly XPDrawingPhase m_inPhase;
 		private readonly int m_inWantsBefore;
 
-		public unsafe XPDrawingLoopHook(DrawDelegate drawCallbackDelegate, XPLMDrawingPhase inPhase, int inWantsBefore)
+		public unsafe XPDrawingLoopHook(DrawDelegate drawCallbackDelegate, XPDrawingPhase inPhase, int inWantsBefore)
 		{
 			m_loopDelegate = drawCallbackDelegate;
 			m_inPhase = inPhase;
@@ -62,7 +62,7 @@ namespace XPNet
 			PluginBridge.ApiFunctions.XPLMUnregisterDrawCallback(m_hookDelegate, m_inPhase, m_inWantsBefore, null);
 		}
 
-		private unsafe int XPLMDrawHook(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon)
+		private unsafe int XPLMDrawHook(XPDrawingPhase inPhase, int inIsBefore, void* inRefcon)
 		{
 			try
 			{
@@ -75,6 +75,29 @@ namespace XPNet
 				return 1; // If an exception happens in the draw hook, then let X-Plane draw
 			}
 		}
+	}
 
+	/// <summary>
+	/// Describes the phase in which X-Plane is currently drawing
+	/// </summary>
+	public enum XPDrawingPhase : int
+	{
+		// MAINT: This needs to be kept in sync with the
+		// XPLMDrawingPhase enumerable from the X-Plane API
+		FirstScene = 0,
+		Terrain = 5,
+		Airports = 10,
+		Vectors = 15,
+		Objects = 20,
+		Airplanes = 25,
+		LastScene = 30,
+		FirstCockpit = 35,
+		Panel = 40,
+		Gauges = 45,
+		Window = 50,
+		LastCockpit = 55,
+		LocalMap3D = 100,
+		LocalMap2D = 101,
+		LocalMapProfile = 102
 	}
 }

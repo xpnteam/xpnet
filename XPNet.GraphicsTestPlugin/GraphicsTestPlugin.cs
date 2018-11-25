@@ -28,7 +28,7 @@ namespace XPNet
 			m_api = api ?? throw new ArgumentNullException(nameof(api));
 
 			m_api.Log.Log("GraphicsTestPlugin: Displaytest started");
-			m_drawingLoopHook = m_api.Display.RegisterDrawHook(DrawingHook, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);
+			m_drawingLoopHook = m_api.Display.RegisterDrawHook(DrawingHook, XPDrawingPhase.Airplanes, 0);
 			m_firstFlightLoopHook = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), SimLoaded);
 			m_api.Log.Log("GraphicsTestPlugin: And now create a probe");
 			m_probe = m_api.Scenery.CreateProbe();
@@ -86,7 +86,7 @@ namespace XPNet
 
 			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
 
-			m_testTugInstance.SetPosition(new XPLMDrawInfo_t((float)res.LocationX, (float)res.LocationY, (float)res.LocationZ, (float)0, (float)0, (float)0),
+			m_testTugInstance.SetPosition(new XPDrawInfo((float)res.LocationX, (float)res.LocationY, (float)res.LocationZ, (float)0, (float)0, (float)0),
 				new float[] { m_tireAngle });
 
 			m_tireAngle++;
@@ -104,7 +104,7 @@ namespace XPNet
 		/// is a deprecated way of drawing, but we still support it as long 
 		/// as the SDK supports it.
 		/// </summary>
-		private int DrawingHook(XPLMDrawingPhase inPhase, int inIsBefore)
+		private int DrawingHook(XPDrawingPhase inPhase, int inIsBefore)
 		{
 			m_api.Log.Log("GraphicsTestPlugin: Entering drawing hook");
 
@@ -115,7 +115,7 @@ namespace XPNet
 			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
 			var positions = Enumerable
 				.Range(0, 10)
-				.Select(i => new XPLMDrawInfo_t(res.LocationX, res.LocationY+i*10, res.LocationZ, 0.0f, 0.0f, 0.0f))
+				.Select(i => new XPDrawInfo(res.LocationX, res.LocationY+i*10, res.LocationZ, 0.0f, 0.0f, 0.0f))
 				.ToArray();
 			m_testTug.Draw(0, 0, positions );
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace XPNet
 {
@@ -56,7 +57,7 @@ namespace XPNet
 
 	public interface IXPSceneryObject : IDisposable
 	{
-		void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos);
+		void Draw(int lighting, int earthRelative, XPDrawInfo[] drawInfos);
 		IXPInstance CreateInstance(IEnumerable<string> inDataRefs);
 	}
 
@@ -82,9 +83,9 @@ namespace XPNet
 			return new XPInstance(instanceRef);
 		}
 
-		public void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos)
+		public void Draw(int lighting, int earthRelative, XPDrawInfo[] drawInfos)
 		{
-			fixed (XPLMDrawInfo_t* p = drawInfos)
+			fixed (XPDrawInfo* p = drawInfos)
 			{
 				PluginBridge.Log.Log($"Drawing {drawInfos.Length} objects");
 				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, p, lighting, earthRelative);
@@ -92,13 +93,54 @@ namespace XPNet
 		}
 	}
 
+	/// <summary>
+	/// This is the draw info struct that needs to be passed to 
+	/// <see cref="XPLMDrawObjects"/> and corresponds to XPLMDrawInfo_t
+	/// in the X-Plane Plugin API. Note that this structure is exposed directly
+	/// for performance reasons.
+	/// </summary>
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
+	public struct XPDrawInfo
+	{
+		//Note that the structSize needs to be also an instance member
+		//of the struct such that it is layed out correcly for X-Plane
+		//Therefore, the size of the struct is initially written into a
+		//static member in the static constructor and copied into the
+		//instance member in the instance constructor.
+		private static readonly int m_structSizeInit;
+		internal readonly int m_structSize;
+		public float x;
+		public float y;
+		public float z;
+		public float pitch;
+		public float heading;
+		public float roll;
+
+		static XPDrawInfo()
+		{
+			m_structSizeInit = Marshal.SizeOf(typeof(XPDrawInfo));
+		}
+
+		public XPDrawInfo(float x = default(float), float y = default(float), float z = default(float), float pitch = default(float), float heading = default(float), float roll = default(float))
+		{
+			m_structSize = m_structSizeInit;
+			this.x = x;
+			this.y = y;
+			this.z = z;
+			this.pitch = pitch;
+			this.heading = heading;
+			this.roll = roll;
+		}
+	};
+
+
 
 	public interface IXPProbe : IDisposable
 	{
-		IXPProbeResult ProbeTerrainXYZ(float inX, float inY, float inZ);
+		IXPProbeInfo ProbeTerrainXYZ(float inX, float inY, float inZ);
 	}
 
-	public interface IXPProbeResult
+	public interface IXPProbeInfo
 	{
 		float LocationX { get; }
 
@@ -120,19 +162,18 @@ namespace XPNet
 
 		int IsWet { get; }
 
-		XPLMProbeResult Result { get; }
+		XPProbeResult Result { get; }
 
 	}
 
-	internal class XPProbeResult : IXPProbeResult
+	internal class XPProbeInfo : IXPProbeInfo
 	{
 		private readonly XPLMProbeInfo_t m_probeInfo;
-		private readonly XPLMProbeResult m_result;
 
-		internal unsafe XPProbeResult(void* probeRef, float inX, float inY, float inZ)
+		internal unsafe XPProbeInfo(void* probeRef, float inX, float inY, float inZ)
 		{
 			m_probeInfo = new XPLMProbeInfo_t();
-			m_result = PluginBridge.ApiFunctions.XPLMProbeTerrainXYZ(probeRef, inX, inY, inZ, m_probeInfo);
+			Result = PluginBridge.ApiFunctions.XPLMProbeTerrainXYZ(probeRef, inX, inY, inZ, m_probeInfo);
 		}
 
 		public float LocationX => m_probeInfo.locationX;
@@ -155,7 +196,7 @@ namespace XPNet
 
 		public int IsWet => m_probeInfo.is_wet;
 
-		public XPLMProbeResult Result => m_result;
+		public XPProbeResult Result { get; }
 	}
 
 	internal class XPProbe : IXPProbe
@@ -172,9 +213,21 @@ namespace XPNet
 			PluginBridge.ApiFunctions.XPLMDestroyProbe(m_probeRef);
 		}
 
-		public unsafe IXPProbeResult ProbeTerrainXYZ(float inX, float inY, float inZ)
+		public unsafe IXPProbeInfo ProbeTerrainXYZ(float inX, float inY, float inZ)
 		{
-			return new XPProbeResult(m_probeRef, inX, inY, inZ);
+			return new XPProbeInfo(m_probeRef, inX, inY, inZ);
 		}
+	}
+
+	/// <summary>
+	/// The result of the probing
+	/// </summary>
+	public enum XPProbeResult : int
+	{
+		// MAINT: This needs to be kept in sync with the
+		// XPLMProbeResult enum from the X-Plane API
+		ProbeHitTerrain = 0,
+		ProbeError = 1,
+		ProbeMissed = 2
 	}
 }
