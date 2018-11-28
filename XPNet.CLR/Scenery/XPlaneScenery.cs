@@ -262,8 +262,22 @@ namespace XPNet
 	{
 		// MAINT: This needs to be kept in sync with the
 		// XPLMProbeResult enum from the X-Plane API
+		/// <summary>
+		/// The probe hit terrain and returned valid values.
+		/// </summary>
 		ProbeHitTerrain = 0,
+
+		/// <summary>
+		/// An error in the API call. Either the probe struct size 
+		/// is bad, or the probe is invalid or the type is mismatched 
+		/// for the specific query call.
+		/// </summary>
 		ProbeError = 1,
+
+		/// <summary>
+		/// The probe call succeeded but there is no terrain under 
+		/// this point (perhaps it is off the side of the planet?)
+		/// </summary>
 		ProbeMissed = 2
 	}
 }
