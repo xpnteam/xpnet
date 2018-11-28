@@ -674,8 +674,7 @@ namespace XPNet
 	internal unsafe delegate void* XPLMCreateInstance
 	(
 		void* inObj,
-		[MarshalAs(UnmanagedType.LPArray,
-   ArraySubType=UnmanagedType.LPStr)] string[] inDataRefs
+		[MarshalAs(UnmanagedType.LPArray, ArraySubType=UnmanagedType.LPStr)] string[] inDataRefs
 	);
 
 	internal unsafe delegate void XPLMDestroyInstance
