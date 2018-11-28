@@ -94,42 +94,78 @@ namespace XPNet
 	}
 
 	/// <summary>
-	/// This is the draw info struct that needs to be passed to 
-	/// <see cref="XPLMDrawObjects"/> and corresponds to XPLMDrawInfo_t
-	/// in the X-Plane Plugin API. Note that this structure is exposed directly
-	/// for performance reasons.
+	/// Contains positioning info for one object that is to be drawn.
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
 	public struct XPDrawInfo
 	{
-		//Note that the structSize needs to be also an instance member
-		//of the struct such that it is layed out correcly for X-Plane
-		//Therefore, the size of the struct is initially written into a
-		//static member in the static constructor and copied into the
-		//instance member in the instance constructor.
+		// MAINT: This is the draw info struct that needs to be passed to 
+		// <see cref="XPLMDrawObjects"/> and corresponds to XPLMDrawInfo_t
+		// in the X-Plane Plugin API. Therefore, XPDrawInfo and XPLMDrawInfo_t
+		// needs to be kept in sync. 
+		// NOTE: This structure is exposed directly for performance reasons.
+
+		// Note that the structSize needs to be also an instance member
+		// of the struct such that it is layed out correcly for X-Plane.
+		// Therefore, the size of the struct is initially written into a
+		// static member in the static constructor and copied into the
+		// instance member in the instance constructor.
 		private static readonly int m_structSizeInit;
-		internal readonly int m_structSize;
-		public float x;
-		public float y;
-		public float z;
-		public float pitch;
-		public float heading;
-		public float roll;
+		private readonly int m_structSize;
+
+		/// <summary>
+		/// X location of the object in local coordinates.
+		/// </summary>
+		public float X;
+
+		/// <summary>
+		/// Y location of the object in local coordinates.
+		/// </summary>
+		public float Y;
+
+		/// <summary>
+		/// Z location of the object in local coordinates.
+		/// </summary>
+		public float Z;
+
+		/// <summary>
+		/// Pitch in degres to rotate the object, positive is up.
+		/// </summary>
+		public float Pitch;
+
+		/// <summary>
+		/// Heading in local coordinates to rotate the object, clockwise.
+		/// </summary>
+		public float Heading;
+
+		/// <summary>
+		/// Roll to rotate the object.
+		/// </summary>
+		public float Roll;
 
 		static XPDrawInfo()
 		{
 			m_structSizeInit = Marshal.SizeOf(typeof(XPDrawInfo));
 		}
 
-		public XPDrawInfo(float x = default(float), float y = default(float), float z = default(float), float pitch = default(float), float heading = default(float), float roll = default(float))
+		/// <summary>
+		/// Constructs a new instance of the <see cref="XPDrawInfo"/> class.
+		/// </summary>
+		/// <param name="x">X location of the object in local coordinates.</param>
+		/// <param name="y">Y location of the object in local coordinates.</param>
+		/// <param name="z">Z location of the object in local coordinates.</param>
+		/// <param name="pitch">Pitch in degres to rotate the object, positive is up.</param>
+		/// <param name="heading">Heading in local coordinates to rotate the object, clockwise.</param>
+		/// <param name="roll">Roll to rotate the object.</param>
+		public XPDrawInfo(float x, float y, float z, float pitch, float heading, float roll)
 		{
 			m_structSize = m_structSizeInit;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.pitch = pitch;
-			this.heading = heading;
-			this.roll = roll;
+			this.X = x;
+			this.Y = y;
+			this.Z = z;
+			this.Pitch = pitch;
+			this.Heading = heading;
+			this.Roll = roll;
 		}
 	};
 
@@ -220,7 +256,7 @@ namespace XPNet
 	}
 
 	/// <summary>
-	/// The result of the probing
+	/// The result of the probe query
 	/// </summary>
 	public enum XPProbeResult : int
 	{
