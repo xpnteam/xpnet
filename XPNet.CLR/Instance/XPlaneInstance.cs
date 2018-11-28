@@ -30,7 +30,7 @@ namespace XPNet
 
 	internal unsafe class XPInstance : IXPInstance
 	{
-		readonly void* m_instanceRef;
+		private readonly void* m_instanceRef;
 
 		public XPInstance(void* instanceRef)
 		{
