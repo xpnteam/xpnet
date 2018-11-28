@@ -623,7 +623,8 @@ XPLM_API XPLMInstanceRef XPLMCreateInstance(XPLMObjectRef obj, const char ** dat
 	std::cout << "XPLMTestHarness: Creating instance for object " <<  obj << std::endl;
 	unsigned int i = 0;
 	std::list<string> dRefList;
-	for (i = 0; datarefs[i] != NULL; i++) {
+	for (i = 0; datarefs[i] != NULL; i++) 
+	{
 		std::cout << "XPLMTestHarness: DataRef " << datarefs[i]  << std::endl;
 		dRefList.push_back(datarefs[i]);
 	}
@@ -643,10 +644,12 @@ XPLM_API void XPLMInstanceSetPosition(XPLMInstanceRef instance, const XPLMDrawIn
 {
 	std::cout << "XPLMTestHarness: Instance set position for instance " << instance << std::endl;
 	auto it = registeredInstances.find(instance);
-	if (it != registeredInstances.end()) {
+	if (it != registeredInstances.end()) 
+	{
 		auto datarefs = it->second;
 		unsigned int i = 0;
-		for (string dref : datarefs) {
+		for (string dref : datarefs) 
+		{
 			std::cout << "XPLMTestHarness: DataRef " << dref << " set to value " << data[i++] << std::endl;
 		}
 	}
