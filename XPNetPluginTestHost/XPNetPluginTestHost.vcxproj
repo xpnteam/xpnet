@@ -72,15 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -94,13 +102,22 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>XPLM_64.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Platform)\$(Configuration)\;$(SolutionDir)build\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.CLR.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.LoggerPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.LoggerPlugin.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.GraphicsTestPlugin.dll" "$(OutputPath)"
-</Command>
+      <Command>rem Get the test plugins and their respective dependencies into the target folder.
+dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+
+rem Need a .NET runtime to build against.
+dotnet install -i "$(OutputPath)64\dotnet-windows" -r dotnet -p win -a x64 -v 2.1
+dotnet install -i "$(OutputPath)64\dotnet-macos" -r dotnet -p osx -a x64 -v 2.1
+dotnet install -i "$(OutputPath)32\dotnet-windows" -r dotnet -p win -a x86 -v 2.1
+
+rem For VS Test Explorer integration - let it know this is a gtest project.
+echo &gt; $(TargetPath).is_google_test</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -115,13 +132,22 @@ copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>XPLM.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Platform)\$(Configuration)\;$(SolutionDir)build\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.CLR.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.LoggerPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.LoggerPlugin.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.GraphicsTestPlugin.dll" "$(OutputPath)"
-</Command>
+      <Command>rem Get the test plugins and their respective dependencies into the target folder.
+dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+
+rem Need a .NET runtime to build against.
+dotnet install -i "$(OutputPath)64\dotnet-windows" -r dotnet -p win -a x64 -v 2.1
+dotnet install -i "$(OutputPath)64\dotnet-macos" -r dotnet -p osx -a x64 -v 2.1
+dotnet install -i "$(OutputPath)32\dotnet-windows" -r dotnet -p win -a x86 -v 2.1
+
+rem For VS Test Explorer integration - let it know this is a gtest project.
+echo &gt; $(TargetPath).is_google_test</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,13 +166,21 @@ copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>XPLM.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Platform)\$(Configuration)\;$(SolutionDir)build\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.CLR.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.LoggerPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.LoggerPlugin.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.GraphicsTestPlugin.dll" "$(OutputPath)"
-</Command>
+      <Command>rem Get the test plugins and their respective dependencies into the target folder.
+dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+
+rem Need a .NET runtime to build against.
+dotnet install -i "$(OutputPath)64\dotnet-windows" -r dotnet -p win -a x64 -v 2.1
+dotnet install -i "$(OutputPath)64\dotnet-macos" -r dotnet -p osx -a x64 -v 2.1
+dotnet install -i "$(OutputPath)32\dotnet-windows" -r dotnet -p win -a x86 -v 2.1
+
+rem For VS Test Explorer integration - let it know this is a gtest project.
+echo &gt; $(TargetPath).is_google_test</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,23 +199,36 @@ copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>XPLM_64.lib;XPNet.Native.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)build\$(Platform)\$(Configuration)\;$(SolutionDir)build\$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)XPNet.CLR\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.CLR.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.LoggerPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.LoggerPlugin.dll" "$(OutputPath)"
-copy "$(SolutionDir)XPNet.GraphicsTestPlugin\bin\$(ConfigurationName)\netcoreapp2.1\XPNet.GraphicsTestPlugin.dll" "$(OutputPath)"
-</Command>
+      <Command>rem Get the test plugins and their respective dependencies into the target folder.
+dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+
+rem Need a .NET runtime to build against.
+dotnet install -i "$(OutputPath)64\dotnet-windows" -r dotnet -p win -a x64 -v 2.1
+dotnet install -i "$(OutputPath)64\dotnet-macos" -r dotnet -p osx -a x64 -v 2.1
+dotnet install -i "$(OutputPath)32\dotnet-windows" -r dotnet -p win -a x86 -v 2.1
+
+rem For VS Test Explorer integration - let it know this is a gtest project.
+echo &gt; $(TargetPath).is_google_test</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StdCapture.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TestCore.h" />
     <ClInclude Include="XPMock.h" />
     <ClInclude Include="XPNetPluginTestHost.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LifecycleTests.cpp" />
+    <ClCompile Include="StdCapture.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TestCore.cpp" />
     <ClCompile Include="XPNetPluginTestHost.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
