@@ -71,7 +71,7 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 		fullTrustedAssemblies.append(PATH_ENTRY_SEP);
 	}
 
-	// Load the CoreCRL dll into the process
+	// Load the CoreCLR dll into the process
 	HMODULE hCoreCLRModule = SysLoadLibrary(coreClrFilePath);
 	if (!hCoreCLRModule)
 	{
