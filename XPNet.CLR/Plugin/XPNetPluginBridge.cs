@@ -648,8 +648,7 @@ namespace XPNet
 	#region X-Plane Graphics API
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	internal unsafe delegate int XPLMWorldToLocal
-	(
+	internal unsafe delegate int XPLMWorldToLocal(
 		double inLatitude,
 		double inLongitude,
 		double inAltitude,
@@ -659,8 +658,7 @@ namespace XPNet
 	);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	internal unsafe delegate int XPLMLocalToWorld
-	(
+	internal unsafe delegate int XPLMLocalToWorld(
 		double inX,
 		double inY,
 		double inZ,
@@ -671,19 +669,16 @@ namespace XPNet
 
 	#endregion X-Plane Graphics API
 	#region X-Plane Instance API
-	internal unsafe delegate void* XPLMCreateInstance
-	(
+	internal unsafe delegate void* XPLMCreateInstance(
 		void* inObj,
 		[MarshalAs(UnmanagedType.LPArray, ArraySubType=UnmanagedType.LPStr)] string[] inDataRefs
 	);
 
-	internal unsafe delegate void XPLMDestroyInstance
-	(
+	internal unsafe delegate void XPLMDestroyInstance(
 		void* instance
 	);
 
-	internal unsafe delegate void XPLMInstanceSetPosition
-	(
+	internal unsafe delegate void XPLMInstanceSetPosition(
 		void* instance,
 		XPDrawInfo inNewPosition,
 		float* data
