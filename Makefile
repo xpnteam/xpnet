@@ -67,7 +67,7 @@ template:
 
 native:
 	cd XPNet.Native && $(MAKE)
-	$(CP) XPNet.Native/bin/$(Configuration)/*.nupkg package
+	$(CP) XPNet.Native.Packages/bin/$(Configuration)/*.nupkg package
 
 prepare_package:
 	$(MKDIR) package
@@ -82,3 +82,4 @@ native_test: native
 test: xpnetclr_test native_test
 
 package: prepare_package test template
+
