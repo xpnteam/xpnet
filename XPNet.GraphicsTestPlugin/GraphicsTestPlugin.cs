@@ -64,7 +64,7 @@ namespace XPNet
 				m_api.Log.Log($"GraphicsTestPlugin: Filename: {p}");
 
 			m_testTug = m_api.Scenery.LoadObject(tugs.First());
-			m_testTugInstances = Enumerable.Range(0,10).Select(x => m_api.Instance.Create(m_testTug, new string[]
+			m_testTugInstances = Enumerable.Range(0,10).Select(_ => m_api.Instance.Create(m_testTug, new string[]
 			{
 				"sim/graphics/animation/ground_traffic/tire_steer_deg"
 			})).ToList();

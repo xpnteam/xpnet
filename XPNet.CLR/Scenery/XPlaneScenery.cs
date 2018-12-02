@@ -42,15 +42,12 @@ namespace XPNet
 
 			unsafe void Enumerator(string inFilePath, void* inRef)
 			{
-				// PluginBridge.Log.Log($"Enumerator called with path {inFilePath}");
 				lookupObjectPaths.Add(inFilePath);
 			}
 
 			var en = new XPLMLibraryEnumerator_f(Enumerator);
 
-			// PluginBridge.Log.Log($"Now calling API function with path {path}");
 			int numObjects = PluginBridge.ApiFunctions.XPLMLookupObjects(path, latitude, longitude, en, null);
-			// PluginBridge.Log.Log($"API function called, {numObjects} objects were found");
 			return lookupObjectPaths;
 		}
 	}
