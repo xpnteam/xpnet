@@ -6,12 +6,12 @@ namespace XPNet
 {
 	public interface IXPlaneInstance
 	{
-		unsafe IXPInstance Create(IXPSceneryObject inSceneryObject, IEnumerable<string> inDataRefs);
+		unsafe IXPInstance Create(IXPSceneryObject inSceneryObject, string[] inDataRefs);
 	}
 
 	internal class XPlaneInstance : IXPlaneInstance
 	{
-		public IXPInstance Create(IXPSceneryObject inSceneryObject, IEnumerable<string> inDataRefs)
+		public IXPInstance Create(IXPSceneryObject inSceneryObject, string[] inDataRefs)
 		{
 			return inSceneryObject.CreateInstance(inDataRefs);
 		}

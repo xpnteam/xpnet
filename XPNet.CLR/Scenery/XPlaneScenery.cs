@@ -59,7 +59,7 @@ namespace XPNet
 	{
 		void Draw(int lighting, int earthRelative, XPDrawInfo[] drawInfos);
 
-		IXPInstance CreateInstance(IEnumerable<string> inDataRefs);
+		IXPInstance CreateInstance(string[] inDataRefs);
 	}
 
 	internal unsafe class XPSceneryObject : IXPSceneryObject
@@ -85,12 +85,11 @@ namespace XPNet
 			}
 		}
 
-		public IXPInstance CreateInstance(IEnumerable<string> inDataRefs)
+		public IXPInstance CreateInstance(string[] inDataRefs)
 		{
-			List<string> dataRefList = inDataRefs.ToList();
-			dataRefList.Add(null);
-			string[] dataRefArray = dataRefList.ToArray();
-			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, dataRefArray);
+			string[] passedDataRefArray = new string[inDataRefs.Length + 1];
+			Array.Copy(inDataRefs, passedDataRefArray, inDataRefs.Length);
+			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, passedDataRefArray);
 			return new XPInstance(instanceRef);
 		}
 	}
