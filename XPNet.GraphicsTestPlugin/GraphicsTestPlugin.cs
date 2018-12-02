@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace XPNet
@@ -21,7 +22,7 @@ namespace XPNet
 		private IXPFlightLoopHook m_firstFlightLoopHook;
 		private IXPFlightLoopHook m_tireTurning;
 		private IXPSceneryObject m_testTug;
-		private IXPInstance m_testTugInstance;
+		private List<IXPInstance> m_testTugInstances;
 
 		public GraphicsTestPlugin(IXPlaneApi api)
 		{
@@ -40,6 +41,7 @@ namespace XPNet
 			// Clean up whatever we attached / registered for / etc.
 			m_drawingLoopHook?.Dispose();
 			m_testTug?.Dispose();
+			m_testTugInstances.ForEach(instance => instance?.Dispose());
 			m_tireTurning?.Dispose();
 			m_probe?.Dispose();
 			m_firstFlightLoopHook?.Dispose();
@@ -62,10 +64,10 @@ namespace XPNet
 				m_api.Log.Log($"GraphicsTestPlugin: Filename: {p}");
 
 			m_testTug = m_api.Scenery.LoadObject(tugs.First());
-			m_testTugInstance = m_api.Instance.Create(m_testTug, new string[]
+			m_testTugInstances = Enumerable.Range(0,10).Select(x => m_api.Instance.Create(m_testTug, new string[]
 			{
 				"sim/graphics/animation/ground_traffic/tire_steer_deg"
-			});
+			})).ToList();
 
 			m_tireTurning = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), TurnTheWheel);
 
@@ -86,8 +88,12 @@ namespace XPNet
 
 			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
 
-			m_testTugInstance.SetPosition(new XPDrawInfo((float)res.LocationX, (float)res.LocationY, (float)res.LocationZ, (float)0, (float)0, (float)0),
-				new float[] { m_tireAngle });
+			int height = 0;
+			foreach (var instance in m_testTugInstances)
+			{
+				instance.SetPosition(new XPDrawInfo((float)res.LocationX, (float)res.LocationY+(10*height++), (float)res.LocationZ, (float)0, (float)0, (float)0),
+					new float[] { m_tireAngle });
+			}
 
 			m_tireAngle++;
 			if (m_tireAngle > 45)
