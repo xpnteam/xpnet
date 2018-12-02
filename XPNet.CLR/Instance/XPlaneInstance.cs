@@ -6,26 +6,20 @@ namespace XPNet
 {
 	public interface IXPlaneInstance
 	{
-		void CreateInstance();
-		void DestroyInstance();
+		unsafe IXPInstance Create(IXPSceneryObject inSceneryObject, IEnumerable<string> inDataRefs);
 	}
 
 	internal class XPlaneInstance : IXPlaneInstance
 	{
-		public void CreateInstance()
+		public IXPInstance Create(IXPSceneryObject inSceneryObject, IEnumerable<string> inDataRefs)
 		{
-			throw new NotImplementedException();
-		}
-
-		public void DestroyInstance()
-		{
-			throw new NotImplementedException();
+			return inSceneryObject.CreateInstance(inDataRefs);
 		}
 	}
 
 	public interface IXPInstance : IDisposable
 	{
-		void SetPosition(XPDrawInfo xPLMDrawInfo_t, IEnumerable<float> v);
+		void SetPosition(XPDrawInfo xPLMDrawInfo_t, float[] v);
 	}
 
 	internal unsafe class XPInstance : IXPInstance
@@ -42,7 +36,7 @@ namespace XPNet
 			PluginBridge.ApiFunctions.XPLMDestroyInstance(m_instanceRef);
 		}
 
-		public void SetPosition(XPDrawInfo xPLMDrawInfo_t, IEnumerable<float> v)
+		public void SetPosition(XPDrawInfo xPLMDrawInfo_t, float[] v)
 		{
 			var floatArray = v.ToArray();
 			fixed (float* p = &floatArray[0])

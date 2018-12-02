@@ -58,6 +58,7 @@ namespace XPNet
 	public interface IXPSceneryObject : IDisposable
 	{
 		void Draw(int lighting, int earthRelative, XPDrawInfo[] drawInfos);
+
 		IXPInstance CreateInstance(IEnumerable<string> inDataRefs);
 	}
 
@@ -74,14 +75,6 @@ namespace XPNet
 		{
 			PluginBridge.ApiFunctions.XPLMUnloadObject(m_objectRef);
 		}
-		public IXPInstance CreateInstance(IEnumerable<string> inDataRefs)
-		{
-			List<string> dataRefList = inDataRefs.ToList();
-			dataRefList.Add(null);
-			string[] dataRefArray = dataRefList.ToArray();
-			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, dataRefArray);
-			return new XPInstance(instanceRef);
-		}
 
 		public void Draw(int lighting, int earthRelative, XPDrawInfo[] drawInfos)
 		{
@@ -90,6 +83,15 @@ namespace XPNet
 				PluginBridge.Log.Log($"Drawing {drawInfos.Length} objects");
 				PluginBridge.ApiFunctions.XPLMDrawObjects(m_objectRef, drawInfos.Length, p, lighting, earthRelative);
 			}
+		}
+
+		public IXPInstance CreateInstance(IEnumerable<string> inDataRefs)
+		{
+			List<string> dataRefList = inDataRefs.ToList();
+			dataRefList.Add(null);
+			string[] dataRefArray = dataRefList.ToArray();
+			var instanceRef = PluginBridge.ApiFunctions.XPLMCreateInstance(m_objectRef, dataRefArray);
+			return new XPInstance(instanceRef);
 		}
 	}
 
