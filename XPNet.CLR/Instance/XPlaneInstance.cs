@@ -44,9 +44,9 @@ namespace XPNet
 		/// <summary>
 		/// Registers an instance of an X-Plane object.
 		/// </summary>
-		/// <param name="inSceneryObject">The object for which an instance should be registered</param>
-		/// <param name="inDataRefs">A list of datarefs that are supposed to be manipulated during instance lifetime</param>
-		/// <returns>The registered instance</returns>
+		/// <param name="inSceneryObject">The object for which an instance should be registered.</param>
+		/// <param name="inDataRefs">A list of datarefs that are supposed to be manipulated during instance lifetime.</param>
+		/// <returns>The registered instance.</returns>
 		IXPInstance Create(IXPSceneryObject inSceneryObject, string[] inDataRefs);
 	}
 

@@ -13,10 +13,27 @@ namespace XPNet
 	/// </summary>
 	public interface IXPlaneScenery
 	{
+		/// <summary>
+		/// Creates a new probe object.
+		/// </summary>
+		/// <returns></returns>
 		IXPProbe CreateProbe();
 
+		/// <summary>
+		/// Loads a scenery object (.obj file).
+		/// </summary>
+		/// <param name="path">The path for the object relative to the X-Plane base folder.</param>
+		/// <returns>The loaded scenery object.</returns>
 		IXPSceneryObject LoadObject(string path);
 
+		/// <summary>
+		/// Looks up a virtual path in the library system 
+		/// and returns all matching elements.
+		/// </summary>
+		/// <param name="path">The virtual path in the library system</param>
+		/// <param name="latitude">Latitude of the object to be used.</param>
+		/// <param name="longitude">Longitude of the object to be used.</param>
+		/// <returns>An enumeration of all matching elements.</returns>
 		IEnumerable<string> LookupObjects(string path, float latitude, float longitude);
 	}
 
@@ -52,10 +69,36 @@ namespace XPNet
 		}
 	}
 
+	/// <summary>
+	/// Provides access to the scenery object that has been 
+	/// loaded into memory.
+	/// </summary>
 	public interface IXPSceneryObject : IDisposable
 	{
+		/// <summary>
+		/// Draws the object
+		/// </summary>
+		/// <param name="lighting">Pass 1 to show the night version of
+		/// object with night-only lights lit up. Pass 0 to show the 
+		/// daytime version of the object.</param>
+		/// <param name="earthRelative">If this is 1, the rotations you 
+		/// specify are applied to the object after its coordinate system 
+		/// is transformed from local to earth-relative coordinates - 
+		/// that is, an object with no rotations will point toward true 
+		/// north and the Y axis will be up against gravity. If this is 0, 
+		/// the object is drawn with your rotations from local coordinates 
+		/// - that is, an object with no rotations is drawn pointing down 
+		/// the -Z axis and the Y axis of the object matches the local 
+		/// coordinate Y axis.</param>
+		/// <param name="drawInfos">Pass one drawInfo for each place you
+		/// would like the object to be drawn.</param>
 		void Draw(int lighting, int earthRelative, XPDrawInfo[] drawInfos);
 
+		/// <summary>
+		/// Registers an instance of an X-Plane object.
+		/// </summary>
+		/// <param name="inDataRefs">A list of datarefs that are supposed to be manipulated during instance lifetime.</param>
+		/// <returns>The registered instance</returns>
 		IXPInstance CreateInstance(string[] inDataRefs);
 	}
 
@@ -102,8 +145,7 @@ namespace XPNet
 		// in the X-Plane Plugin API. Therefore, XPDrawInfo and XPLMDrawInfo_t
 		// needs to be kept in sync. 
 		// NOTE: This structure is exposed directly for performance reasons.
-
-		// Note that the structSize needs to be also an instance member
+		// The structSize needs to be also an instance member
 		// of the struct such that it is layed out correcly for X-Plane.
 		// Therefore, the size of the struct is initially written into a
 		// static member in the static constructor and copied into the
@@ -167,37 +209,84 @@ namespace XPNet
 		}
 	};
 
-
-
+	/// <summary>
+	/// Provides access to the probe that has been created by
+	/// <code>api.Scenery.CreateProbe</code>
+	/// </summary>
 	public interface IXPProbe : IDisposable
 	{
+		/// <summary>
+		/// Probes the terrain.
+		/// </summary>
+		/// <param name="inX">X coordinate of the probe point.</param>
+		/// <param name="inY">Y coordinate of the probe point.</param>
+		/// <param name="inZ">Z coordinate of the probe point.</param>
+		/// <returns>Result of the probing</returns>
 		IXPProbeInfo ProbeTerrainXYZ(float inX, float inY, float inZ);
 	}
 
+	/// <summary>
+	/// Provides access to the result of a probe call.
+	/// </summary>
 	public interface IXPProbeInfo
 	{
+		/// <summary>
+		/// Resulting X location of the terrain point we hit, 
+		/// in local OpenGL coordinates.
+		/// </summary>
 		float LocationX { get; }
 
+		/// <summary>
+		/// Resulting Y location of the terrain point we hit, 
+		/// in local OpenGL coordinates.
+		/// </summary>
 		float LocationY { get; }
 
+		/// <summary>
+		/// Resulting Z location of the terrain point we hit, 
+		/// in local OpenGL coordinates.
+		/// </summary>
 		float LocationZ { get; }
 
+		/// <summary>
+		/// X component of the normal vector to the terrain we found.
+		/// </summary>
 		float NormalX { get; }
 
+		/// <summary>
+		/// Y component of the normal vector to the terrain we found.
+		/// </summary>
 		float NormalY { get; }
 
+		/// <summary>
+		/// Z component of the normal vector to the terrain we found.
+		/// </summary>
 		float NormalZ { get; }
 
+		/// <summary>
+		/// X component of the velocity vector of the terrain we found.
+		/// </summary>
 		float VelocityX { get; }
 
+		/// <summary>
+		/// Y component of the velocity vector of the terrain we found.
+		/// </summary>
 		float VelocityY { get; }
 
+		/// <summary>
+		/// Z component of the velocity vector of the terrain we found.
+		/// </summary>
 		float VelocityZ { get; }
 
+		/// <summary>
+		/// Tells if the surface we hit is water (otherwise it is land).
+		/// </summary>
 		int IsWet { get; }
 
+		/// <summary>
+		/// The result status of the probe call.
+		/// </summary>
 		XPProbeResult Result { get; }
-
 	}
 
 	internal class XPProbeInfo : IXPProbeInfo
@@ -254,7 +343,7 @@ namespace XPNet
 	}
 
 	/// <summary>
-	/// The result of the probe query
+	/// The result status of the probe query
 	/// </summary>
 	public enum XPProbeResult : int
 	{
