@@ -168,8 +168,7 @@ std::wstring GetPluginDirectory()
 	return fp.parent_path().generic_wstring();
 }
 
-// This function is used for testing, to get logging to a different location
-// than the normal log file.
+// For testing: provide an alternate log target than the normal log file.
 XPNETPLUGIN_API void XPNetPluginSetExternalLoggingHandle(void* externalLoggingHandle)
 {
 	s_externalLoggingHandle = externalLoggingHandle;
@@ -204,7 +203,11 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 			pluginDir.parent_path() / "dotnet"
 		};
 
-		fs::path sharedAppPath, effectivePluginDir;
+		// Assuming that the pluginPath looks like <PluginDir>/32, we want to
+		// be looking for our plugin resources one level higher, in <PluginDir>.
+		fs::path effectivePluginDir = pluginDir.parent_path();
+
+		fs::path sharedAppPath;
 		for (auto& dotnetPath : dotnetProbePaths)
 		{
 			fs::path probeSharedAppPath = dotnetPath / "shared" / "Microsoft.NETCore.App";
@@ -212,7 +215,6 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 			if (fs::exists(probeSharedAppPath))
 			{
 				sharedAppPath = probeSharedAppPath;
-				effectivePluginDir = dotnetPath.parent_path();
 
 				XPLMDebugString("...FOUND\n");
 				XPLMDebugString(("XPNet: Will load plugins from " + effectivePluginDir.generic_string() + "\n").c_str());
@@ -254,6 +256,12 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 		ClrPluginEnable = GetClrMethod<PXPluginEnable>(s_clrToken, L"XPNet.CLR", L"XPNet.PluginBridge", L"Enable");
 		ClrPluginDisable = GetClrMethod<PXPluginDisable>(s_clrToken, L"XPNet.CLR", L"XPNet.PluginBridge", L"Disable");
 		ClrPluginReceiveMessage = GetClrMethod<PXPluginReceiveMessage>(s_clrToken, L"XPNet.CLR", L"XPNet.PluginBridge", L"ReceiveMessage");
+
+		if (!ClrPluginStart || !ClrPluginStop || !ClrPluginEnable || !ClrPluginDisable || !ClrPluginReceiveMessage)
+		{
+			XPLMDebugString("XPNet: Failed to load one or more required methods from XPNet.PluginBridge in XPNet.CLR.  Cannot continue.\n");
+			return 0;
+		}
 	}
 
 	StartParams sp = { "", "", "", reinterpret_cast<int64_t>(s_externalLoggingHandle) };

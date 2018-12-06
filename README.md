@@ -19,7 +19,7 @@ The design goals for XPNet are:
 
 1. Provide excellent performance: it should be possible to write plugins in C# that don't kill your framerate.
 2. Provide an idiomatic .NET programming environment: that means classes, events and properties, where doing so does not conflict too badly with #1.
-3. Don't stray too far from X-Plane core concepts: meaning #2 only goes so far, so the X-Plane API documentation is a decent guide to the concepts neeed to write a plugin for X-Plane in C#.
+3. Don't stray too far from X-Plane core concepts: meaning #2 only goes so far, so the X-Plane API documentation is a decent guide to the concepts needed to write a plugin for X-Plane in C#.
 4. Be cross-platform: X-Plane works on Windows, macOS and Linux, so your plugins should too.
 
 XPNet is an attempt to create a .NET plugin environment for X-Plane that strikes a reasonable
@@ -134,7 +134,7 @@ With the help of contributors, I'd like to see XPNet grow in at least the follow
 - [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
 - [ ] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
 - [ ] Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
-- [ ] Improve the native output directory structure for the C++ VS 2017 projects - by default, for backwards compatibility, MS makes project outputs inconsistent between x86 and x64 builds.  It all works...but is unnecessarily confusing.
+- [x] 2018-11-27 Improve the native output directory structure for the C++ VS 2017 projects - by default, for backwards compatibility, MS makes project outputs inconsistent between x86 and x64 builds.  It all works...but is unnecessarily confusing.
 - [x] 2018-07-25 - Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
 - [x] 2018-02-25 - Expand to macOS.
 - [x] 2018-07-25 - Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed.  ('dotnet new' template)
@@ -209,7 +209,7 @@ dotnet new -i XPNet.CLR.Template
 
 3. Create a new plugin project.
 ```
-dotnet new xpnetplugin -n YourPluginName
+dotnet new xpnetplugin -n <Your-Plugin-Name>
 ```
 
 That will leave you with a new project (a .csproj file) and a single C# code file with a

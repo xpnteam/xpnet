@@ -1,0 +1,71 @@
+#
+# Makefile.vc
+#
+# See the notes at the top of Makefile.  The targets here are the same, this
+# just does things assuming the Visual C++ toolset instead of a Unix toolset.
+#
+# Usage:
+# nmake /f Makefile.vc <target>
+#
+
+#######################################################################################
+
+Configuration   =Release
+Platform        =netcoreapp2.1
+
+BuildDir        =build
+
+#######################################################################################
+
+RM             =del /s /q 1>nul
+CP             =xcopy /i
+
+VCSETUP        ="$(VCINSTALLDIR)Auxiliary\Build\vcvarsall.bat"
+
+#######################################################################################
+
+all: package
+
+clean:
+	$(RM) XPNet.CLR\obj XPNet.CLR\bin
+	$(RM) XPNet.CLR.Tests\obj XPNet.CLR.Tests\bin
+	$(RM) XPNet.LoggerPlugin\obj XPNet.LoggerPlugin\bin
+	$(RM) XPNet.GraphicsTestPlugin\obj XPNet.GraphicsTestPlugin\bin
+	$(RM) XPNet.CLR.Template\obj XPNet.CLR.Template\bin
+	$(RM) XPNet.Native\obj_core
+	$(RM) package
+	$(RM) $(BuildDir)
+	msbuild XPNet.sln -t:Clean -p:Configuration=$(Configuration) -p:Platform=x64
+	msbuild XPNet.sln -t:Clean -p:Configuration=$(Configuration) -p:Platform=x86
+
+xpnetclr:
+	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) && dotnet pack -c $(Configuration) -o ../package
+
+native_x86:
+	msbuild XPNet.sln -t:Build -p:Configuration=$(Configuration) -p:Platform=x86
+
+native_x64:
+	msbuild XPNet.sln -t:Build -p:Configuration=$(Configuration) -p:Platform=x64
+
+native_package:
+	cd XPNet.Native.Packages && dotnet pack XPNet.Native.NuSpec.win.csproj -c $(Configuration) -o ../package
+
+native: native_x86 native_x64 native_package
+
+
+template:
+	cd XPNet.CLR.Template && nuget pack XPNet.CLR.Template.nuspec -OutputDirectory ../package
+
+
+xpnetclr_test: xpnetclr
+	cd XPNet.CLR.Tests && dotnet test -c $(Configuration) -p:Platform=AnyCPU
+
+native_test: native
+	build\x64\$(Configuration)\XPNetPluginTestHost.exe
+	build\Win32\$(Configuration)\XPNetPluginTestHost.exe
+
+
+test: xpnetclr_test native_test
+
+
+package: test template

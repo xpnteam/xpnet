@@ -25,16 +25,6 @@
 # on whatever OS is convenient, and each native package on the OS for that package.
 # (We're not set up to do any cross-compiling).  Upload them all to nuget.
 #
-# The packages for non-Windows platforms can be built from this Makefile.  To build the
-# package for the Windows platform, open the SLN file in Visual Studio, build XPNet.Native
-# in x64/Release and x32/Release (you must build both; the package includes both), then
-# run this from the XPNet.Native folder:
-#
-# dotnet pack -c Release XPNet.Native.NuSpec.win.csproj
-#
-# The output nupkg will end up in bin\x64\Release.  I don't know why; it's not x64-specific
-# in any way.  You can probably improve this with edits to XPNet.Native.NuSpec.win.csproj.
-#
 # For safety purposes, and because you need the key to deploy the packages anyway,
 # (which is not included in this repository) this Makefile does not actually deploy
 # packages to nuget.  To deploy to nuget.org once you've got them, you'll run a command
@@ -50,9 +40,6 @@
 Configuration   =Release
 Platform        =netcoreapp2.1
 
-OutDir          =plugin
-PakDir          =package
-
 #######################################################################################3
 
 RM             :=rm -f
@@ -61,50 +48,38 @@ CP             :=cp
 
 #######################################################################################3
 
-all: plugin package
+all: package
 
 clean:
 	$(RM) -r XPNet.CLR/obj XPNet.CLR/bin
+	$(RM) -r XPNet.CLR.Tests/obj XPNet.CLR.Tests/bin
 	$(RM) -r XPNet.LoggerPlugin/obj XPNet.LoggerPlugin/bin
+	$(RM) -r XPNet.GraphicsTestPlugin/obj XPNet.GraphicsTestPlugin/bin
 	$(RM) -r XPNet.CLR.Template/obj XPNet.CLR.Template/bin
-	$(RM) -r $(OutDir)
-	$(RM) -r $(PakDir)
+	$(RM) -r package
 	cd XPNet.Native && $(MAKE) clean
 
 xpnetclr:
-	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) && dotnet pack -c $(Configuration)
-
+	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) && dotnet pack -c $(Configuration) -o ../package
 
 template:
 	cd XPNet.CLR.Template && nuget pack XPNet.CLR.Template.nuspec -OutputDirectory ../package
 
-
-loggerplugin:
-	cd XPNet.LoggerPlugin && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration)
-
-
 native:
 	cd XPNet.Native && $(MAKE)
-
-
-prepare_plugin:
-	$(MKDIR) $(OutDir)
-
+	$(CP) XPNet.Native.Packages/bin/$(Configuration)/*.nupkg package
 
 prepare_package:
-	$(MKDIR) $(PakDir)
+	$(MKDIR) package
 
+xpnetclr_test: xpnetclr
+	cd XPNet.CLR.Tests && dotnet test -c $(Configuration) -p:Platform=AnyCPU
 
-builds: xpnetclr loggerplugin native
+native_test: native
+# TODO: Run the Google Test output executable.  On Windows this looked like the following:
+#	build\x64\$(Configuration)\XPNetPluginTestHost.exe
 
+test: xpnetclr_test native_test
 
-plugin: prepare_plugin builds
-	$(CP) XPNet.Native/lib/*.xpl $(OutDir)
-	$(CP) XPNet.CLR/bin/$(Configuration)/$(Platform)/publish/*.dll $(OutDir)
-	$(CP) XPNet.LoggerPlugin/bin/$(Configuration)/$(Platform)/publish/*.dll $(OutDir)
-
-
-package: prepare_package builds template
-	$(CP) XPNet.Native/bin/$(Configuration)/*.nupkg $(PakDir)
-	$(CP) XPNet.CLR/bin/$(Configuration)/*.nupkg $(PakDir)
+package: prepare_package test template
 

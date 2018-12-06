@@ -2,16 +2,17 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 
   <metadata minClientVersion="3.3">
-    <id>XPNet.Native.macOS</id>
+    <id>XPNet.Native.Windows</id>
     <authors>Stephen Quattlebaum</authors>
     <owners>jaurenq</owners>
     <licenseUrl>https://github.com/jaurenq/XPNet/blob/master/LICENSE</licenseUrl>
     <projectUrl>http://github.com/jaurenq/XPNet</projectUrl>
 
-    <summary>macOS native plugin host for XPNet.  Write plugins for X-Plane in .NET languages like C#.</summary> 
-    <description>macOS native plugin host for XPNet.  Write plugins for X-Plane in .NET languages like C#.
+    <summary>Windows native plugin host for XPNet.  Write plugins for X-Plane in .NET languages like C#.</summary> 
+    <description>Windows native plugin host for XPNet.  Write plugins for X-Plane in .NET languages like C#.
 Platforms supported by this package:
-- macOS x64</description>
+- Windows x64
+- Windows x86</description>
 
     <tags>x-plane xplane dotnet plugin</tags>
 
@@ -20,13 +21,15 @@ Platforms supported by this package:
     <copyright>Copyright © 2018 Stephen Quattlebaum</copyright>
 
     <contentFiles>
-      <files include="any/any/64/mac.xpl" buildAction="Content" copyToOutput="true" />
+      <files include="any/any/64/win.xpl" buildAction="Content" copyToOutput="true" />
+      <files include="any/any/32/win.xpl" buildAction="Content" copyToOutput="true" />
     </contentFiles>
 
   </metadata>
 
   <files>
-    <file src="lib/mac.xpl" target="contentFiles/any/any/64/mac.xpl" />
+    <file src="..\build\x64\Release\64\win.xpl" target="contentFiles\any\any\64\win.xpl" />
+    <file src="..\build\Win32\Release\32\win.xpl" target="contentFiles\any\any\32\win.xpl" />
   </files>
 
 </package>
