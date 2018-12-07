@@ -413,6 +413,107 @@ namespace XPNet
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate void XPLMSetDatab(void* dataRef, byte* inValues, int inOffset, int inCount);
 
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void* XPLMRegisterDataAccessor(
+		[MarshalAs(UnmanagedType.LPStr)] string inDataName,
+		XPLMDataTypeID inDataType,
+		int inIsWritable,
+		XPLMGetDatai_f inReadInt,
+		XPLMSetDatai_f inWriteInt,
+		XPLMGetDataf_f inReadFloat,
+		XPLMSetDataf_f inWriteFloat,
+		XPLMGetDatad_f inReadDouble,
+		XPLMSetDatad_f inWriteDouble,
+		XPLMGetDatavi_f inReadIntArray,
+		XPLMSetDatavi_f inWriteIntArray,
+		XPLMGetDatavf_f inReadFloatArray,
+		XPLMSetDatavf_f inWriteFloatArray,
+		XPLMGetDatab_f inReadData,
+		XPLMSetDatab_f inWriteData,
+		void* inReadRefcon,
+		void* inWriteRefcon
+	);
+
+	internal enum XPLMDataTypeID : int
+	{
+		xplmType_Unknown = 0,
+		xplmType_Int = 1,
+		xplmType_Float = 2,
+		xplmType_Double = 4,
+		xplmType_FloatArray = 8,
+		xplmType_IntArray = 16,
+		xplmType_Data = 32
+	}
+
+	internal unsafe delegate int XPLMGetDatai_f(
+		void* inRefcon
+	);
+
+	internal unsafe delegate void XPLMSetDatai_f(
+		void* inRefcon,
+		int inValue
+	);
+
+	internal unsafe delegate float XPLMGetDataf_f(
+		void* inRefcon
+	);
+
+	internal unsafe delegate void XPLMSetDataf_f(
+		void* inRefcon,
+		float inValue
+	);
+
+	internal unsafe delegate double XPLMGetDatad_f(
+		void* inRefcon
+	);
+
+	internal unsafe delegate void XPLMSetDatad_f(
+		void* inRefcon,
+		double inValue
+	);
+
+	internal unsafe delegate int XPLMGetDatavi_f(
+		void* inRefcon,
+		int* outValues,
+		int inOffset,
+		int inMax
+	);
+
+	internal unsafe delegate int XPLMSetDatavi_f(
+		void* inRefcon,
+		int* inValues,
+		int inOffset,
+		int inCount
+	);
+
+	internal unsafe delegate int XPLMGetDatavf_f(
+		void* inRefcon,
+		float* outValues,
+		int inOffset,
+		int inMax
+	);
+
+	internal unsafe delegate int XPLMSetDatavf_f(
+		void* inRefcon,
+		float* inValues,
+		int inOffset,
+		int inCount
+	);
+
+	internal unsafe delegate int XPLMGetDatab_f(
+		void* inRefcon,
+		void* outValue,
+		int inOffset,
+		int inMaxLength
+	);
+
+	internal unsafe delegate int XPLMSetDatab_f(
+		void* inRefcon,
+		void* inValue,
+		int inOffset,
+		int inLength
+	);
+
 	#endregion X-Plane Data API
 
 	#region X-Plane Command API
@@ -744,6 +845,7 @@ namespace XPNet
 		internal IntPtr XPLMSetDatavf;
 		internal IntPtr XPLMGetDatab;
 		internal IntPtr XPLMSetDatab;
+		internal IntPtr XPLMRegisterDataAccessor;
 
 		// Commands
 		internal IntPtr XPLMFindCommand;
@@ -802,6 +904,7 @@ namespace XPNet
 			XPLMSetDatavf = Marshal.GetDelegateForFunctionPointer<XPLMSetDatavf>(p.XPLMSetDatavf);
 			XPLMGetDatab = Marshal.GetDelegateForFunctionPointer<XPLMGetDatab>(p.XPLMGetDatab);
 			XPLMSetDatab = Marshal.GetDelegateForFunctionPointer<XPLMSetDatab>(p.XPLMSetDatab);
+			XPLMRegisterDataAccessor = Marshal.GetDelegateForFunctionPointer<XPLMRegisterDataAccessor>(p.XPLMRegisterDataAccessor);
 
 			// Commands
 			XPLMFindCommand = Marshal.GetDelegateForFunctionPointer<XPLMFindCommand>(p.XPLMFindCommand);
@@ -854,6 +957,7 @@ namespace XPNet
 		internal XPLMSetDatavf XPLMSetDatavf;
 		internal XPLMGetDatab XPLMGetDatab;
 		internal XPLMSetDatab XPLMSetDatab;
+		internal XPLMRegisterDataAccessor XPLMRegisterDataAccessor;
 
 		// Commands
 		internal XPLMFindCommand XPLMFindCommand;
