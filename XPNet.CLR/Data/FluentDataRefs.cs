@@ -80,11 +80,11 @@ namespace XPNet
                     m_data = data;
                 }
 
-                public IXPDataRef<bool[]> InverterOn => m_data.GetBoolArray("sim/cockpit/engine/inverter_on");
+                public IXPDataRef<XPBoolean[]> InverterOn => m_data.GetBoolArray("sim/cockpit/engine/inverter_on");
                 public IXPDataRef<bool> InverterEq => m_data.GetBool("sim/cockpit/engine/inverter_eq");
-                public IXPDataRef<bool[]> FuelPumpOn => m_data.GetBoolArray("sim/cockpit/engine/fuel_pump_on");
-                public IXPDataRef<bool[]> FadecOn => m_data.GetBoolArray("sim/cockpit/engine/fadec_on");
-                public IXPDataRef<bool[]> IdleSpeed => m_data.GetBoolArray("sim/cockpit/engine/idle_speed");
+                public IXPDataRef<XPBoolean[]> FuelPumpOn => m_data.GetBoolArray("sim/cockpit/engine/fuel_pump_on");
+                public IXPDataRef<XPBoolean[]> FadecOn => m_data.GetBoolArray("sim/cockpit/engine/fadec_on");
+                public IXPDataRef<XPBoolean[]> IdleSpeed => m_data.GetBoolArray("sim/cockpit/engine/idle_speed");
             }
         }
     }

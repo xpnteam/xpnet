@@ -109,6 +109,7 @@
       <Command>rem Get the test plugins and their respective dependencies into the target folder.
 dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.CLR.TestPlugins" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
 
 rem Need a .NET runtime to build against.
@@ -139,6 +140,7 @@ echo &gt; $(TargetPath).is_google_test</Command>
       <Command>rem Get the test plugins and their respective dependencies into the target folder.
 dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.CLR.TestPlugins" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
 
 rem Need a .NET runtime to build against.
@@ -172,6 +174,7 @@ echo &gt; $(TargetPath).is_google_test</Command>
       <Command>rem Get the test plugins and their respective dependencies into the target folder.
 dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.CLR.TestPlugins" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
 
 rem Need a .NET runtime to build against.
@@ -205,6 +208,7 @@ echo &gt; $(TargetPath).is_google_test</Command>
       <Command>rem Get the test plugins and their respective dependencies into the target folder.
 dotnet publish "$(SolutionDir)XPNet.CLR" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.LoggerPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
+dotnet publish "$(SolutionDir)XPNet.CLR.TestPlugins" -c $(ConfigurationName) -o "$(OutputPath)"
 dotnet publish "$(SolutionDir)XPNet.GraphicsTestPlugin" -c $(ConfigurationName) -o "$(OutputPath)"
 
 rem Need a .NET runtime to build against.
@@ -225,8 +229,16 @@ echo &gt; $(TargetPath).is_google_test</Command>
     <ClInclude Include="XPNetPluginTestHost.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommandTests.cpp" />
+    <ClCompile Include="DataRefTests.cpp" />
+    <ClCompile Include="DrawTests.cpp" />
+    <ClCompile Include="FlightLoopTests.cpp" />
+    <ClCompile Include="GoogleTestRunner.h" />
+    <ClCompile Include="LifecycleDeathTests.cpp" />
     <ClCompile Include="LifecycleTests.cpp" />
-    <ClCompile Include="StdCapture.cpp" />
+    <ClCompile Include="LoggingTests.cpp" />
+    <ClCompile Include="MessageTests.cpp" />
+    <ClCompile Include="PluginTestsBase.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestCore.cpp" />
     <ClCompile Include="XPNetPluginTestHost.cpp" />

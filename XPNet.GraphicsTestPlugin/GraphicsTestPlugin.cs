@@ -69,7 +69,7 @@ namespace XPNet
 			return FlightLoopTime.Unscheduled;
 		}
 
-		private int DrawingHook(XPLMDrawingPhase inPhase, int inIsBefore)
+        private int DrawingHook(XPLMDrawingPhase inPhase, int inIsBefore)
 		{
 			m_api.Log.Log("GraphicsTestPlugin: Entering drawing hook");
 

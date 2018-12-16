@@ -115,8 +115,43 @@ static datarefmap<vector<BYTE>> bvData;
 using commandmap = map<string, command>;
 static commandmap configuredCommands;
 
-static map<XPLMFlightLoop_f, flightloop> registeredFlightLoops;
-static map<tuple<XPLMDrawCallback_f, XPLMDrawingPhase, int>, drawcallback> registeredDrawCallbacks;
+using flightloopmap = map<XPLMFlightLoop_f, flightloop>;
+static flightloopmap registeredFlightLoops;
+
+using drawcallbackmap = map<tuple<XPLMDrawCallback_f, XPLMDrawingPhase, int>, drawcallback>;
+static drawcallbackmap registeredDrawCallbacks;
+
+static std::string mockPluginPath;
+
+XPLM_API void XPHarnessSetPluginPath(const char* pluginPath)
+{
+	mockPluginPath = pluginPath;
+}
+
+XPLM_API void XPHarnessClearDataRefs()
+{
+	iData.clear();
+	ivData.clear();
+	fData.clear();
+	fvData.clear();
+	dData.clear();
+	bvData.clear();
+}
+
+XPLM_API void XPHarnessClearCommands()
+{
+	configuredCommands.clear();
+}
+
+XPLM_API void XPHarnessClearFlightLoops()
+{
+	registeredFlightLoops.clear();
+}
+
+XPLM_API void XPHarnessClearDrawCallbacks()
+{
+	registeredDrawCallbacks.clear();
+}
 
 template <typename T>
 void SetDataRef(const string name, const T& value, datarefmap<T>& container)
@@ -126,6 +161,17 @@ void SetDataRef(const string name, const T& value, datarefmap<T>& container)
 		container.emplace(name, dataref<T>(name, value));
 	else
 		it->second.value = value;
+}
+
+template <typename T>
+bool GetDataRef(const string name, T& value, datarefmap<T>& container)
+{
+	auto it = container.find(name);
+	if (it == container.end())
+		return false;
+
+	value = it->second.value;
+	return true;
 }
 
 template <typename T>
@@ -151,19 +197,23 @@ command* FindCommand(XPLMCommandRef id, commandmap& container)
 	return nullptr;
 }
 
-bool GetEntrypointExecutableAbsolutePath(std::string& entrypointExecutable)
-{
-	CHAR path[MAX_PATH];
-	GetModuleFileNameA(NULL, path, sizeof(path));
-	entrypointExecutable = path;
-	return true;
-}
-
 #define DEFINE_DATA_SET(code, type) \
 	XPLM_API void XPHarnessSetDataRef##code (const char* dataRefName, type data) { SetDataRef(dataRefName, data, code##Data); }
 
 #define DEFINE_DATA_SET_VECTOR(code, type) \
 	XPLM_API void XPHarnessSetDataRef##code##v (const char* dataRefName, type* data, int size) { SetDataRef(dataRefName, vector<type>(data, data + size), code##vData); }
+
+#define DEFINE_DATA_GET(code, type) \
+	XPLM_API bool XPHarnessGetDataRef##code (const char* dataRefName, type* data) { return GetDataRef(dataRefName, *data, code##Data); }
+
+#define DEFINE_DATA_GET_VECTOR(code, type) \
+	XPLM_API bool XPHarnessGetDataRef##code##v (const char* dataRefName, type* data, int size) { \
+        vector<type> arr(data, data + size); \
+		bool ret = GetDataRef(dataRefName, arr, code##vData); \
+		if (!ret) return ret; \
+        std::memcpy(data, arr.data(), size * sizeof(type)); \
+		return true; \
+    }
 
 DEFINE_DATA_SET(i, int)
 DEFINE_DATA_SET_VECTOR(i, int)
@@ -171,6 +221,13 @@ DEFINE_DATA_SET(f, float)
 DEFINE_DATA_SET_VECTOR(f, float)
 DEFINE_DATA_SET(d, double)
 DEFINE_DATA_SET_VECTOR(b, BYTE)
+
+DEFINE_DATA_GET(i, int)
+DEFINE_DATA_GET_VECTOR(i, int)
+DEFINE_DATA_GET(f, float)
+DEFINE_DATA_GET_VECTOR(f, float)
+DEFINE_DATA_GET(d, double)
+DEFINE_DATA_GET_VECTOR(b, BYTE)
 
 XPLM_API XPLMPluginID         XPLMGetMyID(void)
 {
@@ -202,9 +259,33 @@ XPLM_API void                 XPLMGetPluginInfo(
 
 	if (outFilePath)
 	{
-		std::string hostPath;
-		GetEntrypointExecutableAbsolutePath(hostPath);
-		strcp(outFilePath, hostPath.c_str());
+		if (mockPluginPath.empty())
+		{
+			// Heuristic: assume that we're in the test environment,
+			// wherein the cwd is like x64/Debug and we want to
+			// simulate running from, e.g., x64/Debug/64/win.xpl.
+			// We need to get the bitness right for the current
+			// platform, but the actual XPL name we report doesn't
+			// matter.
+
+			std::string hostPath = "./";
+
+#ifdef PLATX64
+			hostPath += "64/";
+#elif defined(PLATX86)
+			hostPath += "32/";
+#else
+#  error PLATX86 or PLATX64 must be defined.
+#endif
+
+			hostPath += "plat.xpl";
+
+			GetFullPathNameA(hostPath.c_str(), MAX_PATH, outFilePath, NULL);
+		}
+		else
+		{
+			strcp(outFilePath, mockPluginPath.c_str());
+		}
 	}
 
 	if (outSignature)
@@ -486,6 +567,22 @@ XPLM_API void                 XPLMScheduleFlightLoop(
 	// Not implemented b/c we don't use it in XPNet.
 }
 
+XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
+{
+	// Before invoking clean up all the unregistered flight loops.
+	auto it = registeredFlightLoops.begin();
+	while (it != registeredFlightLoops.end())
+	{
+		if (it->second.deleted)
+			it = registeredFlightLoops.erase(it);
+		else
+			++it;
+	}
+
+	for (auto p = registeredFlightLoops.begin(); p != registeredFlightLoops.end(); ++p)
+		p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
+}
+
 XPLM_API int                  XPLMRegisterDrawCallback(
 	XPLMDrawCallback_f   inCallback,
 	XPLMDrawingPhase     inPhase,
@@ -507,17 +604,32 @@ XPLM_API int                  XPLMUnregisterDrawCallback(
 	return 1;
 }
 
+XPLM_API void XPHarnessInvokeDrawCallback(int results[MAX_REGISTERED_DRAW_CALLBACKS])
+{
+	// Before invoking clean up all the unregistered draw callbacks.
+	auto it = registeredFlightLoops.begin();
+	while (it != registeredFlightLoops.end())
+	{
+		if (it->second.deleted)
+			it = registeredFlightLoops.erase(it);
+		else
+			++it;
+	}
+
+	int *pResult = &results[0];
+	for (auto p = registeredDrawCallbacks.begin(); p != registeredDrawCallbacks.end(); ++p, ++pResult)
+		*pResult = p->second.drawCallback(p->second.drawingPhase, p->second.wantsBefore, nullptr);
+}
+
 XPLM_API XPLMProbeRef         XPLMCreateProbe(
 	XPLMProbeType        inProbeType) 
 {
-	std::cout << "XPLMTestHarness: Created probe of type " << inProbeType << std::endl;
 	return reinterpret_cast<XPLMProbeRef>(static_cast<uintptr_t>(43));
 }
 
 XPLM_API void                 XPLMDestroyProbe(
 	XPLMProbeRef         inProbe) 
 {
-	std::cout << "XPLMTestHarness: Destroyed probe with reference " << inProbe << std::endl;
 }
 
 XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
@@ -527,8 +639,6 @@ XPLM_API XPLMProbeResult      XPLMProbeTerrainXYZ(
 	float                inZ,
 	XPLMProbeInfo_t *    outInfo)
 {
-	std::cout << "XPLMTestHarness: Invoked XPLMProbeTerrainXYZ with X " << inX
-		<< ", Y " << inY << ", Z " << inZ << std::endl;
 	outInfo->locationX = inX;
 	outInfo->locationY = 42;
 	outInfo->locationZ = inZ;
@@ -556,13 +666,11 @@ XPLM_API void                 XPLMDrawObjects(
 	int                  lighting,
 	int                  earth_relative)
 {
-	std::cout << "XPLMTestHarness: Drawing object " << inObject << std::endl;
 }
 
 XPLM_API void                 XPLMUnloadObject(
 	XPLMObjectRef        inObject)
 {
-	std::cout << "XPLMTestHarness: Unloading object " << inObject << std::endl;
 }
 
 XPLM_API int                  XPLMLookupObjects(
@@ -586,8 +694,6 @@ XPLM_API void                 XPLMWorldToLocal(
 	double *             outY,
 	double *             outZ)
 {
-	std::cout << "XPLMTestHarness: Invoked XPLMWorldToLocal with lat " << inLatitude
-		<< ", lon " << inLongitude << ", alt " << inAltitude << std::endl;
 	*outX = inLongitude;
 	*outY = inAltitude;
 	*outZ = inLatitude;
@@ -601,41 +707,7 @@ XPLM_API void                 XPLMLocalToWorld(
 	double *             outLongitude,
 	double *             outAltitude)
 {
-	std::cout << "XPLMTestHarness: Invoked XPLMLocalToWorld with X " << inX
-		<< ", Y " << inY << ", Z " << inZ << std::endl;
 	*outLongitude = inX;
 	*outAltitude = inY;
 	*outLatitude = inZ;
-}
-
-XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
-{
-	// Before invoking clean up all the unregistered flight loops.
-	auto it = registeredFlightLoops.begin();
-	while (it != registeredFlightLoops.end())
-	{
-		if (it->second.deleted)
-			it = registeredFlightLoops.erase(it);
-		else
-			++it;
-	}
-
-	for (auto p = registeredFlightLoops.begin(); p != registeredFlightLoops.end(); ++p)
-		p->first(elapsedSinceLastCall, elapsedTimeSinceLastFlightLoop, counter, nullptr);
-}
-
-XPLM_API void XPHarnessInvokeDrawCallback()
-{
-	// Before invoking clean up all the unregistered draw callbacks.
-	auto it = registeredFlightLoops.begin();
-	while (it != registeredFlightLoops.end())
-	{
-		if (it->second.deleted)
-			it = registeredFlightLoops.erase(it);
-		else
-			++it;
-	}
-
-	for (auto p = registeredDrawCallbacks.begin(); p != registeredDrawCallbacks.end(); ++p)
-		p->second.drawCallback(p->second.drawingPhase, p->second.wantsBefore, nullptr);
 }
