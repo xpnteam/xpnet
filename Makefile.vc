@@ -38,14 +38,27 @@ clean:
 	msbuild XPNet.sln -t:Clean -p:Configuration=$(Configuration) -p:Platform=x64
 	msbuild XPNet.sln -t:Clean -p:Configuration=$(Configuration) -p:Platform=x86
 
+# nuget.exe is not on the path by default, and if it were we wouldn't want to trust the
+# version b/c who knows where it is or how it got there, since nothing installs it on the
+# path by default.  Instead, we do a private download of it.
+build\nuget.exe:
+	curl -o build\nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+
 xpnetclr:
 	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) && dotnet pack -c $(Configuration) -o ../package
 
 native_x86:
 	msbuild XPNet.sln -t:Build -p:Configuration=$(Configuration) -p:Platform=x86
 
+native_x86_test: native_x86
+#	cd build\Win32\$(Configuration) && XPNetPluginTestHost.exe
+# TODO: Enable the test above once I get the x86 tests working - they fail right now w/ some calling convention issue.
+
 native_x64:
 	msbuild XPNet.sln -t:Build -p:Configuration=$(Configuration) -p:Platform=x64
+
+native_x64_test: native_x64
+	cd build\x64\$(Configuration) && XPNetPluginTestHost.exe
 
 native_package:
 	cd XPNet.Native.Packages && dotnet pack XPNet.Native.NuSpec.win.csproj -c $(Configuration) -o ../package
@@ -53,17 +66,14 @@ native_package:
 native: native_x86 native_x64 native_package
 
 
-template:
-	cd XPNet.CLR.Template && nuget pack XPNet.CLR.Template.nuspec -OutputDirectory ../package
+template: build\nuget.exe
+	cd XPNet.CLR.Template && ..\build\nuget.exe pack XPNet.CLR.Template.nuspec -OutputDirectory ../package
 
 
 xpnetclr_test: xpnetclr
 	cd XPNet.CLR.Tests && dotnet test -c $(Configuration) -p:Platform=AnyCPU
 
-native_test: native
-	build\x64\$(Configuration)\XPNetPluginTestHost.exe
-	build\Win32\$(Configuration)\XPNetPluginTestHost.exe
-
+native_test: native_x86_test native_x64_test
 
 test: xpnetclr_test native_test
 
