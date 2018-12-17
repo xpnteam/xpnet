@@ -158,13 +158,32 @@ namespace XPNet
         /// </summary>
         IXPDataRef<byte[]> GetByteArray(string dataRefName);
 
+		/// <summary>
+		/// Registers a custom data ref that can be read and written
+		/// </summary>
+		void RegisterDataAccessor(
+			string dataRefName,
+			Func<int> getDatai = null,
+			Action<int> setDatai = null,
+			Func<float> getDataf = null,
+			Action<float> setDataf = null,
+			Func<double> getDatad = null,
+			Action<double> setDatad = null,
+			Func<int[]> getDatavi = null,
+			Action<int[]> setDatavi = null,
+			Func<float[]> getDatavf = null,
+			Action<float[]> setDatavf = null,
+			Func<byte[]> getDatab = null,
+			Action<byte[]> setDatab = null
+		);
+
         /// <summary>
         /// Gets the set of 'sim' named datarefs.
         /// </summary>
         SimDatarefs Sim { get; }
     }
 
-    internal class XPlaneData : IXPlaneData
+	internal class XPlaneData : IXPlaneData
     {
         // MAINT: Whenever we add support for registering DataRefs from XPNet,
         // then we are also responsible for unregistering them when plugins are
@@ -256,7 +275,120 @@ namespace XPNet
         public unsafe bool StringDataExists(string dataRefName) =>
             GetDataRef(dataRefName, m_stringRefs, CreateDataRefString, XPDataTypes.Data) != null;
 
-        private unsafe IXPDataRef<T> GetDataRef<T>(
+		public unsafe void RegisterDataAccessor(string dataRefName, Func<int> getDatai = null, Action<int> setDatai = null, Func<float> getDataf = null, Action<float> setDataf = null, Func<double> getDatad = null, Action<double> setDatad = null, Func<int[]> getDatavi = null, Action<int[]> setDatavi = null, Func<float[]> getDatavf = null, Action<float[]> setDatavf = null, Func<byte[]> getDatab = null, Action<byte[]> setDatab = null)
+		{
+			XPLMDataTypeID dataType = XPLMDataTypeID.xplmType_Unknown;
+			int isWritable = 0;
+			var accessor = new DataAccessor
+			{
+				GetDataiFunc = getDatai,
+				SetDataiFunc = setDatai,
+				GetDatafFunc = getDataf,
+				SetDatafFunc = setDataf,
+				GetDatadFunc = getDatad,
+				SetDatadFunc = setDatad,
+			};
+			XPLMGetDatai_f getDataiFunc = null;
+			XPLMSetDatai_f setDataiFunc = null;
+			XPLMGetDataf_f getDatafFunc = null;
+			XPLMSetDataf_f setDatafFunc = null;
+			XPLMGetDatad_f getDatadFunc = null;
+			XPLMSetDatad_f setDatadFunc = null;
+
+			if (accessor.GetDataiFunc != null)
+			{
+				dataType |= XPLMDataTypeID.xplmType_Int;
+				getDataiFunc = new XPLMGetDatai_f(accessor.GetDatai);
+			}
+			if (accessor.SetDataiFunc != null)
+			{
+				isWritable = 1;
+				setDataiFunc = new XPLMSetDatai_f(accessor.SetDatai);
+			}
+			if (accessor.GetDatafFunc != null)
+			{
+				dataType |= XPLMDataTypeID.xplmType_Float;
+				getDatafFunc = new XPLMGetDataf_f(accessor.GetDataf);
+			}
+			if (accessor.SetDatafFunc != null)
+			{
+				isWritable = 1;
+				setDatafFunc = new XPLMSetDataf_f(accessor.SetDataf);
+			}
+			if (accessor.GetDatadFunc != null)
+			{
+				dataType |= XPLMDataTypeID.xplmType_Double;
+				getDatadFunc = new XPLMGetDatad_f(accessor.GetDatad);
+			}
+			if (accessor.SetDatadFunc != null)
+			{
+				isWritable = 1;
+				setDatadFunc = new XPLMSetDatad_f(accessor.SetDatad);
+			}
+
+			PluginBridge.ApiFunctions.XPLMRegisterDataAccessor(dataRefName, dataType, isWritable, getDataiFunc, setDataiFunc, null, null, null, null, null, null, null, null, null, null, null, null);
+		}
+
+
+		private unsafe interface IXPSettableAccessor<T>
+		{
+			void SetDatai(void* inRefCon, T data);
+		}
+
+		private unsafe interface IXPGettableAccessor<T>
+		{
+			T GetDatai(void* inRefCon);
+		}
+
+		/// <summary>
+		/// This should have an abstract base class, that requires the respective get and set methods
+		/// </summary>
+		private class DataAccessor
+		{
+			public Func<int> GetDataiFunc;
+			public Action<int> SetDataiFunc;
+			public Func<float> GetDatafFunc;
+			public Action<float> SetDatafFunc;
+			public Func<double> GetDatadFunc;
+			public Action<double> SetDatadFunc;
+			public Func<int[]> GetDataviFunc;
+			public Action<int[]> SetDataviFunc;
+			public Func<float[]> GetDatavfFunc;
+			public Action<float[]> SetDatavfFunc;
+			public Func<byte[]> GetDatabFunc;
+			public Action<byte[]> SetDatabFunc;
+
+			internal unsafe int GetDatai(void* inRefCon)
+			{
+				return GetDataiFunc();
+			}
+
+			internal unsafe void SetDatai(void* inRefCon, int data)
+			{
+				SetDataiFunc(data);
+			}
+
+			internal unsafe float GetDataf(void* inRefCon)
+			{
+				return GetDatafFunc();
+			}
+
+			internal unsafe void SetDataf(void* inRefCon, float data)
+			{
+				SetDatafFunc(data);
+			}
+			internal unsafe double GetDatad(void* inRefCon)
+			{
+				return GetDataiFunc();
+			}
+
+			internal unsafe void SetDatad(void* inRefCon, double data)
+			{
+				SetDatadFunc(data);
+			}
+		};
+
+		private unsafe IXPDataRef<T> GetDataRef<T>(
             string dataRefName,
             IDictionary<string, IXPDataRef<T>> cache, DataRefFactory<T> factory,
             XPDataTypes expectedType)
@@ -293,5 +425,7 @@ namespace XPNet
 
         private InvalidOperationException InvalidDataRefException(string dataRefName)
             => new InvalidOperationException($"The current X-Plane instance does not respond to the dataref ({dataRefName}).");
-    }
+
+
+	}
 }

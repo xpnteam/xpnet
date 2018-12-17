@@ -434,6 +434,7 @@ namespace XPNet
 		void* inWriteRefcon
 	);
 
+	[Flags]
 	internal enum XPLMDataTypeID : int
 	{
 		xplmType_Unknown = 0,
