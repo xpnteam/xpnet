@@ -168,7 +168,7 @@ namespace XPNet
 
 			try
 			{
-				m_api.Log.Log("XPNet CLR: Enable");
+				m_log?.Log("XPNet CLR: Enable");
 
 				m_plugin.Enable();
 
@@ -187,7 +187,7 @@ namespace XPNet
 
 			try
 			{
-				m_api.Log.Log("XPNet CLR: Disable");
+                m_log?.Log("XPNet CLR: Disable");
 
 				m_plugin.Disable();
 			}
@@ -203,7 +203,7 @@ namespace XPNet
 
 			try
 			{
-				m_api.Log.Log("XPNet CLR: Stop");
+                m_log?.Log("XPNet CLR: Stop");
 
 				m_plugin.Dispose();
 				m_plugin = null;

@@ -71,7 +71,7 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 		fullTrustedAssemblies.append(PATH_ENTRY_SEP);
 	}
 
-	// Load the CoreCRL dll into the process
+	// Load the CoreCLR dll into the process
 	HMODULE hCoreCLRModule = SysLoadLibrary(coreClrFilePath);
 	if (!hCoreCLRModule)
 	{
@@ -141,7 +141,7 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 		return nullptr;
 	}
 
-	return new ClrTokenImp{ domainId, pCLRRuntimeHost, coreclr_initialize, coreclr_create_delegate, coreclr_shutdown_2 };
+	return new ClrTokenImp { domainId, pCLRRuntimeHost, coreclr_initialize, coreclr_create_delegate, coreclr_shutdown_2 };
 }
 
 void UnloadClr(ClrToken clrToken)

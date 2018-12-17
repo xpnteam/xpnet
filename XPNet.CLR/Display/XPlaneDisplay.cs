@@ -2,10 +2,18 @@
 
 namespace XPNet
 {
-	/// <summary>
-	/// Delegate for .NET code that wants to be called as part of the render loop.
-	/// </summary>
-	public delegate int DrawDelegate(
+    // TODO: inIsBefore should either be an enum that maps to the expected int values or
+    // an XPBoolean; don't want to expose 'int' as if it was a 'bool' b/c that's a C-ism
+    // that isn't how you do things in C#.  An enum makes the possible values crystal clear,
+    // but XPBoolean would be acceptable.  (Can't just be bool b/c we need it to map to 32-bit int, not 8-bit).
+    // Same for the return value - instead of a bare int, return an enum that has two defined values with
+    // names that indicate whether X-Plane should do its drawing - same bit-for-bit mapping, looks just
+    // like an int to X-Plane, no perf penalty, but easier to read and understand the code on the plugin side.
+
+    /// <summary>
+    /// Delegate for .NET code that wants to be called as part of the render loop.
+    /// </summary>
+    public delegate int DrawDelegate(
 		XPLMDrawingPhase inPhase,
 		int inIsBefore
 	);

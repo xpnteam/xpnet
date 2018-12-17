@@ -28,8 +28,8 @@ Platforms supported by this package:
   </metadata>
 
   <files>
-    <file src="..\x64\Release\win.xpl" target="contentFiles\any\any\64\win.xpl" />
-    <file src="..\Win32\Release\win.xpl" target="contentFiles\any\any\32\win.xpl" />
+    <file src="..\build\x64\Release\64\win.xpl" target="contentFiles\any\any\64\win.xpl" />
+    <file src="..\build\Win32\Release\32\win.xpl" target="contentFiles\any\any\32\win.xpl" />
   </files>
 
 </package>

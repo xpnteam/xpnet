@@ -5,6 +5,7 @@
 */Debug
 */Release
 */.depend
+build/
 XPNet.Native/lib
 XPNet.Native/obj_core
 Debug

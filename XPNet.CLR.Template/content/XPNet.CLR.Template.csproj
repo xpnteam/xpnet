@@ -40,8 +40,8 @@
     a 32-bit version of the Windows framework; it is the only platform that
     .NET Core supports 32-bit builds on anyway.
     -->
-    <Exec Command="dotnet install -i &quot;$(PublishDir)dotnet-windows&quot; -r dotnet -p win -a x64 -v $(NetCoreVersion)" />
-    <Exec Command="dotnet install -i &quot;$(PublishDir)dotnet-macos&quot; -r dotnet -p osx -a x64 -v $(NetCoreVersion)" />
+    <Exec Command="dotnet install -i &quot;$(PublishDir)64\dotnet-windows&quot; -r dotnet -p win -a x64 -v $(NetCoreVersion)" />
+    <Exec Command="dotnet install -i &quot;$(PublishDir)64\dotnet-macos&quot; -r dotnet -p osx -a x64 -v $(NetCoreVersion)" />
     <Exec Command="dotnet install -i &quot;$(PublishDir)32\dotnet-windows&quot; -r dotnet -p win -a x86 -v $(NetCoreVersion)" />
   </Target>
 

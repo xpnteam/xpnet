@@ -162,15 +162,15 @@ namespace XPNet
         }
     }
 
-    internal sealed class XPDataRefBoolArray : XPDataRefBase<bool[]>
+    internal sealed class XPDataRefBoolArray : XPDataRefBase<XPBoolean[]>
     {
-        private bool[] m_buffer;
+        private XPBoolean[] m_buffer;
 
         internal unsafe XPDataRefBoolArray(string name, void* dataref)
             : base(name, dataref)
         { }
 
-        public unsafe override bool[] Value
+        public unsafe override XPBoolean[] Value
         {
             get
             {
@@ -180,7 +180,7 @@ namespace XPNet
 
                 if (nValues > 0)
                 {
-                    fixed (bool* p = &m_buffer[0])
+                    fixed (XPBoolean* p = &m_buffer[0])
                         PluginBridge.ApiFunctions.XPLMGetDatavi(DataRef, (int*)p, 0, nValues);
                 }
 
@@ -191,7 +191,7 @@ namespace XPNet
             {
                 if (value.Length > 0)
                 {
-                    fixed (bool* p = &value[0])
+                    fixed (XPBoolean* p = &value[0])
                         PluginBridge.ApiFunctions.XPLMSetDatavi(DataRef, (int*)p, 0, value.Length);
                 }
                 else
@@ -216,7 +216,7 @@ namespace XPNet
             //    less straightforward for the users to use, and see #1.
 
             if (m_buffer == null || m_buffer.Length != nValues)
-                m_buffer = new bool[nValues];
+                m_buffer = new XPBoolean[nValues];
         }
     }
 

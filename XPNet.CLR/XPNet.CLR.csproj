@@ -15,6 +15,10 @@
     <PackageReleaseNotes>Standard release.</PackageReleaseNotes>
     <Copyright>Copyright 2018 © Stephen Quattlebaum</Copyright>
     <PackageTags>x-plane dotnet xplane plugin</PackageTags>
+
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
