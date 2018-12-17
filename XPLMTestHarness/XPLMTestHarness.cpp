@@ -608,6 +608,33 @@ XPLM_API void                 XPLMLocalToWorld(
 	*outLatitude = inZ;
 }
 
+XPLM_API XPLMDataRef          XPLMRegisterDataAccessor(
+	const char *         inDataName,
+	XPLMDataTypeID       inDataType,
+	int                  inIsWritable,
+	XPLMGetDatai_f       inReadInt,
+	XPLMSetDatai_f       inWriteInt,
+	XPLMGetDataf_f       inReadFloat,
+	XPLMSetDataf_f       inWriteFloat,
+	XPLMGetDatad_f       inReadDouble,
+	XPLMSetDatad_f       inWriteDouble,
+	XPLMGetDatavi_f      inReadIntArray,
+	XPLMSetDatavi_f      inWriteIntArray,
+	XPLMGetDatavf_f      inReadFloatArray,
+	XPLMSetDatavf_f      inWriteFloatArray,
+	XPLMGetDatab_f       inReadData,
+	XPLMSetDatab_f       inWriteData,
+	void *               inReadRefcon,
+	void *               inWriteRefcon) 
+{
+	std::cout << "XPLMTestHarness: Registering data accessor of type " << inDataType << std::endl;
+	std::cout << "XPLMTestHarness: Is writable is " << inIsWritable<< std::endl;
+	std::cout << "XPLMTestHarness: Int accessor " << inReadInt << ", " << inWriteInt << std::endl;
+	std::cout << "XPLMTestHarness: Float accessor " << inReadFloat << ", " << inWriteFloat << std::endl;
+	std::cout << "XPLMTestHarness: Double accessor " << inReadDouble << ", " << inWriteDouble << std::endl;
+	return reinterpret_cast<XPLMProbeRef>(static_cast<uintptr_t>(123));
+}
+
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter)
 {
 	// Before invoking clean up all the unregistered flight loops.

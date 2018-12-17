@@ -937,7 +937,6 @@ namespace XPNet
 			XPLMUnloadObject = Marshal.GetDelegateForFunctionPointer<XPLMUnloadObject>(p.XPLMUnloadObject);
 			XPLMLookupObjects = Marshal.GetDelegateForFunctionPointer<XPLMLookupObjects>(p.XPLMLookupObjects);
 
-
 			// Graphics
 			XPLMWorldToLocal = Marshal.GetDelegateForFunctionPointer<XPLMWorldToLocal>(p.XPLMWorldToLocal);
 			XPLMLocalToWorld = Marshal.GetDelegateForFunctionPointer<XPLMLocalToWorld>(p.XPLMLocalToWorld);
