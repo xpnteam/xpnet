@@ -6,9 +6,9 @@ namespace XPNet
 {
     public class SimDatarefs
     {
-        private readonly XPlaneData m_data;
+        private readonly IXPlaneData m_data;
 
-        internal SimDatarefs(XPlaneData data)
+        internal SimDatarefs(IXPlaneData data)
         {
             m_data = data;
 
@@ -28,9 +28,9 @@ namespace XPNet
 
         public class AircraftDatarefs
         {
-            private readonly XPlaneData m_data;
+            private readonly IXPlaneData m_data;
 
-            internal AircraftDatarefs(XPlaneData data)
+            internal AircraftDatarefs(IXPlaneData data)
             {
                 m_data = data;
 
@@ -44,9 +44,9 @@ namespace XPNet
 
             public class ViewDatarefs
             {
-                private readonly XPlaneData m_data;
+                private readonly IXPlaneData m_data;
 
-                internal ViewDatarefs(XPlaneData data)
+                internal ViewDatarefs(IXPlaneData data)
                 {
                     m_data = data;
                 }
@@ -57,9 +57,9 @@ namespace XPNet
 
         public class CockpitDatarefs
         {
-            private readonly XPlaneData m_data;
+            private readonly IXPlaneData m_data;
 
-            internal CockpitDatarefs(XPlaneData data)
+            internal CockpitDatarefs(IXPlaneData data)
             {
                 m_data = data;
 
@@ -73,9 +73,9 @@ namespace XPNet
 
             public class EngineDatarefs
             {
-                private readonly XPlaneData m_data;
+                private readonly IXPlaneData m_data;
 
-                internal EngineDatarefs(XPlaneData data)
+                internal EngineDatarefs(IXPlaneData data)
                 {
                     m_data = data;
                 }
