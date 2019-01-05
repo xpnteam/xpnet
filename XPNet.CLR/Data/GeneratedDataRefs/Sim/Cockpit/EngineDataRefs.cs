@@ -37,5 +37,10 @@ namespace XPNet.Data
         ///  Idle speed (per engine)
         /// </summary>
         public IXPDataRef<bool[]> Idle_speed => m_data.GetBoolArray("sim/cockpit/engine/idle_speed");
+
+        /// <summary>
+        ///  time since ignition was pressed or something. Units:seconds
+        /// </summary>
+        public IXPDataRef<float[]> Starter_duration => m_data.GetFloatArray("sim/cockpit/engine/starter_duration");
     }
 }

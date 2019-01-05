@@ -12,5 +12,15 @@ namespace XPNet.Data
         {
             m_data = data;
         }
+
+        /// <summary>
+        ///  amount the stab moves in trim automatically as you go to redline (zero at zero airspeed). Units:degree
+        /// </summary>
+        public IXPDataRef<float> Acf_stab_delinc_to_Vne => m_data.GetFloat("sim/aircraft/overflow/acf_stab_delinc_to_vne");
+
+        /// <summary>
+        ///  max pressurization of the fuselage. Units:pascals
+        /// </summary>
+        public IXPDataRef<float> Acf_max_press_diff => m_data.GetFloat("sim/aircraft/overflow/acf_max_press_diff");
     }
 }

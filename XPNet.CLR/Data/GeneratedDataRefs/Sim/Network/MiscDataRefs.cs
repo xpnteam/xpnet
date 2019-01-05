@@ -12,5 +12,10 @@ namespace XPNet.Data
         {
             m_data = data;
         }
+
+        /// <summary>
+        ///  The current elapsed time synched across the network. Units:seconds
+        /// </summary>
+        public IXPDataRef<float> Network_time_sec => m_data.GetFloat("sim/network/misc/network_time_sec");
     }
 }

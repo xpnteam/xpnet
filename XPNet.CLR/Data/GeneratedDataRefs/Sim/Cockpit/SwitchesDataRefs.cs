@@ -97,5 +97,10 @@ namespace XPNet.Data
         ///  Turns on ice detect
         /// </summary>
         public IXPDataRef<bool> Ice_detect => m_data.GetBool("sim/cockpit/switches/ice_detect");
+
+        /// <summary>
+        ///  Alpha level of EFIS weather from 0 to 1. Units:ratio
+        /// </summary>
+        public IXPDataRef<float> EFIS_weather_alpha => m_data.GetFloat("sim/cockpit/switches/efis_weather_alpha");
     }
 }

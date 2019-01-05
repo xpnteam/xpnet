@@ -12,5 +12,10 @@ namespace XPNet.Data
         {
             m_data = data;
         }
+
+        /// <summary>
+        ///  this test dataref is used internally for testing our models. Units:ratio
+        /// </summary>
+        public IXPDataRef<float> Test_float => m_data.GetFloat("sim/test/test_float");
     }
 }

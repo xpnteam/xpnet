@@ -22,5 +22,10 @@ namespace XPNet.Data
         ///  True if user is holding down the aux-tank button.
         /// </summary>
         public IXPDataRef<bool> Showing_aux => m_data.GetBool("sim/cockpit2/fuel/showing_aux");
+
+        /// <summary>
+        ///  Indicated fuel level per tank. Units:kgs
+        /// </summary>
+        public IXPDataRef<float[]> Fuel_quantity => m_data.GetFloatArray("sim/cockpit2/fuel/fuel_quantity");
     }
 }

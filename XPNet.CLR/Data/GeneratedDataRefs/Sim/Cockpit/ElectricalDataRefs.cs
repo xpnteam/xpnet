@@ -59,9 +59,24 @@ namespace XPNet.Data
         public IXPDataRef<bool> Gpu_on => m_data.GetBool("sim/cockpit/electrical/gpu_on");
 
         /// <summary>
+        ///  APU Generator amps. Units:amps
+        /// </summary>
+        public IXPDataRef<float> Generator_apu_amps => m_data.GetFloat("sim/cockpit/electrical/generator_apu_amps");
+
+        /// <summary>
+        ///  GPU Amps. Units:amps
+        /// </summary>
+        public IXPDataRef<float> Gpu_amps => m_data.GetFloat("sim/cockpit/electrical/gpu_amps");
+
+        /// <summary>
         ///  Is the HUD on
         /// </summary>
         public IXPDataRef<bool> HUD_on => m_data.GetBool("sim/cockpit/electrical/hud_on");
+
+        /// <summary>
+        ///  HUD brightness level (0-1). Units:ratio
+        /// </summary>
+        public IXPDataRef<float> HUD_brightness => m_data.GetFloat("sim/cockpit/electrical/hud_brightness");
 
         /// <summary>
         ///  Beacon Light
@@ -94,6 +109,16 @@ namespace XPNet.Data
         public IXPDataRef<bool> Cockpit_lights_on => m_data.GetBool("sim/cockpit/electrical/cockpit_lights_on");
 
         /// <summary>
+        ///  Cockpit light level. Units:ratio
+        /// </summary>
+        public IXPDataRef<float> Cockpit_lights => m_data.GetFloat("sim/cockpit/electrical/cockpit_lights");
+
+        /// <summary>
+        ///  Instrument LED lighting level. Units:ratio
+        /// </summary>
+        public IXPDataRef<float> Instrument_brightness => m_data.GetFloat("sim/cockpit/electrical/instrument_brightness");
+
+        /// <summary>
         ///  Sunglasses on?
         /// </summary>
         public IXPDataRef<bool> Sunglasses_on => m_data.GetBool("sim/cockpit/electrical/sunglasses_on");
@@ -102,5 +127,10 @@ namespace XPNet.Data
         ///  Night vision goggles on?
         /// </summary>
         public IXPDataRef<bool> Night_vision_on => m_data.GetBool("sim/cockpit/electrical/night_vision_on");
+
+        /// <summary>
+        ///  Current charge of each of the 8 batteries in watt-hours.. Units:watt/Hours
+        /// </summary>
+        public IXPDataRef<float[]> Battery_charge_watt_hr => m_data.GetFloatArray("sim/cockpit/electrical/battery_charge_watt_hr");
     }
 }

@@ -33,7 +33,7 @@ namespace XPNet.CLR.CodeGen
                 })
                 .GroupBy(d =>
                     String.Join("/", d.ParentPath.Split('/').SkipLast(1))
-                    ,d => d,
+                    , d => d,
                     (path, members) => new DictionaryTree<DataRef>(path, members));
 
             var classTree = new DictionaryTree<DataRef>("Sim");
@@ -60,7 +60,7 @@ namespace XPNet.CLR.CodeGen
             File.WriteAllText("../XPNet.CLR/Data/FluentDataRefs2.cs", code);
         }
 
-        
+
         public static void BuildClassDefs(DictionaryTree<DataRef> node)
         {
             foreach (var child in node.Children.Values)
@@ -73,23 +73,30 @@ namespace XPNet.CLR.CodeGen
                 .Replace("{item}", node.Name.Replace('/', '_'))
                 .Replace("{childInits}", string.Join("", node.Children.Values.Select(c => $"\n{initsIndent}{c.Name.LastElementOfPath()} = new {c.Name.Replace('/', '_')}Datarefs(data);")))
                 .Replace("{childProps}", string.Join("", node.Children.Values.Select(c => $"\n{propsIndent}public {c.Name.Replace('/', '_')}Datarefs {c.Name.LastElementOfPath()} {{ get; }}")))
-                .Replace("{members}", string.Join("", node.Members.Select(m => 
+                .Replace("{members}", string.Join("", node.Members.Select(m =>
                     {
                         string result = string.Empty;
-                        if(m.Units == null) return result;
-                        if(m.Units.Equals("string", StringComparison.OrdinalIgnoreCase))
+                        if (m.Units == null) return result;
+                        if (m.Units.Equals("string", StringComparison.OrdinalIgnoreCase))
                             result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<string> {m.Name} => m_data.GetString(\"{m.ParentPath.ToLower()}\");";
-                        
-                        if((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Contains("int["))
+
+                        if ((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Contains("int["))
                             result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<bool[]> {m.Name} => m_data.GetBoolArray(\"{m.ParentPath.ToLower()}\");";
 
-                        if((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Equals("int"))
+                        if ((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Equals("int"))
                             result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<bool> {m.Name} => m_data.GetBool(\"{m.ParentPath.ToLower()}\");";
-                        
+
+                        if (m.Type.Equals("float", StringComparison.OrdinalIgnoreCase))
+                            result = $"{m.Description.CreateSummaryComment(propsIndent, m.Units)}\n{propsIndent}public IXPDataRef<float> {m.Name} => m_data.GetFloat(\"{m.ParentPath.ToLower()}\");";
+
+                        if (m.Type.StartsWith("float[", StringComparison.OrdinalIgnoreCase))
+                            result = $"{m.Description.CreateSummaryComment(propsIndent, m.Units)}\n{propsIndent}public IXPDataRef<float[]> {m.Name} => m_data.GetFloatArray(\"{m.ParentPath.ToLower()}\");";
+
                         return result;
                     })
                 ));
-            if(node.Name == "View"){
+            if (node.Name == "View")
+            {
                 Console.WriteLine(node.Members.Count());
             }
 
@@ -147,27 +154,29 @@ namespace XPNet.Data
     }
 
     public static class Extensions
+    {
+        public static string PathNamesToUpper(this string path)
         {
-            public static string PathNamesToUpper(this string path)
+            var chars = path.ToCharArray();
+            chars[0] = char.ToUpper(chars[0]);
+            for (int i = 1; i < path.Length; i++)
             {
-                var chars = path.ToCharArray();
-                chars[0] = char.ToUpper(chars[0]);
-                for (int i = 1; i < path.Length; i++)
-                {
-                    if (chars[i] == '/' && chars.Length >= i)
-                        chars[i + 1] = char.ToUpper(chars[i + 1]);
-                }
-                return new String(chars);
-                ;
+                if (chars[i] == '/' && chars.Length >= i)
+                    chars[i + 1] = char.ToUpper(chars[i + 1]);
             }
-
-            public static string LastElementOfPath(this string path){
-                return path.Substring(path.LastIndexOf('/') + 1);
-            }
-
-            public static string CreateSummaryComment(this string description, string indent)
-            {
-                return $"\n\n{indent}/// <summary>\n{indent}///  {description}\n{indent}/// </summary>";
-            }
+            return new String(chars);
+            ;
         }
+
+        public static string LastElementOfPath(this string path)
+        {
+            return path.Substring(path.LastIndexOf('/') + 1);
+        }
+
+        public static string CreateSummaryComment(this string description, string indent, string units = null)
+        {
+            var unitString = units == null ? string.Empty : $". Units:{units}";
+            return $"\n\n{indent}/// <summary>\n{indent}///  {description}{unitString}\n{indent}/// </summary>";
+        }
+    }
 }

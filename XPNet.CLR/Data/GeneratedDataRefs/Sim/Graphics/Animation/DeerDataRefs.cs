@@ -12,5 +12,15 @@ namespace XPNet.Data
         {
             m_data = data;
         }
+
+        /// <summary>
+        ///  ratio for deer running. Units:float
+        /// </summary>
+        public IXPDataRef<float> Deer_run_cycle => m_data.GetFloat("sim/graphics/animation/deer/deer_run_cycle");
+
+        /// <summary>
+        ///  ratio for deer turning. Units:float
+        /// </summary>
+        public IXPDataRef<float> Deer_turn_cycle => m_data.GetFloat("sim/graphics/animation/deer/deer_turn_cycle");
     }
 }
