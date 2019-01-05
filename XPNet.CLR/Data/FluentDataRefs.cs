@@ -16,15 +16,9 @@ namespace XPNet
             Aircraft = new AircraftDatarefs(data);
         }
 
-        public CockpitDatarefs Cockpit
-        {
-            get;
-        }
+        public CockpitDatarefs Cockpit { get; }
 
-        public AircraftDatarefs Aircraft
-        {
-            get;
-        }
+        public AircraftDatarefs Aircraft { get; }
 
         public class AircraftDatarefs
         {

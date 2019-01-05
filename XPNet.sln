@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPNet.LoggerPlugin", "XPNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPNet.CLR.Tests", "XPNet.CLR.Tests\XPNet.CLR.Tests.csproj", "{EDB21500-D543-4735-8DE3-23CE0D0F7B55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPNet.CLR.CodeGen", "XPNet.CLR.CodeGen\XPNet.CLR.CodeGen.csproj", "{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,18 @@ Global
 		{EDB21500-D543-4735-8DE3-23CE0D0F7B55}.Release|x64.Build.0 = Release|Any CPU
 		{EDB21500-D543-4735-8DE3-23CE0D0F7B55}.Release|x86.ActiveCfg = Release|Any CPU
 		{EDB21500-D543-4735-8DE3-23CE0D0F7B55}.Release|x86.Build.0 = Release|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Debug|x64.Build.0 = Debug|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Debug|x86.Build.0 = Debug|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|x64.ActiveCfg = Release|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|x64.Build.0 = Release|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|x86.ActiveCfg = Release|Any CPU
+		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
