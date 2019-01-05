@@ -23,8 +23,8 @@ namespace XPNet.CLR.CodeGen
                 .Select(d => d.Split('\t'))
                 .Select(d => new DataRef
                 {
-                    ParentPath = d[0],//String.Join("/", d[0].Split('/').SkipLast(1)),
-                    Name = d[0].Split('/').Last(),
+                    ParentPath = d[0],
+                    Name = d[0].LastElementOfPath(),
                     Type = d[1],
                     IsWriteable = d[2] == "y",
                     Units = d.Skip(3).FirstOrDefault(),
@@ -35,7 +35,7 @@ namespace XPNet.CLR.CodeGen
                     ,d => d,
                     (path, members) => new DictionaryTree<DataRef>(path, members));
 
-            var classTree = new DictionaryTree<DataRef>("sim");
+            var classTree = new DictionaryTree<DataRef>("Sim");
             foreach (var d in dataRefClasses)
             {
                 var path = d.Name.Split('/');
@@ -66,12 +66,12 @@ namespace XPNet.CLR.CodeGen
             {
                 BuildClassDefs(child);
             }
-            if (node.Name == "sim") return;
+            //if (node.Name == "sim") return;
 
             node.ClassDef = template
                 .Replace("{item}", node.Name.Replace('/', '_'))
-                .Replace("{childInits}", string.Join("", node.Children.Keys.Select(c => $"\n{initsIndent}{c} = new {c}Datarefs(data);")))
-                .Replace("{childProps}", string.Join("", node.Children.Keys.Select(c => $"\n{propsIndent}public {c}Datarefs {c} {{ get; }}")))
+                .Replace("{childInits}", string.Join("", node.Children.Values.Select(c => $"\n{initsIndent}{c.Name.LastElementOfPath()} = new {c.Name.Replace('/', '_')}Datarefs(data);")))
+                .Replace("{childProps}", string.Join("", node.Children.Values.Select(c => $"\n{propsIndent}public {c.Name.Replace('/', '_')}Datarefs {c.Name.LastElementOfPath()} {{ get; }}")))
                 .Replace("{members}", string.Join("", node.Members.Select(m => 
                     {
                         string result = string.Empty;
@@ -89,8 +89,6 @@ namespace XPNet.CLR.CodeGen
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             File.WriteAllText(filePath, node.ClassDef);
         }
-
-
 
         const string initsIndent = "            ";
         const string propsIndent = "        ";
@@ -153,6 +151,10 @@ namespace XPNet.Data
                 }
                 return new String(chars);
                 ;
+            }
+
+            public static string LastElementOfPath(this string path){
+                return path.Substring(path.LastIndexOf('/') + 1);
             }
         }
 }

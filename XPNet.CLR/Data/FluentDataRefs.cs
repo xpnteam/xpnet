@@ -4,11 +4,12 @@ using System.Text;
 
 namespace XPNet
 {
-    public class SimDatarefs
+    /* 
+    public class SimDatarefsOld
     {
         private readonly IXPlaneData m_data;
 
-        internal SimDatarefs(IXPlaneData data)
+        internal SimDatarefsOld(IXPlaneData data)
         {
             m_data = data;
 
@@ -82,4 +83,5 @@ namespace XPNet
             }
         }
     }
+    */
 }

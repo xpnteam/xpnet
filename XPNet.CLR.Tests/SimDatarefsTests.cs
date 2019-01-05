@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using Moq;
+using XPNet.Data;
 
 namespace XPNet.CLR.Tests
 {
@@ -30,7 +31,8 @@ namespace XPNet.CLR.Tests
                 .Returns(mockDataString.Object);
 
             //act
-            var result = target.Aircraft.View.TailNumber;
+            //var result = target.Cockpit2
+            var result = target.Aircraft.View.Acf_tailnum;
 
             //assert
             Assert.Equal(tailNum, result.Value);
