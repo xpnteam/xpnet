@@ -9,6 +9,7 @@ namespace XPNet.CLR.CodeGen
     {
         static void Main(string[] args)
         {
+            Directory.Delete("../XPNet.CLR/Data/GeneratedDataRefs", true);
             Console.WriteLine($"Reading Datarefs from: {args[0]}");
             IEnumerable<string> dataRefs = Enumerable.Empty<string>();
 
@@ -75,8 +76,15 @@ namespace XPNet.CLR.CodeGen
                 .Replace("{members}", string.Join("", node.Members.Select(m => 
                     {
                         string result = string.Empty;
-                        if(m.Units?.Equals("string", StringComparison.OrdinalIgnoreCase) ?? false)
-                            result = $"\n{propsIndent}public IXPDataRef<string> {m.Name} => m_data.GetString(\"{m.ParentPath.ToLower()}\");";
+                        if(m.Units == null) return result;
+                        if(m.Units.Equals("string", StringComparison.OrdinalIgnoreCase))
+                            result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<string> {m.Name} => m_data.GetString(\"{m.ParentPath.ToLower()}\");";
+                        
+                        if((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Contains("int["))
+                            result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<bool[]> {m.Name} => m_data.GetBoolArray(\"{m.ParentPath.ToLower()}\");";
+
+                        if((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Equals("int"))
+                            result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<bool> {m.Name} => m_data.GetBool(\"{m.ParentPath.ToLower()}\");";
                         
                         return result;
                     })
@@ -155,6 +163,11 @@ namespace XPNet.Data
 
             public static string LastElementOfPath(this string path){
                 return path.Substring(path.LastIndexOf('/') + 1);
+            }
+
+            public static string CreateSummaryComment(this string description, string indent)
+            {
+                return $"\n\n{indent}/// <summary>\n{indent}///  {description}\n{indent}/// </summary>";
             }
         }
 }

@@ -10,7 +10,7 @@ namespace XPNet.Data
 
         internal Sim_AircraftDatarefs(IXPlaneData data)
         {
-            this.m_data = data;
+            m_data = data;
             View = new Sim_Aircraft_ViewDatarefs(data);
             Forcefeedback = new Sim_Aircraft_ForcefeedbackDatarefs(data);
             Electrical = new Sim_Aircraft_ElectricalDatarefs(data);

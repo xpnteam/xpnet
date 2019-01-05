@@ -12,5 +12,10 @@ namespace XPNet.Data
         {
             m_data = data;
         }
+
+        /// <summary>
+        ///  Are any of the gear on this plane retractable.  We strongly recommend you DO NOT write to this dataref.
+        /// </summary>
+        public IXPDataRef<bool> Acf_gear_retract => m_data.GetBool("sim/aircraft/gear/acf_gear_retract");
     }
 }
