@@ -14,73 +14,73 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Background color behind a modal window. Units:RGB
+        ///  Background color behind a modal window
         /// </summary>
-        public IXPDataRef<float[]> Background_rgb => m_data.GetFloatArray("sim/graphics/colors/background_rgb");
+        public IXPDataRef<float[]> Background_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/background_rgb");} }
 
         /// <summary>
-        ///  Dark tinging for menus. Units:RGB
+        ///  Dark tinging for menus
         /// </summary>
-        public IXPDataRef<float[]> Menu_dark_rgb => m_data.GetFloatArray("sim/graphics/colors/menu_dark_rgb");
+        public IXPDataRef<float[]> Menu_dark_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/menu_dark_rgb");} }
 
         /// <summary>
-        ///  Menu color of a selected item. Units:RGB
+        ///  Menu color of a selected item
         /// </summary>
-        public IXPDataRef<float[]> Menu_hilite_rgb => m_data.GetFloatArray("sim/graphics/colors/menu_hilite_rgb");
+        public IXPDataRef<float[]> Menu_hilite_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/menu_hilite_rgb");} }
 
         /// <summary>
-        ///  Light tinging for menus. Units:RGB
+        ///  Light tinging for menus
         /// </summary>
-        public IXPDataRef<float[]> Menu_lite_rgb => m_data.GetFloatArray("sim/graphics/colors/menu_lite_rgb");
+        public IXPDataRef<float[]> Menu_lite_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/menu_lite_rgb");} }
 
         /// <summary>
-        ///  Menu Item Text Color. Units:RGB
+        ///  Menu Item Text Color
         /// </summary>
-        public IXPDataRef<float[]> Menu_text_rgb => m_data.GetFloatArray("sim/graphics/colors/menu_text_rgb");
+        public IXPDataRef<float[]> Menu_text_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/menu_text_rgb");} }
 
         /// <summary>
-        ///  Menu Item Text Color When Disabled. Units:RGB
+        ///  Menu Item Text Color When Disabled
         /// </summary>
-        public IXPDataRef<float[]> Menu_text_disabled_rgb => m_data.GetFloatArray("sim/graphics/colors/menu_text_disabled_rgb");
+        public IXPDataRef<float[]> Menu_text_disabled_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/menu_text_disabled_rgb");} }
 
         /// <summary>
-        ///  Subtitle text colors. Units:RGB
+        ///  Subtitle text colors
         /// </summary>
-        public IXPDataRef<float[]> Subtitle_text_rgb => m_data.GetFloatArray("sim/graphics/colors/subtitle_text_rgb");
+        public IXPDataRef<float[]> Subtitle_text_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/subtitle_text_rgb");} }
 
         /// <summary>
-        ///  Color of text on tabs that are forward. Units:RGB
+        ///  Color of text on tabs that are forward
         /// </summary>
-        public IXPDataRef<float[]> Tab_front_rgb => m_data.GetFloatArray("sim/graphics/colors/tab_front_rgb");
+        public IXPDataRef<float[]> Tab_front_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/tab_front_rgb");} }
 
         /// <summary>
-        ///  Color of text on tabs that are in the bkgnd. Units:RGB
+        ///  Color of text on tabs that are in the bkgnd
         /// </summary>
-        public IXPDataRef<float[]> Tab_back_rgb => m_data.GetFloatArray("sim/graphics/colors/tab_back_rgb");
+        public IXPDataRef<float[]> Tab_back_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/tab_back_rgb");} }
 
         /// <summary>
-        ///  Caption text (for on a main window). Units:RGB
+        ///  Caption text (for on a main window)
         /// </summary>
-        public IXPDataRef<float[]> Caption_text_rgb => m_data.GetFloatArray("sim/graphics/colors/caption_text_rgb");
+        public IXPDataRef<float[]> Caption_text_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/caption_text_rgb");} }
 
         /// <summary>
-        ///  Text Color for scrolling lists. Units:RGB
+        ///  Text Color for scrolling lists
         /// </summary>
-        public IXPDataRef<float[]> List_text_rgb => m_data.GetFloatArray("sim/graphics/colors/list_text_rgb");
+        public IXPDataRef<float[]> List_text_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/list_text_rgb");} }
 
         /// <summary>
-        ///  Text color for on a 'glass' screen. Units:RGB
+        ///  Text color for on a 'glass' screen
         /// </summary>
-        public IXPDataRef<float[]> Glass_text_rgb => m_data.GetFloatArray("sim/graphics/colors/glass_text_rgb");
+        public IXPDataRef<float[]> Glass_text_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/glass_text_rgb");} }
 
         /// <summary>
-        ///  Color for 3-d plane path. Units:RGB
+        ///  Color for 3-d plane path
         /// </summary>
-        public IXPDataRef<float[]> Plane_path1_3d_rgb => m_data.GetFloatArray("sim/graphics/colors/plane_path1_3d_rgb");
+        public IXPDataRef<float[]> Plane_path1_3d_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/plane_path1_3d_rgb");} }
 
         /// <summary>
-        ///  Striping color for 3-d plane path. Units:RGB
+        ///  Striping color for 3-d plane path
         /// </summary>
-        public IXPDataRef<float[]> Plane_path2_3d_rgb => m_data.GetFloatArray("sim/graphics/colors/plane_path2_3d_rgb");
+        public IXPDataRef<float[]> Plane_path2_3d_rgb { get { return m_data.GetFloatArray("sim/graphics/colors/plane_path2_3d_rgb");} }
     }
 }

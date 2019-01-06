@@ -14,23 +14,23 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  The decision height for the radio altimeter. Units:Feet
+        ///  The decision height for the radio altimeter
         /// </summary>
-        public IXPDataRef<float> Radio_altimeter_minimum => m_data.GetFloat("sim/cockpit/misc/radio_altimeter_minimum");
+        public IXPDataRef<float> Radio_altimeter_minimum { get { return m_data.GetFloat("sim/cockpit/misc/radio_altimeter_minimum");} }
 
         /// <summary>
-        ///  Adjustment to the artificial horizon bars (pilot). Units:pixels
+        ///  Adjustment to the artificial horizon bars (pilot)
         /// </summary>
-        public IXPDataRef<float> Ah_adjust => m_data.GetFloat("sim/cockpit/misc/ah_adjust");
+        public IXPDataRef<float> Ah_adjust { get { return m_data.GetFloat("sim/cockpit/misc/ah_adjust");} }
 
         /// <summary>
-        ///  Adjustment to the artificial horizon bars (copilot). Units:pixels
+        ///  Adjustment to the artificial horizon bars (copilot)
         /// </summary>
-        public IXPDataRef<float> Ah_adjust2 => m_data.GetFloat("sim/cockpit/misc/ah_adjust2");
+        public IXPDataRef<float> Ah_adjust2 { get { return m_data.GetFloat("sim/cockpit/misc/ah_adjust2");} }
 
         /// <summary>
-        ///  Indicated cockpit heading in magnetic degrees. Units:degm
+        ///  Indicated cockpit heading in magnetic degrees
         /// </summary>
-        public IXPDataRef<float> Compass_indicated => m_data.GetFloat("sim/cockpit/misc/compass_indicated");
+        public IXPDataRef<float> Compass_indicated { get { return m_data.GetFloat("sim/cockpit/misc/compass_indicated");} }
     }
 }

@@ -14,68 +14,78 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  If larger than zero, the prop disc is actually two discs, with this separation at the root and no separation at the tip.. Units:meters
+        ///  Set to 1 to control the prop disc from a plugin.  Overrides all other variables in this section.
         /// </summary>
-        public IXPDataRef<float[]> Disc_width => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_width");
+        public IXPDataRef<bool[]> Override { get { return m_data.GetBoolArray("sim/flightmodel2/engines/prop_disc/override");} }
 
         /// <summary>
-        ///  Offset from left (in "slots") for the prop disc texture.  Fractions blend horizontal images.. Units:offset
+        ///  If larger than zero, the prop disc is actually two discs, with this separation at the root and no separation at the tip.
         /// </summary>
-        public IXPDataRef<float[]> Disc_s => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_s");
+        public IXPDataRef<float[]> Disc_width { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_width");} }
 
         /// <summary>
-        ///  Alpha of prop disc when viewed from front.  X-Plane interpolates as the view angle moves.. Units:ratio
+        ///  Offset from left (in "slots") for the prop disc texture.  Fractions blend horizontal images.
         /// </summary>
-        public IXPDataRef<float[]> Disc_alpha_front => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_alpha_front");
+        public IXPDataRef<float[]> Disc_s { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_s");} }
 
         /// <summary>
-        ///  Alpha of prop disc when viewed of side.. Units:ratio
+        ///  Alpha of prop disc when viewed from front.  X-Plane interpolates as the view angle moves.
         /// </summary>
-        public IXPDataRef<float[]> Disc_alpha_side => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_alpha_side");
+        public IXPDataRef<float[]> Disc_alpha_front { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_alpha_front");} }
 
         /// <summary>
-        ///  Ratio to multiply disc alpha when view is inside the airplane.. Units:ratio
+        ///  Alpha of prop disc when viewed of side.
         /// </summary>
-        public IXPDataRef<float[]> Disc_alpha_inside => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_alpha_inside");
+        public IXPDataRef<float[]> Disc_alpha_side { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_alpha_side");} }
 
         /// <summary>
-        ///  Width of prop side image in meters.  Height comes from prop radius.. Units:meters
+        ///  Ratio to multiply disc alpha when view is inside the airplane.
         /// </summary>
-        public IXPDataRef<float[]> Side_width => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_width");
+        public IXPDataRef<float[]> Disc_alpha_inside { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_alpha_inside");} }
 
         /// <summary>
-        ///  Ratio to scale the length of the side image.  1.0 = the real length of the prop.. Units:ratio
+        ///  Width of prop side image in meters.  Height comes from prop radius.
         /// </summary>
-        public IXPDataRef<float[]> Side_length_ratio => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_length_ratio");
+        public IXPDataRef<float[]> Side_width { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_width");} }
 
         /// <summary>
-        ///  Rotation angle of the side images now - allows side to rotate independently of disc, perhaps faster.. Units:degrees
+        ///  Ratio to scale the length of the side image.  1.0 = the real length of the prop.
         /// </summary>
-        public IXPDataRef<float[]> Side_angle => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_angle");
+        public IXPDataRef<float[]> Side_length_ratio { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_length_ratio");} }
 
         /// <summary>
-        ///  Offset from left (in "slots") for the prop disc texture.  Fractions blend horizontal images.. Units:offset
+        ///  Rotation angle of the side images now - allows side to rotate independently of disc, perhaps faster.
         /// </summary>
-        public IXPDataRef<float[]> Side_s => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_s");
+        public IXPDataRef<float[]> Side_angle { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_angle");} }
 
         /// <summary>
-        ///  Alpha of prop side when viewed from front.  X-Plane interpolates as the view angle moves.. Units:ratio
+        ///  If true, prop side angle comes from billboarding logic - if false, it comes from side_angle dataref.
         /// </summary>
-        public IXPDataRef<float[]> Side_alpha_front => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_front");
+        public IXPDataRef<bool[]> Side_is_billboard { get { return m_data.GetBoolArray("sim/flightmodel2/engines/prop_disc/side_is_billboard");} }
 
         /// <summary>
-        ///  Alpha of prop side when viewed of side.. Units:ratio
+        ///  Offset from left (in "slots") for the prop disc texture.  Fractions blend horizontal images.
         /// </summary>
-        public IXPDataRef<float[]> Side_alpha_side => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_side");
+        public IXPDataRef<float[]> Side_s { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_s");} }
 
         /// <summary>
-        ///  Ratio to multiply side alpha when view is inside the airplane.. Units:ratio
+        ///  Alpha of prop side when viewed from front.  X-Plane interpolates as the view angle moves.
         /// </summary>
-        public IXPDataRef<float[]> Side_alpha_inside => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_inside");
+        public IXPDataRef<float[]> Side_alpha_front { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_front");} }
 
         /// <summary>
-        ///  A ratio to multiply side alpha when the rotor is extending toward the camera.. Units:ratio
+        ///  Alpha of prop side when viewed of side.
         /// </summary>
-        public IXPDataRef<float[]> Side_alpha_to_camera => m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_to_camera");
+        public IXPDataRef<float[]> Side_alpha_side { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_side");} }
+
+        /// <summary>
+        ///  Ratio to multiply side alpha when view is inside the airplane.
+        /// </summary>
+        public IXPDataRef<float[]> Side_alpha_inside { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_inside");} }
+
+        /// <summary>
+        ///  A ratio to multiply side alpha when the rotor is extending toward the camera.
+        /// </summary>
+        public IXPDataRef<float[]> Side_alpha_to_camera { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_alpha_to_camera");} }
     }
 }

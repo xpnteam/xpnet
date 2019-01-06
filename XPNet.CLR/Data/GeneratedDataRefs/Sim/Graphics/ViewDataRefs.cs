@@ -14,268 +14,293 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  The location of the camera, X coordinate (OpenGL). Units:OGLcoords
+        ///  True if modern correct RGBA blending is being used to draw panels; false if the legacy alpha-max equation is being used.
         /// </summary>
-        public IXPDataRef<float> View_x => m_data.GetFloat("sim/graphics/view/view_x");
+        public IXPDataRef<bool> Panel_render_new_blending { get { return m_data.GetBool("sim/graphics/view/panel_render_new_blending");} }
 
         /// <summary>
-        ///  The location of the camera, Y coordinate (OpenGL). Units:OGLcoords
+        ///  Is the view in the cockpit or outside?  Affects sound!
         /// </summary>
-        public IXPDataRef<float> View_y => m_data.GetFloat("sim/graphics/view/view_y");
+        public IXPDataRef<bool> View_is_external { get { return m_data.GetBool("sim/graphics/view/view_is_external");} }
 
         /// <summary>
-        ///  The location of the camera, Z coordinate (OpenGL). Units:OGLcoords
+        ///  The location of the camera, X coordinate (OpenGL)
         /// </summary>
-        public IXPDataRef<float> View_z => m_data.GetFloat("sim/graphics/view/view_z");
+        public IXPDataRef<float> View_x { get { return m_data.GetFloat("sim/graphics/view/view_x");} }
 
         /// <summary>
-        ///  The camera's pitch. Units:degrees
+        ///  The location of the camera, Y coordinate (OpenGL)
         /// </summary>
-        public IXPDataRef<float> View_pitch => m_data.GetFloat("sim/graphics/view/view_pitch");
+        public IXPDataRef<float> View_y { get { return m_data.GetFloat("sim/graphics/view/view_y");} }
 
         /// <summary>
-        ///  The camera's roll. Units:degrees
+        ///  The location of the camera, Z coordinate (OpenGL)
         /// </summary>
-        public IXPDataRef<float> View_roll => m_data.GetFloat("sim/graphics/view/view_roll");
+        public IXPDataRef<float> View_z { get { return m_data.GetFloat("sim/graphics/view/view_z");} }
 
         /// <summary>
-        ///  the camera's heading, CW frmo true north. Units:degrees
+        ///  The camera's pitch
         /// </summary>
-        public IXPDataRef<float> View_heading => m_data.GetFloat("sim/graphics/view/view_heading");
+        public IXPDataRef<float> View_pitch { get { return m_data.GetFloat("sim/graphics/view/view_pitch");} }
 
         /// <summary>
-        ///  The cockpit's pitch. Units:degrees
+        ///  The camera's roll
         /// </summary>
-        public IXPDataRef<float> Cockpit_pitch => m_data.GetFloat("sim/graphics/view/cockpit_pitch");
+        public IXPDataRef<float> View_roll { get { return m_data.GetFloat("sim/graphics/view/view_roll");} }
 
         /// <summary>
-        ///  The cockpit's heading (the dataref name is wrong - this is really true heading). Units:degrees
+        ///  the camera's heading, CW frmo true north
         /// </summary>
-        public IXPDataRef<float> Cockpit_roll => m_data.GetFloat("sim/graphics/view/cockpit_roll");
+        public IXPDataRef<float> View_heading { get { return m_data.GetFloat("sim/graphics/view/view_heading");} }
 
         /// <summary>
-        ///  the cockpit's roll (the dataref is name wrong - this is really roll). Units:degrees
+        ///  The cockpit's pitch
         /// </summary>
-        public IXPDataRef<float> Cockpit_heading => m_data.GetFloat("sim/graphics/view/cockpit_heading");
+        public IXPDataRef<float> Cockpit_pitch { get { return m_data.GetFloat("sim/graphics/view/cockpit_pitch");} }
 
         /// <summary>
-        ///  horizontal field of view in degrees. Units:degrees
+        ///  The cockpit's heading (the dataref name is wrong - this is really true heading)
         /// </summary>
-        public IXPDataRef<float> Field_of_view_deg => m_data.GetFloat("sim/graphics/view/field_of_view_deg");
+        public IXPDataRef<float> Cockpit_roll { get { return m_data.GetFloat("sim/graphics/view/cockpit_roll");} }
 
         /// <summary>
-        ///  vertical field of view in degrees, see sim/Graphics/Settings/Non_proportional_vertical_FOV.. Units:degrees
+        ///  the cockpit's roll (the dataref is name wrong - this is really roll)
         /// </summary>
-        public IXPDataRef<float> Vertical_field_of_view_deg => m_data.GetFloat("sim/graphics/view/vertical_field_of_view_deg");
+        public IXPDataRef<float> Cockpit_heading { get { return m_data.GetFloat("sim/graphics/view/cockpit_heading");} }
 
         /// <summary>
-        ///  pitch rotation for multi-monitor setup.. Units:degrees
+        ///  horizontal field of view in degrees
         /// </summary>
-        public IXPDataRef<float> Field_of_view_vertical_deg => m_data.GetFloat("sim/graphics/view/field_of_view_vertical_deg");
+        public IXPDataRef<float> Field_of_view_deg { get { return m_data.GetFloat("sim/graphics/view/field_of_view_deg");} }
 
         /// <summary>
-        ///  heading rotation for multi-monitor setup.. Units:degrees
+        ///  vertical field of view in degrees, see sim/Graphics/Settings/Non_proportional_vertical_FOV.
         /// </summary>
-        public IXPDataRef<float> Field_of_view_horizontal_deg => m_data.GetFloat("sim/graphics/view/field_of_view_horizontal_deg");
+        public IXPDataRef<float> Vertical_field_of_view_deg { get { return m_data.GetFloat("sim/graphics/view/vertical_field_of_view_deg");} }
 
         /// <summary>
-        ///  Roll rotation for multi-monitor setup.. Units:degrees
+        ///  pitch rotation for multi-monitor setup.
         /// </summary>
-        public IXPDataRef<float> Field_of_view_roll_deg => m_data.GetFloat("sim/graphics/view/field_of_view_roll_deg");
+        public IXPDataRef<float> Field_of_view_vertical_deg { get { return m_data.GetFloat("sim/graphics/view/field_of_view_vertical_deg");} }
 
         /// <summary>
-        ///  horizontal frustum shift (xp 6,7,8,10) - 1 unit shifts frustum by screen width. Units:ratio
+        ///  heading rotation for multi-monitor setup.
         /// </summary>
-        public IXPDataRef<float> Field_of_view_horizontal_ratio => m_data.GetFloat("sim/graphics/view/field_of_view_horizontal_ratio");
+        public IXPDataRef<float> Field_of_view_horizontal_deg { get { return m_data.GetFloat("sim/graphics/view/field_of_view_horizontal_deg");} }
 
         /// <summary>
-        ///  >= 0. Units:meters
+        ///  Roll rotation for multi-monitor setup.
         /// </summary>
-        public IXPDataRef<float> Visibility_effective_m => m_data.GetFloat("sim/graphics/view/visibility_effective_m");
+        public IXPDataRef<float> Field_of_view_roll_deg { get { return m_data.GetFloat("sim/graphics/view/field_of_view_roll_deg");} }
 
         /// <summary>
-        ///  >= 0. Units:meters
+        ///  horizontal frustum shift (xp 6,7,8,10) - 1 unit shifts frustum by screen width
         /// </summary>
-        public IXPDataRef<float> Visibility_terrain_m => m_data.GetFloat("sim/graphics/view/visibility_terrain_m");
+        public IXPDataRef<float> Field_of_view_horizontal_ratio { get { return m_data.GetFloat("sim/graphics/view/field_of_view_horizontal_ratio");} }
 
         /// <summary>
-        ///  - 1.0]. Units:[0.0
+        ///  The effective visibility after framerate-protecting visibility reductions.
         /// </summary>
-        public IXPDataRef<float> Visibility_framerate_ratio => m_data.GetFloat("sim/graphics/view/visibility_framerate_ratio");
+        public IXPDataRef<float> Visibility_effective_m { get { return m_data.GetFloat("sim/graphics/view/visibility_effective_m");} }
 
         /// <summary>
-        ///  This is the location of the left edge of the panel, in the coordinate system used during panel drawing.. Units:pixels
+        ///  The range of ground visibility. When above the clouds, only some of the ground terrain is actually drawn.
         /// </summary>
-        public IXPDataRef<float> Panel_total_pnl_l => m_data.GetFloat("sim/graphics/view/panel_total_pnl_l");
+        public IXPDataRef<float> Visibility_terrain_m { get { return m_data.GetFloat("sim/graphics/view/visibility_terrain_m");} }
 
         /// <summary>
-        ///  This is the location of the bottom edge of the panel, in the coordinate system used during panel drawing.. Units:pixels
+        ///  The ratio of the reported visibility to actually show for frame-rate protection. 1.0 means the user ses the reported visibility.  Writable in v9, fixed in v10.
         /// </summary>
-        public IXPDataRef<float> Panel_total_pnl_b => m_data.GetFloat("sim/graphics/view/panel_total_pnl_b");
+        public IXPDataRef<float> Visibility_framerate_ratio { get { return m_data.GetFloat("sim/graphics/view/visibility_framerate_ratio");} }
 
         /// <summary>
-        ///  This is the location of the right edge of the panel, in the coordinate system used during panel drawing.. Units:pixels
+        ///  True if cinema verite camera is on.
         /// </summary>
-        public IXPDataRef<float> Panel_total_pnl_r => m_data.GetFloat("sim/graphics/view/panel_total_pnl_r");
+        public IXPDataRef<bool> Cinema_verite { get { return m_data.GetBool("sim/graphics/view/cinema_verite");} }
 
         /// <summary>
-        ///  This is the location of the top edge of the panel, in the coordinate system used during panel drawing.. Units:pixels
+        ///  This is the location of the left edge of the panel, in the coordinate system used during panel drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_total_pnl_t => m_data.GetFloat("sim/graphics/view/panel_total_pnl_t");
+        public IXPDataRef<float> Panel_total_pnl_l { get { return m_data.GetFloat("sim/graphics/view/panel_total_pnl_l");} }
 
         /// <summary>
-        ///  This is the location of the left edge of the screen, in the coordinate system used during panel drawing.. Units:pixels
+        ///  This is the location of the bottom edge of the panel, in the coordinate system used during panel drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_pnl_l => m_data.GetFloat("sim/graphics/view/panel_visible_pnl_l");
+        public IXPDataRef<float> Panel_total_pnl_b { get { return m_data.GetFloat("sim/graphics/view/panel_total_pnl_b");} }
 
         /// <summary>
-        ///  This is the location of the bottom edge of the screen, in the coordinate system used during panel drawing.. Units:pixels
+        ///  This is the location of the right edge of the panel, in the coordinate system used during panel drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_pnl_b => m_data.GetFloat("sim/graphics/view/panel_visible_pnl_b");
+        public IXPDataRef<float> Panel_total_pnl_r { get { return m_data.GetFloat("sim/graphics/view/panel_total_pnl_r");} }
 
         /// <summary>
-        ///  This is the location of the right edge of the screen, in the coordinate system used during panel drawing.. Units:pixels
+        ///  This is the location of the top edge of the panel, in the coordinate system used during panel drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_pnl_r => m_data.GetFloat("sim/graphics/view/panel_visible_pnl_r");
+        public IXPDataRef<float> Panel_total_pnl_t { get { return m_data.GetFloat("sim/graphics/view/panel_total_pnl_t");} }
 
         /// <summary>
-        ///  This is the location of the top edge of the screen, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the left edge of the screen, in the coordinate system used during panel drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_pnl_t => m_data.GetFloat("sim/graphics/view/panel_visible_pnl_t");
+        public IXPDataRef<float> Panel_visible_pnl_l { get { return m_data.GetFloat("sim/graphics/view/panel_visible_pnl_l");} }
 
         /// <summary>
-        ///  This is the location of the left edge of the panel, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the bottom edge of the screen, in the coordinate system used during panel drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_total_win_l => m_data.GetFloat("sim/graphics/view/panel_total_win_l");
+        public IXPDataRef<float> Panel_visible_pnl_b { get { return m_data.GetFloat("sim/graphics/view/panel_visible_pnl_b");} }
 
         /// <summary>
-        ///  This is the location of the bottom edge of the panel, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the right edge of the screen, in the coordinate system used during panel drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_total_win_b => m_data.GetFloat("sim/graphics/view/panel_total_win_b");
+        public IXPDataRef<float> Panel_visible_pnl_r { get { return m_data.GetFloat("sim/graphics/view/panel_visible_pnl_r");} }
 
         /// <summary>
-        ///  This is the location of the right edge of the panel, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the top edge of the screen, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_total_win_r => m_data.GetFloat("sim/graphics/view/panel_total_win_r");
+        public IXPDataRef<float> Panel_visible_pnl_t { get { return m_data.GetFloat("sim/graphics/view/panel_visible_pnl_t");} }
 
         /// <summary>
-        ///  This is the location of the top edge of the panel, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the left edge of the panel, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_total_win_t => m_data.GetFloat("sim/graphics/view/panel_total_win_t");
+        public IXPDataRef<float> Panel_total_win_l { get { return m_data.GetFloat("sim/graphics/view/panel_total_win_l");} }
 
         /// <summary>
-        ///  This is the location of the left edge of the screen, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the bottom edge of the panel, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_win_l => m_data.GetFloat("sim/graphics/view/panel_visible_win_l");
+        public IXPDataRef<float> Panel_total_win_b { get { return m_data.GetFloat("sim/graphics/view/panel_total_win_b");} }
 
         /// <summary>
-        ///  This is the location of the bottom edge of the screen, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the right edge of the panel, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_win_b => m_data.GetFloat("sim/graphics/view/panel_visible_win_b");
+        public IXPDataRef<float> Panel_total_win_r { get { return m_data.GetFloat("sim/graphics/view/panel_total_win_r");} }
 
         /// <summary>
-        ///  This is the location of the right edge of the screen, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the top edge of the panel, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_win_r => m_data.GetFloat("sim/graphics/view/panel_visible_win_r");
+        public IXPDataRef<float> Panel_total_win_t { get { return m_data.GetFloat("sim/graphics/view/panel_total_win_t");} }
 
         /// <summary>
-        ///  This is the location of the top edge of the screen, in the coordinate system used during plugin window drawing.. Units:pixels
+        ///  This is the location of the left edge of the screen, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Panel_visible_win_t => m_data.GetFloat("sim/graphics/view/panel_visible_win_t");
+        public IXPDataRef<float> Panel_visible_win_l { get { return m_data.GetFloat("sim/graphics/view/panel_visible_win_l");} }
 
         /// <summary>
-        ///  Position of pilot's head relative to CG, X. Units:meters
+        ///  This is the location of the bottom edge of the screen, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Pilots_head_x => m_data.GetFloat("sim/graphics/view/pilots_head_x");
+        public IXPDataRef<float> Panel_visible_win_b { get { return m_data.GetFloat("sim/graphics/view/panel_visible_win_b");} }
 
         /// <summary>
-        ///  Position of pilot's head relative to CG, Y. Units:meters
+        ///  This is the location of the right edge of the screen, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Pilots_head_y => m_data.GetFloat("sim/graphics/view/pilots_head_y");
+        public IXPDataRef<float> Panel_visible_win_r { get { return m_data.GetFloat("sim/graphics/view/panel_visible_win_r");} }
 
         /// <summary>
-        ///  Position of pilot's head relative to CG, Z. Units:meters
+        ///  This is the location of the top edge of the screen, in the coordinate system used during plugin window drawing.
         /// </summary>
-        public IXPDataRef<float> Pilots_head_z => m_data.GetFloat("sim/graphics/view/pilots_head_z");
+        public IXPDataRef<float> Panel_visible_win_t { get { return m_data.GetFloat("sim/graphics/view/panel_visible_win_t");} }
 
         /// <summary>
-        ///  Position of pilot's head heading. Units:degrees
+        ///  Position of pilot's head relative to CG, X
         /// </summary>
-        public IXPDataRef<float> Pilots_head_psi => m_data.GetFloat("sim/graphics/view/pilots_head_psi");
+        public IXPDataRef<float> Pilots_head_x { get { return m_data.GetFloat("sim/graphics/view/pilots_head_x");} }
 
         /// <summary>
-        ///  Position of pilot's head pitch. Units:degrees
+        ///  Position of pilot's head relative to CG, Y
         /// </summary>
-        public IXPDataRef<float> Pilots_head_the => m_data.GetFloat("sim/graphics/view/pilots_head_the");
+        public IXPDataRef<float> Pilots_head_y { get { return m_data.GetFloat("sim/graphics/view/pilots_head_y");} }
 
         /// <summary>
-        ///  Position of the pilot's head roll'. Units:degrees
+        ///  Position of pilot's head relative to CG, Z
         /// </summary>
-        public IXPDataRef<float> Pilots_head_phi => m_data.GetFloat("sim/graphics/view/pilots_head_phi");
+        public IXPDataRef<float> Pilots_head_z { get { return m_data.GetFloat("sim/graphics/view/pilots_head_z");} }
 
         /// <summary>
-        ///  coordinates of the panel click in 3-d. Units:0-1
+        ///  Position of pilot's head heading
         /// </summary>
-        public IXPDataRef<float> Click_3d_x => m_data.GetFloat("sim/graphics/view/click_3d_x");
+        public IXPDataRef<float> Pilots_head_psi { get { return m_data.GetFloat("sim/graphics/view/pilots_head_psi");} }
 
         /// <summary>
-        ///  as texture coords (E.g. 0-1). Units:0-1
+        ///  Position of pilot's head pitch
         /// </summary>
-        public IXPDataRef<float> Click_3d_y => m_data.GetFloat("sim/graphics/view/click_3d_y");
+        public IXPDataRef<float> Pilots_head_the { get { return m_data.GetFloat("sim/graphics/view/pilots_head_the");} }
 
         /// <summary>
-        ///  coordinates of the panel click in 3-d. Units:0-1
+        ///  Position of the pilot's head roll'
         /// </summary>
-        public IXPDataRef<float> Click_3d_x_pixels => m_data.GetFloat("sim/graphics/view/click_3d_x_pixels");
+        public IXPDataRef<float> Pilots_head_phi { get { return m_data.GetFloat("sim/graphics/view/pilots_head_phi");} }
 
         /// <summary>
-        ///  as texture coords (E.g. 0-1). Units:0-1
+        ///  coordinates of the panel click in 3-d
         /// </summary>
-        public IXPDataRef<float> Click_3d_y_pixels => m_data.GetFloat("sim/graphics/view/click_3d_y_pixels");
+        public IXPDataRef<float> Click_3d_x { get { return m_data.GetFloat("sim/graphics/view/click_3d_x");} }
 
         /// <summary>
-        ///  Bounds of the local map window during callbacks - left. Units:pixels
+        ///  as texture coords (E.g. 0-1)
         /// </summary>
-        public IXPDataRef<float> Local_map_l => m_data.GetFloat("sim/graphics/view/local_map_l");
+        public IXPDataRef<float> Click_3d_y { get { return m_data.GetFloat("sim/graphics/view/click_3d_y");} }
 
         /// <summary>
-        ///  Bounds of the local map window during callbacks - bottom. Units:pixels
+        ///  coordinates of the panel click in 3-d
         /// </summary>
-        public IXPDataRef<float> Local_map_b => m_data.GetFloat("sim/graphics/view/local_map_b");
+        public IXPDataRef<float> Click_3d_x_pixels { get { return m_data.GetFloat("sim/graphics/view/click_3d_x_pixels");} }
 
         /// <summary>
-        ///  Bounds of the local map window during callbacks - right. Units:pixels
+        ///  as texture coords (E.g. 0-1)
         /// </summary>
-        public IXPDataRef<float> Local_map_r => m_data.GetFloat("sim/graphics/view/local_map_r");
+        public IXPDataRef<float> Click_3d_y_pixels { get { return m_data.GetFloat("sim/graphics/view/click_3d_y_pixels");} }
 
         /// <summary>
-        ///  Bounds of the local map window during callbacks - top. Units:pixels
+        ///  Bounds of the local map window during callbacks - left
         /// </summary>
-        public IXPDataRef<float> Local_map_t => m_data.GetFloat("sim/graphics/view/local_map_t");
+        public IXPDataRef<float> Local_map_l { get { return m_data.GetFloat("sim/graphics/view/local_map_l");} }
 
         /// <summary>
-        ///  The horizontal offset for this pass, in degrees. Units:degrees
+        ///  Bounds of the local map window during callbacks - bottom
         /// </summary>
-        public IXPDataRef<float[]> Dome_offset_heading => m_data.GetFloatArray("sim/graphics/view/dome_offset_heading");
+        public IXPDataRef<float> Local_map_b { get { return m_data.GetFloat("sim/graphics/view/local_map_b");} }
 
         /// <summary>
-        ///  The vertical offset for this pass, in degrees. Units:degrees
+        ///  Bounds of the local map window during callbacks - right
         /// </summary>
-        public IXPDataRef<float[]> Dome_offset_pitch => m_data.GetFloatArray("sim/graphics/view/dome_offset_pitch");
+        public IXPDataRef<float> Local_map_r { get { return m_data.GetFloat("sim/graphics/view/local_map_r");} }
 
         /// <summary>
-        ///  The current projection matrix - valid only during draw callbacks. Units:Matrix4x4
+        ///  Bounds of the local map window during callbacks - top
         /// </summary>
-        public IXPDataRef<float[]> Projection_matrix => m_data.GetFloatArray("sim/graphics/view/projection_matrix");
+        public IXPDataRef<float> Local_map_t { get { return m_data.GetFloat("sim/graphics/view/local_map_t");} }
 
         /// <summary>
-        ///  The current modelview matrix to draw in standard "OGL" coordinates - valid only during draw callbacks. Units:Matrix4x4
+        ///  The horizontal offset for this pass, in degrees
         /// </summary>
-        public IXPDataRef<float[]> World_matrix => m_data.GetFloatArray("sim/graphics/view/world_matrix");
+        public IXPDataRef<float[]> Dome_offset_heading { get { return m_data.GetFloatArray("sim/graphics/view/dome_offset_heading");} }
 
         /// <summary>
-        ///  A modelview matrix to draw in the user's aircraft coordinates - valid only during draw callbacks. Units:Matrix4x4
+        ///  The vertical offset for this pass, in degrees
         /// </summary>
-        public IXPDataRef<float[]> Acf_matrix => m_data.GetFloatArray("sim/graphics/view/acf_matrix");
+        public IXPDataRef<float[]> Dome_offset_pitch { get { return m_data.GetFloatArray("sim/graphics/view/dome_offset_pitch");} }
+
+        /// <summary>
+        ///  Does the user have trackIR hardware enabled
+        /// </summary>
+        public IXPDataRef<bool> Eq_trackir { get { return m_data.GetBool("sim/graphics/view/eq_trackir");} }
+
+        /// <summary>
+        ///  Is the yoke visible in the 3-d cockpit?
+        /// </summary>
+        public IXPDataRef<bool> Hide_yoke { get { return m_data.GetBool("sim/graphics/view/hide_yoke");} }
+
+        /// <summary>
+        ///  The current projection matrix - valid only during draw callbacks
+        /// </summary>
+        public IXPDataRef<float[]> Projection_matrix { get { return m_data.GetFloatArray("sim/graphics/view/projection_matrix");} }
+
+        /// <summary>
+        ///  The current modelview matrix to draw in standard "OGL" coordinates - valid only during draw callbacks
+        /// </summary>
+        public IXPDataRef<float[]> World_matrix { get { return m_data.GetFloatArray("sim/graphics/view/world_matrix");} }
+
+        /// <summary>
+        ///  A modelview matrix to draw in the user's aircraft coordinates - valid only during draw callbacks
+        /// </summary>
+        public IXPDataRef<float[]> Acf_matrix { get { return m_data.GetFloatArray("sim/graphics/view/acf_matrix");} }
     }
 }

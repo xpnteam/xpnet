@@ -14,213 +14,213 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  The latitude of the point 0,0,0 in OpenGL coordinates (Writing NOT recommended!!). Units:degrees
+        ///  The latitude of the point 0,0,0 in OpenGL coordinates (Writing NOT recommended!!)
         /// </summary>
-        public IXPDataRef<float> Lat_ref => m_data.GetFloat("sim/flightmodel/position/lat_ref");
+        public IXPDataRef<float> Lat_ref { get { return m_data.GetFloat("sim/flightmodel/position/lat_ref");} }
 
         /// <summary>
-        ///  The longitude of the point 0,0,0 in OpenGL coordinates.. Units:degrees
+        ///  The longitude of the point 0,0,0 in OpenGL coordinates.
         /// </summary>
-        public IXPDataRef<float> Lon_ref => m_data.GetFloat("sim/flightmodel/position/lon_ref");
+        public IXPDataRef<float> Lon_ref { get { return m_data.GetFloat("sim/flightmodel/position/lon_ref");} }
 
         /// <summary>
-        ///  The pitch relative to the plane normal to the Y axis in degrees - OpenGL coordinates. Units:degrees
+        ///  The pitch relative to the plane normal to the Y axis in degrees - OpenGL coordinates
         /// </summary>
-        public IXPDataRef<float> Theta => m_data.GetFloat("sim/flightmodel/position/theta");
+        public IXPDataRef<float> Theta { get { return m_data.GetFloat("sim/flightmodel/position/theta");} }
 
         /// <summary>
-        ///  The roll of the aircraft in degrees - OpenGL coordinates. Units:degrees
+        ///  The roll of the aircraft in degrees - OpenGL coordinates
         /// </summary>
-        public IXPDataRef<float> Phi => m_data.GetFloat("sim/flightmodel/position/phi");
+        public IXPDataRef<float> Phi { get { return m_data.GetFloat("sim/flightmodel/position/phi");} }
 
         /// <summary>
-        ///  The true heading of the aircraft in degrees from the Z axis - OpenGL coordinates. Units:degrees
+        ///  The true heading of the aircraft in degrees from the Z axis - OpenGL coordinates
         /// </summary>
-        public IXPDataRef<float> Psi => m_data.GetFloat("sim/flightmodel/position/psi");
+        public IXPDataRef<float> Psi { get { return m_data.GetFloat("sim/flightmodel/position/psi");} }
 
         /// <summary>
-        ///  DO NOT USE THIS. Units:degrees
+        ///  DO NOT USE THIS
         /// </summary>
-        public IXPDataRef<float> Magpsi => m_data.GetFloat("sim/flightmodel/position/magpsi");
+        public IXPDataRef<float> Magpsi { get { return m_data.GetFloat("sim/flightmodel/position/magpsi");} }
 
         /// <summary>
-        ///  The pitch of the aircraft relative to the earth precisely below the aircraft. Units:degrees
+        ///  The pitch of the aircraft relative to the earth precisely below the aircraft
         /// </summary>
-        public IXPDataRef<float> True_theta => m_data.GetFloat("sim/flightmodel/position/true_theta");
+        public IXPDataRef<float> True_theta { get { return m_data.GetFloat("sim/flightmodel/position/true_theta");} }
 
         /// <summary>
-        ///  The roll of the aircraft relative to the earth precisely below the aircraft. Units:degrees
+        ///  The roll of the aircraft relative to the earth precisely below the aircraft
         /// </summary>
-        public IXPDataRef<float> True_phi => m_data.GetFloat("sim/flightmodel/position/true_phi");
+        public IXPDataRef<float> True_phi { get { return m_data.GetFloat("sim/flightmodel/position/true_phi");} }
 
         /// <summary>
-        ///  The heading of the aircraft relative to the earth precisely below the aircraft - true degrees north, always. Units:degrees
+        ///  The heading of the aircraft relative to the earth precisely below the aircraft - true degrees north, always
         /// </summary>
-        public IXPDataRef<float> True_psi => m_data.GetFloat("sim/flightmodel/position/true_psi");
+        public IXPDataRef<float> True_psi { get { return m_data.GetFloat("sim/flightmodel/position/true_psi");} }
 
         /// <summary>
-        ///  The real magnetic heading of the aircraft - the old magpsi dataref was FUBAR. Units:degrees
+        ///  The real magnetic heading of the aircraft - the old magpsi dataref was FUBAR
         /// </summary>
-        public IXPDataRef<float> Mag_psi => m_data.GetFloat("sim/flightmodel/position/mag_psi");
+        public IXPDataRef<float> Mag_psi { get { return m_data.GetFloat("sim/flightmodel/position/mag_psi");} }
 
         /// <summary>
-        ///  The velocity in local OGL coordinates. Units:mtr/Sec
+        ///  The velocity in local OGL coordinates
         /// </summary>
-        public IXPDataRef<float> Local_vx => m_data.GetFloat("sim/flightmodel/position/local_vx");
+        public IXPDataRef<float> Local_vx { get { return m_data.GetFloat("sim/flightmodel/position/local_vx");} }
 
         /// <summary>
-        ///  The velocity in local OGL coordinates. Units:mtr/Sec
+        ///  The velocity in local OGL coordinates
         /// </summary>
-        public IXPDataRef<float> Local_vy => m_data.GetFloat("sim/flightmodel/position/local_vy");
+        public IXPDataRef<float> Local_vy { get { return m_data.GetFloat("sim/flightmodel/position/local_vy");} }
 
         /// <summary>
-        ///  The velocity in local OGL coordinates. Units:mtr/Sec
+        ///  The velocity in local OGL coordinates
         /// </summary>
-        public IXPDataRef<float> Local_vz => m_data.GetFloat("sim/flightmodel/position/local_vz");
+        public IXPDataRef<float> Local_vz { get { return m_data.GetFloat("sim/flightmodel/position/local_vz");} }
 
         /// <summary>
-        ///  The acceleration in local OGL coordinates. Units:mtr/Sec2
+        ///  The acceleration in local OGL coordinates
         /// </summary>
-        public IXPDataRef<float> Local_ax => m_data.GetFloat("sim/flightmodel/position/local_ax");
+        public IXPDataRef<float> Local_ax { get { return m_data.GetFloat("sim/flightmodel/position/local_ax");} }
 
         /// <summary>
-        ///  The acceleration in local OGL coordinates. Units:mtr/Sec2
+        ///  The acceleration in local OGL coordinates
         /// </summary>
-        public IXPDataRef<float> Local_ay => m_data.GetFloat("sim/flightmodel/position/local_ay");
+        public IXPDataRef<float> Local_ay { get { return m_data.GetFloat("sim/flightmodel/position/local_ay");} }
 
         /// <summary>
-        ///  The acceleration in local OGL coordinates. Units:mtr/Sec2
+        ///  The acceleration in local OGL coordinates
         /// </summary>
-        public IXPDataRef<float> Local_az => m_data.GetFloat("sim/flightmodel/position/local_az");
+        public IXPDataRef<float> Local_az { get { return m_data.GetFloat("sim/flightmodel/position/local_az");} }
 
         /// <summary>
-        ///  The pitch relative to the flown path (angle of attack). Units:degrees
+        ///  The pitch relative to the flown path (angle of attack)
         /// </summary>
-        public IXPDataRef<float> Alpha => m_data.GetFloat("sim/flightmodel/position/alpha");
+        public IXPDataRef<float> Alpha { get { return m_data.GetFloat("sim/flightmodel/position/alpha");} }
 
         /// <summary>
-        ///  The heading relative to the flown path (yaw). Units:degrees
+        ///  The heading relative to the flown path (yaw)
         /// </summary>
-        public IXPDataRef<float> Beta => m_data.GetFloat("sim/flightmodel/position/beta");
+        public IXPDataRef<float> Beta { get { return m_data.GetFloat("sim/flightmodel/position/beta");} }
 
         /// <summary>
-        ///  The pitch the aircraft actually flies.  (vpath+alpha=theta). Units:degrees
+        ///  The pitch the aircraft actually flies.  (vpath+alpha=theta)
         /// </summary>
-        public IXPDataRef<float> Vpath => m_data.GetFloat("sim/flightmodel/position/vpath");
+        public IXPDataRef<float> Vpath { get { return m_data.GetFloat("sim/flightmodel/position/vpath");} }
 
         /// <summary>
-        ///  The heading the aircraft actually flies.  (hpath+beta=psi). Units:degrees
+        ///  The heading the aircraft actually flies.  (hpath+beta=psi)
         /// </summary>
-        public IXPDataRef<float> Hpath => m_data.GetFloat("sim/flightmodel/position/hpath");
+        public IXPDataRef<float> Hpath { get { return m_data.GetFloat("sim/flightmodel/position/hpath");} }
 
         /// <summary>
-        ///  The ground speed of the aircraft. Units:meters/Sec
+        ///  The ground speed of the aircraft
         /// </summary>
-        public IXPDataRef<float> Groundspeed => m_data.GetFloat("sim/flightmodel/position/groundspeed");
+        public IXPDataRef<float> Groundspeed { get { return m_data.GetFloat("sim/flightmodel/position/groundspeed");} }
 
         /// <summary>
-        ///  Air speed indicated - this takes into account air density and wind direction. Units:kias
+        ///  Air speed indicated - this takes into account air density and wind direction
         /// </summary>
-        public IXPDataRef<float> Indicated_airspeed => m_data.GetFloat("sim/flightmodel/position/indicated_airspeed");
+        public IXPDataRef<float> Indicated_airspeed { get { return m_data.GetFloat("sim/flightmodel/position/indicated_airspeed");} }
 
         /// <summary>
-        ///  Air speed indicated - this takes into account air density and wind direction. Units:kias
+        ///  Air speed indicated - this takes into account air density and wind direction
         /// </summary>
-        public IXPDataRef<float> Indicated_airspeed2 => m_data.GetFloat("sim/flightmodel/position/indicated_airspeed2");
+        public IXPDataRef<float> Indicated_airspeed2 { get { return m_data.GetFloat("sim/flightmodel/position/indicated_airspeed2");} }
 
         /// <summary>
-        ///  Air speed true - this does not take into account air density at altitude!. Units:meters/Sec
+        ///  Air speed true - this does not take into account air density at altitude!
         /// </summary>
-        public IXPDataRef<float> True_airspeed => m_data.GetFloat("sim/flightmodel/position/true_airspeed");
+        public IXPDataRef<float> True_airspeed { get { return m_data.GetFloat("sim/flightmodel/position/true_airspeed");} }
 
         /// <summary>
-        ///  The local magnetic variation. Units:degrees
+        ///  The local magnetic variation
         /// </summary>
-        public IXPDataRef<float> Magnetic_variation => m_data.GetFloat("sim/flightmodel/position/magnetic_variation");
+        public IXPDataRef<float> Magnetic_variation { get { return m_data.GetFloat("sim/flightmodel/position/magnetic_variation");} }
 
         /// <summary>
-        ///  The angular momentum of the aircraft (relative to flight axis).. Units:NM
+        ///  The angular momentum of the aircraft (relative to flight axis).
         /// </summary>
-        public IXPDataRef<float> M => m_data.GetFloat("sim/flightmodel/position/m");
+        public IXPDataRef<float> M { get { return m_data.GetFloat("sim/flightmodel/position/m");} }
 
         /// <summary>
-        ///  The angular momentum of the aircraft (relative to flight axis). Units:NM
+        ///  The angular momentum of the aircraft (relative to flight axis)
         /// </summary>
-        public IXPDataRef<float> N => m_data.GetFloat("sim/flightmodel/position/n");
+        public IXPDataRef<float> N { get { return m_data.GetFloat("sim/flightmodel/position/n");} }
 
         /// <summary>
-        ///  The angular momentum of the aircraft (relative to flight axis). Units:NM
+        ///  The angular momentum of the aircraft (relative to flight axis)
         /// </summary>
-        public IXPDataRef<float> L => m_data.GetFloat("sim/flightmodel/position/l");
+        public IXPDataRef<float> L { get { return m_data.GetFloat("sim/flightmodel/position/l");} }
 
         /// <summary>
-        ///  The roll rotation rates (relative to the flight). Units:deg/Sec
+        ///  The roll rotation rates (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> P => m_data.GetFloat("sim/flightmodel/position/p");
+        public IXPDataRef<float> P { get { return m_data.GetFloat("sim/flightmodel/position/p");} }
 
         /// <summary>
-        ///  The pitch rotation rates (relative to the flight). Units:deg/Sec
+        ///  The pitch rotation rates (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> Q => m_data.GetFloat("sim/flightmodel/position/q");
+        public IXPDataRef<float> Q { get { return m_data.GetFloat("sim/flightmodel/position/q");} }
 
         /// <summary>
-        ///  The yaw rotation rates (relative to the flight). Units:deg/Sec
+        ///  The yaw rotation rates (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> R => m_data.GetFloat("sim/flightmodel/position/r");
+        public IXPDataRef<float> R { get { return m_data.GetFloat("sim/flightmodel/position/r");} }
 
         /// <summary>
-        ///  The roll angular acceleration (relative to the flight). Units:deg/Sec2
+        ///  The roll angular acceleration (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> P_dot => m_data.GetFloat("sim/flightmodel/position/p_dot");
+        public IXPDataRef<float> P_dot { get { return m_data.GetFloat("sim/flightmodel/position/p_dot");} }
 
         /// <summary>
-        ///  The pitch angular acceleration (relative to the flight). Units:deg/Sec2
+        ///  The pitch angular acceleration (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> Q_dot => m_data.GetFloat("sim/flightmodel/position/q_dot");
+        public IXPDataRef<float> Q_dot { get { return m_data.GetFloat("sim/flightmodel/position/q_dot");} }
 
         /// <summary>
-        ///  The yaw angular acceleration rates (relative to the flight). Units:deg/Sec2
+        ///  The yaw angular acceleration rates (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> R_dot => m_data.GetFloat("sim/flightmodel/position/r_dot");
+        public IXPDataRef<float> R_dot { get { return m_data.GetFloat("sim/flightmodel/position/r_dot");} }
 
         /// <summary>
-        ///  The roll rotation rates (relative to the flight). Units:rad/Sec
+        ///  The roll rotation rates (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> Prad => m_data.GetFloat("sim/flightmodel/position/prad");
+        public IXPDataRef<float> Prad { get { return m_data.GetFloat("sim/flightmodel/position/prad");} }
 
         /// <summary>
-        ///  The pitch rotation rates (relative to the flight). Units:rad/Sec
+        ///  The pitch rotation rates (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> Qrad => m_data.GetFloat("sim/flightmodel/position/qrad");
+        public IXPDataRef<float> Qrad { get { return m_data.GetFloat("sim/flightmodel/position/qrad");} }
 
         /// <summary>
-        ///  The yaw rotation rates (relative to the flight). Units:rad/Sec
+        ///  The yaw rotation rates (relative to the flight)
         /// </summary>
-        public IXPDataRef<float> Rrad => m_data.GetFloat("sim/flightmodel/position/rrad");
+        public IXPDataRef<float> Rrad { get { return m_data.GetFloat("sim/flightmodel/position/rrad");} }
 
         /// <summary>
-        ///  A quaternion representing the rotation from local OpenGL coordinates to the aircraft's coordinates.. Units:quaternion
+        ///  A quaternion representing the rotation from local OpenGL coordinates to the aircraft's coordinates.
         /// </summary>
-        public IXPDataRef<float[]> Q => m_data.GetFloatArray("sim/flightmodel/position/q");
+        public IXPDataRef<float[]> Q { get { return m_data.GetFloatArray("sim/flightmodel/position/q");} }
 
         /// <summary>
-        ///  VVI (vertical velocity in meters per second). Units:meters/Second
+        ///  VVI (vertical velocity in meters per second)
         /// </summary>
-        public IXPDataRef<float> Vh_ind => m_data.GetFloat("sim/flightmodel/position/vh_ind");
+        public IXPDataRef<float> Vh_ind { get { return m_data.GetFloat("sim/flightmodel/position/vh_ind");} }
 
         /// <summary>
-        ///  VVI (vertical velocity in feet per second). Units:fpm
+        ///  VVI (vertical velocity in feet per second)
         /// </summary>
-        public IXPDataRef<float> Vh_ind_fpm => m_data.GetFloat("sim/flightmodel/position/vh_ind_fpm");
+        public IXPDataRef<float> Vh_ind_fpm { get { return m_data.GetFloat("sim/flightmodel/position/vh_ind_fpm");} }
 
         /// <summary>
-        ///  VVI (vertical velocity in feet per second). Units:fpm
+        ///  VVI (vertical velocity in feet per second)
         /// </summary>
-        public IXPDataRef<float> Vh_ind_fpm2 => m_data.GetFloat("sim/flightmodel/position/vh_ind_fpm2");
+        public IXPDataRef<float> Vh_ind_fpm2 { get { return m_data.GetFloat("sim/flightmodel/position/vh_ind_fpm2");} }
 
         /// <summary>
-        ///  . Units:meters
+        ///  
         /// </summary>
-        public IXPDataRef<float> Y_agl => m_data.GetFloat("sim/flightmodel/position/y_agl");
+        public IXPDataRef<float> Y_agl { get { return m_data.GetFloat("sim/flightmodel/position/y_agl");} }
     }
 }

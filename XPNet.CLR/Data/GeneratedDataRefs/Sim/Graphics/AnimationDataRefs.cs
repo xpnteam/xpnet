@@ -22,98 +22,98 @@ namespace XPNet.Data
         public Sim_Graphics_Animation_Ground_trafficDatarefs Ground_traffic { get; }
 
         /// <summary>
-        ///  X position in cartesian space of currently drawn object. Units:float
+        ///  X position in cartesian space of currently drawn object
         /// </summary>
-        public IXPDataRef<float> Draw_object_x => m_data.GetFloat("sim/graphics/animation/draw_object_x");
+        public IXPDataRef<float> Draw_object_x { get { return m_data.GetFloat("sim/graphics/animation/draw_object_x");} }
 
         /// <summary>
-        ///  Y position in cartesian space of currently drawn object. Units:float
+        ///  Y position in cartesian space of currently drawn object
         /// </summary>
-        public IXPDataRef<float> Draw_object_y => m_data.GetFloat("sim/graphics/animation/draw_object_y");
+        public IXPDataRef<float> Draw_object_y { get { return m_data.GetFloat("sim/graphics/animation/draw_object_y");} }
 
         /// <summary>
-        ///  Z position in cartesian space of currently drawn object. Units:float
+        ///  Z position in cartesian space of currently drawn object
         /// </summary>
-        public IXPDataRef<float> Draw_object_z => m_data.GetFloat("sim/graphics/animation/draw_object_z");
+        public IXPDataRef<float> Draw_object_z { get { return m_data.GetFloat("sim/graphics/animation/draw_object_z");} }
 
         /// <summary>
-        ///  rotation in cartesian space of currently drawn object. Units:float
+        ///  rotation in cartesian space of currently drawn object
         /// </summary>
-        public IXPDataRef<float> Draw_object_psi => m_data.GetFloat("sim/graphics/animation/draw_object_psi");
+        public IXPDataRef<float> Draw_object_psi { get { return m_data.GetFloat("sim/graphics/animation/draw_object_psi");} }
 
         /// <summary>
-        ///  This is the default _LIT light level that the object is being drawn at, before ATTR_light_level is applied.. Units:float
+        ///  This is the default _LIT light level that the object is being drawn at, before ATTR_light_level is applied.
         /// </summary>
-        public IXPDataRef<float> Draw_light_level => m_data.GetFloat("sim/graphics/animation/draw_light_level");
+        public IXPDataRef<float> Draw_light_level { get { return m_data.GetFloat("sim/graphics/animation/draw_light_level");} }
 
         /// <summary>
-        ///  angle this beacon is rotating (0-360). Units:degrees
+        ///  angle this beacon is rotating (0-360)
         /// </summary>
-        public IXPDataRef<float> Airport_beacon_rotation => m_data.GetFloat("sim/graphics/animation/airport_beacon_rotation");
+        public IXPDataRef<float> Airport_beacon_rotation { get { return m_data.GetFloat("sim/graphics/animation/airport_beacon_rotation");} }
 
         /// <summary>
-        ///  windsock heading. Units:degrees
+        ///  windsock heading
         /// </summary>
-        public IXPDataRef<float> Windsock_psi => m_data.GetFloat("sim/graphics/animation/windsock_psi");
+        public IXPDataRef<float> Windsock_psi { get { return m_data.GetFloat("sim/graphics/animation/windsock_psi");} }
 
         /// <summary>
-        ///  windsock pitch. Units:degrees
+        ///  windsock pitch
         /// </summary>
-        public IXPDataRef<float> Windsock_the => m_data.GetFloat("sim/graphics/animation/windsock_the");
+        public IXPDataRef<float> Windsock_the { get { return m_data.GetFloat("sim/graphics/animation/windsock_the");} }
 
         /// <summary>
-        ///  windsock roll. Units:degrees
+        ///  windsock roll
         /// </summary>
-        public IXPDataRef<float> Windsock_phi => m_data.GetFloat("sim/graphics/animation/windsock_phi");
+        public IXPDataRef<float> Windsock_phi { get { return m_data.GetFloat("sim/graphics/animation/windsock_phi");} }
 
         /// <summary>
-        ///  crane heading. Units:ratio
+        ///  crane heading
         /// </summary>
-        public IXPDataRef<float> Crane_psi => m_data.GetFloat("sim/graphics/animation/crane_psi");
+        public IXPDataRef<float> Crane_psi { get { return m_data.GetFloat("sim/graphics/animation/crane_psi");} }
 
         /// <summary>
-        ///  how high above MSL 0 is this buoy riding?. Units:meters
+        ///  how high above MSL 0 is this buoy riding?
         /// </summary>
-        public IXPDataRef<float> Buoy_height => m_data.GetFloat("sim/graphics/animation/buoy_height");
+        public IXPDataRef<float> Buoy_height { get { return m_data.GetFloat("sim/graphics/animation/buoy_height");} }
 
         /// <summary>
-        ///  -1 to 1. Units:ratio
+        ///  ratio -1 to 1
         /// </summary>
-        public IXPDataRef<float> Ping_pong_2 => m_data.GetFloat("sim/graphics/animation/ping_pong_2");
+        public IXPDataRef<float> Ping_pong_2 { get { return m_data.GetFloat("sim/graphics/animation/ping_pong_2");} }
 
         /// <summary>
-        ///  -1 to 1. Units:ratio
+        ///  ratio -1 to 1
         /// </summary>
-        public IXPDataRef<float> Sin_wave_2 => m_data.GetFloat("sim/graphics/animation/sin_wave_2");
+        public IXPDataRef<float> Sin_wave_2 { get { return m_data.GetFloat("sim/graphics/animation/sin_wave_2");} }
 
         /// <summary>
-        ///  Brightness of the wig-wag lights - stays in sync with sim/Graphics/Animation/Lights/Wigwag. Units:ratio
+        ///  Brightness of the wig-wag lights - stays in sync with sim/Graphics/Animation/Lights/Wigwag
         /// </summary>
-        public IXPDataRef<float> Obj_wigwag_brightness => m_data.GetFloat("sim/graphics/animation/obj_wigwag_brightness");
+        public IXPDataRef<float> Obj_wigwag_brightness { get { return m_data.GetFloat("sim/graphics/animation/obj_wigwag_brightness");} }
 
         /// <summary>
-        ///  Ratio of deployment of carrier blast door (left front). Units:ratio
+        ///  Ratio of deployment of carrier blast door (left front)
         /// </summary>
-        public IXPDataRef<float> Carrier_blast_def_lf => m_data.GetFloat("sim/graphics/animation/carrier_blast_def_lf");
+        public IXPDataRef<float> Carrier_blast_def_lf { get { return m_data.GetFloat("sim/graphics/animation/carrier_blast_def_lf");} }
 
         /// <summary>
-        ///  Ratio of deployment of carrier blast door (right front). Units:ratio
+        ///  Ratio of deployment of carrier blast door (right front)
         /// </summary>
-        public IXPDataRef<float> Carrier_blast_def_rf => m_data.GetFloat("sim/graphics/animation/carrier_blast_def_rf");
+        public IXPDataRef<float> Carrier_blast_def_rf { get { return m_data.GetFloat("sim/graphics/animation/carrier_blast_def_rf");} }
 
         /// <summary>
-        ///  Ratio of deployment of carrier blast door (left rear). Units:ratio
+        ///  Ratio of deployment of carrier blast door (left rear)
         /// </summary>
-        public IXPDataRef<float> Carrier_blast_def_lr => m_data.GetFloat("sim/graphics/animation/carrier_blast_def_lr");
+        public IXPDataRef<float> Carrier_blast_def_lr { get { return m_data.GetFloat("sim/graphics/animation/carrier_blast_def_lr");} }
 
         /// <summary>
-        ///  Ratio of deployment of carrier blast door (right rear). Units:ratio
+        ///  Ratio of deployment of carrier blast door (right rear)
         /// </summary>
-        public IXPDataRef<float> Carrier_blast_def_rr => m_data.GetFloat("sim/graphics/animation/carrier_blast_def_rr");
+        public IXPDataRef<float> Carrier_blast_def_rr { get { return m_data.GetFloat("sim/graphics/animation/carrier_blast_def_rr");} }
 
         /// <summary>
-        ///  Ratio of the position of all level crossing gates, 0 is up, 1 is down. Units:ratio
+        ///  Ratio of the position of all level crossing gates, 0 is up, 1 is down
         /// </summary>
-        public IXPDataRef<float> Level_crossing_gate => m_data.GetFloat("sim/graphics/animation/level_crossing_gate");
+        public IXPDataRef<float> Level_crossing_gate { get { return m_data.GetFloat("sim/graphics/animation/level_crossing_gate");} }
     }
 }

@@ -14,13 +14,13 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  This is the idle ratio for the engines at low idle.  1.0 provides default behavior; this can be any number greater than zero.. Units:multiplier
+        ///  This is the idle ratio for the engines at low idle.  1.0 provides default behavior; this can be any number greater than zero.
         /// </summary>
-        public IXPDataRef<float> Low_idle_ratio => m_data.GetFloat("sim/aircraft2/engine/low_idle_ratio");
+        public IXPDataRef<float> Low_idle_ratio { get { return m_data.GetFloat("sim/aircraft2/engine/low_idle_ratio");} }
 
         /// <summary>
-        ///  This is the idle ratio for the engines at high idle. 1.0 provides default behavior; this can be any number greater than zero.. Units:multiplier
+        ///  This is the idle ratio for the engines at high idle. 1.0 provides default behavior; this can be any number greater than zero.
         /// </summary>
-        public IXPDataRef<float> High_idle_ratio => m_data.GetFloat("sim/aircraft2/engine/high_idle_ratio");
+        public IXPDataRef<float> High_idle_ratio { get { return m_data.GetFloat("sim/aircraft2/engine/high_idle_ratio");} }
     }
 }

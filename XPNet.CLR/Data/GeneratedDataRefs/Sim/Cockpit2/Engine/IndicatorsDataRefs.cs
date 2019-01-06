@@ -14,93 +14,93 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  N1, %.. Units:percent
+        ///  N1, %.
         /// </summary>
-        public IXPDataRef<float[]> N1_percent => m_data.GetFloatArray("sim/cockpit2/engine/indicators/n1_percent");
+        public IXPDataRef<float[]> N1_percent { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/n1_percent");} }
 
         /// <summary>
-        ///  N2, %.. Units:percent
+        ///  N2, %.
         /// </summary>
-        public IXPDataRef<float[]> N2_percent => m_data.GetFloatArray("sim/cockpit2/engine/indicators/n2_percent");
+        public IXPDataRef<float[]> N2_percent { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/n2_percent");} }
 
         /// <summary>
-        ///  Manifold pressure, inches HG.. Units:inches_hg
+        ///  Manifold pressure, inches HG.
         /// </summary>
-        public IXPDataRef<float[]> MPR_in_hg => m_data.GetFloatArray("sim/cockpit2/engine/indicators/mpr_in_hg");
+        public IXPDataRef<float[]> MPR_in_hg { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/mpr_in_hg");} }
 
         /// <summary>
-        ///  EPR, ratio.. Units:ratio
+        ///  EPR, ratio.
         /// </summary>
-        public IXPDataRef<float[]> EPR_ratio => m_data.GetFloatArray("sim/cockpit2/engine/indicators/epr_ratio");
+        public IXPDataRef<float[]> EPR_ratio { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/epr_ratio");} }
 
         /// <summary>
-        ///  Torque, NM.. Units:newton_meters
+        ///  Torque, NM.
         /// </summary>
-        public IXPDataRef<float[]> Torque_n_mtr => m_data.GetFloatArray("sim/cockpit2/engine/indicators/torque_n_mtr");
+        public IXPDataRef<float[]> Torque_n_mtr { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/torque_n_mtr");} }
 
         /// <summary>
-        ///  FF, kilograms per second.. Units:kilograms/Second
+        ///  FF, kilograms per second.
         /// </summary>
-        public IXPDataRef<float[]> Fuel_flow_kg_sec => m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_flow_kg_sec");
+        public IXPDataRef<float[]> Fuel_flow_kg_sec { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_flow_kg_sec");} }
 
         /// <summary>
-        ///  ITT, deg.  Dataref label is wrong, units vary by plane.. Units:degrees_C_or_F
+        ///  ITT, deg.  Dataref label is wrong, units vary by plane.
         /// </summary>
-        public IXPDataRef<float[]> ITT_deg_C => m_data.GetFloatArray("sim/cockpit2/engine/indicators/itt_deg_c");
+        public IXPDataRef<float[]> ITT_deg_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/itt_deg_c");} }
 
         /// <summary>
-        ///  EGT, deg.  Dataref label is wrong, units vary by plane.. Units:degrees_C_or_F
+        ///  EGT, deg.  Dataref label is wrong, units vary by plane.
         /// </summary>
-        public IXPDataRef<float[]> EGT_deg_C => m_data.GetFloatArray("sim/cockpit2/engine/indicators/egt_deg_c");
+        public IXPDataRef<float[]> EGT_deg_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/egt_deg_c");} }
 
         /// <summary>
-        ///  CHT, deg.  Dataref label is wrong, units vary by plane.. Units:degrees_C_or_F
+        ///  CHT, deg.  Dataref label is wrong, units vary by plane.
         /// </summary>
-        public IXPDataRef<float[]> CHT_deg_C => m_data.GetFloatArray("sim/cockpit2/engine/indicators/cht_deg_c");
+        public IXPDataRef<float[]> CHT_deg_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/cht_deg_c");} }
 
         /// <summary>
-        ///  Fuel pressure, psi.. Units:pounds/Square_inch
+        ///  Fuel pressure, psi.
         /// </summary>
-        public IXPDataRef<float[]> Fuel_pressure_psi => m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_pressure_psi");
+        public IXPDataRef<float[]> Fuel_pressure_psi { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_pressure_psi");} }
 
         /// <summary>
-        ///  Oil pressure, psi.. Units:pounds/Square_inch
+        ///  Oil pressure, psi.
         /// </summary>
-        public IXPDataRef<float[]> Oil_pressure_psi => m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_pressure_psi");
+        public IXPDataRef<float[]> Oil_pressure_psi { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_pressure_psi");} }
 
         /// <summary>
-        ///  Oil temp, deg.    Dataref label is wrong, units vary by plane.. Units:degrees_C_or_F
+        ///  Oil temp, deg.    Dataref label is wrong, units vary by plane.
         /// </summary>
-        public IXPDataRef<float[]> Oil_temperature_deg_C => m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_temperature_deg_c");
+        public IXPDataRef<float[]> Oil_temperature_deg_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_temperature_deg_c");} }
 
         /// <summary>
-        ///  Oil quantity, 0.0 to 1.0.. Units:ratio
+        ///  Oil quantity, 0.0 to 1.0.
         /// </summary>
-        public IXPDataRef<float[]> Oil_quantity_ratio => m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_quantity_ratio");
+        public IXPDataRef<float[]> Oil_quantity_ratio { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_quantity_ratio");} }
 
         /// <summary>
-        ///  Actual engine power output.. Units:watts
+        ///  Actual engine power output.
         /// </summary>
-        public IXPDataRef<float[]> Power_watts => m_data.GetFloatArray("sim/cockpit2/engine/indicators/power_watts");
+        public IXPDataRef<float[]> Power_watts { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/power_watts");} }
 
         /// <summary>
-        ///  Engine thrust in Newtons. Units:newtons
+        ///  Engine thrust in Newtons
         /// </summary>
-        public IXPDataRef<float[]> Thrust_n => m_data.GetFloatArray("sim/cockpit2/engine/indicators/thrust_n");
+        public IXPDataRef<float[]> Thrust_n { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/thrust_n");} }
 
         /// <summary>
-        ///  Engine speed, radians per second. Units:revolutions/Minute
+        ///  Engine speed, radians per second
         /// </summary>
-        public IXPDataRef<float[]> Engine_speed_rpm => m_data.GetFloatArray("sim/cockpit2/engine/indicators/engine_speed_rpm");
+        public IXPDataRef<float[]> Engine_speed_rpm { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/engine_speed_rpm");} }
 
         /// <summary>
-        ///  Prop speed, radians per second                                                                                                                                                                                                         boolean. Units:revolutions/Minute
+        ///   Requests that the prop be feathered immediately, for plugin control of feathering.  Requires the prop to NOT be overriden for x-plane to actuate this.
         /// </summary>
-        public IXPDataRef<float[]> Prop_speed_rpm => m_data.GetFloatArray("sim/cockpit2/engine/indicators/prop_speed_rpm");
+        public IXPDataRef<float[]> Prop_speed_rpm { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/prop_speed_rpm");} }
 
         /// <summary>
-        ///  Carburator temperature in degrees C. Units:degrees_C
+        ///  Carburator temperature in degrees C
         /// </summary>
-        public IXPDataRef<float[]> Carburetor_temperature_C => m_data.GetFloatArray("sim/cockpit2/engine/indicators/carburetor_temperature_c");
+        public IXPDataRef<float[]> Carburetor_temperature_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/carburetor_temperature_c");} }
     }
 }

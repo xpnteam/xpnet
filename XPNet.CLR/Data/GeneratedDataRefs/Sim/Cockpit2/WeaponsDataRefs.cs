@@ -14,13 +14,13 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Heading offset of the gun from within its maximum heading range. Units:ratio
+        ///  Heading offset of the gun from within its maximum heading range
         /// </summary>
-        public IXPDataRef<float> Gun_offset_heading_ratio => m_data.GetFloat("sim/cockpit2/weapons/gun_offset_heading_ratio");
+        public IXPDataRef<float> Gun_offset_heading_ratio { get { return m_data.GetFloat("sim/cockpit2/weapons/gun_offset_heading_ratio");} }
 
         /// <summary>
-        ///  Pitch offset of the gun from within its maximum pitch range. Units:ratio
+        ///  Pitch offset of the gun from within its maximum pitch range
         /// </summary>
-        public IXPDataRef<float> Gun_offset_pitch_ratio => m_data.GetFloat("sim/cockpit2/weapons/gun_offset_pitch_ratio");
+        public IXPDataRef<float> Gun_offset_pitch_ratio { get { return m_data.GetFloat("sim/cockpit2/weapons/gun_offset_pitch_ratio");} }
     }
 }

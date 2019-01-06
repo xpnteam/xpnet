@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace XPNet.CLR.CodeGen
 {
@@ -9,7 +10,8 @@ namespace XPNet.CLR.CodeGen
     {
         static void Main(string[] args)
         {
-            Directory.Delete("../XPNet.CLR/Data/GeneratedDataRefs", true);
+            if(Directory.Exists("../XPNet.CLR/Data/GeneratedDataRefs"))
+                Directory.Delete("../XPNet.CLR/Data/GeneratedDataRefs", true);
             Console.WriteLine($"Reading Datarefs from: {args[0]}");
             IEnumerable<string> dataRefs = Enumerable.Empty<string>();
 
@@ -29,7 +31,7 @@ namespace XPNet.CLR.CodeGen
                     Type = d[1],
                     IsWriteable = d[2] == "y",
                     Units = d.Skip(3).FirstOrDefault(),
-                    Description = d.FirstOrDefault(f => f.Contains(' '))
+                    Description = d.LastOrDefault(f => f.Contains(' '))
                 })
                 .GroupBy(d =>
                     String.Join("/", d.ParentPath.Split('/').SkipLast(1))
@@ -77,20 +79,21 @@ namespace XPNet.CLR.CodeGen
                     {
                         string result = string.Empty;
                         if (m.Units == null) return result;
+
                         if (m.Units.Equals("string", StringComparison.OrdinalIgnoreCase))
-                            result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<string> {m.Name} => m_data.GetString(\"{m.ParentPath.ToLower()}\");";
+                            return  CreateDataProperty<string>(m);
 
-                        if ((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Contains("int["))
-                            result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<bool[]> {m.Name} => m_data.GetBoolArray(\"{m.ParentPath.ToLower()}\");";
+                        if ((m.Units.Equals("bool") || m.Units.Equals("boolean")) && m.Type.Contains("int["))
+                            return  CreateDataProperty<bool[]>(m);
 
-                        if ((m.Units.Equals("bool") || m.Units.Equals("bool")) && m.Type.Equals("int"))
-                            result = $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<bool> {m.Name} => m_data.GetBool(\"{m.ParentPath.ToLower()}\");";
+                        if ((m.Units.Equals("bool") || m.Units.Equals("boolean")) && m.Type.Equals("int"))
+                            return  CreateDataProperty<bool>(m);
 
                         if (m.Type.Equals("float", StringComparison.OrdinalIgnoreCase))
-                            result = $"{m.Description.CreateSummaryComment(propsIndent, m.Units)}\n{propsIndent}public IXPDataRef<float> {m.Name} => m_data.GetFloat(\"{m.ParentPath.ToLower()}\");";
+                            return  CreateDataProperty<float>(m);
 
                         if (m.Type.StartsWith("float[", StringComparison.OrdinalIgnoreCase))
-                            result = $"{m.Description.CreateSummaryComment(propsIndent, m.Units)}\n{propsIndent}public IXPDataRef<float[]> {m.Name} => m_data.GetFloatArray(\"{m.ParentPath.ToLower()}\");";
+                            return CreateDataProperty<float[]>(m);
 
                         return result;
                     })
@@ -104,6 +107,23 @@ namespace XPNet.CLR.CodeGen
             Directory.CreateDirectory(Path.GetDirectoryName(filePath));
             File.WriteAllText(filePath, node.ClassDef);
         }
+
+        private static string CreateDataProperty<T>(DataRef m)
+        {
+            var name = typeof(T).Name;
+            if(!typeMapping.ContainsKey(name))
+                throw new Exception($"unknown type: {name}. Path={m.ParentPath}");
+            return $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<{typeMapping[name].TypeName}> {m.Name.ConvertBrcketsToUnderscore()} {{ get {{ return m_data.{typeMapping[name].MethodName}(\"{m.ParentPath.ToLower()}\");}} }}";
+        }
+
+        private static Dictionary<string, TypeData> typeMapping = new Dictionary<string, TypeData>()
+        {
+            {"Boolean", new TypeData("bool", "GetBool")},
+            {"Boolean[]", new TypeData("bool[]", "GetBoolArray")},
+            {"Single", new TypeData("float", "GetFloat")},
+            {"Single[]", new TypeData("float[]", "GetFloatArray")},
+            {"String", new TypeData("string", "GetString")},
+        };
 
         const string initsIndent = "            ";
         const string propsIndent = "        ";
@@ -153,11 +173,26 @@ namespace XPNet.Data
         }
     }
 
+    public class TypeData 
+    {
+        public TypeData(string typeName, string methodName)
+        {
+            TypeName = typeName;
+            MethodName = methodName;
+        }
+
+        public string TypeName { get; set; }
+        public string MethodName { get; set; }
+    }
+
     public static class Extensions
     {
+        private static Regex bracketsRegex = new Regex(@"\[([0-9]*)\]");
         public static string PathNamesToUpper(this string path)
-        {
-            var chars = path.ToCharArray();
+        {   
+            var chars = path
+                .Replace("\t-", " -") //replace unit tabs with spaces
+                .ToCharArray();
             chars[0] = char.ToUpper(chars[0]);
             for (int i = 1; i < path.Length; i++)
             {
@@ -173,6 +208,12 @@ namespace XPNet.Data
             return path.Substring(path.LastIndexOf('/') + 1);
         }
 
+        public static string ConvertBrcketsToUnderscore(this string name)
+        {
+            if(name.Contains('['))
+                return bracketsRegex.Replace(name, "_$1");
+            else return name;
+        }
         public static string CreateSummaryComment(this string description, string indent, string units = null)
         {
             var unitString = units == null ? string.Empty : $". Units:{units}";

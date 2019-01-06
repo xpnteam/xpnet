@@ -14,13 +14,13 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  max rotor trim aft when stick fully forward. Units:degrees
+        ///  max rotor trim aft when stick fully forward
         /// </summary>
-        public IXPDataRef<float> Acf_rotor_trim_max_fwd => m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_fwd");
+        public IXPDataRef<float> Acf_rotor_trim_max_fwd { get { return m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_fwd");} }
 
         /// <summary>
-        ///  max rotor trim aft when stick fully aft. Units:degrees
+        ///  max rotor trim aft when stick fully aft
         /// </summary>
-        public IXPDataRef<float> Acf_rotor_trim_max_aft => m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_aft");
+        public IXPDataRef<float> Acf_rotor_trim_max_aft { get { return m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_aft");} }
     }
 }

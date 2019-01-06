@@ -14,153 +14,173 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  N2 speed as percent of max (per engine). Units:percent
+        ///  N2 speed as percent of max (per engine)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_N2_ => m_data.GetFloatArray("sim/flightmodel/engine/engn_n2_");
+        public IXPDataRef<float[]> ENGN_N2_ { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_n2_");} }
 
         /// <summary>
-        ///  Exhaust Gas Temperature (ratio from min to max). Units:ratio
+        ///  Exhaust Gas Temperature (ratio from min to max)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_EGT => m_data.GetFloatArray("sim/flightmodel/engine/engn_egt");
+        public IXPDataRef<float[]> ENGN_EGT { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_egt");} }
 
         /// <summary>
-        ///  Interturbine Temperature per engine (ratio from min to max, min = 0, max = 700). Units:ratio
+        ///  Interturbine Temperature per engine (ratio from min to max, min = 0, max = 700)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_ITT => m_data.GetFloatArray("sim/flightmodel/engine/engn_itt");
+        public IXPDataRef<float[]> ENGN_ITT { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_itt");} }
 
         /// <summary>
-        ///  Cylinder Head Temperature (ratio from min to max). Units:ratio
+        ///  Cylinder Head Temperature (ratio from min to max)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_CHT => m_data.GetFloatArray("sim/flightmodel/engine/engn_cht");
+        public IXPDataRef<float[]> ENGN_CHT { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_cht");} }
 
         /// <summary>
-        ///  EGT (per engine) in degrees  - units depend on plane, label wrong. Units:degc_or_f
+        ///  EGT (per engine) in degrees  - units depend on plane, label wrong
         /// </summary>
-        public IXPDataRef<float[]> ENGN_EGT_c => m_data.GetFloatArray("sim/flightmodel/engine/engn_egt_c");
+        public IXPDataRef<float[]> ENGN_EGT_c { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_egt_c");} }
 
         /// <summary>
-        ///  ITT (per engine) in degrees - units depend on plane, label wrong. Units:degc_or_f
+        ///  ITT (per engine) in degrees - units depend on plane, label wrong
         /// </summary>
-        public IXPDataRef<float[]> ENGN_ITT_c => m_data.GetFloatArray("sim/flightmodel/engine/engn_itt_c");
+        public IXPDataRef<float[]> ENGN_ITT_c { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_itt_c");} }
 
         /// <summary>
-        ///  CHT (per engine in degrees  - units depend on plane, label wrong. Units:degc_or_f
+        ///  CHT (per engine in degrees  - units depend on plane, label wrong
         /// </summary>
-        public IXPDataRef<float[]> ENGN_CHT_c => m_data.GetFloatArray("sim/flightmodel/engine/engn_cht_c");
+        public IXPDataRef<float[]> ENGN_CHT_c { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_cht_c");} }
 
         /// <summary>
-        ///  Cowl flaps control (per engine) 0 = closed, 1 = open. Units:ratio
+        ///  Cowl flaps control (per engine) 0 = closed, 1 = open
         /// </summary>
-        public IXPDataRef<float[]> ENGN_cowl => m_data.GetFloatArray("sim/flightmodel/engine/engn_cowl");
+        public IXPDataRef<float[]> ENGN_cowl { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_cowl");} }
 
         /// <summary>
-        ///  Engine Pressure Ratio (per engine). Units:EPR
+        ///  Engine Pressure Ratio (per engine)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_EPR => m_data.GetFloatArray("sim/flightmodel/engine/engn_epr");
+        public IXPDataRef<float[]> ENGN_EPR { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_epr");} }
 
         /// <summary>
-        ///  Fuel flow (per engine) in kg/Second. Units:kg/S
+        ///  Fuel flow (per engine) in kg/Second
         /// </summary>
-        public IXPDataRef<float[]> ENGN_FF_ => m_data.GetFloatArray("sim/flightmodel/engine/engn_ff_");
+        public IXPDataRef<float[]> ENGN_FF_ { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_ff_");} }
 
         /// <summary>
-        ///  Carb Heat Control (per engine), 0 = off, 1 = on. Units:ratio
+        ///  Carb Heat Control (per engine), 0 = off, 1 = on
         /// </summary>
-        public IXPDataRef<float[]> ENGN_heat => m_data.GetFloatArray("sim/flightmodel/engine/engn_heat");
+        public IXPDataRef<float[]> ENGN_heat { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_heat");} }
 
         /// <summary>
-        ///  Mixture Control (per engine), 0 = cutoff, 1 = full rich. Units:ratio
+        ///  Mixture Control (per engine), 0 = cutoff, 1 = full rich
         /// </summary>
-        public IXPDataRef<float[]> ENGN_mixt => m_data.GetFloatArray("sim/flightmodel/engine/engn_mixt");
+        public IXPDataRef<float[]> ENGN_mixt { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_mixt");} }
 
         /// <summary>
-        ///  N1 speed as percent of max (per engine). Units:percent
+        ///  N1 speed as percent of max (per engine)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_N1_ => m_data.GetFloatArray("sim/flightmodel/engine/engn_n1_");
+        public IXPDataRef<float[]> ENGN_N1_ { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_n1_");} }
 
         /// <summary>
-        ///  Oil pressure (per engine) in PSI. Units:psi
+        ///  Oil pressure (per engine) in PSI
         /// </summary>
-        public IXPDataRef<float[]> ENGN_oil_press_psi => m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_press_psi");
+        public IXPDataRef<float[]> ENGN_oil_press_psi { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_press_psi");} }
 
         /// <summary>
-        ///  Oil temp (per engine) in degs - units depend on plane, dref name wrong. Units:degc_or_f
+        ///  Oil temp (per engine) in degs - units depend on plane, dref name wrong
         /// </summary>
-        public IXPDataRef<float[]> ENGN_oil_temp_c => m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_temp_c");
+        public IXPDataRef<float[]> ENGN_oil_temp_c { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_temp_c");} }
 
         /// <summary>
-        ///  Oil pressure (per engine) as ratio of max. Units:ratio
+        ///  Oil pressure (per engine) as ratio of max
         /// </summary>
-        public IXPDataRef<float[]> ENGN_oil_temp => m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_temp");
+        public IXPDataRef<float[]> ENGN_oil_temp { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_temp");} }
 
         /// <summary>
-        ///  Oil temp (per engine) a ratio of max. Units:ratio
+        ///  Oil temp (per engine) a ratio of max
         /// </summary>
-        public IXPDataRef<float[]> ENGN_oil_press => m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_press");
+        public IXPDataRef<float[]> ENGN_oil_press { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_oil_press");} }
 
         /// <summary>
-        ///  Commanded Prop Speed (per engine). Units:rad/Sec
+        ///  Commanded Prop Speed (per engine)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_prop => m_data.GetFloatArray("sim/flightmodel/engine/engn_prop");
+        public IXPDataRef<float[]> ENGN_prop { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_prop");} }
 
         /// <summary>
-        ///  Throttle (per engine) as set by user, 0 = idle, 1 = max. Units:ratio
+        ///  Throttle (per engine) as set by user, 0 = idle, 1 = max
         /// </summary>
-        public IXPDataRef<float[]> ENGN_thro => m_data.GetFloatArray("sim/flightmodel/engine/engn_thro");
+        public IXPDataRef<float[]> ENGN_thro { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_thro");} }
 
         /// <summary>
-        ///  Throttle (per engine) when overridden by you, plus with thrust vectors - use override_throttles to change.. Units:ratio
+        ///  Throttle (per engine) when overridden by you, plus with thrust vectors - use override_throttles to change.
         /// </summary>
-        public IXPDataRef<float[]> ENGN_thro_use => m_data.GetFloatArray("sim/flightmodel/engine/engn_thro_use");
+        public IXPDataRef<float[]> ENGN_thro_use { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_thro_use");} }
 
         /// <summary>
-        ///  An override from 0.0 to max fwd thrust for overriding all throttles.  Set to -2.0 to disengage.  DEPRECATED. Units:ratio
+        ///  An override from 0.0 to max fwd thrust for overriding all throttles.  Set to -2.0 to disengage.  DEPRECATED
         /// </summary>
-        public IXPDataRef<float> ENGN_thro_override => m_data.GetFloat("sim/flightmodel/engine/engn_thro_override");
+        public IXPDataRef<float> ENGN_thro_override { get { return m_data.GetFloat("sim/flightmodel/engine/engn_thro_override");} }
 
         /// <summary>
-        ///  Torque (per engine). Units:NewtonMeters
+        ///  Torque (per engine)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_TRQ => m_data.GetFloatArray("sim/flightmodel/engine/engn_trq");
+        public IXPDataRef<float[]> ENGN_TRQ { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_trq");} }
 
         /// <summary>
-        ///  Amount of carb ice buildup (0-1). Units:ratio
+        ///  Engine on and using fuel (only reliable in 740 and later)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_crbice => m_data.GetFloatArray("sim/flightmodel/engine/engn_crbice");
+        public IXPDataRef<bool[]> ENGN_running { get { return m_data.GetBoolArray("sim/flightmodel/engine/engn_running");} }
 
         /// <summary>
-        ///  Engine speed in radians/Second. Units:rad/Sec
+        ///  Afterburner on (only reliable in 740 and later)
         /// </summary>
-        public IXPDataRef<float[]> ENGN_tacrad => m_data.GetFloatArray("sim/flightmodel/engine/engn_tacrad");
+        public IXPDataRef<bool[]> ENGN_burning { get { return m_data.GetBoolArray("sim/flightmodel/engine/engn_burning");} }
 
         /// <summary>
-        ///  Prop Pitch as commanded by the user.. Units:degrees
+        ///  Amount of carb ice buildup (0-1)
         /// </summary>
-        public IXPDataRef<float[]> POINT_pitch_deg => m_data.GetFloatArray("sim/flightmodel/engine/point_pitch_deg");
+        public IXPDataRef<float[]> ENGN_crbice { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_crbice");} }
 
         /// <summary>
-        ///  Prop speed in radians/Second. Units:rad/Sec
+        ///  Engine speed in radians/Second
         /// </summary>
-        public IXPDataRef<float[]> POINT_tacrad => m_data.GetFloatArray("sim/flightmodel/engine/point_tacrad");
+        public IXPDataRef<float[]> ENGN_tacrad { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_tacrad");} }
 
         /// <summary>
-        ///  Torque for this prop after transmissions. Units:newton-meters
+        ///  Prop Pitch as commanded by the user.
         /// </summary>
-        public IXPDataRef<float[]> POINT_driv_TRQ => m_data.GetFloatArray("sim/flightmodel/engine/point_driv_trq");
+        public IXPDataRef<float[]> POINT_pitch_deg { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_pitch_deg");} }
 
         /// <summary>
-        ///  Maximum torque this prop will get after transmissions. Units:newton-meters
+        ///  Prop speed in radians/Second
         /// </summary>
-        public IXPDataRef<float[]> POINT_max_TRQ => m_data.GetFloatArray("sim/flightmodel/engine/point_max_trq");
+        public IXPDataRef<float[]> POINT_tacrad { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_tacrad");} }
 
         /// <summary>
-        ///  Pitch as we use, after all effects.   Use override_prop_pitch to change.. Units:degrees
+        ///  Torque for this prop after transmissions
         /// </summary>
-        public IXPDataRef<float[]> POINT_pitch_deg_use => m_data.GetFloatArray("sim/flightmodel/engine/point_pitch_deg_use");
+        public IXPDataRef<float[]> POINT_driv_TRQ { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_driv_trq");} }
 
         /// <summary>
-        ///  This is the angle of the prop or engine-fan as it rotates. You will see this value circulate 0 to 360 degrees over and over as the engine runs and the prop or fan turns.  Override with /Prop_disc/Override per engine!. Units:degrees
+        ///  Maximum torque this prop will get after transmissions
         /// </summary>
-        public IXPDataRef<float[]> POINT_prop_ang_deg => m_data.GetFloatArray("sim/flightmodel/engine/point_prop_ang_deg");
+        public IXPDataRef<float[]> POINT_max_TRQ { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_max_trq");} }
+
+        /// <summary>
+        ///  Pitch as we use, after all effects.   Use override_prop_pitch to change.
+        /// </summary>
+        public IXPDataRef<float[]> POINT_pitch_deg_use { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_pitch_deg_use");} }
+
+        /// <summary>
+        ///  This is the angle of the prop or engine-fan as it rotates. You will see this value circulate 0 to 360 degrees over and over as the engine runs and the prop or fan turns.  Override with /Prop_disc/Override per engine!
+        /// </summary>
+        public IXPDataRef<float[]> POINT_prop_ang_deg { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_prop_ang_deg");} }
+
+        /// <summary>
+        ///  Burner is on or off
+        /// </summary>
+        public IXPDataRef<bool> Burner_enabled { get { return m_data.GetBool("sim/flightmodel/engine/burner_enabled");} }
+
+        /// <summary>
+        ///  Burner is high or low
+        /// </summary>
+        public IXPDataRef<bool> Burner_level { get { return m_data.GetBool("sim/flightmodel/engine/burner_level");} }
     }
 }

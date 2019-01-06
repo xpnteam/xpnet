@@ -14,58 +14,88 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  The red level for the cockpit 'night' tinting, from 0 to 1. Units:ratio
+        ///  Show the clickable parts of the panel?
         /// </summary>
-        public IXPDataRef<float> Cockpit_light_level_r => m_data.GetFloat("sim/graphics/misc/cockpit_light_level_r");
+        public IXPDataRef<bool> Show_panel_click_spots { get { return m_data.GetBool("sim/graphics/misc/show_panel_click_spots");} }
 
         /// <summary>
-        ///  The green level for the cockpit 'night' tinting, from 0 to 1. Units:ratio
+        ///  Show instrument descriptions on the panel?
         /// </summary>
-        public IXPDataRef<float> Cockpit_light_level_g => m_data.GetFloat("sim/graphics/misc/cockpit_light_level_g");
+        public IXPDataRef<bool> Show_instrument_descriptions { get { return m_data.GetBool("sim/graphics/misc/show_instrument_descriptions");} }
 
         /// <summary>
-        ///  The blue level for the cockpit 'night' tinting, from 0 to 1. Units:ratio
+        ///  The red level for the cockpit 'night' tinting, from 0 to 1
         /// </summary>
-        public IXPDataRef<float> Cockpit_light_level_b => m_data.GetFloat("sim/graphics/misc/cockpit_light_level_b");
+        public IXPDataRef<float> Cockpit_light_level_r { get { return m_data.GetFloat("sim/graphics/misc/cockpit_light_level_r");} }
 
         /// <summary>
-        ///  The red level for the world, from 0 to 1. Units:ratio
+        ///  The green level for the cockpit 'night' tinting, from 0 to 1
         /// </summary>
-        public IXPDataRef<float> Outside_light_level_r => m_data.GetFloat("sim/graphics/misc/outside_light_level_r");
+        public IXPDataRef<float> Cockpit_light_level_g { get { return m_data.GetFloat("sim/graphics/misc/cockpit_light_level_g");} }
 
         /// <summary>
-        ///  The green level for the world, from 0 to 1. Units:ratio
+        ///  The blue level for the cockpit 'night' tinting, from 0 to 1
         /// </summary>
-        public IXPDataRef<float> Outside_light_level_g => m_data.GetFloat("sim/graphics/misc/outside_light_level_g");
+        public IXPDataRef<float> Cockpit_light_level_b { get { return m_data.GetFloat("sim/graphics/misc/cockpit_light_level_b");} }
 
         /// <summary>
-        ///  The blue level for the world, from 0 to 1. Units:ratio
+        ///  The red level for the world, from 0 to 1
         /// </summary>
-        public IXPDataRef<float> Outside_light_level_b => m_data.GetFloat("sim/graphics/misc/outside_light_level_b");
+        public IXPDataRef<float> Outside_light_level_r { get { return m_data.GetFloat("sim/graphics/misc/outside_light_level_r");} }
 
         /// <summary>
-        ///  Amount that artificial light is dimmed due to the sun's magnitude. Units:ratio
+        ///  The green level for the world, from 0 to 1
         /// </summary>
-        public IXPDataRef<float> Light_attenuation => m_data.GetFloat("sim/graphics/misc/light_attenuation");
+        public IXPDataRef<float> Outside_light_level_g { get { return m_data.GetFloat("sim/graphics/misc/outside_light_level_g");} }
 
         /// <summary>
-        ///  Default position for a scrolling plane panel. Units:pixels
+        ///  The blue level for the world, from 0 to 1
         /// </summary>
-        public IXPDataRef<float> Default_scroll_pos => m_data.GetFloat("sim/graphics/misc/default_scroll_pos");
+        public IXPDataRef<float> Outside_light_level_b { get { return m_data.GetFloat("sim/graphics/misc/outside_light_level_b");} }
 
         /// <summary>
-        ///  Current position of that panel. Units:pixels
+        ///  Amount that artificial light is dimmed due to the sun's magnitude
         /// </summary>
-        public IXPDataRef<float> Current_scroll_pos => m_data.GetFloat("sim/graphics/misc/current_scroll_pos");
+        public IXPDataRef<float> Light_attenuation { get { return m_data.GetFloat("sim/graphics/misc/light_attenuation");} }
 
         /// <summary>
-        ///  Default position for a scrolling plane panel. Units:pixels
+        ///  Set this to 1 to enable proportional fonts when available.
         /// </summary>
-        public IXPDataRef<float> Default_scroll_pos_x => m_data.GetFloat("sim/graphics/misc/default_scroll_pos_x");
+        public IXPDataRef<bool> Use_proportional_fonts { get { return m_data.GetBool("sim/graphics/misc/use_proportional_fonts");} }
 
         /// <summary>
-        ///  Current position of that panel. Units:pixels
+        ///  If set to true, the map instruments won't draw the red FMS course line. SET THIS BACK TO 0 WHEN YOUR PLANE UNLOADS!
         /// </summary>
-        public IXPDataRef<float> Current_scroll_pos_x => m_data.GetFloat("sim/graphics/misc/current_scroll_pos_x");
+        public IXPDataRef<bool> Kill_map_fms_line { get { return m_data.GetBool("sim/graphics/misc/kill_map_fms_line");} }
+
+        /// <summary>
+        ///  Is the red flashlight on now.  Note that the flashlight is inop when HDR is off.
+        /// </summary>
+        public IXPDataRef<bool> Red_flashlight_on { get { return m_data.GetBool("sim/graphics/misc/red_flashlight_on");} }
+
+        /// <summary>
+        ///  Is the white flashlight on now.  Note that the flashlight is inop when HDR is off.
+        /// </summary>
+        public IXPDataRef<bool> White_flashlight_on { get { return m_data.GetBool("sim/graphics/misc/white_flashlight_on");} }
+
+        /// <summary>
+        ///  Default position for a scrolling plane panel
+        /// </summary>
+        public IXPDataRef<float> Default_scroll_pos { get { return m_data.GetFloat("sim/graphics/misc/default_scroll_pos");} }
+
+        /// <summary>
+        ///  Current position of that panel
+        /// </summary>
+        public IXPDataRef<float> Current_scroll_pos { get { return m_data.GetFloat("sim/graphics/misc/current_scroll_pos");} }
+
+        /// <summary>
+        ///  Default position for a scrolling plane panel
+        /// </summary>
+        public IXPDataRef<float> Default_scroll_pos_x { get { return m_data.GetFloat("sim/graphics/misc/default_scroll_pos_x");} }
+
+        /// <summary>
+        ///  Current position of that panel
+        /// </summary>
+        public IXPDataRef<float> Current_scroll_pos_x { get { return m_data.GetFloat("sim/graphics/misc/current_scroll_pos_x");} }
     }
 }

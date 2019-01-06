@@ -14,13 +14,13 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  degree of wing flap for the currently drawn bird. Units:float
+        ///  degree of wing flap for the currently drawn bird
         /// </summary>
-        public IXPDataRef<float> Wing_flap_deg => m_data.GetFloat("sim/graphics/animation/birds/wing_flap_deg");
+        public IXPDataRef<float> Wing_flap_deg { get { return m_data.GetFloat("sim/graphics/animation/birds/wing_flap_deg");} }
 
         /// <summary>
-        ///  angle the bird's feet are retracted for the flock of birds.. Units:float
+        ///  angle the bird's feet are retracted for the flock of birds.
         /// </summary>
-        public IXPDataRef<float> Feet_retract_deg => m_data.GetFloat("sim/graphics/animation/birds/feet_retract_deg");
+        public IXPDataRef<float> Feet_retract_deg { get { return m_data.GetFloat("sim/graphics/animation/birds/feet_retract_deg");} }
     }
 }

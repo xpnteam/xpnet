@@ -14,23 +14,23 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  [PART] Radius of part. Units:meters
+        ///  [PART] Radius of part
         /// </summary>
-        public IXPDataRef<float[]> Acf_body_r => m_data.GetFloatArray("sim/aircraft/parts/acf_body_r");
+        public IXPDataRef<float[]> Acf_body_r { get { return m_data.GetFloatArray("sim/aircraft/parts/acf_body_r");} }
 
         /// <summary>
-        ///  x location of the Nth gear's attach point relative to the CG, airplane coordinates.  This does not change as gear is raised.. Units:meters
+        ///  x location of the Nth gear's attach point relative to the CG, airplane coordinates.  This does not change as gear is raised.
         /// </summary>
-        public IXPDataRef<float[]> Acf_gear_xnodef => m_data.GetFloatArray("sim/aircraft/parts/acf_gear_xnodef");
+        public IXPDataRef<float[]> Acf_gear_xnodef { get { return m_data.GetFloatArray("sim/aircraft/parts/acf_gear_xnodef");} }
 
         /// <summary>
-        ///  y location of the Nth gear's attach point relative to the CG, airplane coordinates.  This does not change as gear is raised.. Units:meters
+        ///  y location of the Nth gear's attach point relative to the CG, airplane coordinates.  This does not change as gear is raised.
         /// </summary>
-        public IXPDataRef<float[]> Acf_gear_ynodef => m_data.GetFloatArray("sim/aircraft/parts/acf_gear_ynodef");
+        public IXPDataRef<float[]> Acf_gear_ynodef { get { return m_data.GetFloatArray("sim/aircraft/parts/acf_gear_ynodef");} }
 
         /// <summary>
-        ///  z location of the Nth gear's attach point relative to the CG, airplane coordinates.  This does not change as gear is raised.. Units:meters
+        ///  z location of the Nth gear's attach point relative to the CG, airplane coordinates.  This does not change as gear is raised.
         /// </summary>
-        public IXPDataRef<float[]> Acf_gear_znodef => m_data.GetFloatArray("sim/aircraft/parts/acf_gear_znodef");
+        public IXPDataRef<float[]> Acf_gear_znodef { get { return m_data.GetFloatArray("sim/aircraft/parts/acf_gear_znodef");} }
     }
 }

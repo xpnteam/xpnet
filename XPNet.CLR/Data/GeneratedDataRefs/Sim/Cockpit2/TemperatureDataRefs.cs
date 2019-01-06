@@ -14,33 +14,38 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  outside air temperature, pilot selects units. Units:degrees
+        ///  outside air temperature, pilot selects units
         /// </summary>
-        public IXPDataRef<float> Outside_air_temp_deg => m_data.GetFloat("sim/cockpit2/temperature/outside_air_temp_deg");
+        public IXPDataRef<float> Outside_air_temp_deg { get { return m_data.GetFloat("sim/cockpit2/temperature/outside_air_temp_deg");} }
 
         /// <summary>
-        ///  outside air temperature, celsius. Units:degreesC
+        ///  outside air temperature, celsius
         /// </summary>
-        public IXPDataRef<float> Outside_air_temp_degc => m_data.GetFloat("sim/cockpit2/temperature/outside_air_temp_degc");
+        public IXPDataRef<float> Outside_air_temp_degc { get { return m_data.GetFloat("sim/cockpit2/temperature/outside_air_temp_degc");} }
 
         /// <summary>
-        ///  outside air temperature, fahrenheit. Units:degreesF
+        ///  outside air temperature, fahrenheit
         /// </summary>
-        public IXPDataRef<float> Outside_air_temp_degf => m_data.GetFloat("sim/cockpit2/temperature/outside_air_temp_degf");
+        public IXPDataRef<float> Outside_air_temp_degf { get { return m_data.GetFloat("sim/cockpit2/temperature/outside_air_temp_degf");} }
 
         /// <summary>
-        ///  outside air temperature with leading edge, pilot selects units. Units:degrees
+        ///  outside air temperature with leading edge, pilot selects units
         /// </summary>
-        public IXPDataRef<float> Outside_air_LE_temp_deg => m_data.GetFloat("sim/cockpit2/temperature/outside_air_le_temp_deg");
+        public IXPDataRef<float> Outside_air_LE_temp_deg { get { return m_data.GetFloat("sim/cockpit2/temperature/outside_air_le_temp_deg");} }
 
         /// <summary>
-        ///  outside air temperature with leading edge, celsius. Units:degreesC
+        ///  outside air temperature with leading edge, celsius
         /// </summary>
-        public IXPDataRef<float> Outside_air_LE_temp_degc => m_data.GetFloat("sim/cockpit2/temperature/outside_air_le_temp_degc");
+        public IXPDataRef<float> Outside_air_LE_temp_degc { get { return m_data.GetFloat("sim/cockpit2/temperature/outside_air_le_temp_degc");} }
 
         /// <summary>
-        ///  outside air temperature with leading edge, fahrenheit. Units:degreesF
+        ///  outside air temperature with leading edge, fahrenheit
         /// </summary>
-        public IXPDataRef<float> Outside_air_LE_temp_degf => m_data.GetFloat("sim/cockpit2/temperature/outside_air_le_temp_degf");
+        public IXPDataRef<float> Outside_air_LE_temp_degf { get { return m_data.GetFloat("sim/cockpit2/temperature/outside_air_le_temp_degf");} }
+
+        /// <summary>
+        ///  1 if thermo is metric, 0 if fahrenheit.
+        /// </summary>
+        public IXPDataRef<bool> Outside_air_temp_is_metric { get { return m_data.GetBool("sim/cockpit2/temperature/outside_air_temp_is_metric");} }
     }
 }

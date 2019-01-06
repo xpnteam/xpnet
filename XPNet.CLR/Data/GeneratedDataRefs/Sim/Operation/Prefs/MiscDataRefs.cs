@@ -16,6 +16,6 @@ namespace XPNet.Data
         /// <summary>
         ///  Returns true if the sim provides a low-mem lua allocator via inter-plugin messaging.
         /// </summary>
-        public IXPDataRef<bool> Has_lua_alloc => m_data.GetBool("sim/operation/prefs/misc/has_lua_alloc");
+        public IXPDataRef<bool> Has_lua_alloc { get { return m_data.GetBool("sim/operation/prefs/misc/has_lua_alloc");} }
     }
 }

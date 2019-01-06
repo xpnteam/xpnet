@@ -14,8 +14,8 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Current angle about the axis of rotation of this gear door, degrees.. Units:degrees
+        ///  Current angle about the axis of rotation of this gear door, degrees.
         /// </summary>
-        public IXPDataRef<float[]> Angle_now_deg => m_data.GetFloatArray("sim/flightmodel2/doors/angle_now_deg");
+        public IXPDataRef<float[]> Angle_now_deg { get { return m_data.GetFloatArray("sim/flightmodel2/doors/angle_now_deg");} }
     }
 }

@@ -16,16 +16,16 @@ namespace XPNet.Data
         /// <summary>
         ///  Bleeding air is on (legacy)
         /// </summary>
-        public IXPDataRef<bool> Bleed_air_on => m_data.GetBool("sim/cockpit/pressure/bleed_air_on");
+        public IXPDataRef<bool> Bleed_air_on { get { return m_data.GetBool("sim/cockpit/pressure/bleed_air_on");} }
 
         /// <summary>
         ///  Pressure dump switch
         /// </summary>
-        public IXPDataRef<bool> Dump_all => m_data.GetBool("sim/cockpit/pressure/dump_all");
+        public IXPDataRef<bool> Dump_all { get { return m_data.GetBool("sim/cockpit/pressure/dump_all");} }
 
         /// <summary>
         ///  Pressure dump to altitude switch
         /// </summary>
-        public IXPDataRef<bool> Dump_to_alt => m_data.GetBool("sim/cockpit/pressure/dump_to_alt");
+        public IXPDataRef<bool> Dump_to_alt { get { return m_data.GetBool("sim/cockpit/pressure/dump_to_alt");} }
     }
 }

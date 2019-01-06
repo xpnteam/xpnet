@@ -14,58 +14,68 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Altitude dialed into the AP. Units:ftmsl
+        ///  Back course selection
         /// </summary>
-        public IXPDataRef<float> Altitude => m_data.GetFloat("sim/cockpit/autopilot/altitude");
+        public IXPDataRef<bool> Backcourse_on { get { return m_data.GetBool("sim/cockpit/autopilot/backcourse_on");} }
 
         /// <summary>
-        ///  Currently held altitude (remembered until you hit flchg). Units:ftmsl
+        ///  Altitude dialed into the AP
         /// </summary>
-        public IXPDataRef<float> Current_altitude => m_data.GetFloat("sim/cockpit/autopilot/current_altitude");
+        public IXPDataRef<float> Altitude { get { return m_data.GetFloat("sim/cockpit/autopilot/altitude");} }
 
         /// <summary>
-        ///  Vertical speed to hold. Units:fpm
+        ///  Currently held altitude (remembered until you hit flchg)
         /// </summary>
-        public IXPDataRef<float> Vertical_velocity => m_data.GetFloat("sim/cockpit/autopilot/vertical_velocity");
+        public IXPDataRef<float> Current_altitude { get { return m_data.GetFloat("sim/cockpit/autopilot/current_altitude");} }
 
         /// <summary>
-        ///  Airspeed to hold, this changes from knots to a mach number. Units:knots_mach
+        ///  Vertical speed to hold
         /// </summary>
-        public IXPDataRef<float> Airspeed => m_data.GetFloat("sim/cockpit/autopilot/airspeed");
+        public IXPDataRef<float> Vertical_velocity { get { return m_data.GetFloat("sim/cockpit/autopilot/vertical_velocity");} }
 
         /// <summary>
-        ///  The heading to fly (true, legacy). Units:degt
+        ///  Airspeed to hold, this changes from knots to a mach number
         /// </summary>
-        public IXPDataRef<float> Heading => m_data.GetFloat("sim/cockpit/autopilot/heading");
+        public IXPDataRef<float> Airspeed { get { return m_data.GetFloat("sim/cockpit/autopilot/airspeed");} }
 
         /// <summary>
-        ///  The heading to fly (magnetic, preferred) pilot. Units:degm
+        ///  The heading to fly (true, legacy)
         /// </summary>
-        public IXPDataRef<float> Heading_mag => m_data.GetFloat("sim/cockpit/autopilot/heading_mag");
+        public IXPDataRef<float> Heading { get { return m_data.GetFloat("sim/cockpit/autopilot/heading");} }
 
         /// <summary>
-        ///  The heading to fly (magnetic, preferred) copilot. Units:degm
+        ///  The heading to fly (magnetic, preferred) pilot
         /// </summary>
-        public IXPDataRef<float> Heading_mag2 => m_data.GetFloat("sim/cockpit/autopilot/heading_mag2");
+        public IXPDataRef<float> Heading_mag { get { return m_data.GetFloat("sim/cockpit/autopilot/heading_mag");} }
 
         /// <summary>
-        ///  The recommended pitch from the Flight Director.  Use override_flightdir. Units:degrees
+        ///  The heading to fly (magnetic, preferred) copilot
         /// </summary>
-        public IXPDataRef<float> Flight_director_pitch => m_data.GetFloat("sim/cockpit/autopilot/flight_director_pitch");
+        public IXPDataRef<float> Heading_mag2 { get { return m_data.GetFloat("sim/cockpit/autopilot/heading_mag2");} }
 
         /// <summary>
-        ///  The recommended roll from the Flight Director.  Use override_flightdir. Units:degrees
+        ///  Is our airspeed a mach number (this is writable if the panel has the button, otherwise sim controls)
         /// </summary>
-        public IXPDataRef<float> Flight_director_roll => m_data.GetFloat("sim/cockpit/autopilot/flight_director_roll");
+        public IXPDataRef<bool> Airspeed_is_mach { get { return m_data.GetBool("sim/cockpit/autopilot/airspeed_is_mach");} }
 
         /// <summary>
-        ///  The pitch held when in pitch-hold mode.. Units:degrees
+        ///  The recommended pitch from the Flight Director.  Use override_flightdir
         /// </summary>
-        public IXPDataRef<float> Syn_hold_deg => m_data.GetFloat("sim/cockpit/autopilot/syn_hold_deg");
+        public IXPDataRef<float> Flight_director_pitch { get { return m_data.GetFloat("sim/cockpit/autopilot/flight_director_pitch");} }
 
         /// <summary>
-        ///  Heading to fly in nav mode - write this when override_nav_heading is set.  Useful for making a custom GPS that flies arcs.. Units:degrees
+        ///  The recommended roll from the Flight Director.  Use override_flightdir
         /// </summary>
-        public IXPDataRef<float> Nav_steer_deg_mag => m_data.GetFloat("sim/cockpit/autopilot/nav_steer_deg_mag");
+        public IXPDataRef<float> Flight_director_roll { get { return m_data.GetFloat("sim/cockpit/autopilot/flight_director_roll");} }
+
+        /// <summary>
+        ///  The pitch held when in pitch-hold mode.
+        /// </summary>
+        public IXPDataRef<float> Syn_hold_deg { get { return m_data.GetFloat("sim/cockpit/autopilot/syn_hold_deg");} }
+
+        /// <summary>
+        ///  Heading to fly in nav mode - write this when override_nav_heading is set.  Useful for making a custom GPS that flies arcs.
+        /// </summary>
+        public IXPDataRef<float> Nav_steer_deg_mag { get { return m_data.GetFloat("sim/cockpit/autopilot/nav_steer_deg_mag");} }
     }
 }

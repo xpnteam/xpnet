@@ -14,8 +14,8 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  . Units:V11TODO
+        ///  
         /// </summary>
-        public IXPDataRef<float> Thrust_rat => m_data.GetFloat("sim/weapons/shell/thrust_rat");
+        public IXPDataRef<float> Thrust_rat { get { return m_data.GetFloat("sim/weapons/shell/thrust_rat");} }
     }
 }

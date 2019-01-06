@@ -16,18 +16,18 @@ namespace XPNet.Data
         public Sim_Weapons_ShellDatarefs Shell { get; }
 
         /// <summary>
-        ///  Angle relative to the aircraft. Units:Deg
+        ///  Angle relative to the aircraft
         /// </summary>
-        public IXPDataRef<float[]> The => m_data.GetFloatArray("sim/weapons/the");
+        public IXPDataRef<float[]> The { get { return m_data.GetFloatArray("sim/weapons/the");} }
 
         /// <summary>
-        ///  Angle relative to the aircraft. Units:Deg
+        ///  Angle relative to the aircraft
         /// </summary>
-        public IXPDataRef<float[]> Psi => m_data.GetFloatArray("sim/weapons/psi");
+        public IXPDataRef<float[]> Psi { get { return m_data.GetFloatArray("sim/weapons/psi");} }
 
         /// <summary>
-        ///  Angle relative to the aircraft. Units:Deg
+        ///  Angle relative to the aircraft
         /// </summary>
-        public IXPDataRef<float[]> Phi => m_data.GetFloatArray("sim/weapons/phi");
+        public IXPDataRef<float[]> Phi { get { return m_data.GetFloatArray("sim/weapons/phi");} }
     }
 }

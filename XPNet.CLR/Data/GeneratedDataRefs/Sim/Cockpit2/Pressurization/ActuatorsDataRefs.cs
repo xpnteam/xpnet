@@ -14,18 +14,23 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Cabin altitude commanded, feet.. Units:feet
+        ///  Dump all pressurization, 0 or 1.
         /// </summary>
-        public IXPDataRef<float> Cabin_altitude_ft => m_data.GetFloat("sim/cockpit2/pressurization/actuators/cabin_altitude_ft");
+        public IXPDataRef<bool> Dump_all_on { get { return m_data.GetBool("sim/cockpit2/pressurization/actuators/dump_all_on");} }
 
         /// <summary>
-        ///  Cabin VVI commanded, feet.. Units:feet/Minute
+        ///  Cabin altitude commanded, feet.
         /// </summary>
-        public IXPDataRef<float> Cabin_vvi_fpm => m_data.GetFloat("sim/cockpit2/pressurization/actuators/cabin_vvi_fpm");
+        public IXPDataRef<float> Cabin_altitude_ft { get { return m_data.GetFloat("sim/cockpit2/pressurization/actuators/cabin_altitude_ft");} }
 
         /// <summary>
-        ///  Maximum allowable altitude for this airplane to maintain the requested cabin altitude.. Units:feet
+        ///  Cabin VVI commanded, feet.
         /// </summary>
-        public IXPDataRef<float> Max_allowable_altitude_ft => m_data.GetFloat("sim/cockpit2/pressurization/actuators/max_allowable_altitude_ft");
+        public IXPDataRef<float> Cabin_vvi_fpm { get { return m_data.GetFloat("sim/cockpit2/pressurization/actuators/cabin_vvi_fpm");} }
+
+        /// <summary>
+        ///  Maximum allowable altitude for this airplane to maintain the requested cabin altitude.
+        /// </summary>
+        public IXPDataRef<float> Max_allowable_altitude_ft { get { return m_data.GetFloat("sim/cockpit2/pressurization/actuators/max_allowable_altitude_ft");} }
     }
 }
