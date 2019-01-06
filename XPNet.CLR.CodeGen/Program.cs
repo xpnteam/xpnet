@@ -57,9 +57,6 @@ namespace XPNet.CLR.CodeGen
 
             BuildClassDefs(classTree);
             Console.WriteLine("Successfully generated DataRefs");
-
-            var code = "";
-            File.WriteAllText("../XPNet.CLR/Data/FluentDataRefs2.cs", code);
         }
 
 
