@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Aircraft_SystemsDatarefs
+    public class sim_aircraft_systemsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Aircraft_SystemsDatarefs(IXPlaneData data)
+        internal sim_aircraft_systemsDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,6 +16,6 @@ namespace XPNet.Data
         /// <summary>
         ///  If this is true, commands to engage the AP servos will be ignored if the FD is not on.
         /// </summary>
-        public IXPDataRef<bool> Fdir_needed_to_engage_servos { get { return m_data.GetBool("sim/aircraft/systems/fdir_needed_to_engage_servos");} }
+        public IXPDataRef<bool> fdir_needed_to_engage_servos { get { return m_data.GetBool("sim/aircraft/systems/fdir_needed_to_engage_servos");} }
     }
 }

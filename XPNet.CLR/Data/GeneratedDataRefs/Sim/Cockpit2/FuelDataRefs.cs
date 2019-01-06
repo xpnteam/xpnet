@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2_FuelDatarefs
+    public class sim_cockpit2_fuelDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2_FuelDatarefs(IXPlaneData data)
+        internal sim_cockpit2_fuelDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,16 +16,16 @@ namespace XPNet.Data
         /// <summary>
         ///  True if the pump for this tank is on.
         /// </summary>
-        public IXPDataRef<bool[]> Fuel_tank_pump_on { get { return m_data.GetBoolArray("sim/cockpit2/fuel/fuel_tank_pump_on");} }
+        public IXPDataRef<bool[]> fuel_tank_pump_on { get { return m_data.GetBoolArray("sim/cockpit2/fuel/fuel_tank_pump_on");} }
 
         /// <summary>
         ///  True if user is holding down the aux-tank button.
         /// </summary>
-        public IXPDataRef<bool> Showing_aux { get { return m_data.GetBool("sim/cockpit2/fuel/showing_aux");} }
+        public IXPDataRef<bool> showing_aux { get { return m_data.GetBool("sim/cockpit2/fuel/showing_aux");} }
 
         /// <summary>
         ///  Indicated fuel level per tank
         /// </summary>
-        public IXPDataRef<float[]> Fuel_quantity { get { return m_data.GetFloatArray("sim/cockpit2/fuel/fuel_quantity");} }
+        public IXPDataRef<float[]> fuel_quantity { get { return m_data.GetFloatArray("sim/cockpit2/fuel/fuel_quantity");} }
     }
 }

@@ -22,7 +22,7 @@ namespace XPNet.CLR.CodeGen
             }
             var dataRefClasses = dataRefs
                 .Where(d => d.StartsWith("sim") && !d.Contains("???"))
-                .Select(d => d.PathNamesToUpper())
+                .Select(d => d.Replace("\t-", " -")) //replace unit tabs with spaces
                 .Select(d => d.Split('\t'))
                 .Select(d => new DataRef
                 {
@@ -73,8 +73,8 @@ namespace XPNet.CLR.CodeGen
 
             node.ClassDef = template
                 .Replace("{item}", node.Name.Replace('/', '_'))
-                .Replace("{childInits}", string.Join("", node.Children.Values.Select(c => $"\n{initsIndent}{c.Name.LastElementOfPath()} = new {c.Name.Replace('/', '_')}Datarefs(data);")))
-                .Replace("{childProps}", string.Join("", node.Children.Values.Select(c => $"\n{propsIndent}public {c.Name.Replace('/', '_')}Datarefs {c.Name.LastElementOfPath()} {{ get; }}")))
+                .Replace("{childInits}", string.Join("", node.Children.Values.Select(c => $"\n{initsIndent}{c.Name.LastElementOfPath().fixupSpecialKeywords()} = new {c.Name.Replace('/', '_')}Datarefs(data);")))
+                .Replace("{childProps}", string.Join("", node.Children.Values.Select(c => $"\n{propsIndent}public {c.Name.Replace('/', '_')}Datarefs {c.Name.LastElementOfPath().fixupSpecialKeywords()} {{ get; }}")))
                 .Replace("{members}", string.Join("", node.Members.Select(m =>
                     {
                         string result = string.Empty;
@@ -113,7 +113,7 @@ namespace XPNet.CLR.CodeGen
             var name = typeof(T).Name;
             if(!typeMapping.ContainsKey(name))
                 throw new Exception($"unknown type: {name}. Path={m.ParentPath}");
-            return $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<{typeMapping[name].TypeName}> {m.Name.ConvertBrcketsToUnderscore()} {{ get {{ return m_data.{typeMapping[name].MethodName}(\"{m.ParentPath.ToLower()}\");}} }}";
+            return $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<{typeMapping[name].TypeName}> {m.Name.fixupSpecialKeywords()} {{ get {{ return m_data.{typeMapping[name].MethodName}(\"{m.ParentPath.ToLower()}\");}} }}";
         }
 
         private static Dictionary<string, TypeData> typeMapping = new Dictionary<string, TypeData>()
@@ -200,7 +200,6 @@ namespace XPNet.Data
                     chars[i + 1] = char.ToUpper(chars[i + 1]);
             }
             return new String(chars);
-            ;
         }
 
         public static string LastElementOfPath(this string path)
@@ -208,10 +207,12 @@ namespace XPNet.Data
             return path.Substring(path.LastIndexOf('/') + 1);
         }
 
-        public static string ConvertBrcketsToUnderscore(this string name)
+        public static string fixupSpecialKeywords(this string name)
         {
             if(name.Contains('['))
                 return bracketsRegex.Replace(name, "_$1");
+            else if(name.Equals("override"))
+                return "override_";
             else return name;
         }
         public static string CreateSummaryComment(this string description, string indent, string units = null)

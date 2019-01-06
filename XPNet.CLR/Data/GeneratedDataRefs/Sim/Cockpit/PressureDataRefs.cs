@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit_PressureDatarefs
+    public class sim_cockpit_pressureDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit_PressureDatarefs(IXPlaneData data)
+        internal sim_cockpit_pressureDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,16 +16,16 @@ namespace XPNet.Data
         /// <summary>
         ///  Bleeding air is on (legacy)
         /// </summary>
-        public IXPDataRef<bool> Bleed_air_on { get { return m_data.GetBool("sim/cockpit/pressure/bleed_air_on");} }
+        public IXPDataRef<bool> bleed_air_on { get { return m_data.GetBool("sim/cockpit/pressure/bleed_air_on");} }
 
         /// <summary>
         ///  Pressure dump switch
         /// </summary>
-        public IXPDataRef<bool> Dump_all { get { return m_data.GetBool("sim/cockpit/pressure/dump_all");} }
+        public IXPDataRef<bool> dump_all { get { return m_data.GetBool("sim/cockpit/pressure/dump_all");} }
 
         /// <summary>
         ///  Pressure dump to altitude switch
         /// </summary>
-        public IXPDataRef<bool> Dump_to_alt { get { return m_data.GetBool("sim/cockpit/pressure/dump_to_alt");} }
+        public IXPDataRef<bool> dump_to_alt { get { return m_data.GetBool("sim/cockpit/pressure/dump_to_alt");} }
     }
 }

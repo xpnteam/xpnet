@@ -4,43 +4,43 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_AircraftDatarefs
+    public class sim_aircraftDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_AircraftDatarefs(IXPlaneData data)
+        internal sim_aircraftDatarefs(IXPlaneData data)
         {
             m_data = data;
-            View = new Sim_Aircraft_ViewDatarefs(data);
-            Forcefeedback = new Sim_Aircraft_ForcefeedbackDatarefs(data);
-            Electrical = new Sim_Aircraft_ElectricalDatarefs(data);
-            Engine = new Sim_Aircraft_EngineDatarefs(data);
-            Limits = new Sim_Aircraft_LimitsDatarefs(data);
-            Prop = new Sim_Aircraft_PropDatarefs(data);
-            Parts = new Sim_Aircraft_PartsDatarefs(data);
-            Controls = new Sim_Aircraft_ControlsDatarefs(data);
-            Gear = new Sim_Aircraft_GearDatarefs(data);
-            Weight = new Sim_Aircraft_WeightDatarefs(data);
-            Specialcontrols = new Sim_Aircraft_SpecialcontrolsDatarefs(data);
-            Vtolcontrols = new Sim_Aircraft_VtolcontrolsDatarefs(data);
-            Artstability = new Sim_Aircraft_ArtstabilityDatarefs(data);
-            Overflow = new Sim_Aircraft_OverflowDatarefs(data);
-            Systems = new Sim_Aircraft_SystemsDatarefs(data);
+            view = new sim_aircraft_viewDatarefs(data);
+            forcefeedback = new sim_aircraft_forcefeedbackDatarefs(data);
+            electrical = new sim_aircraft_electricalDatarefs(data);
+            engine = new sim_aircraft_engineDatarefs(data);
+            limits = new sim_aircraft_limitsDatarefs(data);
+            prop = new sim_aircraft_propDatarefs(data);
+            parts = new sim_aircraft_partsDatarefs(data);
+            controls = new sim_aircraft_controlsDatarefs(data);
+            gear = new sim_aircraft_gearDatarefs(data);
+            weight = new sim_aircraft_weightDatarefs(data);
+            specialcontrols = new sim_aircraft_specialcontrolsDatarefs(data);
+            vtolcontrols = new sim_aircraft_vtolcontrolsDatarefs(data);
+            artstability = new sim_aircraft_artstabilityDatarefs(data);
+            overflow = new sim_aircraft_overflowDatarefs(data);
+            systems = new sim_aircraft_systemsDatarefs(data);
         }
-        public Sim_Aircraft_ViewDatarefs View { get; }
-        public Sim_Aircraft_ForcefeedbackDatarefs Forcefeedback { get; }
-        public Sim_Aircraft_ElectricalDatarefs Electrical { get; }
-        public Sim_Aircraft_EngineDatarefs Engine { get; }
-        public Sim_Aircraft_LimitsDatarefs Limits { get; }
-        public Sim_Aircraft_PropDatarefs Prop { get; }
-        public Sim_Aircraft_PartsDatarefs Parts { get; }
-        public Sim_Aircraft_ControlsDatarefs Controls { get; }
-        public Sim_Aircraft_GearDatarefs Gear { get; }
-        public Sim_Aircraft_WeightDatarefs Weight { get; }
-        public Sim_Aircraft_SpecialcontrolsDatarefs Specialcontrols { get; }
-        public Sim_Aircraft_VtolcontrolsDatarefs Vtolcontrols { get; }
-        public Sim_Aircraft_ArtstabilityDatarefs Artstability { get; }
-        public Sim_Aircraft_OverflowDatarefs Overflow { get; }
-        public Sim_Aircraft_SystemsDatarefs Systems { get; }
+        public sim_aircraft_viewDatarefs view { get; }
+        public sim_aircraft_forcefeedbackDatarefs forcefeedback { get; }
+        public sim_aircraft_electricalDatarefs electrical { get; }
+        public sim_aircraft_engineDatarefs engine { get; }
+        public sim_aircraft_limitsDatarefs limits { get; }
+        public sim_aircraft_propDatarefs prop { get; }
+        public sim_aircraft_partsDatarefs parts { get; }
+        public sim_aircraft_controlsDatarefs controls { get; }
+        public sim_aircraft_gearDatarefs gear { get; }
+        public sim_aircraft_weightDatarefs weight { get; }
+        public sim_aircraft_specialcontrolsDatarefs specialcontrols { get; }
+        public sim_aircraft_vtolcontrolsDatarefs vtolcontrols { get; }
+        public sim_aircraft_artstabilityDatarefs artstability { get; }
+        public sim_aircraft_overflowDatarefs overflow { get; }
+        public sim_aircraft_systemsDatarefs systems { get; }
     }
 }

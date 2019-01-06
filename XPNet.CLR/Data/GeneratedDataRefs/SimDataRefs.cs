@@ -11,42 +11,42 @@ namespace XPNet.Data
         internal SimDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Aircraft = new Sim_AircraftDatarefs(data);
-            Cockpit = new Sim_CockpitDatarefs(data);
-            Flightmodel = new Sim_FlightmodelDatarefs(data);
-            Graphics = new Sim_GraphicsDatarefs(data);
-            Joystick = new Sim_JoystickDatarefs(data);
-            Multiplayer = new Sim_MultiplayerDatarefs(data);
-            Network = new Sim_NetworkDatarefs(data);
-            Physics = new Sim_PhysicsDatarefs(data);
-            Operation = new Sim_OperationDatarefs(data);
-            Test = new Sim_TestDatarefs(data);
-            Time = new Sim_TimeDatarefs(data);
-            Version = new Sim_VersionDatarefs(data);
-            Weapons = new Sim_WeaponsDatarefs(data);
-            Weather = new Sim_WeatherDatarefs(data);
-            World = new Sim_WorldDatarefs(data);
-            Aircraft2 = new Sim_Aircraft2Datarefs(data);
-            Cockpit2 = new Sim_Cockpit2Datarefs(data);
-            Flightmodel2 = new Sim_Flightmodel2Datarefs(data);
+            aircraft = new sim_aircraftDatarefs(data);
+            cockpit = new sim_cockpitDatarefs(data);
+            flightmodel = new sim_flightmodelDatarefs(data);
+            graphics = new sim_graphicsDatarefs(data);
+            joystick = new sim_joystickDatarefs(data);
+            multiplayer = new sim_multiplayerDatarefs(data);
+            network = new sim_networkDatarefs(data);
+            physics = new sim_physicsDatarefs(data);
+            operation = new sim_operationDatarefs(data);
+            test = new sim_testDatarefs(data);
+            time = new sim_timeDatarefs(data);
+            version = new sim_versionDatarefs(data);
+            weapons = new sim_weaponsDatarefs(data);
+            weather = new sim_weatherDatarefs(data);
+            world = new sim_worldDatarefs(data);
+            aircraft2 = new sim_aircraft2Datarefs(data);
+            cockpit2 = new sim_cockpit2Datarefs(data);
+            flightmodel2 = new sim_flightmodel2Datarefs(data);
         }
-        public Sim_AircraftDatarefs Aircraft { get; }
-        public Sim_CockpitDatarefs Cockpit { get; }
-        public Sim_FlightmodelDatarefs Flightmodel { get; }
-        public Sim_GraphicsDatarefs Graphics { get; }
-        public Sim_JoystickDatarefs Joystick { get; }
-        public Sim_MultiplayerDatarefs Multiplayer { get; }
-        public Sim_NetworkDatarefs Network { get; }
-        public Sim_PhysicsDatarefs Physics { get; }
-        public Sim_OperationDatarefs Operation { get; }
-        public Sim_TestDatarefs Test { get; }
-        public Sim_TimeDatarefs Time { get; }
-        public Sim_VersionDatarefs Version { get; }
-        public Sim_WeaponsDatarefs Weapons { get; }
-        public Sim_WeatherDatarefs Weather { get; }
-        public Sim_WorldDatarefs World { get; }
-        public Sim_Aircraft2Datarefs Aircraft2 { get; }
-        public Sim_Cockpit2Datarefs Cockpit2 { get; }
-        public Sim_Flightmodel2Datarefs Flightmodel2 { get; }
+        public sim_aircraftDatarefs aircraft { get; }
+        public sim_cockpitDatarefs cockpit { get; }
+        public sim_flightmodelDatarefs flightmodel { get; }
+        public sim_graphicsDatarefs graphics { get; }
+        public sim_joystickDatarefs joystick { get; }
+        public sim_multiplayerDatarefs multiplayer { get; }
+        public sim_networkDatarefs network { get; }
+        public sim_physicsDatarefs physics { get; }
+        public sim_operationDatarefs operation { get; }
+        public sim_testDatarefs test { get; }
+        public sim_timeDatarefs time { get; }
+        public sim_versionDatarefs version { get; }
+        public sim_weaponsDatarefs weapons { get; }
+        public sim_weatherDatarefs weather { get; }
+        public sim_worldDatarefs world { get; }
+        public sim_aircraft2Datarefs aircraft2 { get; }
+        public sim_cockpit2Datarefs cockpit2 { get; }
+        public sim_flightmodel2Datarefs flightmodel2 { get; }
     }
 }

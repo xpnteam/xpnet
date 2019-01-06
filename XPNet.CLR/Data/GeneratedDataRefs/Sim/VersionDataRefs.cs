@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_VersionDatarefs
+    public class sim_versionDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_VersionDatarefs(IXPlaneData data)
+        internal sim_versionDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,11 +16,11 @@ namespace XPNet.Data
         /// <summary>
         ///  This string contains the date and time that this x-plane was built.
         /// </summary>
-        public IXPDataRef<string> Sim_build_string { get { return m_data.GetString("sim/version/sim_build_string");} }
+        public IXPDataRef<string> sim_build_string { get { return m_data.GetString("sim/version/sim_build_string");} }
 
         /// <summary>
         ///  This string contains the date and time that the XPLM DLL was built.
         /// </summary>
-        public IXPDataRef<string> Xplm_build_string { get { return m_data.GetString("sim/version/xplm_build_string");} }
+        public IXPDataRef<string> xplm_build_string { get { return m_data.GetString("sim/version/xplm_build_string");} }
     }
 }

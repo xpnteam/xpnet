@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Graphics_Animation_DeerDatarefs
+    public class sim_graphics_animation_deerDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Graphics_Animation_DeerDatarefs(IXPlaneData data)
+        internal sim_graphics_animation_deerDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,11 +16,11 @@ namespace XPNet.Data
         /// <summary>
         ///  ratio for deer running
         /// </summary>
-        public IXPDataRef<float> Deer_run_cycle { get { return m_data.GetFloat("sim/graphics/animation/deer/deer_run_cycle");} }
+        public IXPDataRef<float> deer_run_cycle { get { return m_data.GetFloat("sim/graphics/animation/deer/deer_run_cycle");} }
 
         /// <summary>
         ///  ratio for deer turning
         /// </summary>
-        public IXPDataRef<float> Deer_turn_cycle { get { return m_data.GetFloat("sim/graphics/animation/deer/deer_turn_cycle");} }
+        public IXPDataRef<float> deer_turn_cycle { get { return m_data.GetFloat("sim/graphics/animation/deer/deer_turn_cycle");} }
     }
 }

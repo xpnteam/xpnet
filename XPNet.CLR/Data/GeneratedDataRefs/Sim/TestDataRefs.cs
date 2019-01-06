@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_TestDatarefs
+    public class sim_testDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_TestDatarefs(IXPlaneData data)
+        internal sim_testDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,6 +16,6 @@ namespace XPNet.Data
         /// <summary>
         ///  this test dataref is used internally for testing our models
         /// </summary>
-        public IXPDataRef<float> Test_float { get { return m_data.GetFloat("sim/test/test_float");} }
+        public IXPDataRef<float> test_float { get { return m_data.GetFloat("sim/test/test_float");} }
     }
 }

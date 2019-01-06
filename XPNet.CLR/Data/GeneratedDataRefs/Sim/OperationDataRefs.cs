@@ -4,27 +4,27 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_OperationDatarefs
+    public class sim_operationDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_OperationDatarefs(IXPlaneData data)
+        internal sim_operationDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Failures = new Sim_Operation_FailuresDatarefs(data);
-            G430 = new Sim_Operation_G430Datarefs(data);
-            Misc = new Sim_Operation_MiscDatarefs(data);
-            Override = new Sim_Operation_OverrideDatarefs(data);
-            Prefs = new Sim_Operation_PrefsDatarefs(data);
-            Sound = new Sim_Operation_SoundDatarefs(data);
-            Windows = new Sim_Operation_WindowsDatarefs(data);
+            failures = new sim_operation_failuresDatarefs(data);
+            g430 = new sim_operation_g430Datarefs(data);
+            misc = new sim_operation_miscDatarefs(data);
+            override_ = new sim_operation_overrideDatarefs(data);
+            prefs = new sim_operation_prefsDatarefs(data);
+            sound = new sim_operation_soundDatarefs(data);
+            windows = new sim_operation_windowsDatarefs(data);
         }
-        public Sim_Operation_FailuresDatarefs Failures { get; }
-        public Sim_Operation_G430Datarefs G430 { get; }
-        public Sim_Operation_MiscDatarefs Misc { get; }
-        public Sim_Operation_OverrideDatarefs Override { get; }
-        public Sim_Operation_PrefsDatarefs Prefs { get; }
-        public Sim_Operation_SoundDatarefs Sound { get; }
-        public Sim_Operation_WindowsDatarefs Windows { get; }
+        public sim_operation_failuresDatarefs failures { get; }
+        public sim_operation_g430Datarefs g430 { get; }
+        public sim_operation_miscDatarefs misc { get; }
+        public sim_operation_overrideDatarefs override_ { get; }
+        public sim_operation_prefsDatarefs prefs { get; }
+        public sim_operation_soundDatarefs sound { get; }
+        public sim_operation_windowsDatarefs windows { get; }
     }
 }

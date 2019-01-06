@@ -4,17 +4,17 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_MultiplayerDatarefs
+    public class sim_multiplayerDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_MultiplayerDatarefs(IXPlaneData data)
+        internal sim_multiplayerDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Controls = new Sim_Multiplayer_ControlsDatarefs(data);
-            Position = new Sim_Multiplayer_PositionDatarefs(data);
+            controls = new sim_multiplayer_controlsDatarefs(data);
+            position = new sim_multiplayer_positionDatarefs(data);
         }
-        public Sim_Multiplayer_ControlsDatarefs Controls { get; }
-        public Sim_Multiplayer_PositionDatarefs Position { get; }
+        public sim_multiplayer_controlsDatarefs controls { get; }
+        public sim_multiplayer_positionDatarefs position { get; }
     }
 }

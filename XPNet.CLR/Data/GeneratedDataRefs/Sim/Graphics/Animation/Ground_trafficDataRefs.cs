@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Graphics_Animation_Ground_trafficDatarefs
+    public class sim_graphics_animation_ground_trafficDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Graphics_Animation_Ground_trafficDatarefs(IXPlaneData data)
+        internal sim_graphics_animation_ground_trafficDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,36 +16,36 @@ namespace XPNet.Data
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float> Tire_steer_deg { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/tire_steer_deg");} }
+        public IXPDataRef<float> tire_steer_deg { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/tire_steer_deg");} }
 
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float[]> Tire_rotation_angle_deg { get { return m_data.GetFloatArray("sim/graphics/animation/ground_traffic/tire_rotation_angle_deg");} }
+        public IXPDataRef<float[]> tire_rotation_angle_deg { get { return m_data.GetFloatArray("sim/graphics/animation/ground_traffic/tire_rotation_angle_deg");} }
 
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float[]> Wiper_angle_deg { get { return m_data.GetFloatArray("sim/graphics/animation/ground_traffic/wiper_angle_deg");} }
+        public IXPDataRef<float[]> wiper_angle_deg { get { return m_data.GetFloatArray("sim/graphics/animation/ground_traffic/wiper_angle_deg");} }
 
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float> Towbar_heading_deg { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/towbar_heading_deg");} }
+        public IXPDataRef<float> towbar_heading_deg { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/towbar_heading_deg");} }
 
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float> Towbar_pitch_deg { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/towbar_pitch_deg");} }
+        public IXPDataRef<float> towbar_pitch_deg { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/towbar_pitch_deg");} }
 
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float> Belt_loader_height_meters { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/belt_loader_height_meters");} }
+        public IXPDataRef<float> belt_loader_height_meters { get { return m_data.GetFloat("sim/graphics/animation/ground_traffic/belt_loader_height_meters");} }
 
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float[]> Door_open { get { return m_data.GetFloatArray("sim/graphics/animation/ground_traffic/door_open");} }
+        public IXPDataRef<float[]> door_open { get { return m_data.GetFloatArray("sim/graphics/animation/ground_traffic/door_open");} }
     }
 }

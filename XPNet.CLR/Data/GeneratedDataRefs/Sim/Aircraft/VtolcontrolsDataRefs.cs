@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Aircraft_VtolcontrolsDatarefs
+    public class sim_aircraft_vtolcontrolsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Aircraft_VtolcontrolsDatarefs(IXPlaneData data)
+        internal sim_aircraft_vtolcontrolsDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,11 +16,11 @@ namespace XPNet.Data
         /// <summary>
         ///  max rotor trim aft when stick fully forward
         /// </summary>
-        public IXPDataRef<float> Acf_rotor_trim_max_fwd { get { return m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_fwd");} }
+        public IXPDataRef<float> acf_rotor_trim_max_fwd { get { return m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_fwd");} }
 
         /// <summary>
         ///  max rotor trim aft when stick fully aft
         /// </summary>
-        public IXPDataRef<float> Acf_rotor_trim_max_aft { get { return m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_aft");} }
+        public IXPDataRef<float> acf_rotor_trim_max_aft { get { return m_data.GetFloat("sim/aircraft/vtolcontrols/acf_rotor_trim_max_aft");} }
     }
 }

@@ -4,59 +4,59 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit_Warnings_AnnunciatorsDatarefs
+    public class sim_cockpit_warnings_annunciatorsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit_Warnings_AnnunciatorsDatarefs(IXPlaneData data)
+        internal sim_cockpit_warnings_annunciatorsDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
 
         /// <summary>
-        ///  Master caution light on/Off
+        ///  Master caution light on/off
         /// </summary>
-        public IXPDataRef<bool> Master_caution { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/master_caution");} }
+        public IXPDataRef<bool> master_caution { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/master_caution");} }
 
         /// <summary>
         ///  Master warning
         /// </summary>
-        public IXPDataRef<bool> Master_warning { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/master_warning");} }
+        public IXPDataRef<bool> master_warning { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/master_warning");} }
 
         /// <summary>
-        ///  Master accept light on/Off
+        ///  Master accept light on/off
         /// </summary>
-        public IXPDataRef<bool> Master_accept { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/master_accept");} }
+        public IXPDataRef<bool> master_accept { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/master_accept");} }
 
         /// <summary>
         ///  autopilot has been disconnected
         /// </summary>
-        public IXPDataRef<bool> Autopilot_disconnect { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_disconnect");} }
+        public IXPDataRef<bool> autopilot_disconnect { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_disconnect");} }
 
         /// <summary>
         ///  low vacuum pressure
         /// </summary>
-        public IXPDataRef<bool> Low_vacuum { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/low_vacuum");} }
+        public IXPDataRef<bool> low_vacuum { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/low_vacuum");} }
 
         /// <summary>
         ///  low battery voltage
         /// </summary>
-        public IXPDataRef<bool> Low_voltage { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/low_voltage");} }
+        public IXPDataRef<bool> low_voltage { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/low_voltage");} }
 
         /// <summary>
         ///  running out of fuel
         /// </summary>
-        public IXPDataRef<bool> Fuel_quantity { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/fuel_quantity");} }
+        public IXPDataRef<bool> fuel_quantity { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/fuel_quantity");} }
 
         /// <summary>
         ///  hydraulic pressure low
         /// </summary>
-        public IXPDataRef<bool> Hydraulic_pressure { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/hydraulic_pressure");} }
+        public IXPDataRef<bool> hydraulic_pressure { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/hydraulic_pressure");} }
 
         /// <summary>
         ///  speedbrakes deployed
         /// </summary>
-        public IXPDataRef<bool> Speedbrake { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/speedbrake");} }
+        public IXPDataRef<bool> speedbrake { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/speedbrake");} }
 
         /// <summary>
         ///  GPWS failed
@@ -66,97 +66,97 @@ namespace XPNet.Data
         /// <summary>
         ///  ice detected
         /// </summary>
-        public IXPDataRef<bool> Ice { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/ice");} }
+        public IXPDataRef<bool> ice { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/ice");} }
 
         /// <summary>
         ///  low rotor speed
         /// </summary>
-        public IXPDataRef<bool> Lo_rotor { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/lo_rotor");} }
+        public IXPDataRef<bool> lo_rotor { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/lo_rotor");} }
 
         /// <summary>
         ///  high rotor speed
         /// </summary>
-        public IXPDataRef<bool> Hi_rotor { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/hi_rotor");} }
+        public IXPDataRef<bool> hi_rotor { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/hi_rotor");} }
 
         /// <summary>
         ///  pitot heat off
         /// </summary>
-        public IXPDataRef<bool> Pitot_heat_off { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/pitot_heat_off");} }
+        public IXPDataRef<bool> pitot_heat_off { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/pitot_heat_off");} }
 
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<bool> Transonic { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/transonic");} }
+        public IXPDataRef<bool> transonic { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/transonic");} }
 
         /// <summary>
         ///  slats deployed
         /// </summary>
-        public IXPDataRef<bool> Slats { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/slats");} }
+        public IXPDataRef<bool> slats { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/slats");} }
 
         /// <summary>
         ///  flight director failure
         /// </summary>
-        public IXPDataRef<bool> Flight_director { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/flight_director");} }
+        public IXPDataRef<bool> flight_director { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/flight_director");} }
 
         /// <summary>
         ///  autopilot failure
         /// </summary>
-        public IXPDataRef<bool> Autopilot { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot");} }
+        public IXPDataRef<bool> autopilot { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot");} }
 
         /// <summary>
         ///  yaw damper failure
         /// </summary>
-        public IXPDataRef<bool> Yaw_damper { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/yaw_damper");} }
+        public IXPDataRef<bool> yaw_damper { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/yaw_damper");} }
 
         /// <summary>
         ///  fuel pressure low - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Fuel_pressure_low { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/fuel_pressure_low");} }
+        public IXPDataRef<bool[]> fuel_pressure_low { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/fuel_pressure_low");} }
 
         /// <summary>
         ///  fuel pressure low - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Oil_pressure_low { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/oil_pressure_low");} }
+        public IXPDataRef<bool[]> oil_pressure_low { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/oil_pressure_low");} }
 
         /// <summary>
         ///  oil temperature high - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Oil_temperature_high { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/oil_temperature_high");} }
+        public IXPDataRef<bool[]> oil_temperature_high { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/oil_temperature_high");} }
 
         /// <summary>
         ///  generator off - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Generator_off { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/generator_off");} }
+        public IXPDataRef<bool[]> generator_off { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/generator_off");} }
 
         /// <summary>
         ///  chip detected - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Chip_detected { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/chip_detected");} }
+        public IXPDataRef<bool[]> chip_detected { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/chip_detected");} }
 
         /// <summary>
         ///  engine fire - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Engine_fires { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/engine_fires");} }
+        public IXPDataRef<bool[]> engine_fires { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/engine_fires");} }
 
         /// <summary>
         ///  igniter on - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Igniter_on { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/igniter_on");} }
+        public IXPDataRef<bool[]> igniter_on { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/igniter_on");} }
 
         /// <summary>
         ///  reverser on - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Reverser_on { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/reverser_on");} }
+        public IXPDataRef<bool[]> reverser_on { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/reverser_on");} }
 
         /// <summary>
         ///  burner on - per engine
         /// </summary>
-        public IXPDataRef<bool[]> Burner_on { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/burner_on");} }
+        public IXPDataRef<bool[]> burner_on { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/burner_on");} }
 
         /// <summary>
         ///  inverter off - per 2 inverters
         /// </summary>
-        public IXPDataRef<bool[]> Inverter_off { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/inverter_off");} }
+        public IXPDataRef<bool[]> inverter_off { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/inverter_off");} }
 
         /// <summary>
         ///  N1 of engine is too low for AC - per engine
@@ -171,116 +171,116 @@ namespace XPNet.Data
         /// <summary>
         ///  reversers not ready
         /// </summary>
-        public IXPDataRef<bool[]> Reverser_not_ready { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/reverser_not_ready");} }
+        public IXPDataRef<bool[]> reverser_not_ready { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/reverser_not_ready");} }
 
         /// <summary>
         ///  ice vain extended (per engine)
         /// </summary>
-        public IXPDataRef<bool[]> Ice_vane_extend { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/ice_vane_extend");} }
+        public IXPDataRef<bool[]> ice_vane_extend { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/ice_vane_extend");} }
 
         /// <summary>
         ///  ice vain failed (per engine)
         /// </summary>
-        public IXPDataRef<bool[]> Ice_vane_fail { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/ice_vane_fail");} }
+        public IXPDataRef<bool[]> ice_vane_fail { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/ice_vane_fail");} }
 
         /// <summary>
         ///  bleed air off (per engine)
         /// </summary>
-        public IXPDataRef<bool[]> Bleed_air_off { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/bleed_air_off");} }
+        public IXPDataRef<bool[]> bleed_air_off { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/bleed_air_off");} }
 
         /// <summary>
         ///  bleed air failed (per engine)
         /// </summary>
-        public IXPDataRef<bool[]> Bleed_air_fail { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/bleed_air_fail");} }
+        public IXPDataRef<bool[]> bleed_air_fail { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/bleed_air_fail");} }
 
         /// <summary>
         ///  auto feather armed (per engine)
         /// </summary>
-        public IXPDataRef<bool[]> Auto_feather_arm { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/auto_feather_arm");} }
+        public IXPDataRef<bool[]> auto_feather_arm { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/auto_feather_arm");} }
 
         /// <summary>
         ///  fuel transfer on (per tank)
         /// </summary>
-        public IXPDataRef<bool[]> Fuel_transfer { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/fuel_transfer");} }
+        public IXPDataRef<bool[]> fuel_transfer { get { return m_data.GetBoolArray("sim/cockpit/warnings/annunciators/fuel_transfer");} }
 
         /// <summary>
         ///  duct overheated
         /// </summary>
-        public IXPDataRef<bool> Hvac { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/hvac");} }
+        public IXPDataRef<bool> hvac { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/hvac");} }
 
         /// <summary>
         ///  battery is charging too rapidly - may overheat
         /// </summary>
-        public IXPDataRef<bool> Battery_charge_hi { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/battery_charge_hi");} }
+        public IXPDataRef<bool> battery_charge_hi { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/battery_charge_hi");} }
 
         /// <summary>
         ///  cabin altitude at or above 12500
         /// </summary>
-        public IXPDataRef<bool> Cabin_altitude_12500 { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/cabin_altitude_12500");} }
+        public IXPDataRef<bool> cabin_altitude_12500 { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/cabin_altitude_12500");} }
 
         /// <summary>
         ///  autopilot trim failure
         /// </summary>
-        public IXPDataRef<bool> Autopilot_trim_fail { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_trim_fail");} }
+        public IXPDataRef<bool> autopilot_trim_fail { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_trim_fail");} }
 
         /// <summary>
         ///  electric trim is off
         /// </summary>
-        public IXPDataRef<bool> Electric_trim_off { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/electric_trim_off");} }
+        public IXPDataRef<bool> electric_trim_off { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/electric_trim_off");} }
 
         /// <summary>
         ///  crossfeed on
         /// </summary>
-        public IXPDataRef<bool> Crossfeed_on { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/crossfeed_on");} }
+        public IXPDataRef<bool> crossfeed_on { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/crossfeed_on");} }
 
         /// <summary>
         ///  landing or taxiway light on but gear up
         /// </summary>
-        public IXPDataRef<bool> Landing_taxi_lite { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/landing_taxi_lite");} }
+        public IXPDataRef<bool> landing_taxi_lite { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/landing_taxi_lite");} }
 
         /// <summary>
         ///  cabin door is open
         /// </summary>
-        public IXPDataRef<bool> Cabin_door_open { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/cabin_door_open");} }
+        public IXPDataRef<bool> cabin_door_open { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/cabin_door_open");} }
 
         /// <summary>
         ///  external power is on
         /// </summary>
-        public IXPDataRef<bool> External_power_on { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/external_power_on");} }
+        public IXPDataRef<bool> external_power_on { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/external_power_on");} }
 
         /// <summary>
         ///  passenger oxygen on
         /// </summary>
-        public IXPDataRef<bool> Passenger_oxy_on { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/passenger_oxy_on");} }
+        public IXPDataRef<bool> passenger_oxy_on { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/passenger_oxy_on");} }
 
         /// <summary>
         ///  gear is unsafe
         /// </summary>
-        public IXPDataRef<bool> Gear_unsafe { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/gear_unsafe");} }
+        public IXPDataRef<bool> gear_unsafe { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/gear_unsafe");} }
 
         /// <summary>
         ///  autopilot trimming down
         /// </summary>
-        public IXPDataRef<bool> Autopilot_trim_down { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_trim_down");} }
+        public IXPDataRef<bool> autopilot_trim_down { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_trim_down");} }
 
         /// <summary>
         ///  autopilot trimming up
         /// </summary>
-        public IXPDataRef<bool> Autopilot_trim_up { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_trim_up");} }
+        public IXPDataRef<bool> autopilot_trim_up { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_trim_up");} }
 
         /// <summary>
         ///  autopilot bank limit is turned ON, autopilot will keep bank below 12.5 degrees of bank
         /// </summary>
-        public IXPDataRef<bool> Autopilot_bank_limit { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_bank_limit");} }
+        public IXPDataRef<bool> autopilot_bank_limit { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_bank_limit");} }
 
         /// <summary>
         ///  autopilot soft ride is on
         /// </summary>
-        public IXPDataRef<bool> Autopilot_soft_ride { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_soft_ride");} }
+        public IXPDataRef<bool> autopilot_soft_ride { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/autopilot_soft_ride");} }
 
         /// <summary>
         ///  no inverters are on
         /// </summary>
-        public IXPDataRef<bool> No_inverters { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/no_inverters");} }
+        public IXPDataRef<bool> no_inverters { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/no_inverters");} }
     }
 }

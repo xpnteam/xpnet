@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Graphics_Animation_BirdsDatarefs
+    public class sim_graphics_animation_birdsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Graphics_Animation_BirdsDatarefs(IXPlaneData data)
+        internal sim_graphics_animation_birdsDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,11 +16,11 @@ namespace XPNet.Data
         /// <summary>
         ///  degree of wing flap for the currently drawn bird
         /// </summary>
-        public IXPDataRef<float> Wing_flap_deg { get { return m_data.GetFloat("sim/graphics/animation/birds/wing_flap_deg");} }
+        public IXPDataRef<float> wing_flap_deg { get { return m_data.GetFloat("sim/graphics/animation/birds/wing_flap_deg");} }
 
         /// <summary>
         ///  angle the bird's feet are retracted for the flock of birds.
         /// </summary>
-        public IXPDataRef<float> Feet_retract_deg { get { return m_data.GetFloat("sim/graphics/animation/birds/feet_retract_deg");} }
+        public IXPDataRef<float> feet_retract_deg { get { return m_data.GetFloat("sim/graphics/animation/birds/feet_retract_deg");} }
     }
 }

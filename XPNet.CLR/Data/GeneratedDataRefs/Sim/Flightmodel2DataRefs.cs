@@ -4,27 +4,27 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Flightmodel2Datarefs
+    public class sim_flightmodel2Datarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Flightmodel2Datarefs(IXPlaneData data)
+        internal sim_flightmodel2Datarefs(IXPlaneData data)
         {
             m_data = data;
-            Controls = new Sim_Flightmodel2_ControlsDatarefs(data);
-            Doors = new Sim_Flightmodel2_DoorsDatarefs(data);
-            Engines = new Sim_Flightmodel2_EnginesDatarefs(data);
-            Gear = new Sim_Flightmodel2_GearDatarefs(data);
-            Lights = new Sim_Flightmodel2_LightsDatarefs(data);
-            Misc = new Sim_Flightmodel2_MiscDatarefs(data);
-            Wing = new Sim_Flightmodel2_WingDatarefs(data);
+            controls = new sim_flightmodel2_controlsDatarefs(data);
+            doors = new sim_flightmodel2_doorsDatarefs(data);
+            engines = new sim_flightmodel2_enginesDatarefs(data);
+            gear = new sim_flightmodel2_gearDatarefs(data);
+            lights = new sim_flightmodel2_lightsDatarefs(data);
+            misc = new sim_flightmodel2_miscDatarefs(data);
+            wing = new sim_flightmodel2_wingDatarefs(data);
         }
-        public Sim_Flightmodel2_ControlsDatarefs Controls { get; }
-        public Sim_Flightmodel2_DoorsDatarefs Doors { get; }
-        public Sim_Flightmodel2_EnginesDatarefs Engines { get; }
-        public Sim_Flightmodel2_GearDatarefs Gear { get; }
-        public Sim_Flightmodel2_LightsDatarefs Lights { get; }
-        public Sim_Flightmodel2_MiscDatarefs Misc { get; }
-        public Sim_Flightmodel2_WingDatarefs Wing { get; }
+        public sim_flightmodel2_controlsDatarefs controls { get; }
+        public sim_flightmodel2_doorsDatarefs doors { get; }
+        public sim_flightmodel2_enginesDatarefs engines { get; }
+        public sim_flightmodel2_gearDatarefs gear { get; }
+        public sim_flightmodel2_lightsDatarefs lights { get; }
+        public sim_flightmodel2_miscDatarefs misc { get; }
+        public sim_flightmodel2_wingDatarefs wing { get; }
     }
 }

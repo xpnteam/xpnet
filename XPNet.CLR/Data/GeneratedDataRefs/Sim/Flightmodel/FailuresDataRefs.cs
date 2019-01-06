@@ -4,68 +4,68 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Flightmodel_FailuresDatarefs
+    public class sim_flightmodel_failuresDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Flightmodel_FailuresDatarefs(IXPlaneData data)
+        internal sim_flightmodel_failuresDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
 
         /// <summary>
-        ///  Ratio of icing on wings/Airframe - left wing
+        ///  Ratio of icing on wings/airframe - left wing
         /// </summary>
-        public IXPDataRef<float> Frm_ice { get { return m_data.GetFloat("sim/flightmodel/failures/frm_ice");} }
+        public IXPDataRef<float> frm_ice { get { return m_data.GetFloat("sim/flightmodel/failures/frm_ice");} }
 
         /// <summary>
-        ///  Ratio of icing on wings/Airframe - right wing
+        ///  Ratio of icing on wings/airframe - right wing
         /// </summary>
-        public IXPDataRef<float> Frm_ice2 { get { return m_data.GetFloat("sim/flightmodel/failures/frm_ice2");} }
+        public IXPDataRef<float> frm_ice2 { get { return m_data.GetFloat("sim/flightmodel/failures/frm_ice2");} }
 
         /// <summary>
         ///  Ratio of icing on pitot tube
         /// </summary>
-        public IXPDataRef<float> Pitot_ice { get { return m_data.GetFloat("sim/flightmodel/failures/pitot_ice");} }
+        public IXPDataRef<float> pitot_ice { get { return m_data.GetFloat("sim/flightmodel/failures/pitot_ice");} }
 
         /// <summary>
         ///  Ratio of icing on pitot tube2
         /// </summary>
-        public IXPDataRef<float> Pitot_ice2 { get { return m_data.GetFloat("sim/flightmodel/failures/pitot_ice2");} }
+        public IXPDataRef<float> pitot_ice2 { get { return m_data.GetFloat("sim/flightmodel/failures/pitot_ice2");} }
 
         /// <summary>
         ///  Ratio of icing on the prop - first prop
         /// </summary>
-        public IXPDataRef<float> Prop_ice { get { return m_data.GetFloat("sim/flightmodel/failures/prop_ice");} }
+        public IXPDataRef<float> prop_ice { get { return m_data.GetFloat("sim/flightmodel/failures/prop_ice");} }
 
         /// <summary>
         ///  Ratio of icing on the air inlets - first engine
         /// </summary>
-        public IXPDataRef<float> Inlet_ice { get { return m_data.GetFloat("sim/flightmodel/failures/inlet_ice");} }
+        public IXPDataRef<float> inlet_ice { get { return m_data.GetFloat("sim/flightmodel/failures/inlet_ice");} }
 
         /// <summary>
         ///  Ratio of icing on the prop - array access to all props.
         /// </summary>
-        public IXPDataRef<float[]> Prop_ice_per_engine { get { return m_data.GetFloatArray("sim/flightmodel/failures/prop_ice_per_engine");} }
+        public IXPDataRef<float[]> prop_ice_per_engine { get { return m_data.GetFloatArray("sim/flightmodel/failures/prop_ice_per_engine");} }
 
         /// <summary>
         ///  Ratio of icing on the air inlets - array access to all engines.
         /// </summary>
-        public IXPDataRef<float[]> Inlet_ice_per_engine { get { return m_data.GetFloatArray("sim/flightmodel/failures/inlet_ice_per_engine");} }
+        public IXPDataRef<float[]> inlet_ice_per_engine { get { return m_data.GetFloatArray("sim/flightmodel/failures/inlet_ice_per_engine");} }
 
         /// <summary>
         ///  Ratio of icing on the windshield
         /// </summary>
-        public IXPDataRef<float> Window_ice { get { return m_data.GetFloat("sim/flightmodel/failures/window_ice");} }
+        public IXPDataRef<float> window_ice { get { return m_data.GetFloat("sim/flightmodel/failures/window_ice");} }
 
         /// <summary>
         ///  Ratio of icing on alpha vane - pilot AoA
         /// </summary>
-        public IXPDataRef<float> Aoa_ice { get { return m_data.GetFloat("sim/flightmodel/failures/aoa_ice");} }
+        public IXPDataRef<float> aoa_ice { get { return m_data.GetFloat("sim/flightmodel/failures/aoa_ice");} }
 
         /// <summary>
         ///  Ratio of icing on alpha vane - copilot AoA
         /// </summary>
-        public IXPDataRef<float> Aoa_ice2 { get { return m_data.GetFloat("sim/flightmodel/failures/aoa_ice2");} }
+        public IXPDataRef<float> aoa_ice2 { get { return m_data.GetFloat("sim/flightmodel/failures/aoa_ice2");} }
     }
 }

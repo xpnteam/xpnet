@@ -4,15 +4,15 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2_HydraulicsDatarefs
+    public class sim_cockpit2_hydraulicsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2_HydraulicsDatarefs(IXPlaneData data)
+        internal sim_cockpit2_hydraulicsDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Indicators = new Sim_Cockpit2_Hydraulics_IndicatorsDatarefs(data);
+            indicators = new sim_cockpit2_hydraulics_indicatorsDatarefs(data);
         }
-        public Sim_Cockpit2_Hydraulics_IndicatorsDatarefs Indicators { get; }
+        public sim_cockpit2_hydraulics_indicatorsDatarefs indicators { get; }
     }
 }

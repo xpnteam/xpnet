@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Aircraft_GearDatarefs
+    public class sim_aircraft_gearDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Aircraft_GearDatarefs(IXPlaneData data)
+        internal sim_aircraft_gearDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,6 +16,6 @@ namespace XPNet.Data
         /// <summary>
         ///  Are any of the gear on this plane retractable.  We strongly recommend you DO NOT write to this dataref.
         /// </summary>
-        public IXPDataRef<bool> Acf_gear_retract { get { return m_data.GetBool("sim/aircraft/gear/acf_gear_retract");} }
+        public IXPDataRef<bool> acf_gear_retract { get { return m_data.GetBool("sim/aircraft/gear/acf_gear_retract");} }
     }
 }

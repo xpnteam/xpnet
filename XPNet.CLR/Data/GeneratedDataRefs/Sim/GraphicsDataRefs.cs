@@ -4,25 +4,25 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_GraphicsDatarefs
+    public class sim_graphicsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_GraphicsDatarefs(IXPlaneData data)
+        internal sim_graphicsDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Animation = new Sim_Graphics_AnimationDatarefs(data);
-            Colors = new Sim_Graphics_ColorsDatarefs(data);
-            Misc = new Sim_Graphics_MiscDatarefs(data);
-            Scenery = new Sim_Graphics_SceneryDatarefs(data);
-            Settings = new Sim_Graphics_SettingsDatarefs(data);
-            View = new Sim_Graphics_ViewDatarefs(data);
+            animation = new sim_graphics_animationDatarefs(data);
+            colors = new sim_graphics_colorsDatarefs(data);
+            misc = new sim_graphics_miscDatarefs(data);
+            scenery = new sim_graphics_sceneryDatarefs(data);
+            settings = new sim_graphics_settingsDatarefs(data);
+            view = new sim_graphics_viewDatarefs(data);
         }
-        public Sim_Graphics_AnimationDatarefs Animation { get; }
-        public Sim_Graphics_ColorsDatarefs Colors { get; }
-        public Sim_Graphics_MiscDatarefs Misc { get; }
-        public Sim_Graphics_SceneryDatarefs Scenery { get; }
-        public Sim_Graphics_SettingsDatarefs Settings { get; }
-        public Sim_Graphics_ViewDatarefs View { get; }
+        public sim_graphics_animationDatarefs animation { get; }
+        public sim_graphics_colorsDatarefs colors { get; }
+        public sim_graphics_miscDatarefs misc { get; }
+        public sim_graphics_sceneryDatarefs scenery { get; }
+        public sim_graphics_settingsDatarefs settings { get; }
+        public sim_graphics_viewDatarefs view { get; }
     }
 }

@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2_Engine_IndicatorsDatarefs
+    public class sim_cockpit2_engine_indicatorsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2_Engine_IndicatorsDatarefs(IXPlaneData data)
+        internal sim_cockpit2_engine_indicatorsDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -36,12 +36,12 @@ namespace XPNet.Data
         /// <summary>
         ///  Torque, NM.
         /// </summary>
-        public IXPDataRef<float[]> Torque_n_mtr { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/torque_n_mtr");} }
+        public IXPDataRef<float[]> torque_n_mtr { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/torque_n_mtr");} }
 
         /// <summary>
         ///  FF, kilograms per second.
         /// </summary>
-        public IXPDataRef<float[]> Fuel_flow_kg_sec { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_flow_kg_sec");} }
+        public IXPDataRef<float[]> fuel_flow_kg_sec { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_flow_kg_sec");} }
 
         /// <summary>
         ///  ITT, deg.  Dataref label is wrong, units vary by plane.
@@ -61,46 +61,46 @@ namespace XPNet.Data
         /// <summary>
         ///  Fuel pressure, psi.
         /// </summary>
-        public IXPDataRef<float[]> Fuel_pressure_psi { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_pressure_psi");} }
+        public IXPDataRef<float[]> fuel_pressure_psi { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/fuel_pressure_psi");} }
 
         /// <summary>
         ///  Oil pressure, psi.
         /// </summary>
-        public IXPDataRef<float[]> Oil_pressure_psi { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_pressure_psi");} }
+        public IXPDataRef<float[]> oil_pressure_psi { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_pressure_psi");} }
 
         /// <summary>
         ///  Oil temp, deg.    Dataref label is wrong, units vary by plane.
         /// </summary>
-        public IXPDataRef<float[]> Oil_temperature_deg_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_temperature_deg_c");} }
+        public IXPDataRef<float[]> oil_temperature_deg_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_temperature_deg_c");} }
 
         /// <summary>
         ///  Oil quantity, 0.0 to 1.0.
         /// </summary>
-        public IXPDataRef<float[]> Oil_quantity_ratio { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_quantity_ratio");} }
+        public IXPDataRef<float[]> oil_quantity_ratio { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/oil_quantity_ratio");} }
 
         /// <summary>
         ///  Actual engine power output.
         /// </summary>
-        public IXPDataRef<float[]> Power_watts { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/power_watts");} }
+        public IXPDataRef<float[]> power_watts { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/power_watts");} }
 
         /// <summary>
         ///  Engine thrust in Newtons
         /// </summary>
-        public IXPDataRef<float[]> Thrust_n { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/thrust_n");} }
+        public IXPDataRef<float[]> thrust_n { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/thrust_n");} }
 
         /// <summary>
         ///  Engine speed, radians per second
         /// </summary>
-        public IXPDataRef<float[]> Engine_speed_rpm { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/engine_speed_rpm");} }
+        public IXPDataRef<float[]> engine_speed_rpm { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/engine_speed_rpm");} }
 
         /// <summary>
         ///   Requests that the prop be feathered immediately, for plugin control of feathering.  Requires the prop to NOT be overriden for x-plane to actuate this.
         /// </summary>
-        public IXPDataRef<float[]> Prop_speed_rpm { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/prop_speed_rpm");} }
+        public IXPDataRef<float[]> prop_speed_rpm { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/prop_speed_rpm");} }
 
         /// <summary>
         ///  Carburator temperature in degrees C
         /// </summary>
-        public IXPDataRef<float[]> Carburetor_temperature_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/carburetor_temperature_c");} }
+        public IXPDataRef<float[]> carburetor_temperature_C { get { return m_data.GetFloatArray("sim/cockpit2/engine/indicators/carburetor_temperature_c");} }
     }
 }

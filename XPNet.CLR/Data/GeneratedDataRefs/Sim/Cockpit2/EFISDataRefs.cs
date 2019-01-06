@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2_EFISDatarefs
+    public class sim_cockpit2_EFISDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2_EFISDatarefs(IXPlaneData data)
+        internal sim_cockpit2_EFISDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,7 +16,7 @@ namespace XPNet.Data
         /// <summary>
         ///  Map is in HSI mode, 0 or 1.
         /// </summary>
-        public IXPDataRef<bool> Map_mode_is_HSI { get { return m_data.GetBool("sim/cockpit2/efis/map_mode_is_hsi");} }
+        public IXPDataRef<bool> map_mode_is_HSI { get { return m_data.GetBool("sim/cockpit2/efis/map_mode_is_hsi");} }
 
         /// <summary>
         ///  On the moving map, show the weather or not.

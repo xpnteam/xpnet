@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Weapons_ShellDatarefs
+    public class sim_weapons_shellDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Weapons_ShellDatarefs(IXPlaneData data)
+        internal sim_weapons_shellDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,6 +16,6 @@ namespace XPNet.Data
         /// <summary>
         ///  
         /// </summary>
-        public IXPDataRef<float> Thrust_rat { get { return m_data.GetFloat("sim/weapons/shell/thrust_rat");} }
+        public IXPDataRef<float> thrust_rat { get { return m_data.GetFloat("sim/weapons/shell/thrust_rat");} }
     }
 }

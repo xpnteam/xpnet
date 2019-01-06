@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2_ElectricalDatarefs
+    public class sim_cockpit2_electricalDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2_ElectricalDatarefs(IXPlaneData data)
+        internal sim_cockpit2_electricalDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -16,37 +16,37 @@ namespace XPNet.Data
         /// <summary>
         ///  Inverter turned on, 0 or 1. (Was 8, but should be 2 total.)
         /// </summary>
-        public IXPDataRef<bool[]> Inverter_on { get { return m_data.GetBoolArray("sim/cockpit2/electrical/inverter_on");} }
+        public IXPDataRef<bool[]> inverter_on { get { return m_data.GetBoolArray("sim/cockpit2/electrical/inverter_on");} }
 
         /// <summary>
         ///  Battery turned on, 0 or 1.
         /// </summary>
-        public IXPDataRef<bool[]> Battery_on { get { return m_data.GetBoolArray("sim/cockpit2/electrical/battery_on");} }
+        public IXPDataRef<bool[]> battery_on { get { return m_data.GetBoolArray("sim/cockpit2/electrical/battery_on");} }
 
         /// <summary>
         ///  Battery amperage, in (surprisingly) amps.
         /// </summary>
-        public IXPDataRef<float[]> Battery_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/battery_amps");} }
+        public IXPDataRef<float[]> battery_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/battery_amps");} }
 
         /// <summary>
         ///  Actual battery voltage in, umm, volts?
         /// </summary>
-        public IXPDataRef<float[]> Battery_voltage_actual_volts { get { return m_data.GetFloatArray("sim/cockpit2/electrical/battery_voltage_actual_volts");} }
+        public IXPDataRef<float[]> battery_voltage_actual_volts { get { return m_data.GetFloatArray("sim/cockpit2/electrical/battery_voltage_actual_volts");} }
 
         /// <summary>
         ///  Indicated battery voltage in, umm, volts? ...The indication may be different than the actual voltage!
         /// </summary>
-        public IXPDataRef<float[]> Battery_voltage_indicated_volts { get { return m_data.GetFloatArray("sim/cockpit2/electrical/battery_voltage_indicated_volts");} }
+        public IXPDataRef<float[]> battery_voltage_indicated_volts { get { return m_data.GetFloatArray("sim/cockpit2/electrical/battery_voltage_indicated_volts");} }
 
         /// <summary>
         ///  Generator turned on, 0 or 1.
         /// </summary>
-        public IXPDataRef<bool[]> Generator_on { get { return m_data.GetBoolArray("sim/cockpit2/electrical/generator_on");} }
+        public IXPDataRef<bool[]> generator_on { get { return m_data.GetBoolArray("sim/cockpit2/electrical/generator_on");} }
 
         /// <summary>
         ///  Generator amperage.
         /// </summary>
-        public IXPDataRef<float[]> Generator_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/generator_amps");} }
+        public IXPDataRef<float[]> generator_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/generator_amps");} }
 
         /// <summary>
         ///  APU generator is turned on, 0 or 1.
@@ -76,57 +76,57 @@ namespace XPNet.Data
         /// <summary>
         ///  Switch to connect the two busses together - power from one feeds the other.  0 or 1.
         /// </summary>
-        public IXPDataRef<bool> Cross_tie { get { return m_data.GetBool("sim/cockpit2/electrical/cross_tie");} }
+        public IXPDataRef<bool> cross_tie { get { return m_data.GetBool("sim/cockpit2/electrical/cross_tie");} }
 
         /// <summary>
         ///  volt-meter value
         /// </summary>
-        public IXPDataRef<float> Dc_voltmeter_value { get { return m_data.GetFloat("sim/cockpit2/electrical/dc_voltmeter_value");} }
+        public IXPDataRef<float> dc_voltmeter_value { get { return m_data.GetFloat("sim/cockpit2/electrical/dc_voltmeter_value");} }
 
         /// <summary>
         ///  Bus voltage for given bus - dim 4 until 1030
         /// </summary>
-        public IXPDataRef<float[]> Bus_volts { get { return m_data.GetFloatArray("sim/cockpit2/electrical/bus_volts");} }
+        public IXPDataRef<float[]> bus_volts { get { return m_data.GetFloatArray("sim/cockpit2/electrical/bus_volts");} }
 
         /// <summary>
         ///  Bus load in amps per bus - dim 4 until 1030
         /// </summary>
-        public IXPDataRef<float[]> Bus_load_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/bus_load_amps");} }
+        public IXPDataRef<float[]> bus_load_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/bus_load_amps");} }
 
         /// <summary>
         ///  Add additional load to this dataref to create additional custom bus loads.
         /// </summary>
-        public IXPDataRef<float[]> Plugin_bus_load_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/plugin_bus_load_amps");} }
+        public IXPDataRef<float[]> plugin_bus_load_amps { get { return m_data.GetFloatArray("sim/cockpit2/electrical/plugin_bus_load_amps");} }
 
         /// <summary>
         ///  This is the actual panel brightness, taking into account failures
         /// </summary>
-        public IXPDataRef<float[]> Panel_brightness_ratio { get { return m_data.GetFloatArray("sim/cockpit2/electrical/panel_brightness_ratio");} }
+        public IXPDataRef<float[]> panel_brightness_ratio { get { return m_data.GetFloatArray("sim/cockpit2/electrical/panel_brightness_ratio");} }
 
         /// <summary>
         ///  This is the actual panel brightness, taking into account failures
         /// </summary>
-        public IXPDataRef<float[]> Panel_brightness_ratio_auto { get { return m_data.GetFloatArray("sim/cockpit2/electrical/panel_brightness_ratio_auto");} }
+        public IXPDataRef<float[]> panel_brightness_ratio_auto { get { return m_data.GetFloatArray("sim/cockpit2/electrical/panel_brightness_ratio_auto");} }
 
         /// <summary>
         ///  This is the actual panel brightness, taking into account failures
         /// </summary>
-        public IXPDataRef<float[]> Panel_brightness_ratio_manual { get { return m_data.GetFloatArray("sim/cockpit2/electrical/panel_brightness_ratio_manual");} }
+        public IXPDataRef<float[]> panel_brightness_ratio_manual { get { return m_data.GetFloatArray("sim/cockpit2/electrical/panel_brightness_ratio_manual");} }
 
         /// <summary>
         ///  Actual instrument brightness, taking into account failures
         /// </summary>
-        public IXPDataRef<float[]> Instrument_brightness_ratio { get { return m_data.GetFloatArray("sim/cockpit2/electrical/instrument_brightness_ratio");} }
+        public IXPDataRef<float[]> instrument_brightness_ratio { get { return m_data.GetFloatArray("sim/cockpit2/electrical/instrument_brightness_ratio");} }
 
         /// <summary>
         ///  Actual instrument brightness, taking into account failures
         /// </summary>
-        public IXPDataRef<float[]> Instrument_brightness_ratio_auto { get { return m_data.GetFloatArray("sim/cockpit2/electrical/instrument_brightness_ratio_auto");} }
+        public IXPDataRef<float[]> instrument_brightness_ratio_auto { get { return m_data.GetFloatArray("sim/cockpit2/electrical/instrument_brightness_ratio_auto");} }
 
         /// <summary>
         ///  Actual instrument brightness, taking into account failures
         /// </summary>
-        public IXPDataRef<float[]> Instrument_brightness_ratio_manual { get { return m_data.GetFloatArray("sim/cockpit2/electrical/instrument_brightness_ratio_manual");} }
+        public IXPDataRef<float[]> instrument_brightness_ratio_manual { get { return m_data.GetFloatArray("sim/cockpit2/electrical/instrument_brightness_ratio_manual");} }
 
         /// <summary>
         ///  Actual HUD brightness, taking into account failures

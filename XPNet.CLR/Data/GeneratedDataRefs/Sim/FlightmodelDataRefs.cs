@@ -4,29 +4,29 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_FlightmodelDatarefs
+    public class sim_flightmodelDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_FlightmodelDatarefs(IXPlaneData data)
+        internal sim_flightmodelDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Controls = new Sim_Flightmodel_ControlsDatarefs(data);
-            Engine = new Sim_Flightmodel_EngineDatarefs(data);
-            Failures = new Sim_Flightmodel_FailuresDatarefs(data);
-            Forces = new Sim_Flightmodel_ForcesDatarefs(data);
-            Misc = new Sim_Flightmodel_MiscDatarefs(data);
-            Parts = new Sim_Flightmodel_PartsDatarefs(data);
-            Position = new Sim_Flightmodel_PositionDatarefs(data);
-            Weight = new Sim_Flightmodel_WeightDatarefs(data);
+            controls = new sim_flightmodel_controlsDatarefs(data);
+            engine = new sim_flightmodel_engineDatarefs(data);
+            failures = new sim_flightmodel_failuresDatarefs(data);
+            forces = new sim_flightmodel_forcesDatarefs(data);
+            misc = new sim_flightmodel_miscDatarefs(data);
+            parts = new sim_flightmodel_partsDatarefs(data);
+            position = new sim_flightmodel_positionDatarefs(data);
+            weight = new sim_flightmodel_weightDatarefs(data);
         }
-        public Sim_Flightmodel_ControlsDatarefs Controls { get; }
-        public Sim_Flightmodel_EngineDatarefs Engine { get; }
-        public Sim_Flightmodel_FailuresDatarefs Failures { get; }
-        public Sim_Flightmodel_ForcesDatarefs Forces { get; }
-        public Sim_Flightmodel_MiscDatarefs Misc { get; }
-        public Sim_Flightmodel_PartsDatarefs Parts { get; }
-        public Sim_Flightmodel_PositionDatarefs Position { get; }
-        public Sim_Flightmodel_WeightDatarefs Weight { get; }
+        public sim_flightmodel_controlsDatarefs controls { get; }
+        public sim_flightmodel_engineDatarefs engine { get; }
+        public sim_flightmodel_failuresDatarefs failures { get; }
+        public sim_flightmodel_forcesDatarefs forces { get; }
+        public sim_flightmodel_miscDatarefs misc { get; }
+        public sim_flightmodel_partsDatarefs parts { get; }
+        public sim_flightmodel_positionDatarefs position { get; }
+        public sim_flightmodel_weightDatarefs weight { get; }
     }
 }

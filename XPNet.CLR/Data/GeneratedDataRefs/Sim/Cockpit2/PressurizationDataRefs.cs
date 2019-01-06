@@ -4,17 +4,17 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2_PressurizationDatarefs
+    public class sim_cockpit2_pressurizationDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2_PressurizationDatarefs(IXPlaneData data)
+        internal sim_cockpit2_pressurizationDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Actuators = new Sim_Cockpit2_Pressurization_ActuatorsDatarefs(data);
-            Indicators = new Sim_Cockpit2_Pressurization_IndicatorsDatarefs(data);
+            actuators = new sim_cockpit2_pressurization_actuatorsDatarefs(data);
+            indicators = new sim_cockpit2_pressurization_indicatorsDatarefs(data);
         }
-        public Sim_Cockpit2_Pressurization_ActuatorsDatarefs Actuators { get; }
-        public Sim_Cockpit2_Pressurization_IndicatorsDatarefs Indicators { get; }
+        public sim_cockpit2_pressurization_actuatorsDatarefs actuators { get; }
+        public sim_cockpit2_pressurization_indicatorsDatarefs indicators { get; }
     }
 }

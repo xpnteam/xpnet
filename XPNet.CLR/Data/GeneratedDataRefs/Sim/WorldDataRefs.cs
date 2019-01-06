@@ -4,17 +4,17 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_WorldDatarefs
+    public class sim_worldDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_WorldDatarefs(IXPlaneData data)
+        internal sim_worldDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Boat = new Sim_World_BoatDatarefs(data);
-            Winch = new Sim_World_WinchDatarefs(data);
+            boat = new sim_world_boatDatarefs(data);
+            winch = new sim_world_winchDatarefs(data);
         }
-        public Sim_World_BoatDatarefs Boat { get; }
-        public Sim_World_WinchDatarefs Winch { get; }
+        public sim_world_boatDatarefs boat { get; }
+        public sim_world_winchDatarefs winch { get; }
     }
 }

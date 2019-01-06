@@ -4,30 +4,30 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_WeaponsDatarefs
+    public class sim_weaponsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_WeaponsDatarefs(IXPlaneData data)
+        internal sim_weaponsDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Shell = new Sim_Weapons_ShellDatarefs(data);
+            shell = new sim_weapons_shellDatarefs(data);
         }
-        public Sim_Weapons_ShellDatarefs Shell { get; }
+        public sim_weapons_shellDatarefs shell { get; }
 
         /// <summary>
         ///  Angle relative to the aircraft
         /// </summary>
-        public IXPDataRef<float[]> The { get { return m_data.GetFloatArray("sim/weapons/the");} }
+        public IXPDataRef<float[]> the { get { return m_data.GetFloatArray("sim/weapons/the");} }
 
         /// <summary>
         ///  Angle relative to the aircraft
         /// </summary>
-        public IXPDataRef<float[]> Psi { get { return m_data.GetFloatArray("sim/weapons/psi");} }
+        public IXPDataRef<float[]> psi { get { return m_data.GetFloatArray("sim/weapons/psi");} }
 
         /// <summary>
         ///  Angle relative to the aircraft
         /// </summary>
-        public IXPDataRef<float[]> Phi { get { return m_data.GetFloatArray("sim/weapons/phi");} }
+        public IXPDataRef<float[]> phi { get { return m_data.GetFloatArray("sim/weapons/phi");} }
     }
 }

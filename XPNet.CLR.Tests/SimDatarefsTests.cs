@@ -32,7 +32,7 @@ namespace XPNet.CLR.Tests
 
             //act
             //var result = target.Cockpit2
-            var result = target.Aircraft.View.Acf_tailnum;
+            var result = target.aircraft.view.acf_tailnum;
 
             //assert
             Assert.Equal(tailNum, result.Value);

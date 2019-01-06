@@ -4,15 +4,15 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2_TransmissionsDatarefs
+    public class sim_cockpit2_transmissionsDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2_TransmissionsDatarefs(IXPlaneData data)
+        internal sim_cockpit2_transmissionsDatarefs(IXPlaneData data)
         {
             m_data = data;
-            Indicators = new Sim_Cockpit2_Transmissions_IndicatorsDatarefs(data);
+            indicators = new sim_cockpit2_transmissions_indicatorsDatarefs(data);
         }
-        public Sim_Cockpit2_Transmissions_IndicatorsDatarefs Indicators { get; }
+        public sim_cockpit2_transmissions_indicatorsDatarefs indicators { get; }
     }
 }

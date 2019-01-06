@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Flightmodel_EngineDatarefs
+    public class sim_flightmodel_engineDatarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Flightmodel_EngineDatarefs(IXPlaneData data)
+        internal sim_flightmodel_engineDatarefs(IXPlaneData data)
         {
             m_data = data;
         }
@@ -59,7 +59,7 @@ namespace XPNet.Data
         public IXPDataRef<float[]> ENGN_EPR { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_epr");} }
 
         /// <summary>
-        ///  Fuel flow (per engine) in kg/Second
+        ///  Fuel flow (per engine) in kg/second
         /// </summary>
         public IXPDataRef<float[]> ENGN_FF_ { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_ff_");} }
 
@@ -139,7 +139,7 @@ namespace XPNet.Data
         public IXPDataRef<float[]> ENGN_crbice { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_crbice");} }
 
         /// <summary>
-        ///  Engine speed in radians/Second
+        ///  Engine speed in radians/second
         /// </summary>
         public IXPDataRef<float[]> ENGN_tacrad { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_tacrad");} }
 
@@ -149,7 +149,7 @@ namespace XPNet.Data
         public IXPDataRef<float[]> POINT_pitch_deg { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_pitch_deg");} }
 
         /// <summary>
-        ///  Prop speed in radians/Second
+        ///  Prop speed in radians/second
         /// </summary>
         public IXPDataRef<float[]> POINT_tacrad { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_tacrad");} }
 
@@ -169,18 +169,18 @@ namespace XPNet.Data
         public IXPDataRef<float[]> POINT_pitch_deg_use { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_pitch_deg_use");} }
 
         /// <summary>
-        ///  This is the angle of the prop or engine-fan as it rotates. You will see this value circulate 0 to 360 degrees over and over as the engine runs and the prop or fan turns.  Override with /Prop_disc/Override per engine!
+        ///  This is the angle of the prop or engine-fan as it rotates. You will see this value circulate 0 to 360 degrees over and over as the engine runs and the prop or fan turns.  Override with /prop_disc/override per engine!
         /// </summary>
         public IXPDataRef<float[]> POINT_prop_ang_deg { get { return m_data.GetFloatArray("sim/flightmodel/engine/point_prop_ang_deg");} }
 
         /// <summary>
         ///  Burner is on or off
         /// </summary>
-        public IXPDataRef<bool> Burner_enabled { get { return m_data.GetBool("sim/flightmodel/engine/burner_enabled");} }
+        public IXPDataRef<bool> burner_enabled { get { return m_data.GetBool("sim/flightmodel/engine/burner_enabled");} }
 
         /// <summary>
         ///  Burner is high or low
         /// </summary>
-        public IXPDataRef<bool> Burner_level { get { return m_data.GetBool("sim/flightmodel/engine/burner_level");} }
+        public IXPDataRef<bool> burner_level { get { return m_data.GetBool("sim/flightmodel/engine/burner_level");} }
     }
 }

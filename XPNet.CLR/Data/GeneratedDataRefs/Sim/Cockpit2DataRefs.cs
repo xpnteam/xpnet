@@ -4,51 +4,51 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class Sim_Cockpit2Datarefs
+    public class sim_cockpit2Datarefs
     {
         private readonly IXPlaneData m_data;
 
-        internal Sim_Cockpit2Datarefs(IXPlaneData data)
+        internal sim_cockpit2Datarefs(IXPlaneData data)
         {
             m_data = data;
-            Annunciators = new Sim_Cockpit2_AnnunciatorsDatarefs(data);
-            Autopilot = new Sim_Cockpit2_AutopilotDatarefs(data);
-            Camera = new Sim_Cockpit2_CameraDatarefs(data);
-            Clock_timer = new Sim_Cockpit2_Clock_timerDatarefs(data);
-            Controls = new Sim_Cockpit2_ControlsDatarefs(data);
-            EFIS = new Sim_Cockpit2_EFISDatarefs(data);
-            Electrical = new Sim_Cockpit2_ElectricalDatarefs(data);
-            Engine = new Sim_Cockpit2_EngineDatarefs(data);
-            Fuel = new Sim_Cockpit2_FuelDatarefs(data);
-            Gauges = new Sim_Cockpit2_GaugesDatarefs(data);
-            Hydraulics = new Sim_Cockpit2_HydraulicsDatarefs(data);
-            Ice = new Sim_Cockpit2_IceDatarefs(data);
-            Pressurization = new Sim_Cockpit2_PressurizationDatarefs(data);
-            Radios = new Sim_Cockpit2_RadiosDatarefs(data);
-            Switches = new Sim_Cockpit2_SwitchesDatarefs(data);
-            Tcas = new Sim_Cockpit2_TcasDatarefs(data);
-            Temperature = new Sim_Cockpit2_TemperatureDatarefs(data);
-            Transmissions = new Sim_Cockpit2_TransmissionsDatarefs(data);
-            Weapons = new Sim_Cockpit2_WeaponsDatarefs(data);
+            annunciators = new sim_cockpit2_annunciatorsDatarefs(data);
+            autopilot = new sim_cockpit2_autopilotDatarefs(data);
+            camera = new sim_cockpit2_cameraDatarefs(data);
+            clock_timer = new sim_cockpit2_clock_timerDatarefs(data);
+            controls = new sim_cockpit2_controlsDatarefs(data);
+            EFIS = new sim_cockpit2_EFISDatarefs(data);
+            electrical = new sim_cockpit2_electricalDatarefs(data);
+            engine = new sim_cockpit2_engineDatarefs(data);
+            fuel = new sim_cockpit2_fuelDatarefs(data);
+            gauges = new sim_cockpit2_gaugesDatarefs(data);
+            hydraulics = new sim_cockpit2_hydraulicsDatarefs(data);
+            ice = new sim_cockpit2_iceDatarefs(data);
+            pressurization = new sim_cockpit2_pressurizationDatarefs(data);
+            radios = new sim_cockpit2_radiosDatarefs(data);
+            switches = new sim_cockpit2_switchesDatarefs(data);
+            tcas = new sim_cockpit2_tcasDatarefs(data);
+            temperature = new sim_cockpit2_temperatureDatarefs(data);
+            transmissions = new sim_cockpit2_transmissionsDatarefs(data);
+            weapons = new sim_cockpit2_weaponsDatarefs(data);
         }
-        public Sim_Cockpit2_AnnunciatorsDatarefs Annunciators { get; }
-        public Sim_Cockpit2_AutopilotDatarefs Autopilot { get; }
-        public Sim_Cockpit2_CameraDatarefs Camera { get; }
-        public Sim_Cockpit2_Clock_timerDatarefs Clock_timer { get; }
-        public Sim_Cockpit2_ControlsDatarefs Controls { get; }
-        public Sim_Cockpit2_EFISDatarefs EFIS { get; }
-        public Sim_Cockpit2_ElectricalDatarefs Electrical { get; }
-        public Sim_Cockpit2_EngineDatarefs Engine { get; }
-        public Sim_Cockpit2_FuelDatarefs Fuel { get; }
-        public Sim_Cockpit2_GaugesDatarefs Gauges { get; }
-        public Sim_Cockpit2_HydraulicsDatarefs Hydraulics { get; }
-        public Sim_Cockpit2_IceDatarefs Ice { get; }
-        public Sim_Cockpit2_PressurizationDatarefs Pressurization { get; }
-        public Sim_Cockpit2_RadiosDatarefs Radios { get; }
-        public Sim_Cockpit2_SwitchesDatarefs Switches { get; }
-        public Sim_Cockpit2_TcasDatarefs Tcas { get; }
-        public Sim_Cockpit2_TemperatureDatarefs Temperature { get; }
-        public Sim_Cockpit2_TransmissionsDatarefs Transmissions { get; }
-        public Sim_Cockpit2_WeaponsDatarefs Weapons { get; }
+        public sim_cockpit2_annunciatorsDatarefs annunciators { get; }
+        public sim_cockpit2_autopilotDatarefs autopilot { get; }
+        public sim_cockpit2_cameraDatarefs camera { get; }
+        public sim_cockpit2_clock_timerDatarefs clock_timer { get; }
+        public sim_cockpit2_controlsDatarefs controls { get; }
+        public sim_cockpit2_EFISDatarefs EFIS { get; }
+        public sim_cockpit2_electricalDatarefs electrical { get; }
+        public sim_cockpit2_engineDatarefs engine { get; }
+        public sim_cockpit2_fuelDatarefs fuel { get; }
+        public sim_cockpit2_gaugesDatarefs gauges { get; }
+        public sim_cockpit2_hydraulicsDatarefs hydraulics { get; }
+        public sim_cockpit2_iceDatarefs ice { get; }
+        public sim_cockpit2_pressurizationDatarefs pressurization { get; }
+        public sim_cockpit2_radiosDatarefs radios { get; }
+        public sim_cockpit2_switchesDatarefs switches { get; }
+        public sim_cockpit2_tcasDatarefs tcas { get; }
+        public sim_cockpit2_temperatureDatarefs temperature { get; }
+        public sim_cockpit2_transmissionsDatarefs transmissions { get; }
+        public sim_cockpit2_weaponsDatarefs weapons { get; }
     }
 }
