@@ -24,6 +24,11 @@ namespace XPNet.Data
         public IXPDataRef<float> acf_max_press_diff { get { return m_data.GetFloat("sim/aircraft/overflow/acf_max_press_diff");} }
 
         /// <summary>
+        ///  number fuel tanks - as of 860, all planes have 9 tanks and ratios for each - ratio of 0.0 means tank is not used
+        /// </summary>
+        public IXPDataRef<int> acf_num_tanks { get { return m_data.GetInt("sim/aircraft/overflow/acf_num_tanks");} }
+
+        /// <summary>
         ///  auto-trim out any flight loads... numerous planes have this.
         /// </summary>
         public IXPDataRef<bool> acf_auto_trimEQ { get { return m_data.GetBool("sim/aircraft/overflow/acf_auto_trimeq");} }

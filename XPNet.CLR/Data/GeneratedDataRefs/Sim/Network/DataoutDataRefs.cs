@@ -14,6 +14,11 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  Rate to send data over UDP at
+        /// </summary>
+        public IXPDataRef<int> network_data_rate { get { return m_data.GetInt("sim/network/dataout/network_data_rate");} }
+
+        /// <summary>
         ///  Enable data output of this data ref to internet
         /// </summary>
         public IXPDataRef<bool[]> data_to_internet { get { return m_data.GetBoolArray("sim/network/dataout/data_to_internet");} }
@@ -62,6 +67,16 @@ namespace XPNet.Data
         ///  Is this machine running in instructor-station mode?
         /// </summary>
         public IXPDataRef<bool> is_instructor_station { get { return m_data.GetBool("sim/network/dataout/is_instructor_station");} }
+
+        /// <summary>
+        ///  IP addresses of multiplayer players (or 0 if not in used in v10)
+        /// </summary>
+        public IXPDataRef<int[]> multiplayer_ip { get { return m_data.GetIntArray("sim/network/dataout/multiplayer_ip");} }
+
+        /// <summary>
+        ///  IP addresses of external visuals (or 0 if not in use in v10).  Dim 8 in v9.
+        /// </summary>
+        public IXPDataRef<int[]> external_visual_ip { get { return m_data.GetIntArray("sim/network/dataout/external_visual_ip");} }
 
         /// <summary>
         ///  True if this remote visual tracks the master's view changes

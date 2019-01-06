@@ -56,6 +56,11 @@ namespace XPNet.Data
         public IXPDataRef<bool> text_out { get { return m_data.GetBool("sim/operation/prefs/text_out");} }
 
         /// <summary>
+        ///  Are we in replay mode?
+        /// </summary>
+        public IXPDataRef<int> replay_mode { get { return m_data.GetInt("sim/operation/prefs/replay_mode");} }
+
+        /// <summary>
         ///  Controls whether the AI controls the user's plane
         /// </summary>
         public IXPDataRef<bool> ai_flies_aircraft { get { return m_data.GetBool("sim/operation/prefs/ai_flies_aircraft");} }

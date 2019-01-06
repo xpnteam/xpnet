@@ -164,6 +164,16 @@ namespace XPNet.Data
         public IXPDataRef<float> joystick_heading_sensitivity { get { return m_data.GetFloat("sim/joystick/joystick_heading_sensitivity");} }
 
         /// <summary>
+        ///  Assignments for the joystick axes - what does X-Plane think each one is? [Was 15 before 850][Was 24 before 860][was 32 before 900]
+        /// </summary>
+        public IXPDataRef<int[]> joystick_axis_assignments { get { return m_data.GetIntArray("sim/joystick/joystick_axis_assignments");} }
+
+        /// <summary>
+        ///  Assignments for the joystick buttons - what does each one do? [Was 64 before 850][was 160 before 900]
+        /// </summary>
+        public IXPDataRef<int[]> joystick_button_assignments { get { return m_data.GetIntArray("sim/joystick/joystick_button_assignments");} }
+
+        /// <summary>
         ///  Reverse this axis? [Was 15 before 850][Was 24 before 860][was 32 before 900]
         /// </summary>
         public IXPDataRef<bool[]> joystick_axis_reverse { get { return m_data.GetBoolArray("sim/joystick/joystick_axis_reverse");} }

@@ -14,6 +14,76 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  The current frequency of the nav1 radio.
+        /// </summary>
+        public IXPDataRef<int> nav1_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/nav1_freq_hz");} }
+
+        /// <summary>
+        ///  The current frequency of the nav2 radio.
+        /// </summary>
+        public IXPDataRef<int> nav2_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/nav2_freq_hz");} }
+
+        /// <summary>
+        ///  The current frequency of the copm1 radio.
+        /// </summary>
+        public IXPDataRef<int> com1_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/com1_freq_hz");} }
+
+        /// <summary>
+        ///  The current frequency of the com2 radio.
+        /// </summary>
+        public IXPDataRef<int> com2_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/com2_freq_hz");} }
+
+        /// <summary>
+        ///  The current frequency of the first automatic direction finder.
+        /// </summary>
+        public IXPDataRef<int> adf1_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/adf1_freq_hz");} }
+
+        /// <summary>
+        ///  The current frequency of the second automatic direction finder.
+        /// </summary>
+        public IXPDataRef<int> adf2_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/adf2_freq_hz");} }
+
+        /// <summary>
+        ///  The current frequency of the standalone DME receiver.
+        /// </summary>
+        public IXPDataRef<int> dme_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/dme_freq_hz");} }
+
+        /// <summary>
+        ///  The standby frequency for the radio mentioned above for flip/flop radios.
+        /// </summary>
+        public IXPDataRef<int> nav1_stdby_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/nav1_stdby_freq_hz");} }
+
+        /// <summary>
+        ///  The standby frequency for the radio mentioned above for flip/flop radios.
+        /// </summary>
+        public IXPDataRef<int> nav2_stdby_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/nav2_stdby_freq_hz");} }
+
+        /// <summary>
+        ///  The standby frequency for the radio mentioned above for flip/flop radios.
+        /// </summary>
+        public IXPDataRef<int> com1_stdby_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/com1_stdby_freq_hz");} }
+
+        /// <summary>
+        ///  The standby frequency for the radio mentioned above for flip/flop radios.
+        /// </summary>
+        public IXPDataRef<int> com2_stdby_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/com2_stdby_freq_hz");} }
+
+        /// <summary>
+        ///  The standby frequency for the radio mentioned above for flip/flop radios.
+        /// </summary>
+        public IXPDataRef<int> adf1_stdby_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/adf1_stdby_freq_hz");} }
+
+        /// <summary>
+        ///  The standby frequency for the radio mentioned above for flip/flop radios.
+        /// </summary>
+        public IXPDataRef<int> adf2_stdby_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/adf2_stdby_freq_hz");} }
+
+        /// <summary>
+        ///  The standby frequency for the radio mentioned above for flip/flop radios.<p>NOTE: X-Plane does not currently feature a flip-flop standalone DME instrument, but the data exists.
+        /// </summary>
+        public IXPDataRef<int> dme_stdby_freq_hz { get { return m_data.GetInt("sim/cockpit/radios/dme_stdby_freq_hz");} }
+
+        /// <summary>
         ///  The 'obs' heading programmed into VOR and HSI gauges that follow nav radio 1. (true: legacy)
         /// </summary>
         public IXPDataRef<float> nav1_obs_degt { get { return m_data.GetFloat("sim/cockpit/radios/nav1_obs_degt");} }
@@ -157,6 +227,46 @@ namespace XPNet.Data
         ///  The deflection from the aircraft to the tuned in glide slope in dots on an ILS gauge - copilot. override_gps
         /// </summary>
         public IXPDataRef<float> gps2_vdef_dot2 { get { return m_data.GetFloat("sim/cockpit/radios/gps2_vdef_dot2");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav1 beacon - pilot.
+        /// </summary>
+        public IXPDataRef<int> nav1_fromto { get { return m_data.GetInt("sim/cockpit/radios/nav1_fromto");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav1 beacon - copilot.
+        /// </summary>
+        public IXPDataRef<int> nav1_fromto2 { get { return m_data.GetInt("sim/cockpit/radios/nav1_fromto2");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav2 beacon - pilot.
+        /// </summary>
+        public IXPDataRef<int> nav2_fromto { get { return m_data.GetInt("sim/cockpit/radios/nav2_fromto");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav2 beacon - copilot.
+        /// </summary>
+        public IXPDataRef<int> nav2_fromto2 { get { return m_data.GetInt("sim/cockpit/radios/nav2_fromto2");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav2 beacon - pilot.
+        /// </summary>
+        public IXPDataRef<int> gps_fromto { get { return m_data.GetInt("sim/cockpit/radios/gps_fromto");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav2 beacon - copilot.
+        /// </summary>
+        public IXPDataRef<int> gps_fromto2 { get { return m_data.GetInt("sim/cockpit/radios/gps_fromto2");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav2 beacon - pilot.
+        /// </summary>
+        public IXPDataRef<int> gps2_fromto { get { return m_data.GetInt("sim/cockpit/radios/gps2_fromto");} }
+
+        /// <summary>
+        ///  Whether we are heading to or from (or over) our nav2 beacon - copilot.
+        /// </summary>
+        public IXPDataRef<int> gps2_fromto2 { get { return m_data.GetInt("sim/cockpit/radios/gps2_fromto2");} }
 
         /// <summary>
         ///  Are we receiving an expected glide slope for nav1
@@ -334,6 +444,11 @@ namespace XPNet.Data
         public IXPDataRef<float> gps2_slope_degt { get { return m_data.GetFloat("sim/cockpit/radios/gps2_slope_degt");} }
 
         /// <summary>
+        ///  Our transponder code.
+        /// </summary>
+        public IXPDataRef<int> transponder_code { get { return m_data.GetInt("sim/cockpit/radios/transponder_code");} }
+
+        /// <summary>
         ///  Whether we are squawking ident right now.
         /// </summary>
         public IXPDataRef<bool> transponder_id { get { return m_data.GetBool("sim/cockpit/radios/transponder_id");} }
@@ -342,6 +457,11 @@ namespace XPNet.Data
         ///  Transponder light brightness ratio from 0 to 1
         /// </summary>
         public IXPDataRef<float> transponder_brightness { get { return m_data.GetFloat("sim/cockpit/radios/transponder_brightness");} }
+
+        /// <summary>
+        ///  Transponder mode (off=0,stdby=1,on=2,test=3)
+        /// </summary>
+        public IXPDataRef<int> transponder_mode { get { return m_data.GetInt("sim/cockpit/radios/transponder_mode");} }
 
         /// <summary>
         ///  Magnetic heading of the compass card for VOR 1 - pilot.
@@ -407,5 +527,30 @@ namespace XPNet.Data
         ///  Does this adf aid have DME?  Use override_dme to set
         /// </summary>
         public IXPDataRef<bool> dme5_has_dme { get { return m_data.GetBool("sim/cockpit/radios/dme5_has_dme");} }
+
+        /// <summary>
+        ///  Type of NAVAID that is tuned in.
+        /// </summary>
+        public IXPDataRef<int[]> nav_type { get { return m_data.GetIntArray("sim/cockpit/radios/nav_type");} }
+
+        /// <summary>
+        ///  autopilot source 0 is pilot, 1 is copilot
+        /// </summary>
+        public IXPDataRef<int> ap_src { get { return m_data.GetInt("sim/cockpit/radios/ap_src");} }
+
+        /// <summary>
+        ///  for a multifunction receiver...0-5 for nav1,nav2,com1,com2,adf1,adf2.
+        /// </summary>
+        public IXPDataRef<int> nav_com_adf_mode { get { return m_data.GetInt("sim/cockpit/radios/nav_com_adf_mode");} }
+
+        /// <summary>
+        ///  does the GPS 1 provide vertical guidance?  Write with override_gps
+        /// </summary>
+        public IXPDataRef<int> gps_has_glideslope { get { return m_data.GetInt("sim/cockpit/radios/gps_has_glideslope");} }
+
+        /// <summary>
+        ///  does the GPS 2 provide vertical guidance?  Write with override_gps
+        /// </summary>
+        public IXPDataRef<int> gps2_has_glideslope { get { return m_data.GetInt("sim/cockpit/radios/gps2_has_glideslope");} }
     }
 }

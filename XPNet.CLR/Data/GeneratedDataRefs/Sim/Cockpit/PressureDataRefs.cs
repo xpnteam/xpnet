@@ -19,6 +19,11 @@ namespace XPNet.Data
         public IXPDataRef<bool> bleed_air_on { get { return m_data.GetBool("sim/cockpit/pressure/bleed_air_on");} }
 
         /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> bleed_air_mode { get { return m_data.GetInt("sim/cockpit/pressure/bleed_air_mode");} }
+
+        /// <summary>
         ///  Pressure dump switch
         /// </summary>
         public IXPDataRef<bool> dump_all { get { return m_data.GetBool("sim/cockpit/pressure/dump_all");} }

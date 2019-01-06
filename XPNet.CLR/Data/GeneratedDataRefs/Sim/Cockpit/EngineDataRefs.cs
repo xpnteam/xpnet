@@ -39,6 +39,11 @@ namespace XPNet.Data
         public IXPDataRef<bool[]> idle_speed { get { return m_data.GetBoolArray("sim/cockpit/engine/idle_speed");} }
 
         /// <summary>
+        ///  ignition key position 0 = off, 1 = left, 2 = right, 3 = both
+        /// </summary>
+        public IXPDataRef<int[]> ignition_on { get { return m_data.GetIntArray("sim/cockpit/engine/ignition_on");} }
+
+        /// <summary>
         ///  starter ignition
         /// </summary>
         public IXPDataRef<bool[]> igniters_on { get { return m_data.GetBoolArray("sim/cockpit/engine/igniters_on");} }
@@ -47,6 +52,11 @@ namespace XPNet.Data
         ///  time since ignition was pressed or something
         /// </summary>
         public IXPDataRef<float[]> starter_duration { get { return m_data.GetFloatArray("sim/cockpit/engine/starter_duration");} }
+
+        /// <summary>
+        ///  APU starter switch 0 = off, 1 = on, 2 = start
+        /// </summary>
+        public IXPDataRef<int> APU_switch { get { return m_data.GetInt("sim/cockpit/engine/apu_switch");} }
 
         /// <summary>
         ///  APU running - 1 = on, 0 = off.

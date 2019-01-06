@@ -22,5 +22,15 @@ namespace XPNet.Data
         ///  This string contains the date and time that the XPLM DLL was built.
         /// </summary>
         public IXPDataRef<string> xplm_build_string { get { return m_data.GetString("sim/version/xplm_build_string");} }
+
+        /// <summary>
+        ///  This is the internal build number - it is a unique integer that always increases and is unique with each beta.  For example, 10.51b5 might be 105105.  There is no guarantee that the build numbe (last 2 digits) are in sync with the official beta number.
+        /// </summary>
+        public IXPDataRef<int> xplanee_internal_version { get { return m_data.GetInt("sim/version/xplanee_internal_version");} }
+
+        /// <summary>
+        ///  This is the internal build number - it is a unique integer that always increases and is unique with each beta.  For example, 10.51b5 might be 105105.  There is no guarantee that the build numbe (last 2 digits) are in sync with the official beta number.
+        /// </summary>
+        public IXPDataRef<int> xplane_internal_version { get { return m_data.GetInt("sim/version/xplane_internal_version");} }
     }
 }

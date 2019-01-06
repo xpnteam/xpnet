@@ -14,6 +14,11 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  Texture Rendering Level
+        /// </summary>
+        public IXPDataRef<int> rendering_res { get { return m_data.GetInt("sim/graphics/settings/rendering_res");} }
+
+        /// <summary>
         ///  dim under high g-load?
         /// </summary>
         public IXPDataRef<bool> dim_gload { get { return m_data.GetBool("sim/graphics/settings/dim_gload");} }

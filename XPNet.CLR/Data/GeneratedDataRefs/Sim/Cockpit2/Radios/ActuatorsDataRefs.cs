@@ -39,6 +39,16 @@ namespace XPNet.Data
         public IXPDataRef<bool> com2_power { get { return m_data.GetBool("sim/cockpit2/radios/actuators/com2_power");} }
 
         /// <summary>
+        ///  ADF radio 1 off or on, 0 = off, 1 = antenna, 2 = on, 3 = tone, 4 = test
+        /// </summary>
+        public IXPDataRef<int> adf1_power { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf1_power");} }
+
+        /// <summary>
+        ///  ADF radio 2 off or on, 0 = off, 1 = antenna, 2 = on, 3 = tone, 4 = test
+        /// </summary>
+        public IXPDataRef<int> adf2_power { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf2_power");} }
+
+        /// <summary>
         ///  GPS 1 off or on, 0 or 1.
         /// </summary>
         public IXPDataRef<bool> gps_power { get { return m_data.GetBool("sim/cockpit2/radios/actuators/gps_power");} }
@@ -52,6 +62,206 @@ namespace XPNet.Data
         ///  DME radio 1 off or on, 0 or 1.
         /// </summary>
         public IXPDataRef<bool> dme_power { get { return m_data.GetBool("sim/cockpit2/radios/actuators/dme_power");} }
+
+        /// <summary>
+        ///  Nav radio 1 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav1_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_frequency_hz");} }
+
+        /// <summary>
+        ///  Nav radio 1 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> nav1_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_frequency_mhz");} }
+
+        /// <summary>
+        ///  Nav radio 1 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> nav1_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_frequency_khz");} }
+
+        /// <summary>
+        ///  Nav radio 2 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav2_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_frequency_hz");} }
+
+        /// <summary>
+        ///  Nav radio 2 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> nav2_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_frequency_mhz");} }
+
+        /// <summary>
+        ///  Nav radio 2 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> nav2_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_frequency_khz");} }
+
+        /// <summary>
+        ///  Nav radio N frequency, hz
+        /// </summary>
+        public IXPDataRef<int[]> nav_frequency_hz { get { return m_data.GetIntArray("sim/cockpit2/radios/actuators/nav_frequency_hz");} }
+
+        /// <summary>
+        ///  Nav radio N frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int[]> nav_frequency_Mhz { get { return m_data.GetIntArray("sim/cockpit2/radios/actuators/nav_frequency_mhz");} }
+
+        /// <summary>
+        ///  Nav radio N frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int[]> nav_frequency_khz { get { return m_data.GetIntArray("sim/cockpit2/radios/actuators/nav_frequency_khz");} }
+
+        /// <summary>
+        ///  Com radio 1 frequency, 10 hz
+        /// </summary>
+        public IXPDataRef<int> com1_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_frequency_hz");} }
+
+        /// <summary>
+        ///  Com radio 1 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> com1_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_frequency_mhz");} }
+
+        /// <summary>
+        ///  Com radio 1 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> com1_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_frequency_khz");} }
+
+        /// <summary>
+        ///  Com radio 1 frequency, hz, supports 8.3 khz spacing
+        /// </summary>
+        public IXPDataRef<int> com1_frequency_hz_833 { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_frequency_hz_833");} }
+
+        /// <summary>
+        ///  Com radio 2 frequency, 10 hz
+        /// </summary>
+        public IXPDataRef<int> com2_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_frequency_hz");} }
+
+        /// <summary>
+        ///  Com radio 2 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> com2_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_frequency_mhz");} }
+
+        /// <summary>
+        ///  Com radio 2 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> com2_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_frequency_khz");} }
+
+        /// <summary>
+        ///  Com radio 2 frequency, hz, supports 8.3 khz spacing
+        /// </summary>
+        public IXPDataRef<int> com2_frequency_hz_833 { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_frequency_hz_833");} }
+
+        /// <summary>
+        ///  ADF radio 1 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf1_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf1_frequency_hz");} }
+
+        /// <summary>
+        ///  ADF radio 2 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf2_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf2_frequency_hz");} }
+
+        /// <summary>
+        ///  DME radio frequency, hz
+        /// </summary>
+        public IXPDataRef<int> dme_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/dme_frequency_hz");} }
+
+        /// <summary>
+        ///  Nav radio 1 standby frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav1_standby_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_standby_frequency_hz");} }
+
+        /// <summary>
+        ///  Standby Nav radio 1 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> nav1_standby_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_standby_frequency_mhz");} }
+
+        /// <summary>
+        ///  Standby Nav radio 1 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> nav1_standby_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_standby_frequency_khz");} }
+
+        /// <summary>
+        ///  Nav radio 2 standby frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav2_standby_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_standby_frequency_hz");} }
+
+        /// <summary>
+        ///  Standby Nav radio 2 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> nav2_standby_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_standby_frequency_mhz");} }
+
+        /// <summary>
+        ///  Standby Nav radio 2 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> nav2_standby_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_standby_frequency_khz");} }
+
+        /// <summary>
+        ///  Nav radio N standby frequency, hz
+        /// </summary>
+        public IXPDataRef<int[]> nav_standby_frequency_hz { get { return m_data.GetIntArray("sim/cockpit2/radios/actuators/nav_standby_frequency_hz");} }
+
+        /// <summary>
+        ///  Standby Nav radio N frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int[]> nav_standby_frequency_Mhz { get { return m_data.GetIntArray("sim/cockpit2/radios/actuators/nav_standby_frequency_mhz");} }
+
+        /// <summary>
+        ///  Standby Nav radio N frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int[]> nav_standby_frequency_khz { get { return m_data.GetIntArray("sim/cockpit2/radios/actuators/nav_standby_frequency_khz");} }
+
+        /// <summary>
+        ///  Com radio 1 standby frequency, 10 hz
+        /// </summary>
+        public IXPDataRef<int> com1_standby_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_standby_frequency_hz");} }
+
+        /// <summary>
+        ///  Standby Com radio 1 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> com1_standby_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_standby_frequency_mhz");} }
+
+        /// <summary>
+        ///  Standby Com radio 1 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> com1_standby_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_standby_frequency_khz");} }
+
+        /// <summary>
+        ///  Com radio 1 standby frequency, hz, supports 8.3 khz spacing
+        /// </summary>
+        public IXPDataRef<int> com1_standby_frequency_hz_833 { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_standby_frequency_hz_833");} }
+
+        /// <summary>
+        ///  Com radio 2 standby frequency, 10 hz
+        /// </summary>
+        public IXPDataRef<int> com2_standby_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_standby_frequency_hz");} }
+
+        /// <summary>
+        ///  Standby Com radio 2 frequency, Mhz component only
+        /// </summary>
+        public IXPDataRef<int> com2_standby_frequency_Mhz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_standby_frequency_mhz");} }
+
+        /// <summary>
+        ///  Standby com radio 2 frequency, khz component only
+        /// </summary>
+        public IXPDataRef<int> com2_standby_frequency_khz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_standby_frequency_khz");} }
+
+        /// <summary>
+        ///  Com radio 2 standby frequency, hz, supports 8.3 khz spacing
+        /// </summary>
+        public IXPDataRef<int> com2_standby_frequency_hz_833 { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_standby_frequency_hz_833");} }
+
+        /// <summary>
+        ///  ADF radio 1 standby frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf1_standby_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf1_standby_frequency_hz");} }
+
+        /// <summary>
+        ///  ADF radio 2 standby frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf2_standby_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf2_standby_frequency_hz");} }
+
+        /// <summary>
+        ///  DME radio standby frequency, hz
+        /// </summary>
+        public IXPDataRef<int> dme_standby_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/dme_standby_frequency_hz");} }
 
         /// <summary>
         ///  OBS 1 (pilot side) selection, in degrees magnetic.
@@ -132,6 +342,81 @@ namespace XPNet.Data
         ///  Selected course based on navN, copilot, degrees magnetic.  This is OBS for VORs, or localizer heading for ILS
         /// </summary>
         public IXPDataRef<float[]> nav_course_deg_mag_copilot { get { return m_data.GetFloatArray("sim/cockpit2/radios/actuators/nav_course_deg_mag_copilot");} }
+
+        /// <summary>
+        ///  HSI source to display: 0 for Nav1, 1 for Nav2, 2 for GPS.
+        /// </summary>
+        public IXPDataRef<int> HSI_source_select_pilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/hsi_source_select_pilot");} }
+
+        /// <summary>
+        ///  HSI source to display: 0 for Nav1, 1 for Nav2, 2 for GPS.
+        /// </summary>
+        public IXPDataRef<int> HSI_source_select_copilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/hsi_source_select_copilot");} }
+
+        /// <summary>
+        ///  RMI source to display: 0 for Nav1, 1 for Nav2, 2 for GPS.
+        /// </summary>
+        public IXPDataRef<int> RMI_source_select_pilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/rmi_source_select_pilot");} }
+
+        /// <summary>
+        ///  RMI source to display: 0 for Nav1, 1 for Nav2, 2 for GPS.
+        /// </summary>
+        public IXPDataRef<int> RMI_source_select_copilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/rmi_source_select_copilot");} }
+
+        /// <summary>
+        ///  RMI is taking ADF (1) or VOR (0).
+        /// </summary>
+        public IXPDataRef<int> RMI_left_use_adf_pilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/rmi_left_use_adf_pilot");} }
+
+        /// <summary>
+        ///  RMI is taking ADF (1) or VOR (0).
+        /// </summary>
+        public IXPDataRef<int> RMI_left_use_adf_copilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/rmi_left_use_adf_copilot");} }
+
+        /// <summary>
+        ///  RMI is taking ADF (1) or VOR (0).
+        /// </summary>
+        public IXPDataRef<int> RMI_right_use_adf_pilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/rmi_right_use_adf_pilot");} }
+
+        /// <summary>
+        ///  RMI is taking ADF (1) or VOR (0).
+        /// </summary>
+        public IXPDataRef<int> RMI_right_use_adf_copilot { get { return m_data.GetInt("sim/cockpit2/radios/actuators/rmi_right_use_adf_copilot");} }
+
+        /// <summary>
+        ///  DME display mode, where 0 is remote, 1 is frequency, and 2 is groundspeed-time.
+        /// </summary>
+        public IXPDataRef<int> DME_mode { get { return m_data.GetInt("sim/cockpit2/radios/actuators/dme_mode");} }
+
+        /// <summary>
+        ///  DME display selection of what NAV radio to display. 0 for Nav1, 1for Nav2.
+        /// </summary>
+        public IXPDataRef<int> DME_slave_source { get { return m_data.GetInt("sim/cockpit2/radios/actuators/dme_slave_source");} }
+
+        /// <summary>
+        ///  Frequency-to-change selection for the all-in-one radio, 0->5 are Nav1, Nav2, Com1, Com2, ADF1, ADF2.
+        /// </summary>
+        public IXPDataRef<int> nav_com_adf_mode { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav_com_adf_mode");} }
+
+        /// <summary>
+        ///  Current Transponder code (0000-7777)
+        /// </summary>
+        public IXPDataRef<int> transponder_code { get { return m_data.GetInt("sim/cockpit2/radios/actuators/transponder_code");} }
+
+        /// <summary>
+        ///  Transponder mode (off=0,stdby=1,on=2,test=3)
+        /// </summary>
+        public IXPDataRef<int> transponder_mode { get { return m_data.GetInt("sim/cockpit2/radios/actuators/transponder_mode");} }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> audio_com_selection { get { return m_data.GetInt("sim/cockpit2/radios/actuators/audio_com_selection");} }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> audio_nav_selection { get { return m_data.GetInt("sim/cockpit2/radios/actuators/audio_nav_selection");} }
 
         /// <summary>
         ///  is com1 selected for listening
@@ -222,6 +507,86 @@ namespace XPNet.Data
         ///  HSI OBS (copilot side) selection, in degrees magnetic.
         /// </summary>
         public IXPDataRef<float> hsi_obs_deg_mag_copilot { get { return m_data.GetFloat("sim/cockpit2/radios/actuators/hsi_obs_deg_mag_copilot");} }
+
+        /// <summary>
+        ///  Left Nav radio 1 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav1_left_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_left_frequency_hz");} }
+
+        /// <summary>
+        ///  Left Nav radio 2 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav2_left_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_left_frequency_hz");} }
+
+        /// <summary>
+        ///  Left Com radio 1 frequency, 10 hz
+        /// </summary>
+        public IXPDataRef<int> com1_left_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_left_frequency_hz");} }
+
+        /// <summary>
+        ///  Left Nav radio 1 frequency, hz, supports 8.3 khz spacing
+        /// </summary>
+        public IXPDataRef<int> com1_left_frequency_hz_833 { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_left_frequency_hz_833");} }
+
+        /// <summary>
+        ///  Left Com radio 2 frequency, 10 hz
+        /// </summary>
+        public IXPDataRef<int> com2_left_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_left_frequency_hz");} }
+
+        /// <summary>
+        ///  Left Nav radio 2 frequency, hz, supports 8.3 khz spacing
+        /// </summary>
+        public IXPDataRef<int> com2_left_frequency_hz_833 { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_left_frequency_hz_833");} }
+
+        /// <summary>
+        ///  Left ADF radio 1 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf1_left_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf1_left_frequency_hz");} }
+
+        /// <summary>
+        ///  Left ADF radio 2 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf2_left_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf2_left_frequency_hz");} }
+
+        /// <summary>
+        ///  Left DME radio frequency, hz
+        /// </summary>
+        public IXPDataRef<int> dme_left_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/dme_left_frequency_hz");} }
+
+        /// <summary>
+        ///  Right Nav radio 1 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav1_right_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav1_right_frequency_hz");} }
+
+        /// <summary>
+        ///  Right Nav radio 2 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> nav2_right_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/nav2_right_frequency_hz");} }
+
+        /// <summary>
+        ///  Right Com radio 1 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> com1_right_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com1_right_frequency_hz");} }
+
+        /// <summary>
+        ///  Right Com radio 2 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> com2_right_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/com2_right_frequency_hz");} }
+
+        /// <summary>
+        ///  Right ADF radio 1 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf1_right_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf1_right_frequency_hz");} }
+
+        /// <summary>
+        ///  Right ADF radio 2 frequency, hz
+        /// </summary>
+        public IXPDataRef<int> adf2_right_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/adf2_right_frequency_hz");} }
+
+        /// <summary>
+        ///  Right DME radio frequency, hz
+        /// </summary>
+        public IXPDataRef<int> dme_right_frequency_hz { get { return m_data.GetInt("sim/cockpit2/radios/actuators/dme_right_frequency_hz");} }
 
         /// <summary>
         ///  1 if right nav 1 radio is selected, 0 if left is selected

@@ -14,6 +14,21 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  The location of the plane in OpenGL coordinates
+        /// </summary>
+        public IXPDataRef<double> local_x { get { return m_data.GetDouble("sim/flightmodel/position/local_x");} }
+
+        /// <summary>
+        ///  The location of the plane in OpenGL coordinates
+        /// </summary>
+        public IXPDataRef<double> local_y { get { return m_data.GetDouble("sim/flightmodel/position/local_y");} }
+
+        /// <summary>
+        ///  The location of the plane in OpenGL coordinates
+        /// </summary>
+        public IXPDataRef<double> local_z { get { return m_data.GetDouble("sim/flightmodel/position/local_z");} }
+
+        /// <summary>
         ///  The latitude of the point 0,0,0 in OpenGL coordinates (Writing NOT recommended!!)
         /// </summary>
         public IXPDataRef<float> lat_ref { get { return m_data.GetFloat("sim/flightmodel/position/lat_ref");} }
@@ -22,6 +37,21 @@ namespace XPNet.Data
         ///  The longitude of the point 0,0,0 in OpenGL coordinates.
         /// </summary>
         public IXPDataRef<float> lon_ref { get { return m_data.GetFloat("sim/flightmodel/position/lon_ref");} }
+
+        /// <summary>
+        ///  The latitude of the aircraft
+        /// </summary>
+        public IXPDataRef<double> latitude { get { return m_data.GetDouble("sim/flightmodel/position/latitude");} }
+
+        /// <summary>
+        ///  The longitude of the aircraft
+        /// </summary>
+        public IXPDataRef<double> longitude { get { return m_data.GetDouble("sim/flightmodel/position/longitude");} }
+
+        /// <summary>
+        ///  The elevation above MSL of the aircraft
+        /// </summary>
+        public IXPDataRef<double> elevation { get { return m_data.GetDouble("sim/flightmodel/position/elevation");} }
 
         /// <summary>
         ///  The pitch relative to the plane normal to the Y axis in degrees - OpenGL coordinates

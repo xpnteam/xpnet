@@ -83,6 +83,9 @@ namespace XPNet.CLR.CodeGen
                         if (m.Units.Equals("string", StringComparison.OrdinalIgnoreCase))
                             return  CreateDataProperty<string>(m);
 
+                        if (m.Units.StartsWith("string[", StringComparison.OrdinalIgnoreCase))
+                            return  CreateDataProperty<string[]>(m);
+
                         if ((m.Units.Equals("bool") || m.Units.Equals("boolean")) && m.Type.Contains("int["))
                             return  CreateDataProperty<bool[]>(m);
 
@@ -95,6 +98,19 @@ namespace XPNet.CLR.CodeGen
                         if (m.Type.StartsWith("float[", StringComparison.OrdinalIgnoreCase))
                             return CreateDataProperty<float[]>(m);
 
+                        if (!m.Units.Contains("bool") && m.Type.Equals("int"))
+                            return  CreateDataProperty<int>(m);
+
+                        if (!m.Units.Contains("bool") && m.Type.Contains("int["))
+                            return  CreateDataProperty<int[]>(m);
+
+                        if (m.Type.Equals("double", StringComparison.OrdinalIgnoreCase))
+                            return  CreateDataProperty<double>(m);
+
+                        if (m.Units.Equals("index", StringComparison.OrdinalIgnoreCase) && m.Type.StartsWith("byte["))
+                            return  CreateDataProperty<string[]>(m);
+
+                        throw new Exception($"Unhandled type: {m.Type}, Units={m.Units}");
                         return result;
                     })
                 ));
@@ -123,6 +139,10 @@ namespace XPNet.CLR.CodeGen
             {"Single", new TypeData("float", "GetFloat")},
             {"Single[]", new TypeData("float[]", "GetFloatArray")},
             {"String", new TypeData("string", "GetString")},
+            {"String[]", new TypeData("byte[]", "GetByteArray")},
+            {"Int32", new TypeData("int", "GetInt")},
+            {"Int32[]", new TypeData("int[]", "GetIntArray")},
+            {"Double", new TypeData("double", "GetDouble")},
         };
 
         const string initsIndent = "            ";

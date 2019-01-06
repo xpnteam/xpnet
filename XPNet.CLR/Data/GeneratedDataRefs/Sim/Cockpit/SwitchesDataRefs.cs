@@ -99,6 +99,11 @@ namespace XPNet.Data
         public IXPDataRef<bool> ice_detect { get { return m_data.GetBool("sim/cockpit/switches/ice_detect");} }
 
         /// <summary>
+        ///  0=app,1=vor,2=map,3=nav,4=pln specific mode of the map (or HSI)
+        /// </summary>
+        public IXPDataRef<int> EFIS_map_submode { get { return m_data.GetInt("sim/cockpit/switches/efis_map_submode");} }
+
+        /// <summary>
         ///  Gear handle is up or down?
         /// </summary>
         public IXPDataRef<bool> gear_handle_status { get { return m_data.GetBool("sim/cockpit/switches/gear_handle_status");} }
@@ -142,6 +147,11 @@ namespace XPNet.Data
         ///  Does the EFIS show NDBs?
         /// </summary>
         public IXPDataRef<bool> EFIS_shows_NDBs { get { return m_data.GetBool("sim/cockpit/switches/efis_shows_ndbs");} }
+
+        /// <summary>
+        ///  What mode is the Argus 2000 in
+        /// </summary>
+        public IXPDataRef<int> argus_mode { get { return m_data.GetInt("sim/cockpit/switches/argus_mode");} }
 
         /// <summary>
         ///  No Smoking

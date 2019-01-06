@@ -29,6 +29,11 @@ namespace XPNet.Data
         public IXPDataRef<float[]> yoke_heading_ratio { get { return m_data.GetFloatArray("sim/multiplayer/controls/yoke_heading_ratio");} }
 
         /// <summary>
+        ///  0 = up, 1 = down
+        /// </summary>
+        public IXPDataRef<int[]> gear_request { get { return m_data.GetIntArray("sim/multiplayer/controls/gear_request");} }
+
+        /// <summary>
         ///  Requested flap deployment
         /// </summary>
         public IXPDataRef<float[]> flap_request { get { return m_data.GetFloatArray("sim/multiplayer/controls/flap_request");} }

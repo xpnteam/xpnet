@@ -109,6 +109,16 @@ namespace XPNet.Data
         public IXPDataRef<bool[]> auto_ignite_on { get { return m_data.GetBoolArray("sim/cockpit2/engine/actuators/auto_ignite_on");} }
 
         /// <summary>
+        ///  0 = off, 1 = left, 2 = right, 3 = both
+        /// </summary>
+        public IXPDataRef<int[]> ignition_on { get { return m_data.GetIntArray("sim/cockpit2/engine/actuators/ignition_on");} }
+
+        /// <summary>
+        ///  0 = off, 1 = left, 2 = right, 3 = both, 4 = starting
+        /// </summary>
+        public IXPDataRef<int[]> ignition_key { get { return m_data.GetIntArray("sim/cockpit2/engine/actuators/ignition_key");} }
+
+        /// <summary>
         ///  True while the starter motor is engaged
         /// </summary>
         public IXPDataRef<bool[]> starter_hit { get { return m_data.GetBoolArray("sim/cockpit2/engine/actuators/starter_hit");} }
@@ -137,6 +147,11 @@ namespace XPNet.Data
         ///  Idle speed, hi=1 or lo=0 - continuous control
         /// </summary>
         public IXPDataRef<float[]> idle_speed_ratio { get { return m_data.GetFloatArray("sim/cockpit2/engine/actuators/idle_speed_ratio");} }
+
+        /// <summary>
+        ///  This is the propeller and engine operation mode. It is used for props and jets. Mode 0 is feathered, 1 is normal, 2 is in beta, and reverse (prop or jet) is mode 3.
+        /// </summary>
+        public IXPDataRef<int[]> prop_mode { get { return m_data.GetIntArray("sim/cockpit2/engine/actuators/prop_mode");} }
 
         /// <summary>
         ///  This is the REQUESTED pitch of the prop in degrees from its flat-pitch setting.

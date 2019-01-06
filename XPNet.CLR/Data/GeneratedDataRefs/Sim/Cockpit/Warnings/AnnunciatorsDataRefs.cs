@@ -282,5 +282,50 @@ namespace XPNet.Data
         ///  no inverters are on
         /// </summary>
         public IXPDataRef<bool> no_inverters { get { return m_data.GetBool("sim/cockpit/warnings/annunciators/no_inverters");} }
+
+        /// <summary>
+        ///  fuel pressure low
+        /// </summary>
+        public IXPDataRef<int> fuel_pressure { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/fuel_pressure");} }
+
+        /// <summary>
+        ///  oil pressure low
+        /// </summary>
+        public IXPDataRef<int> oil_pressure { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/oil_pressure");} }
+
+        /// <summary>
+        ///  oil temperature too high
+        /// </summary>
+        public IXPDataRef<int> oil_temperature { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/oil_temperature");} }
+
+        /// <summary>
+        ///  generators are off or broken
+        /// </summary>
+        public IXPDataRef<int> generator { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/generator");} }
+
+        /// <summary>
+        ///  a chip has been detected in, um, a prop or turbine?
+        /// </summary>
+        public IXPDataRef<int> chip_detect { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/chip_detect");} }
+
+        /// <summary>
+        ///  yer engines are on fire, fer cryin out loud
+        /// </summary>
+        public IXPDataRef<int> engine_fire { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/engine_fire");} }
+
+        /// <summary>
+        ///  reversers deployed
+        /// </summary>
+        public IXPDataRef<int> reverse { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/reverse");} }
+
+        /// <summary>
+        ///  afterburners on
+        /// </summary>
+        public IXPDataRef<int> afterburners_on { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/afterburners_on");} }
+
+        /// <summary>
+        ///  inverters are off or broken
+        /// </summary>
+        public IXPDataRef<int> inverter { get { return m_data.GetInt("sim/cockpit/warnings/annunciators/inverter");} }
     }
 }

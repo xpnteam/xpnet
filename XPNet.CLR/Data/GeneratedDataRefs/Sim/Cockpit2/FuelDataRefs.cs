@@ -14,6 +14,31 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  This is the left-engine fuel-tank selector.
+        /// </summary>
+        public IXPDataRef<int> fuel_tank_selector_left { get { return m_data.GetInt("sim/cockpit2/fuel/fuel_tank_selector_left");} }
+
+        /// <summary>
+        ///  This is the right-engine fuel-tank selector.
+        /// </summary>
+        public IXPDataRef<int> fuel_tank_selector_right { get { return m_data.GetInt("sim/cockpit2/fuel/fuel_tank_selector_right");} }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> fuel_tank_selector { get { return m_data.GetInt("sim/cockpit2/fuel/fuel_tank_selector");} }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> fuel_tank_transfer_to { get { return m_data.GetInt("sim/cockpit2/fuel/fuel_tank_transfer_to");} }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> fuel_tank_transfer_from { get { return m_data.GetInt("sim/cockpit2/fuel/fuel_tank_transfer_from");} }
+
+        /// <summary>
         ///  True if the pump for this tank is on.
         /// </summary>
         public IXPDataRef<bool[]> fuel_tank_pump_on { get { return m_data.GetBoolArray("sim/cockpit2/fuel/fuel_tank_pump_on");} }

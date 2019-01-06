@@ -14,6 +14,26 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  array of airfoil names, per part
+        /// </summary>
+        public IXPDataRef<byte[]> acf_Rafl0 { get { return m_data.GetByteArray("sim/aircraft/parts/acf_rafl0");} }
+
+        /// <summary>
+        ///  file, not path
+        /// </summary>
+        public IXPDataRef<byte[]> acf_Rafl1 { get { return m_data.GetByteArray("sim/aircraft/parts/acf_rafl1");} }
+
+        /// <summary>
+        ///  file, not path
+        /// </summary>
+        public IXPDataRef<byte[]> acf_Tafl0 { get { return m_data.GetByteArray("sim/aircraft/parts/acf_tafl0");} }
+
+        /// <summary>
+        ///  file, not path
+        /// </summary>
+        public IXPDataRef<byte[]> acf_Tafl1 { get { return m_data.GetByteArray("sim/aircraft/parts/acf_tafl1");} }
+
+        /// <summary>
         ///  [PART] Radius of part
         /// </summary>
         public IXPDataRef<float[]> acf_body_r { get { return m_data.GetFloatArray("sim/aircraft/parts/acf_body_r");} }

@@ -134,6 +134,11 @@ namespace XPNet.Data
         public IXPDataRef<bool[]> ENGN_burning { get { return m_data.GetBoolArray("sim/flightmodel/engine/engn_burning");} }
 
         /// <summary>
+        ///  Prop mode: feather=0,normal=1,beta=2,reverse=3
+        /// </summary>
+        public IXPDataRef<int[]> ENGN_propmode { get { return m_data.GetIntArray("sim/flightmodel/engine/engn_propmode");} }
+
+        /// <summary>
         ///  Amount of carb ice buildup (0-1)
         /// </summary>
         public IXPDataRef<float[]> ENGN_crbice { get { return m_data.GetFloatArray("sim/flightmodel/engine/engn_crbice");} }

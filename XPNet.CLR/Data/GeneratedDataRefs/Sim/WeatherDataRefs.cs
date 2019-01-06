@@ -14,6 +14,21 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  The type of clouds for this cloud layer.Currently there are only 3 cloud layers, 0, 1 or 2. Cloud types:<p>Clear = 0, High Cirrus = 1, Scattered = 2, Broken = 3, Overcast = 4, Stratus = 5 (740 and newer)
+        /// </summary>
+        public IXPDataRef<int> cloud_type_0 { get { return m_data.GetInt("sim/weather/cloud_type[0]");} }
+
+        /// <summary>
+        ///  The type of clouds for this cloud layer.Currently there are only 3 cloud layers, 0, 1 or 2. Cloud types:<p>Clear = 0, High Cirrus = 1, Scattered = 2, Broken = 3, Overcast = 4, Stratus = 5 (740 and newer)
+        /// </summary>
+        public IXPDataRef<int> cloud_type_1 { get { return m_data.GetInt("sim/weather/cloud_type[1]");} }
+
+        /// <summary>
+        ///  The type of clouds for this cloud layer.Currently there are only 3 cloud layers, 0, 1 or 2. Cloud types:<p>Clear = 0, High Cirrus = 1, Scattered = 2, Broken = 3, Overcast = 4, Stratus = 5 (740 and newer)
+        /// </summary>
+        public IXPDataRef<int> cloud_type_2 { get { return m_data.GetInt("sim/weather/cloud_type[2]");} }
+
+        /// <summary>
         ///  
         /// </summary>
         public IXPDataRef<float> cloud_coverage_0 { get { return m_data.GetFloat("sim/weather/cloud_coverage[0]");} }
@@ -82,6 +97,21 @@ namespace XPNet.Data
         ///  The barometric pressure at sea level.
         /// </summary>
         public IXPDataRef<float> barometer_sealevel_inhg { get { return m_data.GetFloat("sim/weather/barometer_sealevel_inhg");} }
+
+        /// <summary>
+        ///  Whether a real weather file has been located.
+        /// </summary>
+        public IXPDataRef<int> has_real_weather_bool { get { return m_data.GetInt("sim/weather/has_real_weather_bool");} }
+
+        /// <summary>
+        ///  Whether a real weather file is in use.
+        /// </summary>
+        public IXPDataRef<int> use_real_weather_bool { get { return m_data.GetInt("sim/weather/use_real_weather_bool");} }
+
+        /// <summary>
+        ///  If true, the sim will attempt to download real weather files when real weather is enabled.
+        /// </summary>
+        public IXPDataRef<int> download_real_weather { get { return m_data.GetInt("sim/weather/download_real_weather");} }
 
         /// <summary>
         ///  This is the barometric pressure at the point the current flight is at.
@@ -202,6 +232,11 @@ namespace XPNet.Data
         ///  Speed of water waves
         /// </summary>
         public IXPDataRef<float> wave_speed { get { return m_data.GetFloat("sim/weather/wave_speed");} }
+
+        /// <summary>
+        ///  Direction of waves.
+        /// </summary>
+        public IXPDataRef<int> wave_dir { get { return m_data.GetInt("sim/weather/wave_dir");} }
 
         /// <summary>
         ///  The temperature at sea level.

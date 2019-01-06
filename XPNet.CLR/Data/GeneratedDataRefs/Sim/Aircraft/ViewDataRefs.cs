@@ -34,6 +34,16 @@ namespace XPNet.Data
         public IXPDataRef<string> acf_notes { get { return m_data.GetString("sim/aircraft/view/acf_notes");} }
 
         /// <summary>
+        ///  air speed indicator knots calibration
+        /// </summary>
+        public IXPDataRef<int> acf_asi_kts { get { return m_data.GetInt("sim/aircraft/view/acf_asi_kts");} }
+
+        /// <summary>
+        ///  cockpit panel type
+        /// </summary>
+        public IXPDataRef<int> acf_cockpit_type { get { return m_data.GetInt("sim/aircraft/view/acf_cockpit_type");} }
+
+        /// <summary>
         ///  has single cue flight director?
         /// </summary>
         public IXPDataRef<bool> acf_has_SC_fd { get { return m_data.GetBool("sim/aircraft/view/acf_has_sc_fd");} }
@@ -42,6 +52,11 @@ namespace XPNet.Data
         ///  has audio stall warning?
         /// </summary>
         public IXPDataRef<bool> acf_has_stallwarn { get { return m_data.GetBool("sim/aircraft/view/acf_has_stallwarn");} }
+
+        /// <summary>
+        ///  Do we have a lite map texture for this?
+        /// </summary>
+        public IXPDataRef<int> acf_has_litemap_tex { get { return m_data.GetInt("sim/aircraft/view/acf_has_litemap_tex");} }
 
         /// <summary>
         ///  Position of pilot's head relative to CG, X
@@ -82,6 +97,11 @@ namespace XPNet.Data
         ///  position of door relative to CG, longitude offset in meters
         /// </summary>
         public IXPDataRef<float> acf_door_z { get { return m_data.GetFloat("sim/aircraft/view/acf_door_z");} }
+
+        /// <summary>
+        ///  index number of livery
+        /// </summary>
+        public IXPDataRef<int> acf_livery_index { get { return m_data.GetInt("sim/aircraft/view/acf_livery_index");} }
 
         /// <summary>
         ///  path of current livery.  dir separator i, ends in dir separator.  WARNING: slow dataref, don't read a lot!

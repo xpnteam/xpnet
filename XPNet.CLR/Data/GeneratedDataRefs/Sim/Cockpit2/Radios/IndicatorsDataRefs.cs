@@ -84,6 +84,36 @@ namespace XPNet.Data
         public IXPDataRef<float> gps2_relative_bearing_deg { get { return m_data.GetFloat("sim/cockpit2/radios/indicators/gps2_relative_bearing_deg");} }
 
         /// <summary>
+        ///  Nav-To-From indication, nav1, pilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int> nav1_flag_from_to_pilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/nav1_flag_from_to_pilot");} }
+
+        /// <summary>
+        ///  Nav-To-From indication, nav2, pilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int> nav2_flag_from_to_pilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/nav2_flag_from_to_pilot");} }
+
+        /// <summary>
+        ///  Nav-To-From indication, navN, pilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int[]> nav_flag_from_to_pilot { get { return m_data.GetIntArray("sim/cockpit2/radios/indicators/nav_flag_from_to_pilot");} }
+
+        /// <summary>
+        ///  Nav-To-From indication, nav1, copilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int> nav1_flag_from_to_copilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/nav1_flag_from_to_copilot");} }
+
+        /// <summary>
+        ///  Nav-To-From indication, nav2, copilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int> nav2_flag_from_to_copilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/nav2_flag_from_to_copilot");} }
+
+        /// <summary>
+        ///  Nav-To-From indication, navN, copilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int[]> nav_flag_from_to_copilot { get { return m_data.GetIntArray("sim/cockpit2/radios/indicators/nav_flag_from_to_copilot");} }
+
+        /// <summary>
         ///  Glide slope flag, nav1.
         /// </summary>
         public IXPDataRef<bool> nav1_flag_glideslope { get { return m_data.GetBool("sim/cockpit2/radios/indicators/nav1_flag_glideslope");} }
@@ -444,6 +474,21 @@ namespace XPNet.Data
         public IXPDataRef<string> nav10_nav_id { get { return m_data.GetString("sim/cockpit2/radios/indicators/nav10_nav_id");} }
 
         /// <summary>
+        ///  Type of navaid that's currently tuned in and being received - nav1
+        /// </summary>
+        public IXPDataRef<int> nav1_type { get { return m_data.GetInt("sim/cockpit2/radios/indicators/nav1_type");} }
+
+        /// <summary>
+        ///  Type of navaid that's currently tuned in and being received - nav2
+        /// </summary>
+        public IXPDataRef<int> nav2_type { get { return m_data.GetInt("sim/cockpit2/radios/indicators/nav2_type");} }
+
+        /// <summary>
+        ///  Type of navaid that's currently tuned in and being received - any nav receiver
+        /// </summary>
+        public IXPDataRef<int[]> nav_type { get { return m_data.GetIntArray("sim/cockpit2/radios/indicators/nav_type");} }
+
+        /// <summary>
         ///  Over the marker, 0 or 1.  This stays on when over the marker
         /// </summary>
         public IXPDataRef<bool> over_outer_marker { get { return m_data.GetBool("sim/cockpit2/radios/indicators/over_outer_marker");} }
@@ -492,6 +537,16 @@ namespace XPNet.Data
         ///  Indicated relative bearing to the copilot's HSI-selected navaid
         /// </summary>
         public IXPDataRef<float> hsi_relative_bearing_deg_copilot { get { return m_data.GetFloat("sim/cockpit2/radios/indicators/hsi_relative_bearing_deg_copilot");} }
+
+        /// <summary>
+        ///  Nav-To-From indication, nav1, pilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int> hsi_flag_from_to_pilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/hsi_flag_from_to_pilot");} }
+
+        /// <summary>
+        ///  Nav-To-From indication, nav1, copilot, 0 is flag, 1 is to, 2 is from.
+        /// </summary>
+        public IXPDataRef<int> hsi_flag_from_to_copilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/hsi_flag_from_to_copilot");} }
 
         /// <summary>
         ///  CDI lateral deflection in dots, nav1, pilot
@@ -774,6 +829,16 @@ namespace XPNet.Data
         public IXPDataRef<float> hsi_relative_heading_AHARS_deg_copilot { get { return m_data.GetFloat("sim/cockpit2/radios/indicators/hsi_relative_heading_ahars_deg_copilot");} }
 
         /// <summary>
+        ///  Is the exec FMS light/warning lit for the pilot
+        /// </summary>
+        public IXPDataRef<int> fms_exec_light_pilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/fms_exec_light_pilot");} }
+
+        /// <summary>
+        ///  Is the exec FMS light/warning lit for the co-pilot
+        /// </summary>
+        public IXPDataRef<int> fms_exec_light_copilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/fms_exec_light_copilot");} }
+
+        /// <summary>
         ///  FMS Flight Plan Target Altitude
         /// </summary>
         public IXPDataRef<float> fms_fpta_pilot { get { return m_data.GetFloat("sim/cockpit2/radios/indicators/fms_fpta_pilot");} }
@@ -792,6 +857,11 @@ namespace XPNet.Data
         ///  FMS Distance to Top of Descent
         /// </summary>
         public IXPDataRef<float> fms_distance_to_tod_pilot { get { return m_data.GetFloat("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot");} }
+
+        /// <summary>
+        ///  Index of waypoint in flightplan before which top of descent is located
+        /// </summary>
+        public IXPDataRef<int> fms_tod_before_index_pilot { get { return m_data.GetInt("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot");} }
 
         /// <summary>
         ///  Distance from top of descent to Nth waypoint (wayoint found via fms_tod_before_index_pilot)

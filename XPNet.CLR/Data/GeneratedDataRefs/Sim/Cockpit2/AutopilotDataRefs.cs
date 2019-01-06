@@ -14,6 +14,11 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  Autopilot source system, pilots (0) or copilots (1).
+        /// </summary>
+        public IXPDataRef<int> autopilot_source { get { return m_data.GetInt("sim/cockpit2/autopilot/autopilot_source");} }
+
+        /// <summary>
         ///  Auto-throttle on, 0 or 1.  This is the switch.
         /// </summary>
         public IXPDataRef<bool> autothrottle_enabled { get { return m_data.GetBool("sim/cockpit2/autopilot/autothrottle_enabled");} }
@@ -22,6 +27,26 @@ namespace XPNet.Data
         ///  Auto-throttle really working?  Takes into account failures, esys, etc.
         /// </summary>
         public IXPDataRef<bool> autothrottle_on { get { return m_data.GetBool("sim/cockpit2/autopilot/autothrottle_on");} }
+
+        /// <summary>
+        ///  Autopilot heading mode.
+        /// </summary>
+        public IXPDataRef<int> heading_mode { get { return m_data.GetInt("sim/cockpit2/autopilot/heading_mode");} }
+
+        /// <summary>
+        ///  Autopilot altitude mode.
+        /// </summary>
+        public IXPDataRef<int> altitude_mode { get { return m_data.GetInt("sim/cockpit2/autopilot/altitude_mode");} }
+
+        /// <summary>
+        ///  Maximum bank angle mode, 0->6. Higher number is steeper allowable bank.
+        /// </summary>
+        public IXPDataRef<int> bank_angle_mode { get { return m_data.GetInt("sim/cockpit2/autopilot/bank_angle_mode");} }
+
+        /// <summary>
+        ///  Flight director mode, 0 is off, 1 is on, 2 is on with autopilot servos.  Good for the FD swich.
+        /// </summary>
+        public IXPDataRef<int> flight_director_mode { get { return m_data.GetInt("sim/cockpit2/autopilot/flight_director_mode");} }
 
         /// <summary>
         ///  Is the autopilot really on? Takes into account electrical system, failures, etc.;
@@ -134,8 +159,73 @@ namespace XPNet.Data
         public IXPDataRef<float> TOGA_pitch_deg { get { return m_data.GetFloat("sim/cockpit2/autopilot/toga_pitch_deg");} }
 
         /// <summary>
+        ///  Autopilot Roll-Hold Status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> roll_status { get { return m_data.GetInt("sim/cockpit2/autopilot/roll_status");} }
+
+        /// <summary>
+        ///  Autopilot Heading Status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> heading_status { get { return m_data.GetInt("sim/cockpit2/autopilot/heading_status");} }
+
+        /// <summary>
+        ///  Autopilot Nav Status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> nav_status { get { return m_data.GetInt("sim/cockpit2/autopilot/nav_status");} }
+
+        /// <summary>
+        ///  Autopilot Back-course Status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> backcourse_status { get { return m_data.GetInt("sim/cockpit2/autopilot/backcourse_status");} }
+
+        /// <summary>
+        ///  Autopilot Lateral TOGA mode: 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> TOGA_lateral_status { get { return m_data.GetInt("sim/cockpit2/autopilot/toga_lateral_status");} }
+
+        /// <summary>
+        ///  Autopilot Pitch-Hold Status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> pitch_status { get { return m_data.GetInt("sim/cockpit2/autopilot/pitch_status");} }
+
+        /// <summary>
+        ///  Autopilot VVI Status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> vvi_status { get { return m_data.GetInt("sim/cockpit2/autopilot/vvi_status");} }
+
+        /// <summary>
+        ///  Autopilot Speed-hold (via pitch) status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> speed_status { get { return m_data.GetInt("sim/cockpit2/autopilot/speed_status");} }
+
+        /// <summary>
+        ///  Autopilot Altitude hold status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> altitude_hold_status { get { return m_data.GetInt("sim/cockpit2/autopilot/altitude_hold_status");} }
+
+        /// <summary>
+        ///  Autopilot glideslope status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> glideslope_status { get { return m_data.GetInt("sim/cockpit2/autopilot/glideslope_status");} }
+
+        /// <summary>
+        ///  Autopilot VNAV status. 0=off,1=armed,2=captured - for a physical hardware g1000 connected by Ethernet only!!!
+        /// </summary>
+        public IXPDataRef<int> vnav_status { get { return m_data.GetInt("sim/cockpit2/autopilot/vnav_status");} }
+
+        /// <summary>
         ///  Enables the FMS to take over vertical control of the autopilot.   This matches the command "sim/autopilot/FMS"."
         /// </summary>
         public IXPDataRef<bool> fms_vnav { get { return m_data.GetBool("sim/cockpit2/autopilot/fms_vnav");} }
+
+        /// <summary>
+        ///  Autopilot TOGA vertical (go-around) status. 0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> TOGA_status { get { return m_data.GetInt("sim/cockpit2/autopilot/toga_status");} }
+
+        /// <summary>
+        ///  Autopilot approach status.  0=off,1=armed,2=captured
+        /// </summary>
+        public IXPDataRef<int> approach_status { get { return m_data.GetInt("sim/cockpit2/autopilot/approach_status");} }
     }
 }

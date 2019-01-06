@@ -284,6 +284,51 @@ namespace XPNet.Data
         public IXPDataRef<bool> no_inverters { get { return m_data.GetBool("sim/cockpit2/annunciators/no_inverters");} }
 
         /// <summary>
+        ///  Fuel pressure is lo, or maybe hi, for this engine    // x8
+        /// </summary>
+        public IXPDataRef<int> fuel_pressure { get { return m_data.GetInt("sim/cockpit2/annunciators/fuel_pressure");} }
+
+        /// <summary>
+        ///  Oil pressure is lo, or maybe hi, for this engine    // x8
+        /// </summary>
+        public IXPDataRef<int> oil_pressure { get { return m_data.GetInt("sim/cockpit2/annunciators/oil_pressure");} }
+
+        /// <summary>
+        ///  Oil temperature hi for this engine    // x8
+        /// </summary>
+        public IXPDataRef<int> oil_temperature { get { return m_data.GetInt("sim/cockpit2/annunciators/oil_temperature");} }
+
+        /// <summary>
+        ///  The generator has failed! the plane cannot charge up. this may happen at lo rpm and go away as the engine revs. happens with my plane    // x8
+        /// </summary>
+        public IXPDataRef<int> generator { get { return m_data.GetInt("sim/cockpit2/annunciators/generator");} }
+
+        /// <summary>
+        ///  We detected chips of metal in the engine somewhere. most people agree this is not good.    // x8
+        /// </summary>
+        public IXPDataRef<int> chip_detect { get { return m_data.GetInt("sim/cockpit2/annunciators/chip_detect");} }
+
+        /// <summary>
+        ///  The engine is on FIRE! this adds to excitement    // x8
+        /// </summary>
+        public IXPDataRef<int> engine_fire { get { return m_data.GetInt("sim/cockpit2/annunciators/engine_fire");} }
+
+        /// <summary>
+        ///  Thrust-reverse deployed!    // x8
+        /// </summary>
+        public IXPDataRef<int> reverser_deployed { get { return m_data.GetInt("sim/cockpit2/annunciators/reverser_deployed");} }
+
+        /// <summary>
+        ///  Afterburners on!    // x8
+        /// </summary>
+        public IXPDataRef<int> afterburner { get { return m_data.GetInt("sim/cockpit2/annunciators/afterburner");} }
+
+        /// <summary>
+        ///  The inverter has failed! the plane cannot convert ac from the generators to dc for the instruments.     // x2
+        /// </summary>
+        public IXPDataRef<int> inverter { get { return m_data.GetInt("sim/cockpit2/annunciators/inverter");} }
+
+        /// <summary>
         ///  Stall warning going off, yes or no.
         /// </summary>
         public IXPDataRef<bool> stall_warning { get { return m_data.GetBool("sim/cockpit2/annunciators/stall_warning");} }

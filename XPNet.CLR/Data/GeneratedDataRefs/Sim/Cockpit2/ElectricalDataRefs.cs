@@ -79,6 +79,11 @@ namespace XPNet.Data
         public IXPDataRef<bool> cross_tie { get { return m_data.GetBool("sim/cockpit2/electrical/cross_tie");} }
 
         /// <summary>
+        ///  Volt-meter selection (0=external,1=ctr,2=lft,3=rgt,4=tpl,5=bat - use cmnds to set!
+        /// </summary>
+        public IXPDataRef<int> dc_voltmeter_selection { get { return m_data.GetInt("sim/cockpit2/electrical/dc_voltmeter_selection");} }
+
+        /// <summary>
         ///  volt-meter value
         /// </summary>
         public IXPDataRef<float> dc_voltmeter_value { get { return m_data.GetFloat("sim/cockpit2/electrical/dc_voltmeter_value");} }

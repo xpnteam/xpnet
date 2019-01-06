@@ -74,6 +74,11 @@ namespace XPNet.Data
         public IXPDataRef<bool> prop_sync_on { get { return m_data.GetBool("sim/cockpit2/switches/prop_sync_on");} }
 
         /// <summary>
+        ///  Switch, 0 or 1. fan=0, off=1, turbine=2#WHAT ARE THESE?
+        /// </summary>
+        public IXPDataRef<int> jet_sync_mode { get { return m_data.GetInt("sim/cockpit2/switches/jet_sync_mode");} }
+
+        /// <summary>
         ///  electric hydro-pressure pump
         /// </summary>
         public IXPDataRef<bool> electric_hydraulic_pump_on { get { return m_data.GetBool("sim/cockpit2/switches/electric_hydraulic_pump_on");} }
@@ -164,6 +169,11 @@ namespace XPNet.Data
         public IXPDataRef<bool> HSI_is_arc { get { return m_data.GetBool("sim/cockpit2/switches/hsi_is_arc");} }
 
         /// <summary>
+        ///  Switch, 0 is RTO (Rejected Take-Off), 1 is off, 2->5 are increasing auto-brake levels.
+        /// </summary>
+        public IXPDataRef<int> auto_brake_level { get { return m_data.GetInt("sim/cockpit2/switches/auto_brake_level");} }
+
+        /// <summary>
         ///  Switch, 0 or 1.
         /// </summary>
         public IXPDataRef<bool> auto_reverse_on { get { return m_data.GetBool("sim/cockpit2/switches/auto_reverse_on");} }
@@ -199,9 +209,24 @@ namespace XPNet.Data
         public IXPDataRef<float> clutch_ratio { get { return m_data.GetFloat("sim/cockpit2/switches/clutch_ratio");} }
 
         /// <summary>
+        ///  This will have an enumeration based on the direction of fire of any maneuvering rockets.
+        /// </summary>
+        public IXPDataRef<int> rocket_mode { get { return m_data.GetInt("sim/cockpit2/switches/rocket_mode");} }
+
+        /// <summary>
+        ///  This can be 0 (half-power afterburners) or 1 (full-power burner).
+        /// </summary>
+        public IXPDataRef<int> burner_level { get { return m_data.GetInt("sim/cockpit2/switches/burner_level");} }
+
+        /// <summary>
         ///  Alternate static air ratio, 0.0 is off, 1,.0 is on.
         /// </summary>
         public IXPDataRef<float> alternate_static_air_ratio { get { return m_data.GetFloat("sim/cockpit2/switches/alternate_static_air_ratio");} }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> wiper_speed { get { return m_data.GetInt("sim/cockpit2/switches/wiper_speed");} }
 
         /// <summary>
         ///  custom sliders.  When flipped, slider moves based on timing in planemaker.

@@ -14,9 +14,29 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  The current camera view
+        /// </summary>
+        public IXPDataRef<int> view_type { get { return m_data.GetInt("sim/graphics/view/view_type");} }
+
+        /// <summary>
+        ///  How to draw the panel?  0=2-d panel, 1=3-d, non-lit, 2=3-d, lit
+        /// </summary>
+        public IXPDataRef<int> panel_render_type { get { return m_data.GetInt("sim/graphics/view/panel_render_type");} }
+
+        /// <summary>
         ///  True if modern correct RGBA blending is being used to draw panels; false if the legacy alpha-max equation is being used.
         /// </summary>
         public IXPDataRef<bool> panel_render_new_blending { get { return m_data.GetBool("sim/graphics/view/panel_render_new_blending");} }
+
+        /// <summary>
+        ///  What kind of 3-d rendering pass are we on? 0=normal,1=reflections in water
+        /// </summary>
+        public IXPDataRef<int> world_render_type { get { return m_data.GetInt("sim/graphics/view/world_render_type");} }
+
+        /// <summary>
+        ///  What kind of rendering is being done during the xplm_Phase_Airplanes callback.  solid = 1, blended/alpha = 2 (0 = N/A, outside draw callback)
+        /// </summary>
+        public IXPDataRef<int> plane_render_type { get { return m_data.GetInt("sim/graphics/view/plane_render_type");} }
 
         /// <summary>
         ///  Is the view in the cockpit or outside?  Affects sound!
@@ -99,6 +119,16 @@ namespace XPNet.Data
         public IXPDataRef<float> field_of_view_horizontal_ratio { get { return m_data.GetFloat("sim/graphics/view/field_of_view_horizontal_ratio");} }
 
         /// <summary>
+        ///  Size of rendering window
+        /// </summary>
+        public IXPDataRef<int> window_width { get { return m_data.GetInt("sim/graphics/view/window_width");} }
+
+        /// <summary>
+        ///  Size of rendering window
+        /// </summary>
+        public IXPDataRef<int> window_height { get { return m_data.GetInt("sim/graphics/view/window_height");} }
+
+        /// <summary>
         ///  The effective visibility after framerate-protecting visibility reductions.
         /// </summary>
         public IXPDataRef<float> visibility_effective_m { get { return m_data.GetFloat("sim/graphics/view/visibility_effective_m");} }
@@ -112,6 +142,11 @@ namespace XPNet.Data
         ///  The ratio of the reported visibility to actually show for frame-rate protection. 1.0 means the user ses the reported visibility.  Writable in v9, fixed in v10.
         /// </summary>
         public IXPDataRef<float> visibility_framerate_ratio { get { return m_data.GetFloat("sim/graphics/view/visibility_framerate_ratio");} }
+
+        /// <summary>
+        ///  This used to indicate what level of 3-d force visualization was shown to the user in 3-d.
+        /// </summary>
+        public IXPDataRef<int> visibility_math_level { get { return m_data.GetInt("sim/graphics/view/visibility_math_level");} }
 
         /// <summary>
         ///  True if cinema verite camera is on.
@@ -267,6 +302,11 @@ namespace XPNet.Data
         ///  Bounds of the local map window during callbacks - top
         /// </summary>
         public IXPDataRef<float> local_map_t { get { return m_data.GetFloat("sim/graphics/view/local_map_t");} }
+
+        /// <summary>
+        ///  This is the number of passes to render for a multi-dome setup.  This x-plane feature requires a level-3 USB KEY
+        /// </summary>
+        public IXPDataRef<int> dome_number_of_passes { get { return m_data.GetInt("sim/graphics/view/dome_number_of_passes");} }
 
         /// <summary>
         ///  The horizontal offset for this pass, in degrees

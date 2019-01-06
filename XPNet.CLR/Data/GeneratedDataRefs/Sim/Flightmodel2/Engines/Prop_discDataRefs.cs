@@ -29,6 +29,21 @@ namespace XPNet.Data
         public IXPDataRef<float[]> disc_s { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_s");} }
 
         /// <summary>
+        ///  Offset from bottom (in "slots") for the prop disc texture
+        /// </summary>
+        public IXPDataRef<int[]> disc_t { get { return m_data.GetIntArray("sim/flightmodel2/engines/prop_disc/disc_t");} }
+
+        /// <summary>
+        ///  Number of horizontal slots for the prop disc in the prop disc texture
+        /// </summary>
+        public IXPDataRef<int[]> disc_s_dim { get { return m_data.GetIntArray("sim/flightmodel2/engines/prop_disc/disc_s_dim");} }
+
+        /// <summary>
+        ///  Number of vertical slots for the prop disc in the prop disc texture
+        /// </summary>
+        public IXPDataRef<int[]> disc_t_dim { get { return m_data.GetIntArray("sim/flightmodel2/engines/prop_disc/disc_t_dim");} }
+
+        /// <summary>
         ///  Alpha of prop disc when viewed from front.  X-Plane interpolates as the view angle moves.
         /// </summary>
         public IXPDataRef<float[]> disc_alpha_front { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/disc_alpha_front");} }
@@ -59,6 +74,11 @@ namespace XPNet.Data
         public IXPDataRef<float[]> side_angle { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_angle");} }
 
         /// <summary>
+        ///  Number of side blades to draw.  Should be at least 2!
+        /// </summary>
+        public IXPDataRef<int[]> side_number_of_blades { get { return m_data.GetIntArray("sim/flightmodel2/engines/prop_disc/side_number_of_blades");} }
+
+        /// <summary>
         ///  If true, prop side angle comes from billboarding logic - if false, it comes from side_angle dataref.
         /// </summary>
         public IXPDataRef<bool[]> side_is_billboard { get { return m_data.GetBoolArray("sim/flightmodel2/engines/prop_disc/side_is_billboard");} }
@@ -67,6 +87,21 @@ namespace XPNet.Data
         ///  Offset from left (in "slots") for the prop disc texture.  Fractions blend horizontal images.
         /// </summary>
         public IXPDataRef<float[]> side_s { get { return m_data.GetFloatArray("sim/flightmodel2/engines/prop_disc/side_s");} }
+
+        /// <summary>
+        ///  Offset from bottom (in "slots") for the prop disc texture
+        /// </summary>
+        public IXPDataRef<int[]> side_t { get { return m_data.GetIntArray("sim/flightmodel2/engines/prop_disc/side_t");} }
+
+        /// <summary>
+        ///  Number of horizontal slots for the prop side in the prop disc texture
+        /// </summary>
+        public IXPDataRef<int[]> side_s_dim { get { return m_data.GetIntArray("sim/flightmodel2/engines/prop_disc/side_s_dim");} }
+
+        /// <summary>
+        ///  Number of vertical slots for the prop side in the prop disc texture
+        /// </summary>
+        public IXPDataRef<int[]> side_t_dim { get { return m_data.GetIntArray("sim/flightmodel2/engines/prop_disc/side_t_dim");} }
 
         /// <summary>
         ///  Alpha of prop side when viewed from front.  X-Plane interpolates as the view angle moves.

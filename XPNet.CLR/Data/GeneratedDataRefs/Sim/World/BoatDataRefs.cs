@@ -117,5 +117,10 @@ namespace XPNet.Data
         ///  Z position (in model coordinates) of the end of the cat-shot track
         /// </summary>
         public IXPDataRef<float> carrier_catshot_end_z_mtr { get { return m_data.GetFloat("sim/world/boat/carrier_catshot_end_z_mtr");} }
+
+        /// <summary>
+        ///  0=no cat shot set up,1=cat shot waiting to launch,2=in progress
+        /// </summary>
+        public IXPDataRef<int> carrier_catshot_status { get { return m_data.GetInt("sim/world/boat/carrier_catshot_status");} }
     }
 }

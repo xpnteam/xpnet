@@ -14,6 +14,66 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  Elapsed time on the timer, hours
+        /// </summary>
+        public IXPDataRef<int> elapsed_time_hours { get { return m_data.GetInt("sim/cockpit2/clock_timer/elapsed_time_hours");} }
+
+        /// <summary>
+        ///  Elapsed time on the timer, minutes
+        /// </summary>
+        public IXPDataRef<int> elapsed_time_minutes { get { return m_data.GetInt("sim/cockpit2/clock_timer/elapsed_time_minutes");} }
+
+        /// <summary>
+        ///  Elapsed time on the timer, seconds
+        /// </summary>
+        public IXPDataRef<int> elapsed_time_seconds { get { return m_data.GetInt("sim/cockpit2/clock_timer/elapsed_time_seconds");} }
+
+        /// <summary>
+        ///  Zulu time, hours
+        /// </summary>
+        public IXPDataRef<int> zulu_time_hours { get { return m_data.GetInt("sim/cockpit2/clock_timer/zulu_time_hours");} }
+
+        /// <summary>
+        ///  Zulu time, minutes
+        /// </summary>
+        public IXPDataRef<int> zulu_time_minutes { get { return m_data.GetInt("sim/cockpit2/clock_timer/zulu_time_minutes");} }
+
+        /// <summary>
+        ///  Zulu time, seconds
+        /// </summary>
+        public IXPDataRef<int> zulu_time_seconds { get { return m_data.GetInt("sim/cockpit2/clock_timer/zulu_time_seconds");} }
+
+        /// <summary>
+        ///  Local time, hours
+        /// </summary>
+        public IXPDataRef<int> local_time_hours { get { return m_data.GetInt("sim/cockpit2/clock_timer/local_time_hours");} }
+
+        /// <summary>
+        ///  Local time, minutes
+        /// </summary>
+        public IXPDataRef<int> local_time_minutes { get { return m_data.GetInt("sim/cockpit2/clock_timer/local_time_minutes");} }
+
+        /// <summary>
+        ///  Local time, seconds
+        /// </summary>
+        public IXPDataRef<int> local_time_seconds { get { return m_data.GetInt("sim/cockpit2/clock_timer/local_time_seconds");} }
+
+        /// <summary>
+        ///  Hobbs meter time, hours
+        /// </summary>
+        public IXPDataRef<int> hobbs_time_hours { get { return m_data.GetInt("sim/cockpit2/clock_timer/hobbs_time_hours");} }
+
+        /// <summary>
+        ///  Hobbs meter time, minutes
+        /// </summary>
+        public IXPDataRef<int> hobbs_time_minutes { get { return m_data.GetInt("sim/cockpit2/clock_timer/hobbs_time_minutes");} }
+
+        /// <summary>
+        ///  Hobbs meter time, seconds
+        /// </summary>
+        public IXPDataRef<int> hobbs_time_seconds { get { return m_data.GetInt("sim/cockpit2/clock_timer/hobbs_time_seconds");} }
+
+        /// <summary>
         ///  True if timer is running
         /// </summary>
         public IXPDataRef<bool> timer_running { get { return m_data.GetBool("sim/cockpit2/clock_timer/timer_running");} }
@@ -27,5 +87,20 @@ namespace XPNet.Data
         ///  True if date is showing (date button pressed recently)
         /// </summary>
         public IXPDataRef<bool> date_is_showing { get { return m_data.GetBool("sim/cockpit2/clock_timer/date_is_showing");} }
+
+        /// <summary>
+        ///  Numeric day of month
+        /// </summary>
+        public IXPDataRef<int> current_day { get { return m_data.GetInt("sim/cockpit2/clock_timer/current_day");} }
+
+        /// <summary>
+        ///  Numeric month of the year
+        /// </summary>
+        public IXPDataRef<int> current_month { get { return m_data.GetInt("sim/cockpit2/clock_timer/current_month");} }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        public IXPDataRef<int> timer_mode { get { return m_data.GetInt("sim/cockpit2/clock_timer/timer_mode");} }
     }
 }

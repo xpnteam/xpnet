@@ -14,6 +14,21 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  Plane 1 x location
+        /// </summary>
+        public IXPDataRef<double> plane1_x { get { return m_data.GetDouble("sim/multiplayer/position/plane1_x");} }
+
+        /// <summary>
+        ///  Plane 1 y location
+        /// </summary>
+        public IXPDataRef<double> plane1_y { get { return m_data.GetDouble("sim/multiplayer/position/plane1_y");} }
+
+        /// <summary>
+        ///  Plane 1 z location
+        /// </summary>
+        public IXPDataRef<double> plane1_z { get { return m_data.GetDouble("sim/multiplayer/position/plane1_z");} }
+
+        /// <summary>
         ///  Plane 1 theta (pitch)
         /// </summary>
         public IXPDataRef<float> plane1_the { get { return m_data.GetFloat("sim/multiplayer/position/plane1_the");} }
@@ -82,6 +97,21 @@ namespace XPNet.Data
         ///  Plane 1 Commanded yaw (Legacy for compatibility - use sim/multiplayer/controls/yoke_heading_ratio)
         /// </summary>
         public IXPDataRef<float> plane1_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane1_yolk_yaw");} }
+
+        /// <summary>
+        ///  Plane 2 x location
+        /// </summary>
+        public IXPDataRef<double> plane2_x { get { return m_data.GetDouble("sim/multiplayer/position/plane2_x");} }
+
+        /// <summary>
+        ///  Plane 2 y location
+        /// </summary>
+        public IXPDataRef<double> plane2_y { get { return m_data.GetDouble("sim/multiplayer/position/plane2_y");} }
+
+        /// <summary>
+        ///  Plane 2 z location
+        /// </summary>
+        public IXPDataRef<double> plane2_z { get { return m_data.GetDouble("sim/multiplayer/position/plane2_z");} }
 
         /// <summary>
         ///  Plane 2 theta (pitch)
@@ -154,6 +184,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane2_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane2_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 3 x location
+        /// </summary>
+        public IXPDataRef<double> plane3_x { get { return m_data.GetDouble("sim/multiplayer/position/plane3_x");} }
+
+        /// <summary>
+        ///  Plane 3 y location
+        /// </summary>
+        public IXPDataRef<double> plane3_y { get { return m_data.GetDouble("sim/multiplayer/position/plane3_y");} }
+
+        /// <summary>
+        ///  Plane 3 z location
+        /// </summary>
+        public IXPDataRef<double> plane3_z { get { return m_data.GetDouble("sim/multiplayer/position/plane3_z");} }
+
+        /// <summary>
         ///  Plane 3 theta (pitch)
         /// </summary>
         public IXPDataRef<float> plane3_the { get { return m_data.GetFloat("sim/multiplayer/position/plane3_the");} }
@@ -222,6 +267,21 @@ namespace XPNet.Data
         ///  Plane 3 Commanded yaw (Legacy for compatibility - use sim/multiplayer/controls/yoke_heading_ratio)
         /// </summary>
         public IXPDataRef<float> plane3_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane3_yolk_yaw");} }
+
+        /// <summary>
+        ///  Plane 4 x location
+        /// </summary>
+        public IXPDataRef<double> plane4_x { get { return m_data.GetDouble("sim/multiplayer/position/plane4_x");} }
+
+        /// <summary>
+        ///  Plane 4 y location
+        /// </summary>
+        public IXPDataRef<double> plane4_y { get { return m_data.GetDouble("sim/multiplayer/position/plane4_y");} }
+
+        /// <summary>
+        ///  Plane 4 z location
+        /// </summary>
+        public IXPDataRef<double> plane4_z { get { return m_data.GetDouble("sim/multiplayer/position/plane4_z");} }
 
         /// <summary>
         ///  Plane 4 theta (pitch)
@@ -294,6 +354,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane4_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane4_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 5 x location
+        /// </summary>
+        public IXPDataRef<double> plane5_x { get { return m_data.GetDouble("sim/multiplayer/position/plane5_x");} }
+
+        /// <summary>
+        ///  Plane 5 y location
+        /// </summary>
+        public IXPDataRef<double> plane5_y { get { return m_data.GetDouble("sim/multiplayer/position/plane5_y");} }
+
+        /// <summary>
+        ///  Plane 5 z location
+        /// </summary>
+        public IXPDataRef<double> plane5_z { get { return m_data.GetDouble("sim/multiplayer/position/plane5_z");} }
+
+        /// <summary>
         ///  Plane 5 theta (pitch)
         /// </summary>
         public IXPDataRef<float> plane5_the { get { return m_data.GetFloat("sim/multiplayer/position/plane5_the");} }
@@ -362,6 +437,21 @@ namespace XPNet.Data
         ///  Plane 5 Commanded yaw (Legacy for compatibility - use sim/multiplayer/controls/yoke_heading_ratio)
         /// </summary>
         public IXPDataRef<float> plane5_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane5_yolk_yaw");} }
+
+        /// <summary>
+        ///  Plane 6 x location
+        /// </summary>
+        public IXPDataRef<double> plane6_x { get { return m_data.GetDouble("sim/multiplayer/position/plane6_x");} }
+
+        /// <summary>
+        ///  Plane 6 y location
+        /// </summary>
+        public IXPDataRef<double> plane6_y { get { return m_data.GetDouble("sim/multiplayer/position/plane6_y");} }
+
+        /// <summary>
+        ///  Plane 6 z location
+        /// </summary>
+        public IXPDataRef<double> plane6_z { get { return m_data.GetDouble("sim/multiplayer/position/plane6_z");} }
 
         /// <summary>
         ///  Plane 6 theta (pitch)
@@ -434,6 +524,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane6_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane6_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 7 x location
+        /// </summary>
+        public IXPDataRef<double> plane7_x { get { return m_data.GetDouble("sim/multiplayer/position/plane7_x");} }
+
+        /// <summary>
+        ///  Plane 7 y location
+        /// </summary>
+        public IXPDataRef<double> plane7_y { get { return m_data.GetDouble("sim/multiplayer/position/plane7_y");} }
+
+        /// <summary>
+        ///  Plane 7 z location
+        /// </summary>
+        public IXPDataRef<double> plane7_z { get { return m_data.GetDouble("sim/multiplayer/position/plane7_z");} }
+
+        /// <summary>
         ///  Plane 7 theta (pitch)
         /// </summary>
         public IXPDataRef<float> plane7_the { get { return m_data.GetFloat("sim/multiplayer/position/plane7_the");} }
@@ -502,6 +607,21 @@ namespace XPNet.Data
         ///  Plane 7 Commanded yaw (Legacy for compatibility - use sim/multiplayer/controls/yoke_heading_ratio)
         /// </summary>
         public IXPDataRef<float> plane7_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane7_yolk_yaw");} }
+
+        /// <summary>
+        ///  Plane 8 x location
+        /// </summary>
+        public IXPDataRef<double> plane8_x { get { return m_data.GetDouble("sim/multiplayer/position/plane8_x");} }
+
+        /// <summary>
+        ///  Plane 8 y location
+        /// </summary>
+        public IXPDataRef<double> plane8_y { get { return m_data.GetDouble("sim/multiplayer/position/plane8_y");} }
+
+        /// <summary>
+        ///  Plane 8 z location
+        /// </summary>
+        public IXPDataRef<double> plane8_z { get { return m_data.GetDouble("sim/multiplayer/position/plane8_z");} }
 
         /// <summary>
         ///  Plane 8 theta (pitch)
@@ -574,6 +694,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane8_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane8_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 9 x location
+        /// </summary>
+        public IXPDataRef<double> plane9_x { get { return m_data.GetDouble("sim/multiplayer/position/plane9_x");} }
+
+        /// <summary>
+        ///  Plane 9 y location
+        /// </summary>
+        public IXPDataRef<double> plane9_y { get { return m_data.GetDouble("sim/multiplayer/position/plane9_y");} }
+
+        /// <summary>
+        ///  Plane 9 z location
+        /// </summary>
+        public IXPDataRef<double> plane9_z { get { return m_data.GetDouble("sim/multiplayer/position/plane9_z");} }
+
+        /// <summary>
         ///  Plane 9 theta (pitch)
         /// </summary>
         public IXPDataRef<float> plane9_the { get { return m_data.GetFloat("sim/multiplayer/position/plane9_the");} }
@@ -644,6 +779,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane9_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane9_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 1 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane1_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane1_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane1_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane1_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane1_el { get { return m_data.GetDouble("sim/multiplayer/position/plane1_el");} }
+
+        /// <summary>
         ///  Plane 1 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane1_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane1_v_x");} }
@@ -657,6 +807,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane1_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane1_v_z");} }
+
+        /// <summary>
+        ///  Plane 2 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane2_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane2_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane2_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane2_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane2_el { get { return m_data.GetDouble("sim/multiplayer/position/plane2_el");} }
 
         /// <summary>
         ///  Plane 2 cartesian velocities.  These may not be accurate if another plugin
@@ -674,6 +839,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane2_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane2_v_z");} }
 
         /// <summary>
+        ///  Plane 3 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane3_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane3_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane3_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane3_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane3_el { get { return m_data.GetDouble("sim/multiplayer/position/plane3_el");} }
+
+        /// <summary>
         ///  Plane 3 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane3_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane3_v_x");} }
@@ -687,6 +867,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane3_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane3_v_z");} }
+
+        /// <summary>
+        ///  Plane 4 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane4_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane4_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane4_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane4_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane4_el { get { return m_data.GetDouble("sim/multiplayer/position/plane4_el");} }
 
         /// <summary>
         ///  Plane 4 cartesian velocities.  These may not be accurate if another plugin
@@ -704,6 +899,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane4_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane4_v_z");} }
 
         /// <summary>
+        ///  Plane 5 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane5_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane5_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane5_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane5_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane5_el { get { return m_data.GetDouble("sim/multiplayer/position/plane5_el");} }
+
+        /// <summary>
         ///  Plane 5 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane5_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane5_v_x");} }
@@ -717,6 +927,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane5_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane5_v_z");} }
+
+        /// <summary>
+        ///  Plane 6 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane6_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane6_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane6_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane6_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane6_el { get { return m_data.GetDouble("sim/multiplayer/position/plane6_el");} }
 
         /// <summary>
         ///  Plane 6 cartesian velocities.  These may not be accurate if another plugin
@@ -734,6 +959,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane6_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane6_v_z");} }
 
         /// <summary>
+        ///  Plane 7 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane7_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane7_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane7_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane7_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane7_el { get { return m_data.GetDouble("sim/multiplayer/position/plane7_el");} }
+
+        /// <summary>
         ///  Plane 7 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane7_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane7_v_x");} }
@@ -749,6 +989,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane7_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane7_v_z");} }
 
         /// <summary>
+        ///  Plane 8 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane8_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane8_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane8_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane8_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane8_el { get { return m_data.GetDouble("sim/multiplayer/position/plane8_el");} }
+
+        /// <summary>
         ///  Plane 8 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane8_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane8_v_x");} }
@@ -762,6 +1017,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane8_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane8_v_z");} }
+
+        /// <summary>
+        ///  Plane 9 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane9_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane9_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane9_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane9_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane9_el { get { return m_data.GetDouble("sim/multiplayer/position/plane9_el");} }
 
         /// <summary>
         ///  Plane 9 cartesian velocities.  These may not be accurate if another plugin
@@ -1254,6 +1524,21 @@ namespace XPNet.Data
         public IXPDataRef<bool> plane19_taxi_light_on { get { return m_data.GetBool("sim/multiplayer/position/plane19_taxi_light_on");} }
 
         /// <summary>
+        ///  Plane 10 x location
+        /// </summary>
+        public IXPDataRef<double> plane10_x { get { return m_data.GetDouble("sim/multiplayer/position/plane10_x");} }
+
+        /// <summary>
+        ///  Plane 10 y location
+        /// </summary>
+        public IXPDataRef<double> plane10_y { get { return m_data.GetDouble("sim/multiplayer/position/plane10_y");} }
+
+        /// <summary>
+        ///  Plane 10 z location
+        /// </summary>
+        public IXPDataRef<double> plane10_z { get { return m_data.GetDouble("sim/multiplayer/position/plane10_z");} }
+
+        /// <summary>
         ///  Plane 10 theta (pitch)
         /// </summary>
         public IXPDataRef<float> plane10_the { get { return m_data.GetFloat("sim/multiplayer/position/plane10_the");} }
@@ -1324,6 +1609,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane10_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane10_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 10 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane10_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane10_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane10_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane10_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane10_el { get { return m_data.GetDouble("sim/multiplayer/position/plane10_el");} }
+
+        /// <summary>
         ///  Plane 10 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane10_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane10_v_x");} }
@@ -1337,6 +1637,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane10_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane10_v_z");} }
+
+        /// <summary>
+        ///  Plane 11 x location
+        /// </summary>
+        public IXPDataRef<double> plane11_x { get { return m_data.GetDouble("sim/multiplayer/position/plane11_x");} }
+
+        /// <summary>
+        ///  Plane 11 y location
+        /// </summary>
+        public IXPDataRef<double> plane11_y { get { return m_data.GetDouble("sim/multiplayer/position/plane11_y");} }
+
+        /// <summary>
+        ///  Plane 11 z location
+        /// </summary>
+        public IXPDataRef<double> plane11_z { get { return m_data.GetDouble("sim/multiplayer/position/plane11_z");} }
 
         /// <summary>
         ///  Plane 11 theta (pitch)
@@ -1409,6 +1724,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane11_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane11_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 11 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane11_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane11_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane11_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane11_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane11_el { get { return m_data.GetDouble("sim/multiplayer/position/plane11_el");} }
+
+        /// <summary>
         ///  Plane 11 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane11_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane11_v_x");} }
@@ -1422,6 +1752,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane11_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane11_v_z");} }
+
+        /// <summary>
+        ///  Plane 12 x location
+        /// </summary>
+        public IXPDataRef<double> plane12_x { get { return m_data.GetDouble("sim/multiplayer/position/plane12_x");} }
+
+        /// <summary>
+        ///  Plane 12 y location
+        /// </summary>
+        public IXPDataRef<double> plane12_y { get { return m_data.GetDouble("sim/multiplayer/position/plane12_y");} }
+
+        /// <summary>
+        ///  Plane 12 z location
+        /// </summary>
+        public IXPDataRef<double> plane12_z { get { return m_data.GetDouble("sim/multiplayer/position/plane12_z");} }
 
         /// <summary>
         ///  Plane 12 theta (pitch)
@@ -1494,6 +1839,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane12_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane12_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 12 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane12_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane12_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane12_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane12_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane12_el { get { return m_data.GetDouble("sim/multiplayer/position/plane12_el");} }
+
+        /// <summary>
         ///  Plane 12 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane12_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane12_v_x");} }
@@ -1507,6 +1867,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane12_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane12_v_z");} }
+
+        /// <summary>
+        ///  Plane 13 x location
+        /// </summary>
+        public IXPDataRef<double> plane13_x { get { return m_data.GetDouble("sim/multiplayer/position/plane13_x");} }
+
+        /// <summary>
+        ///  Plane 13 y location
+        /// </summary>
+        public IXPDataRef<double> plane13_y { get { return m_data.GetDouble("sim/multiplayer/position/plane13_y");} }
+
+        /// <summary>
+        ///  Plane 13 z location
+        /// </summary>
+        public IXPDataRef<double> plane13_z { get { return m_data.GetDouble("sim/multiplayer/position/plane13_z");} }
 
         /// <summary>
         ///  Plane 13 theta (pitch)
@@ -1579,6 +1954,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane13_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane13_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 13 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane13_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane13_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane13_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane13_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane13_el { get { return m_data.GetDouble("sim/multiplayer/position/plane13_el");} }
+
+        /// <summary>
         ///  Plane 13 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane13_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane13_v_x");} }
@@ -1592,6 +1982,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane13_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane13_v_z");} }
+
+        /// <summary>
+        ///  Plane 14 x location
+        /// </summary>
+        public IXPDataRef<double> plane14_x { get { return m_data.GetDouble("sim/multiplayer/position/plane14_x");} }
+
+        /// <summary>
+        ///  Plane 14 y location
+        /// </summary>
+        public IXPDataRef<double> plane14_y { get { return m_data.GetDouble("sim/multiplayer/position/plane14_y");} }
+
+        /// <summary>
+        ///  Plane 14 z location
+        /// </summary>
+        public IXPDataRef<double> plane14_z { get { return m_data.GetDouble("sim/multiplayer/position/plane14_z");} }
 
         /// <summary>
         ///  Plane 14 theta (pitch)
@@ -1664,6 +2069,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane14_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane14_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 14 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane14_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane14_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane14_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane14_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane14_el { get { return m_data.GetDouble("sim/multiplayer/position/plane14_el");} }
+
+        /// <summary>
         ///  Plane 14 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane14_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane14_v_x");} }
@@ -1677,6 +2097,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane14_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane14_v_z");} }
+
+        /// <summary>
+        ///  Plane 15 x location
+        /// </summary>
+        public IXPDataRef<double> plane15_x { get { return m_data.GetDouble("sim/multiplayer/position/plane15_x");} }
+
+        /// <summary>
+        ///  Plane 15 y location
+        /// </summary>
+        public IXPDataRef<double> plane15_y { get { return m_data.GetDouble("sim/multiplayer/position/plane15_y");} }
+
+        /// <summary>
+        ///  Plane 15 z location
+        /// </summary>
+        public IXPDataRef<double> plane15_z { get { return m_data.GetDouble("sim/multiplayer/position/plane15_z");} }
 
         /// <summary>
         ///  Plane 15 theta (pitch)
@@ -1749,6 +2184,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane15_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane15_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 15 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane15_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane15_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane15_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane15_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane15_el { get { return m_data.GetDouble("sim/multiplayer/position/plane15_el");} }
+
+        /// <summary>
         ///  Plane 15 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane15_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane15_v_x");} }
@@ -1762,6 +2212,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane15_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane15_v_z");} }
+
+        /// <summary>
+        ///  Plane 16 x location
+        /// </summary>
+        public IXPDataRef<double> plane16_x { get { return m_data.GetDouble("sim/multiplayer/position/plane16_x");} }
+
+        /// <summary>
+        ///  Plane 16 y location
+        /// </summary>
+        public IXPDataRef<double> plane16_y { get { return m_data.GetDouble("sim/multiplayer/position/plane16_y");} }
+
+        /// <summary>
+        ///  Plane 16 z location
+        /// </summary>
+        public IXPDataRef<double> plane16_z { get { return m_data.GetDouble("sim/multiplayer/position/plane16_z");} }
 
         /// <summary>
         ///  Plane 16 theta (pitch)
@@ -1834,6 +2299,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane16_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane16_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 16 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane16_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane16_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane16_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane16_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane16_el { get { return m_data.GetDouble("sim/multiplayer/position/plane16_el");} }
+
+        /// <summary>
         ///  Plane 16 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane16_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane16_v_x");} }
@@ -1847,6 +2327,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane16_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane16_v_z");} }
+
+        /// <summary>
+        ///  Plane 17 x location
+        /// </summary>
+        public IXPDataRef<double> plane17_x { get { return m_data.GetDouble("sim/multiplayer/position/plane17_x");} }
+
+        /// <summary>
+        ///  Plane 17 y location
+        /// </summary>
+        public IXPDataRef<double> plane17_y { get { return m_data.GetDouble("sim/multiplayer/position/plane17_y");} }
+
+        /// <summary>
+        ///  Plane 17 z location
+        /// </summary>
+        public IXPDataRef<double> plane17_z { get { return m_data.GetDouble("sim/multiplayer/position/plane17_z");} }
 
         /// <summary>
         ///  Plane 17 theta (pitch)
@@ -1919,6 +2414,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane17_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane17_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 17 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane17_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane17_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane17_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane17_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane17_el { get { return m_data.GetDouble("sim/multiplayer/position/plane17_el");} }
+
+        /// <summary>
         ///  Plane 17 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane17_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane17_v_x");} }
@@ -1932,6 +2442,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane17_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane17_v_z");} }
+
+        /// <summary>
+        ///  Plane 18 x location
+        /// </summary>
+        public IXPDataRef<double> plane18_x { get { return m_data.GetDouble("sim/multiplayer/position/plane18_x");} }
+
+        /// <summary>
+        ///  Plane 18 y location
+        /// </summary>
+        public IXPDataRef<double> plane18_y { get { return m_data.GetDouble("sim/multiplayer/position/plane18_y");} }
+
+        /// <summary>
+        ///  Plane 18 z location
+        /// </summary>
+        public IXPDataRef<double> plane18_z { get { return m_data.GetDouble("sim/multiplayer/position/plane18_z");} }
 
         /// <summary>
         ///  Plane 18 theta (pitch)
@@ -2004,6 +2529,21 @@ namespace XPNet.Data
         public IXPDataRef<float> plane18_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane18_yolk_yaw");} }
 
         /// <summary>
+        ///  Plane 18 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane18_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane18_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane18_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane18_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane18_el { get { return m_data.GetDouble("sim/multiplayer/position/plane18_el");} }
+
+        /// <summary>
         ///  Plane 18 cartesian velocities.  These may not be accurate if another plugin
         /// </summary>
         public IXPDataRef<float> plane18_v_x { get { return m_data.GetFloat("sim/multiplayer/position/plane18_v_x");} }
@@ -2017,6 +2557,21 @@ namespace XPNet.Data
         ///  manipulate the plane.
         /// </summary>
         public IXPDataRef<float> plane18_v_z { get { return m_data.GetFloat("sim/multiplayer/position/plane18_v_z");} }
+
+        /// <summary>
+        ///  Plane 19 x location
+        /// </summary>
+        public IXPDataRef<double> plane19_x { get { return m_data.GetDouble("sim/multiplayer/position/plane19_x");} }
+
+        /// <summary>
+        ///  Plane 19 y location
+        /// </summary>
+        public IXPDataRef<double> plane19_y { get { return m_data.GetDouble("sim/multiplayer/position/plane19_y");} }
+
+        /// <summary>
+        ///  Plane 19 z location
+        /// </summary>
+        public IXPDataRef<double> plane19_z { get { return m_data.GetDouble("sim/multiplayer/position/plane19_z");} }
 
         /// <summary>
         ///  Plane 19 theta (pitch)
@@ -2087,6 +2642,21 @@ namespace XPNet.Data
         ///  Plane 19 Commanded yaw (Legacy for compatibility - use sim/multiplayer/controls/yoke_heading_ratio)
         /// </summary>
         public IXPDataRef<float> plane19_yolk_yaw { get { return m_data.GetFloat("sim/multiplayer/position/plane19_yolk_yaw");} }
+
+        /// <summary>
+        ///  Plane 19 Lat lon and elevation.  NOTE: your plugin must set the plane's
+        /// </summary>
+        public IXPDataRef<double> plane19_lat { get { return m_data.GetDouble("sim/multiplayer/position/plane19_lat");} }
+
+        /// <summary>
+        ///  position by writing x, y and z.  Also if another plugin is updating plane
+        /// </summary>
+        public IXPDataRef<double> plane19_lon { get { return m_data.GetDouble("sim/multiplayer/position/plane19_lon");} }
+
+        /// <summary>
+        ///  position then these will not be accurate unless the plane updates them.
+        /// </summary>
+        public IXPDataRef<double> plane19_el { get { return m_data.GetDouble("sim/multiplayer/position/plane19_el");} }
 
         /// <summary>
         ///  Plane 19 cartesian velocities.  These may not be accurate if another plugin

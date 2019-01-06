@@ -14,9 +14,19 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  Bleed air mode, 0=of, 1=left,2=both,3=right,4=apu,5=auto
+        /// </summary>
+        public IXPDataRef<int> bleed_air_mode { get { return m_data.GetInt("sim/cockpit2/pressurization/actuators/bleed_air_mode");} }
+
+        /// <summary>
         ///  Dump all pressurization, 0 or 1.
         /// </summary>
         public IXPDataRef<bool> dump_all_on { get { return m_data.GetBool("sim/cockpit2/pressurization/actuators/dump_all_on");} }
+
+        /// <summary>
+        ///  Dump pressurization to the current altitude, 0 or 1.
+        /// </summary>
+        public IXPDataRef<int> dump_to_altitude_on { get { return m_data.GetInt("sim/cockpit2/pressurization/actuators/dump_to_altitude_on");} }
 
         /// <summary>
         ///  Cabin altitude commanded, feet.

@@ -14,6 +14,11 @@ namespace XPNet.Data
         }
 
         /// <summary>
+        ///  What planet are we on?  (Earth = 0, mars = 1)
+        /// </summary>
+        public IXPDataRef<int> current_planet { get { return m_data.GetInt("sim/graphics/scenery/current_planet");} }
+
+        /// <summary>
         ///  what percentage of city lites are on as night hits
         /// </summary>
         public IXPDataRef<float> percent_lights_on { get { return m_data.GetFloat("sim/graphics/scenery/percent_lights_on");} }
