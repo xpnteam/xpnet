@@ -14,22 +14,26 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Hydraulic system 1 pressure, units set by Plane-Maker.
+        ///  Hydraulic system 1 pressure, units set by Plane-Maker.. Units:any
+        ///  Raw path: sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1
         /// </summary>
         public IXPDataRef<float> hydraulic_pressure_1 { get { return m_data.GetFloat("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1");} }
 
         /// <summary>
-        ///  Hydraulic system 2 pressure, units set by Plane-Maker.
+        ///  Hydraulic system 2 pressure, units set by Plane-Maker.. Units:any
+        ///  Raw path: sim/cockpit2/hydraulics/indicators/hydraulic_pressure_2
         /// </summary>
         public IXPDataRef<float> hydraulic_pressure_2 { get { return m_data.GetFloat("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_2");} }
 
         /// <summary>
-        ///  Hydraulic fluid quantity, ratio of max, system 1
+        ///  Hydraulic fluid quantity, ratio of max, system 1. Units:ratio
+        ///  Raw path: sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_1
         /// </summary>
         public IXPDataRef<float> hydraulic_fluid_ratio_1 { get { return m_data.GetFloat("sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_1");} }
 
         /// <summary>
-        ///  Hydraulic fluid quantity, ratio of max, system 2
+        ///  Hydraulic fluid quantity, ratio of max, system 2. Units:ratio
+        ///  Raw path: sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_2
         /// </summary>
         public IXPDataRef<float> hydraulic_fluid_ratio_2 { get { return m_data.GetFloat("sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_2");} }
     }

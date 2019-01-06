@@ -31,7 +31,6 @@ namespace XPNet.CLR.Tests
                 .Returns(mockDataString.Object);
 
             //act
-            //var result = target.Cockpit2
             var result = target.aircraft.view.acf_tailnum;
 
             //assert

@@ -14,7 +14,8 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  enter com=0, enter_nav=1
+        ///  enter com=0, enter_nav=1. Units:enum
+        ///  Raw path: sim/cockpit/g430/g430_nav_com_sel
         /// </summary>
         public IXPDataRef<int[]> g430_nav_com_sel { get { return m_data.GetIntArray("sim/cockpit/g430/g430_nav_com_sel");} }
     }

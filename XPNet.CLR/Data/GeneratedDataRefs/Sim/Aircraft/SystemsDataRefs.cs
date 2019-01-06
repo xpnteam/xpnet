@@ -14,7 +14,8 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  If this is true, commands to engage the AP servos will be ignored if the FD is not on.
+        ///  If this is true, commands to engage the AP servos will be ignored if the FD is not on.. Units:boolean
+        ///  Raw path: sim/aircraft/systems/fdir_needed_to_engage_servos
         /// </summary>
         public IXPDataRef<bool> fdir_needed_to_engage_servos { get { return m_data.GetBool("sim/aircraft/systems/fdir_needed_to_engage_servos");} }
     }

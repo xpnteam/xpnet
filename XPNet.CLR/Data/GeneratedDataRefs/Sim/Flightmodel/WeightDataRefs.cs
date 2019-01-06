@@ -14,42 +14,50 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Payload Weight
+        ///  Payload Weight. Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_fixed
         /// </summary>
         public IXPDataRef<float> m_fixed { get { return m_data.GetFloat("sim/flightmodel/weight/m_fixed");} }
 
         /// <summary>
-        ///  Total Weight
+        ///  Total Weight. Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_total
         /// </summary>
         public IXPDataRef<float> m_total { get { return m_data.GetFloat("sim/flightmodel/weight/m_total");} }
 
         /// <summary>
-        ///  Fuel Tank Weight - for 9 tanks
+        ///  Fuel Tank Weight - for 9 tanks. Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_fuel
         /// </summary>
         public IXPDataRef<float[]> m_fuel { get { return m_data.GetFloatArray("sim/flightmodel/weight/m_fuel");} }
 
         /// <summary>
-        ///  Fuel Tank 1 Weight
+        ///  Fuel Tank 1 Weight. Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_fuel1
         /// </summary>
         public IXPDataRef<float> m_fuel1 { get { return m_data.GetFloat("sim/flightmodel/weight/m_fuel1");} }
 
         /// <summary>
-        ///  Fuel Tank 2 Weight
+        ///  Fuel Tank 2 Weight. Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_fuel2
         /// </summary>
         public IXPDataRef<float> m_fuel2 { get { return m_data.GetFloat("sim/flightmodel/weight/m_fuel2");} }
 
         /// <summary>
-        ///  Fuel Tank 3 Weight
+        ///  Fuel Tank 3 Weight. Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_fuel3
         /// </summary>
         public IXPDataRef<float> m_fuel3 { get { return m_data.GetFloat("sim/flightmodel/weight/m_fuel3");} }
 
         /// <summary>
-        ///  
+        ///  . Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_jettison
         /// </summary>
         public IXPDataRef<float> m_jettison { get { return m_data.GetFloat("sim/flightmodel/weight/m_jettison");} }
 
         /// <summary>
-        ///  Fuel Total Weight
+        ///  Fuel Total Weight. Units:kgs
+        ///  Raw path: sim/flightmodel/weight/m_fuel_total
         /// </summary>
         public IXPDataRef<float> m_fuel_total { get { return m_data.GetFloat("sim/flightmodel/weight/m_fuel_total");} }
     }

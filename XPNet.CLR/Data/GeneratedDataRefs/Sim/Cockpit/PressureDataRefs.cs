@@ -14,22 +14,26 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Bleeding air is on (legacy)
+        ///  Bleeding air is on (legacy). Units:bool
+        ///  Raw path: sim/cockpit/pressure/bleed_air_on
         /// </summary>
         public IXPDataRef<bool> bleed_air_on { get { return m_data.GetBool("sim/cockpit/pressure/bleed_air_on");} }
 
         /// <summary>
-        ///  
+        ///  . Units:enum
+        ///  Raw path: sim/cockpit/pressure/bleed_air_mode
         /// </summary>
         public IXPDataRef<int> bleed_air_mode { get { return m_data.GetInt("sim/cockpit/pressure/bleed_air_mode");} }
 
         /// <summary>
-        ///  Pressure dump switch
+        ///  Pressure dump switch. Units:bool
+        ///  Raw path: sim/cockpit/pressure/dump_all
         /// </summary>
         public IXPDataRef<bool> dump_all { get { return m_data.GetBool("sim/cockpit/pressure/dump_all");} }
 
         /// <summary>
-        ///  Pressure dump to altitude switch
+        ///  Pressure dump to altitude switch. Units:bool
+        ///  Raw path: sim/cockpit/pressure/dump_to_alt
         /// </summary>
         public IXPDataRef<bool> dump_to_alt { get { return m_data.GetBool("sim/cockpit/pressure/dump_to_alt");} }
     }

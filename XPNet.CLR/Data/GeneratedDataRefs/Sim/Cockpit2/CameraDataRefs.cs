@@ -14,22 +14,26 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  In-cockpit camera angular offset relative to airplane orientation (Pitch)
+        ///  In-cockpit camera angular offset relative to airplane orientation (Pitch). Units:degrees
+        ///  Raw path: sim/cockpit2/camera/camera_offset_pitch
         /// </summary>
         public IXPDataRef<float> camera_offset_pitch { get { return m_data.GetFloat("sim/cockpit2/camera/camera_offset_pitch");} }
 
         /// <summary>
-        ///  In-cockpit camera angular offset relative to airplane orientation (Heading)
+        ///  In-cockpit camera angular offset relative to airplane orientation (Heading). Units:degrees
+        ///  Raw path: sim/cockpit2/camera/camera_offset_heading
         /// </summary>
         public IXPDataRef<float> camera_offset_heading { get { return m_data.GetFloat("sim/cockpit2/camera/camera_offset_heading");} }
 
         /// <summary>
-        ///  In-cockpit camera angular offset relative to airplane orientation (Roll)
+        ///  In-cockpit camera angular offset relative to airplane orientation (Roll). Units:degrees
+        ///  Raw path: sim/cockpit2/camera/camera_offset_roll
         /// </summary>
         public IXPDataRef<float> camera_offset_roll { get { return m_data.GetFloat("sim/cockpit2/camera/camera_offset_roll");} }
 
         /// <summary>
-        ///  In-cockpit camera field of view
+        ///  In-cockpit camera field of view. Units:degrees
+        ///  Raw path: sim/cockpit2/camera/camera_field_of_view
         /// </summary>
         public IXPDataRef<float> camera_field_of_view { get { return m_data.GetFloat("sim/cockpit2/camera/camera_field_of_view");} }
     }

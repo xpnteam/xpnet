@@ -126,7 +126,7 @@ namespace XPNet.CLR.CodeGen
             var name = typeof(T).Name;
             if(!typeMapping.ContainsKey(name))
                 throw new Exception($"unknown type: {name}. Path={m.ParentPath}");
-            return $"{m.Description.CreateSummaryComment(propsIndent)}\n{propsIndent}public IXPDataRef<{typeMapping[name].TypeName}> {m.Name.fixupSpecialKeywords()} {{ get {{ return m_data.{typeMapping[name].MethodName}(\"{m.ParentPath.ToLower()}\");}} }}";
+            return $"{m.Description.CreateSummaryComment(propsIndent, m.ParentPath, m.Units)}\n{propsIndent}public IXPDataRef<{typeMapping[name].TypeName}> {m.Name.fixupSpecialKeywords()} {{ get {{ return m_data.{typeMapping[name].MethodName}(\"{m.ParentPath.ToLower()}\");}} }}";
         }
 
         private static Dictionary<string, TypeData> typeMapping = new Dictionary<string, TypeData>()
@@ -232,10 +232,10 @@ namespace XPNet.Data
                 return "override_";
             else return name;
         }
-        public static string CreateSummaryComment(this string description, string indent, string units = null)
+        public static string CreateSummaryComment(this string description, string indent, string path, string units = null)
         {
             var unitString = units == null ? string.Empty : $". Units:{units}";
-            return $"\n\n{indent}/// <summary>\n{indent}///  {description}{unitString}\n{indent}/// </summary>";
+            return $"\n\n{indent}/// <summary>\n{indent}///  {description}{unitString}\n{indent}///  Raw path: {path}\n{indent}/// </summary>";
         }
     }
 }

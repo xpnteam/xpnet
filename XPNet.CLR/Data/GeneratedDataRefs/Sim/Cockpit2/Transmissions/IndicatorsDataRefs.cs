@@ -14,12 +14,14 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  Transmission oil temperature.  Units are the same as the max oil temperature in ACF file.
+        ///  Transmission oil temperature.  Units are the same as the max oil temperature in ACF file.. Units:any
+        ///  Raw path: sim/cockpit2/transmissions/indicators/oil_temperature
         /// </summary>
         public IXPDataRef<float> oil_temperature { get { return m_data.GetFloat("sim/cockpit2/transmissions/indicators/oil_temperature");} }
 
         /// <summary>
-        ///  Transmission oil pressure.  Units are the same as the max oil pressure in ACF file.
+        ///  Transmission oil pressure.  Units are the same as the max oil pressure in ACF file.. Units:any
+        ///  Raw path: sim/cockpit2/transmissions/indicators/oil_pressure
         /// </summary>
         public IXPDataRef<float> oil_pressure { get { return m_data.GetFloat("sim/cockpit2/transmissions/indicators/oil_pressure");} }
     }

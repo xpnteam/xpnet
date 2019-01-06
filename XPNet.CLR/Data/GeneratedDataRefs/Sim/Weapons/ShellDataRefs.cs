@@ -14,12 +14,14 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  
+        ///  . Units:V11TODO
+        ///  Raw path: sim/weapons/shell/is_attached
         /// </summary>
         public IXPDataRef<int> is_attached { get { return m_data.GetInt("sim/weapons/shell/is_attached");} }
 
         /// <summary>
-        ///  
+        ///  . Units:V11TODO
+        ///  Raw path: sim/weapons/shell/thrust_rat
         /// </summary>
         public IXPDataRef<float> thrust_rat { get { return m_data.GetFloat("sim/weapons/shell/thrust_rat");} }
     }

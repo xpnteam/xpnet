@@ -14,7 +14,8 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  this test dataref is used internally for testing our models
+        ///  this test dataref is used internally for testing our models. Units:ratio
+        ///  Raw path: sim/test/test_float
         /// </summary>
         public IXPDataRef<float> test_float { get { return m_data.GetFloat("sim/test/test_float");} }
     }

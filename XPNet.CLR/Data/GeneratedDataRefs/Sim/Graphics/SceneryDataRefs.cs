@@ -14,47 +14,56 @@ namespace XPNet.Data
         }
 
         /// <summary>
-        ///  What planet are we on?  (Earth = 0, mars = 1)
+        ///  What planet are we on?  (Earth = 0, mars = 1). Units:enum
+        ///  Raw path: sim/graphics/scenery/current_planet
         /// </summary>
         public IXPDataRef<int> current_planet { get { return m_data.GetInt("sim/graphics/scenery/current_planet");} }
 
         /// <summary>
-        ///  what percentage of city lites are on as night hits
+        ///  what percentage of city lites are on as night hits. Units:percent
+        ///  Raw path: sim/graphics/scenery/percent_lights_on
         /// </summary>
         public IXPDataRef<float> percent_lights_on { get { return m_data.GetFloat("sim/graphics/scenery/percent_lights_on");} }
 
         /// <summary>
-        ///  sun pitch from flat in OGL coordinates
+        ///  sun pitch from flat in OGL coordinates. Units:degrees
+        ///  Raw path: sim/graphics/scenery/sun_pitch_degrees
         /// </summary>
         public IXPDataRef<float> sun_pitch_degrees { get { return m_data.GetFloat("sim/graphics/scenery/sun_pitch_degrees");} }
 
         /// <summary>
-        ///  sun heading from true north in OGL coordinates
+        ///  sun heading from true north in OGL coordinates. Units:degrees
+        ///  Raw path: sim/graphics/scenery/sun_heading_degrees
         /// </summary>
         public IXPDataRef<float> sun_heading_degrees { get { return m_data.GetFloat("sim/graphics/scenery/sun_heading_degrees");} }
 
         /// <summary>
-        ///  moon pitch from flat in OGL coordinates
+        ///  moon pitch from flat in OGL coordinates. Units:degrees
+        ///  Raw path: sim/graphics/scenery/moon_pitch_degrees
         /// </summary>
         public IXPDataRef<float> moon_pitch_degrees { get { return m_data.GetFloat("sim/graphics/scenery/moon_pitch_degrees");} }
 
         /// <summary>
-        ///  moon heading from true north in OGL coordinates
+        ///  moon heading from true north in OGL coordinates. Units:degrees
+        ///  Raw path: sim/graphics/scenery/moon_heading_degrees
         /// </summary>
         public IXPDataRef<float> moon_heading_degrees { get { return m_data.GetFloat("sim/graphics/scenery/moon_heading_degrees");} }
 
         /// <summary>
-        ///  Level of airport light illumination, 0 = off, 1 = max brightness
+        ///  Level of airport light illumination, 0 = off, 1 = max brightness. Units:ratio
+        ///  Raw path: sim/graphics/scenery/airport_light_level
         /// </summary>
         public IXPDataRef<float> airport_light_level { get { return m_data.GetFloat("sim/graphics/scenery/airport_light_level");} }
 
         /// <summary>
-        ///  Are the airport lites on?  set override_airport_lites to 1t o write this.
+        ///  Are the airport lites on?  set override_airport_lites to 1t o write this.. Units:boolean
+        ///  Raw path: sim/graphics/scenery/airport_lights_on
         /// </summary>
         public IXPDataRef<bool> airport_lights_on { get { return m_data.GetBool("sim/graphics/scenery/airport_lights_on");} }
 
         /// <summary>
-        ///  True when some kind of asynchronous scenery load or unload is in progress.
+        ///  True when some kind of asynchronous scenery load or unload is in progress.. Units:boolean
+        ///  Raw path: sim/graphics/scenery/async_scenery_load_in_progress
         /// </summary>
         public IXPDataRef<bool> async_scenery_load_in_progress { get { return m_data.GetBool("sim/graphics/scenery/async_scenery_load_in_progress");} }
     }
