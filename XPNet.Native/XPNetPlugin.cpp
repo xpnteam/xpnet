@@ -47,6 +47,24 @@ typedef XPLMFlightLoopID(*PXPLMCreateFlightLoop)(XPLMCreateFlightLoop_t*);
 typedef void(*PXPLMDestroyFlightLoop)(XPLMFlightLoopID);
 typedef void(*PXPLMScheduleFlightLoop)(XPLMFlightLoopID, float, int);
 
+// Display - X-Plane API Function Pointer Types
+typedef int(*PXPLMRegisterDrawCallback)(XPLMDrawCallback_f, XPLMDrawingPhase, int, void*);
+typedef int(*PXPLMUnregisterDrawCallback)(XPLMDrawCallback_f, XPLMDrawingPhase, int, void*);
+
+// Scenery - X-Plane API Function Pointer Types
+typedef XPLMProbeRef(*PXPLMCreateProbe)(XPLMProbeType);
+typedef void(*PXPLMDestroyProbe)(XPLMProbeRef);
+typedef XPLMProbeResult(*PXPLMProbeTerrainXYZ)(XPLMProbeRef, float, float, float, XPLMProbeInfo_t*);
+typedef XPLMObjectRef(*PXPLMLoadObject)(const char*);
+typedef void(*PXPLMLoadObjectAsync)(const char*, XPLMObjectLoaded_f, void*);
+typedef void(*PXPLMDrawObjects)(XPLMObjectRef, int, XPLMDrawInfo_t*, int, int);
+typedef void(*PXPLMUnloadObject)(XPLMObjectRef);
+typedef int(*PXPLMLookupObjects)(const char*, float, float, XPLMLibraryEnumerator_f, void*);
+
+// Graphics - X-Plane API Function Pointer Types
+typedef void(*PXPLMWorldToLocal)(double, double, double, double*, double*, double*);
+typedef void(*PXPLMLocalToWorld)(double, double, double, double*, double*, double*);
+
 // Function types for calling into XPNet.PluginBridge in the CLR.
 typedef int (STDMETHODCALLTYPE *PXPluginStart)(void*, void*);
 typedef void (STDMETHODCALLTYPE *PXPluginStop)();
@@ -110,6 +128,25 @@ typedef struct
 	PXPLMDestroyFlightLoop XPLMDestroyFlightLoop;
 	PXPLMScheduleFlightLoop XPLMScheduleFlightLoop;
 
+	// Display
+	PXPLMRegisterDrawCallback XPLMRegisterDrawCallback;
+	PXPLMUnregisterDrawCallback XPLMUnregisterDrawCallback;
+
+	// Scenery
+	PXPLMCreateProbe XPLMCreateProbe;
+	PXPLMDestroyProbe XPLMDestroyProbe;
+	PXPLMProbeTerrainXYZ XPLMProbeTerrainXYZ;
+	PXPLMLoadObject XPLMLoadObject;
+	PXPLMLoadObjectAsync XPLMLoadObjectAsync;
+	PXPLMDrawObjects XPLMDrawObjects;
+	PXPLMUnloadObject XPLMUnloadObject;
+	PXPLMLookupObjects XPLMLookupObjects;
+
+
+	// Graphics
+	PXPLMWorldToLocal XPLMWorldToLocal;
+	PXPLMLocalToWorld XPLMLocalToWorld;
+
 } ApiFunctions;
 
 
@@ -122,8 +159,7 @@ std::wstring GetPluginDirectory()
 	return fp.parent_path().generic_wstring();
 }
 
-// This function is used for testing, to get logging to a different location
-// than the normal log file.
+// For testing: provide an alternate log target than the normal log file.
 XPNETPLUGIN_API void XPNetPluginSetExternalLoggingHandle(void* externalLoggingHandle)
 {
 	s_externalLoggingHandle = externalLoggingHandle;
@@ -158,7 +194,11 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 			pluginDir.parent_path() / "dotnet"
 		};
 
-		fs::path sharedAppPath, effectivePluginDir;
+		// Assuming that the pluginPath looks like <PluginDir>/32, we want to
+		// be looking for our plugin resources one level higher, in <PluginDir>.
+		fs::path effectivePluginDir = pluginDir.parent_path();
+
+		fs::path sharedAppPath;
 		for (auto& dotnetPath : dotnetProbePaths)
 		{
 			fs::path probeSharedAppPath = dotnetPath / "shared" / "Microsoft.NETCore.App";
@@ -166,7 +206,6 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 			if (fs::exists(probeSharedAppPath))
 			{
 				sharedAppPath = probeSharedAppPath;
-				effectivePluginDir = dotnetPath.parent_path();
 
 				XPLMDebugString("...FOUND\n");
 				XPLMDebugString(("XPNet: Will load plugins from " + effectivePluginDir.generic_string() + "\n").c_str());
@@ -208,6 +247,12 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 		ClrPluginEnable = GetClrMethod<PXPluginEnable>(s_clrToken, L"XPNet.CLR", L"XPNet.PluginBridge", L"Enable");
 		ClrPluginDisable = GetClrMethod<PXPluginDisable>(s_clrToken, L"XPNet.CLR", L"XPNet.PluginBridge", L"Disable");
 		ClrPluginReceiveMessage = GetClrMethod<PXPluginReceiveMessage>(s_clrToken, L"XPNet.CLR", L"XPNet.PluginBridge", L"ReceiveMessage");
+
+		if (!ClrPluginStart || !ClrPluginStop || !ClrPluginEnable || !ClrPluginDisable || !ClrPluginReceiveMessage)
+		{
+			XPLMDebugString("XPNet: Failed to load one or more required methods from XPNet.PluginBridge in XPNet.CLR.  Cannot continue.\n");
+			return 0;
+		}
 	}
 
 	StartParams sp = { "", "", "", reinterpret_cast<int64_t>(s_externalLoggingHandle) };
@@ -243,7 +288,25 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 		XPLMSetFlightLoopCallbackInterval,
 		XPLMCreateFlightLoop,
 		XPLMDestroyFlightLoop,
-		XPLMScheduleFlightLoop
+		XPLMScheduleFlightLoop,
+
+		// Display
+		XPLMRegisterDrawCallback,
+		XPLMUnregisterDrawCallback,
+
+		// Scenery
+		XPLMCreateProbe,
+		XPLMDestroyProbe,
+		XPLMProbeTerrainXYZ,
+		XPLMLoadObject,
+		XPLMLoadObjectAsync,
+		XPLMDrawObjects,
+		XPLMUnloadObject,
+		XPLMLookupObjects,
+
+		// Graphics
+		XPLMWorldToLocal,
+		XPLMLocalToWorld
 	};
 	
 	auto ret = ClrPluginStart(&sp, &api);

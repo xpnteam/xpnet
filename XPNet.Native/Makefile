@@ -43,7 +43,7 @@ ifeq ($(UNAME),Darwin)
   PLATFORM    :=macOS
   DEFINES     :=-DAPL=1 -DIBM=0 -DLIN=0
   XPLNAME     :=mac.xpl
-  PKGPROJ     :=XPNet.Native.NuSpec.macOS.csproj
+  PKGPROJ     :=../XPNet.Native.Packages/XPNet.Native.NuSpec.macOS.csproj
   FRAMEWORKS  :=-F$(XPLANESDKPATH)/Libraries/Mac -framework XPLM
   LDFLAGS     :=$(LDFLAGS) $(BOOSTLIB)/libboost_system.a $(BOOSTLIB)/libboost_filesystem.a
 
@@ -96,12 +96,11 @@ ifndef XPLANESDKPATH
   $(error XPLANESDKPATH is undefined.  You must set it before you can build XPNet)
 endif
 ifndef PLATFORM
-  $(error Platform not yet supported.  If you are on Windows, use Visual Studio 2017 or above, not this Makefile)
+  $(error Platform not yet supported.  If you are on Windows, use Visual Studio 2017 or above, or NMake with Makefile.vc)
 endif
 
 
 buildprep:
 	mkdir -p $(OUTDIR)
 	mkdir -p $(OBJDIR)
-
 

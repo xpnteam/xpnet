@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include <conio.h>
 #include "XPNetPluginTestHost.h"
 #include <XPNetPlugin.h>
 #include <XPLMTestHarness.h>
@@ -31,7 +32,7 @@ inline bool file_exists(const std::string& name)
 	return (stat(name.c_str(), &buffer) == 0);
 }
 
-void WriteXPNetConfig(XPNetConfigFlags flags)
+void WriteXPNetLoggerPluginConfig(XPNetConfigFlags flags)
 {
 	fstream cfg;
 	cfg.exceptions(fstream::failbit | fstream::badbit);
@@ -78,15 +79,31 @@ void WriteXPNetConfig(XPNetConfigFlags flags)
 	cfg.close();
 }
 
+void WriteXPNetGraphicsTestPluginConfig()
+{
+	fstream cfg;
+	cfg.exceptions(fstream::failbit | fstream::badbit);
+	cfg.open("xpnetcfg.json", fstream::out | fstream::out);
+
+	cfg << "{" << endl;
+
+	cfg << "  \"PluginAssemblyName\": \"XPNet.GraphicsTestPlugin.dll\"," << endl;
+	cfg << "  \"PluginType\": \"XPNet.GraphicsTestPlugin\"," << endl;
+
+	cfg << "  \"LoggingEnabled\": true" << "," << endl;
+
+	cfg << "}" << endl;
+
+	cfg.close();
+}
+
 void Spacer()
 {
 	cout << endl << "-------------------------------------" << endl << endl;
 }
 
-bool TestStartup(XPNetConfigFlags configFlags)
+bool StartupPlugin()
 {
-	WriteXPNetConfig(configFlags);
-
 	char outName[256] = "", outSig[256] = "", outDesc[256] = "";
 
 	int res;
@@ -106,6 +123,18 @@ bool TestStartup(XPNetConfigFlags configFlags)
 	cout << "Test Host: Enable Result: " << res << endl;
 
 	return true;
+}
+
+bool TestStartupWithLogger(XPNetConfigFlags configFlags)
+{
+	WriteXPNetLoggerPluginConfig(configFlags);
+	return StartupPlugin();
+}
+
+bool TestStartupWithGraphics()
+{
+	WriteXPNetGraphicsTestPluginConfig();
+	return StartupPlugin();
 }
 
 bool TestMessages()
@@ -197,14 +226,13 @@ bool TestFlightLoop()
 	XPHarnessInvokeFlightLoop(1.0f, 2.0f, 1);
 	XPHarnessInvokeFlightLoop(1.2f, 1.8f, 2);
 	XPHarnessInvokeFlightLoop(1.0f, 2.2f, 3);
+	
 	return true;
 }
 
-int main()
+bool RunMiscTestGroup1()
 {
-	// This looks a bit like a set of unit tests, but it's not fully automated.  You
-	// have to read through the output of the run see if all of the tests actually
-	// succeeded.
+	// A set of misc. tests that all can run with the Logger plugin instantiated.
 
 	XPNetPluginSetExternalLoggingHandle(GetStdHandle(STD_OUTPUT_HANDLE));
 
@@ -217,33 +245,37 @@ int main()
 	XPMock.SetFloat("sim/joystick/joystick_axis_minimum", std::vector<float>()); // Intentionally of Length zero to test handling zero-length arrays.
 
 	Spacer();
-	if (!TestStartup(XPNC_None))
-		return 1;
+	if (!TestStartupWithLogger(XPNC_None))
+		return false;
 
 	Spacer();
 	if (!TestMessages())
-		return 1;
+		return false;
 
 	Spacer();
 	if (!TestLogging())
-		return 1;
+		return false;
 
 	Spacer();
 	if (!TestCommands())
-		return 1;
+		return false;
 
 	Spacer();
 	if (!TestFlightLoop())
-		return 1;
+		return false;
 
 	Spacer();
 	if (!TestShutdown())
-		return 1;
+		return false;
 
+	return true;
+}
 
-	// Now do part of that again, in a second instance of the plugin in the same
-	// process (so we know shutdown/restart works) and using xpnet.log (so we can
-	// test that logging works).
+bool RunXPNetLogTestGroup()
+{
+	// Tests with the logger plugin instantiated but with no custom log handle
+	// set, so that ouptut goes to the default location (xpnet.log), so that we can
+	// verify that logging to xpnet.log works.
 
 	if (file_exists("xpnet.log"))
 	{
@@ -255,16 +287,63 @@ int main()
 		}
 	}
 
-	Spacer();
 	XPNetPluginSetExternalLoggingHandle(nullptr);
-	if (!TestStartup(XPNC_EnableLogging))
-		return 1;
-
-	if (!TestShutdown())
-		return 1;
 
 	Spacer();
-	cout << "Test Host: The last test tested both restarting the plugin engine in the same process, and writing to xpnet.log.  See xpnet.log for results." << endl;
+	if (!TestStartupWithLogger(XPNC_EnableLogging))
+		return false;
+
+	Spacer();
+	if (!TestShutdown())
+		return false;
+
+	Spacer();
+	cout << "Test Host: The last test tested writing to xpnet.log.  See xpnet.log for results." << endl;
+
+	return true;
+}
+
+bool RunGraphicsTestGroup()
+{
+	XPNetPluginSetExternalLoggingHandle(GetStdHandle(STD_OUTPUT_HANDLE));
+
+	Spacer();
+	if (!TestStartupWithGraphics())
+		return false;
+	
+	Spacer();
+	cout << "Test Host: Invoking the flight loop; should see related output before the next spacer." << endl;
+	XPHarnessInvokeFlightLoop(1.0f, 2.0f, 1);
+
+	Spacer();
+	cout << "Test Host: Invoking the draw callback; should see related output before the next spacer." << endl;
+	XPHarnessInvokeDrawCallback();
+
+	Spacer();
+	if (!TestShutdown())
+		return false;
+
+	return true;
+}
+
+int main()
+{
+	// This looks a bit like a set of unit tests, but it's not fully automated.  You
+	// have to read through the output of the run see if all of the tests actually
+	// succeeded.
+	//
+	// A meta-test that also happens here: each test group instantiates a plugin and
+	// takes it through its entire lifecycle, so that we know that disabling and
+	// enabling plugins over time in the same process works.
+
+	if (!RunMiscTestGroup1())
+		return 1;
+
+	if (!RunXPNetLogTestGroup())
+		return 1;
+
+	if (!RunGraphicsTestGroup())
+		return 1;
 
     return 0;
 }

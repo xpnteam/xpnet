@@ -7,7 +7,7 @@ namespace XPNet
 {
     [XPlanePlugin(
         name: "LoggerPlugin",
-        signature: "qbaum.plugins.logger",
+        signature: "xpnet.plugins.logger",
         description: "Logs various X-Plane events."
     )]
     public class LoggerPlugin : IXPlanePlugin

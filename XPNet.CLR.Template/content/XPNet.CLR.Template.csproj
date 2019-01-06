@@ -1,13 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  
+    <!--
+    Set this to the version of .NET Core you want the plugin to run against.
+    Including just major.minor (e.g. 2.1) will cause the app to install
+    using the most recent release of that series.  Including three digits
+    (e.g., 2.1.6) will specify the exact version to install.  Those are
+    the only two supported options.
+    -->
+    <NetCoreVersion>2.1</NetCoreVersion>
+
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="XPNet.CLR" Version="0.1.4" />
-    <PackageReference Include="XPNet.Native.macOS" Version="0.1.4" />
-    <PackageReference Include="XPNet.Native.Windows" Version="0.1.4" />
+    <PackageReference Include="XPNet.CLR" Version="0.*" />
+    <PackageReference Include="XPNet.Native.macOS" Version="0.*" />
+    <PackageReference Include="XPNet.Native.Windows" Version="0.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,5 +26,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <Target Name="InstallNetCoreShared" AfterTargets="Publish">
+
+    <!--
+    Install the private .NET Core runtime that the plugin will use.
+    
+    Assume that our user wants her plugin to work on all platforms automatically,
+    by default.  We can add MSBuild parameters to control which of these actually
+    install if someone makes a good case for needing it.
+    
+    We install platform-specific 64-bit versions of the framework, and then
+    a 32-bit version of the Windows framework; it is the only platform that
+    .NET Core supports 32-bit builds on anyway.
+    -->
+    <Exec Command="dotnet install -i &quot;$(PublishDir)64\dotnet-windows&quot; -r dotnet -p win -a x64 -v $(NetCoreVersion)" />
+    <Exec Command="dotnet install -i &quot;$(PublishDir)64\dotnet-macos&quot; -r dotnet -p osx -a x64 -v $(NetCoreVersion)" />
+    <Exec Command="dotnet install -i &quot;$(PublishDir)32\dotnet-windows&quot; -r dotnet -p win -a x86 -v $(NetCoreVersion)" />
+  </Target>
 
 </Project>

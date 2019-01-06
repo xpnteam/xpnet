@@ -2,10 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <NuspecFile>XPNet.Native.win.nuspec</NuspecFile>    
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\XPNet.CLR\XPNet.CLR.csproj" />
-  </ItemGroup>
 
 </Project>

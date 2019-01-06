@@ -6,6 +6,6 @@
     "name": "XPNet X-Plane Plugin",
     "shortName": "xpnetplugin",
     "sourceName": "XPNet.CLR.Template",
-    "preferNameDirectory": "true"
+    "preferNameDirectory": true
 }
 
