@@ -144,11 +144,11 @@ public:
 	template <class T>
 	static int GetArrayAccessorFromVector(void* inRefcon, T * outValues, int inOffset, int inMax)
 	{
-		std::vector<T>* d =  (std::vector<T>*)inRefcon;
+		std::vector<T>* d = (std::vector<T>*)inRefcon;
 		if (!outValues)
 			return (int)d->size();
 
-		int numElementsToCopy = min((int)d->size()-inOffset, inMax);
+		int numElementsToCopy = min((int)d->size() - inOffset, inMax);
 		std::copy_n(d->data() + inOffset, numElementsToCopy, outValues);
 		return numElementsToCopy;
 	}

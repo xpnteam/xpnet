@@ -10,7 +10,6 @@ namespace XPNet.CLR.TestPlugins
 
         public override void Enable()
         {
-			System.Diagnostics.Debugger.Launch();
             var dr1 = Api.Data.GetString(TestData.Name("dr/addstring/lhs"));
             var dr2 = Api.Data.GetString(TestData.Name("dr/addstring/rhs"));
             var ans = Api.Data.GetString(TestData.Name("dr/addstring/res"));

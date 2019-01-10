@@ -9,17 +9,19 @@ class DataRefTests : public PluginTestsBase
 
 TEST_F(DataRefTests, StringsReadAndWrite)
 {
-	std::vector<BYTE> lhs = { 'f', 'o', 'o', 0 };
-	std::vector<BYTE> rhs = { 'b', 'a', 'r', 0 };
-	std::vector<BYTE> res(lhs.size(), rhs.size());
+	string lhsString = "foo";
+	string rhsString = "bar";
+	auto lhs = std::vector<char>(lhsString.begin(), lhsString.end());
+	auto rhs = std::vector<char>(rhsString.begin(), rhsString.end());
+	std::vector<char> res(lhs.size() + rhs.size());
 
-	XPHarnessAddDataRef(DataRefBase "dr/addstring/lhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &lhs);
-	XPHarnessAddDataRef(DataRefBase "dr/addstring/rhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &rhs);
-	XPHarnessAddDataRef(DataRefBase "dr/addstring/res", (XPLMSetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &res);
+	XPHarnessAddDataRef(DataRefBase "dr/addstring/lhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<char>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addstring/rhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<char>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addstring/res", (XPLMSetDatab_f)XPMock.SetArrayAccessorFromVector<char>, &res);
 
 	RunPlugin("StringAdderPlugin");
-
-	ASSERT_EQ((const char*)res.data, "foobar");
+	std::string r = std::string(res.begin(), res.end());
+	ASSERT_EQ(r, "foobar");
 }
 
 TEST_F(DataRefTests, IntsReadAndWrite)

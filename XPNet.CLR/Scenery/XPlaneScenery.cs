@@ -55,7 +55,7 @@ namespace XPNet
 
 	public interface IXPSceneryObject : IDisposable
 	{
-		void Draw(int lighting, int earthRelativ, XPLMDrawInfo_t[] drawInfos);
+		void Draw(int lighting, int earthRelative, XPLMDrawInfo_t[] drawInfos);
 	}
 
 	internal unsafe class XPSceneryObject : IXPSceneryObject
