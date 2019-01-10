@@ -7,9 +7,9 @@ class DrawTests : public PluginTestsBase
 
 TEST_F(DrawTests, CanHookDraw)
 {
-	string drHookCount = DataRefBase "draw/hook/count";
+	int counter = 0;
 
-	XPMock.SetInt(drHookCount.c_str(), 0);
+	XPHarnessAddDataRef(DataRefBase "draw/hook/count", XPMock.GetAccessor<int>, XPMock.SetAccessor<int>, &counter, &counter);
 
 	RunPlugin("DrawTestPlugin", [&] {
 
@@ -23,6 +23,7 @@ TEST_F(DrawTests, CanHookDraw)
 		XPHarnessInvokeDrawCallback(results);
 		ASSERT_EQ(results[0], 0);
 		ASSERT_EQ(results[1], 1);
+		ASSERT_EQ(counter, 2);
 	});
 }
 

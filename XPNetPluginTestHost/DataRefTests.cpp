@@ -9,73 +9,72 @@ class DataRefTests : public PluginTestsBase
 
 TEST_F(DataRefTests, StringsReadAndWrite)
 {
-	XPMock.SetString(DataRefBase "dr/addstring/lhs", "foo");
-	XPMock.SetString(DataRefBase "dr/addstring/rhs", "bar");
-	XPMock.SetString(DataRefBase "dr/addstring/res", "");
+	std::vector<BYTE> lhs = { 'f', 'o', 'o', 0 };
+	std::vector<BYTE> rhs = { 'b', 'a', 'r', 0 };
+	std::vector<BYTE> res(lhs.size(), rhs.size());
+
+	XPHarnessAddDataRef(DataRefBase "dr/addstring/lhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addstring/rhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addstring/res", (XPLMSetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &res);
 
 	RunPlugin("StringAdderPlugin");
 
-	string ret = XPMock.GetString(DataRefBase "dr/addstring/res");
-	ASSERT_EQ(ret, "foobar");
+	ASSERT_EQ((const char*)res.data, "foobar");
 }
 
 TEST_F(DataRefTests, IntsReadAndWrite)
 {
-	int lhs = 5, rhs = 11;
+	int lhs = 5, rhs = 11, res = 0;
 
-	XPMock.SetInt(DataRefBase "dr/addint/lhs", lhs);
-	XPMock.SetInt(DataRefBase "dr/addint/rhs", rhs);
-	XPMock.SetInt(DataRefBase "dr/addint/res", 0);
+	XPHarnessAddDataRef(DataRefBase "dr/addint/lhs", XPMock.GetAccessor<int>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addint/rhs", XPMock.GetAccessor<int>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addint/res", XPMock.SetAccessor<int>, &res);
 
 	RunPlugin("IntAdderPlugin");
 
-	int ret = XPMock.GetInt(DataRefBase "dr/addint/res");
-	ASSERT_EQ(ret, rhs + lhs);
+	ASSERT_EQ(res, rhs + lhs);
 }
 
 TEST_F(DataRefTests, IntArraysReadAndWrite)
 {
 	std::vector<int> lhs = { 5, 10, 15, 20, 25 }, rhs = { 6, 11, 16, 21 };
+	std::vector<int> res(min(lhs.size(), rhs.size()));
 
-	XPMock.SetIntArray(DataRefBase "dr/addintarr/lhs", lhs);
-	XPMock.SetIntArray(DataRefBase "dr/addintarr/rhs", rhs);
-	XPMock.SetIntArray(DataRefBase "dr/addintarr/res", std::vector<int>());
+	XPHarnessAddDataRef(DataRefBase "dr/addintarr/lhs", XPMock.GetArrayAccessorFromVector<int>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addintarr/rhs", XPMock.GetArrayAccessorFromVector<int>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addintarr/res", XPMock.SetArrayAccessorFromVector<int>, &res);
 
 	RunPlugin("IntArrayAdderPlugin");
 
-	std::vector<int> arr(min(lhs.size(), rhs.size()));
-
-	bool ret = XPMock.GetIntArray(DataRefBase "dr/addintarr/res", arr);
-	ASSERT_EQ(ret, true);
-	ASSERT_THAT(arr, ElementsAre(11, 21, 31, 41));
+	ASSERT_THAT(res, ElementsAre(11, 21, 31, 41));
 }
 
 TEST_F(DataRefTests, BoolsReadAndWriteFalsey)
 {
-	bool lhs = false, rhs = false;
+	int lhs = false, rhs = false;
+	int res = true;
 
-	XPMock.SetBool(DataRefBase "dr/xorbool/lhs", lhs);
-	XPMock.SetBool(DataRefBase "dr/xorbool/rhs", rhs);
-	XPMock.SetBool(DataRefBase "dr/xorbool/res", true);
+	XPHarnessAddDataRef(DataRefBase "dr/xorbool/lhs", XPMock.GetAccessor<int>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/xorbool/rhs", XPMock.GetAccessor<int>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/xorbool/res", XPMock.SetAccessor<int>, &res);
 
 	RunPlugin("BoolXorPlugin");
 
-	bool ret = XPMock.GetBool(DataRefBase "dr/xorbool/res");
-	ASSERT_EQ(ret, false);
+	ASSERT_EQ(res, false);
 }
 
 TEST_F(DataRefTests, BoolsReadAndWriteTruthey)
 {
-	bool lhs = true, rhs = false;
+	int lhs = true, rhs = false;
+	int res = false;
 
-	XPMock.SetBool(DataRefBase "dr/xorbool/lhs", lhs);
-	XPMock.SetBool(DataRefBase "dr/xorbool/rhs", rhs);
-	XPMock.SetBool(DataRefBase "dr/xorbool/res", false);
+	XPHarnessAddDataRef(DataRefBase "dr/xorbool/lhs", XPMock.GetAccessor<int>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/xorbool/rhs", XPMock.GetAccessor<int>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/xorbool/res", XPMock.SetAccessor<int>, &res);
 
 	RunPlugin("BoolXorPlugin");
 
-	bool ret = XPMock.GetBool(DataRefBase "dr/xorbool/res");
-	ASSERT_EQ(ret, true);
+	ASSERT_EQ(res, true);
 }
 
 TEST_F(DataRefTests, BoolArraysReadAndWrite)
@@ -97,48 +96,55 @@ TEST_F(DataRefTests, BoolArraysReadAndWrite)
 
 TEST_F(DataRefTests, FloatsReadAndWrite)
 {
-	float lhs = 5.0f, rhs = 11.0f;
+	float lhs = 5.0f, rhs = 11.0f, res = 0.f;
 
-	XPMock.SetFloat(DataRefBase "dr/addfloat/lhs", lhs);
-	XPMock.SetFloat(DataRefBase "dr/addfloat/rhs", rhs);
-	XPMock.SetFloat(DataRefBase "dr/addfloat/res", 0);
-
+	XPHarnessAddDataRef(DataRefBase "dr/addfloat/lhs", XPMock.GetAccessor<float>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addfloat/rhs", XPMock.GetAccessor<float>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addfloat/res", XPMock.SetAccessor<float>, &res);
+	
 	RunPlugin("FloatAdderPlugin");
 
-	float ret = XPMock.GetFloat(DataRefBase "dr/addfloat/res");
-	ASSERT_EQ(ret, rhs + lhs);
+	ASSERT_EQ(res, rhs + lhs);
 }
 
 TEST_F(DataRefTests, FloatArraysReadAndWrite)
 {
 	std::vector<float> lhs = { 5.0f, 10.0f, 15.0f, 20.0f, 25.0f }, rhs = { 6.0f, 11.0f, 16.0f, 21.0f };
+	std::vector<float> res(min(lhs.size(), rhs.size()));
 
-	XPMock.SetFloatArray(DataRefBase "dr/addfloatarr/lhs", lhs);
-	XPMock.SetFloatArray(DataRefBase "dr/addfloatarr/rhs", rhs);
-	XPMock.SetFloatArray(DataRefBase "dr/addfloatarr/res", std::vector<float>());
+	XPHarnessAddDataRef(DataRefBase "dr/addfloatarr/lhs", XPMock.GetArrayAccessorFromVector<float>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addfloatarr/rhs", XPMock.GetArrayAccessorFromVector<float>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addfloatarr/res", XPMock.SetArrayAccessorFromVector<float>, &res);
 
 	RunPlugin("FloatArrayAdderPlugin");
 
-	std::vector<float> arr(min(lhs.size(), rhs.size()));
-
-	bool ret = XPMock.GetFloatArray(DataRefBase "dr/addfloatarr/res", arr);
-	ASSERT_EQ(ret, true);
-	ASSERT_THAT(arr, ElementsAre(11.0f, 21.0f, 31.0f, 41.0f));
+	ASSERT_THAT(res, ElementsAre(11.0f, 21.0f, 31.0f, 41.0f));
 }
 
 TEST_F(DataRefTests, ByteArraysReadAndWrite)
 {
 	std::vector<BYTE> lhs = { 5, 10, 15, 20, 25 }, rhs = { 6, 11, 16, 21 };
+	std::vector<BYTE> res(min(lhs.size(), rhs.size()));
 
-	XPMock.SetByteArray(DataRefBase "dr/addbytearr/lhs", lhs);
-	XPMock.SetByteArray(DataRefBase "dr/addbytearr/rhs", rhs);
-	XPMock.SetByteArray(DataRefBase "dr/addbytearr/res", std::vector<BYTE>());
+	XPHarnessAddDataRef(DataRefBase "dr/addbytearr/lhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addbytearr/rhs", (XPLMGetDatab_f)XPMock.GetArrayAccessorFromVector<BYTE>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/addbytearr/res", (XPLMSetDatab_f)XPMock.SetArrayAccessorFromVector<BYTE>, &res);
 
 	RunPlugin("ByteArrayAdderPlugin");
 
-	std::vector<BYTE> arr(min(lhs.size(), rhs.size()));
+	ASSERT_THAT(res, ElementsAre(11, 21, 31, 41));
+}
 
-	bool ret = XPMock.GetByteArray(DataRefBase "dr/addbytearr/res", arr);
-	ASSERT_EQ(ret, true);
-	ASSERT_THAT(arr, ElementsAre(11, 21, 31, 41));
+TEST_F(DataRefTests, CustomDataRefPlugin)
+{
+	int res2 = -1;
+
+	XPHarnessAddDataRef(DataRefBase "cdr/test2", XPMock.SetAccessor<int>, &res2);
+	RunPlugin("CustomDataRefPlugin");
+	auto ref1 = XPLMFindDataRef(DataRefBase "cdr/test1");
+	int res1 = XPLMGetDatai(ref1);
+	XPLMSetDatai(ref1, 42);
+
+	ASSERT_EQ(res1, 3);
+	ASSERT_EQ(res2, 46);
 }

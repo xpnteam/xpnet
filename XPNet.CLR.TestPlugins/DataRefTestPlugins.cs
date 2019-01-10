@@ -10,6 +10,7 @@ namespace XPNet.CLR.TestPlugins
 
         public override void Enable()
         {
+			System.Diagnostics.Debugger.Launch();
             var dr1 = Api.Data.GetString(TestData.Name("dr/addstring/lhs"));
             var dr2 = Api.Data.GetString(TestData.Name("dr/addstring/rhs"));
             var ans = Api.Data.GetString(TestData.Name("dr/addstring/res"));
@@ -25,7 +26,7 @@ namespace XPNet.CLR.TestPlugins
 
         public override void Enable()
         {
-            var dr1 = Api.Data.GetInt(TestData.Name("dr/addint/lhs"));
+			var dr1 = Api.Data.GetInt(TestData.Name("dr/addint/lhs"));
             var dr2 = Api.Data.GetInt(TestData.Name("dr/addint/rhs"));
             var ans = Api.Data.GetInt(TestData.Name("dr/addint/res"));
 
@@ -40,8 +41,7 @@ namespace XPNet.CLR.TestPlugins
 
         public override void Enable()
         {
-            //using (var f = System.IO.File.OpenWrite(@"d:\test.txt",))
-
+			//using (var f = System.IO.File.OpenWrite(@"d:\test.txt",))
             var dr1 = Api.Data.GetIntArray(TestData.Name("dr/addintarr/lhs"));
             var dr2 = Api.Data.GetIntArray(TestData.Name("dr/addintarr/rhs"));
             var ans = Api.Data.GetIntArray(TestData.Name("dr/addintarr/res"));
