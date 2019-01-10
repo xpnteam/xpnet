@@ -81,19 +81,16 @@ TEST_F(DataRefTests, BoolsReadAndWriteTruthey)
 
 TEST_F(DataRefTests, BoolArraysReadAndWrite)
 {
-	std::vector<bool> lhs = { false, false, true, true }, rhs = { false, true, false, true };
+	std::vector<int> lhs = { false, false, true, true }, rhs = { false, true, false, true };
+	std::vector<int> res(min(lhs.size(), rhs.size()));
 
-	XPMock.SetBoolArray(DataRefBase "dr/xorboolarr/lhs", lhs);
-	XPMock.SetBoolArray(DataRefBase "dr/xorboolarr/rhs", rhs);
-	XPMock.SetBoolArray(DataRefBase "dr/xorboolarr/res", std::vector<bool>());
+	XPHarnessAddDataRef(DataRefBase "dr/xorboolarr/lhs", XPMock.GetArrayAccessorFromVector<int>, &lhs);
+	XPHarnessAddDataRef(DataRefBase "dr/xorboolarr/rhs", XPMock.GetArrayAccessorFromVector<int>, &rhs);
+	XPHarnessAddDataRef(DataRefBase "dr/xorboolarr/res", XPMock.SetArrayAccessorFromVector<int>, &res);
 
 	RunPlugin("BoolArrayXorPlugin");
 
-	std::vector<bool> arr(max(lhs.size(), rhs.size()));
-
-	bool ret = XPMock.GetBoolArray(DataRefBase "dr/xorboolarr/res", arr);
-	ASSERT_EQ(ret, true);
-	ASSERT_THAT(arr, ElementsAre(false, true, true, false));
+	ASSERT_THAT(res, ElementsAre(false, true, true, false));
 }
 
 TEST_F(DataRefTests, FloatsReadAndWrite)
