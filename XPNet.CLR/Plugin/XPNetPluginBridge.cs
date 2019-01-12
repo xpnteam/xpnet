@@ -434,7 +434,10 @@ namespace XPNet
 		void* inWriteRefcon
 	);
 
-	[Flags]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	internal unsafe delegate void* XPLMUnregisterDataAccessor(void* dataRef);
+
+[Flags]
 	internal enum XPLMDataTypeID : int
 	{
 		xplmType_Unknown = 0,
@@ -847,6 +850,7 @@ namespace XPNet
 		internal IntPtr XPLMGetDatab;
 		internal IntPtr XPLMSetDatab;
 		internal IntPtr XPLMRegisterDataAccessor;
+		internal IntPtr XPLMUnregisterDataAccessor;
 
 		// Commands
 		internal IntPtr XPLMFindCommand;
@@ -906,6 +910,7 @@ namespace XPNet
 			XPLMGetDatab = Marshal.GetDelegateForFunctionPointer<XPLMGetDatab>(p.XPLMGetDatab);
 			XPLMSetDatab = Marshal.GetDelegateForFunctionPointer<XPLMSetDatab>(p.XPLMSetDatab);
 			XPLMRegisterDataAccessor = Marshal.GetDelegateForFunctionPointer<XPLMRegisterDataAccessor>(p.XPLMRegisterDataAccessor);
+			XPLMUnregisterDataAccessor = Marshal.GetDelegateForFunctionPointer<XPLMUnregisterDataAccessor>(p.XPLMUnregisterDataAccessor);
 
 			// Commands
 			XPLMFindCommand = Marshal.GetDelegateForFunctionPointer<XPLMFindCommand>(p.XPLMFindCommand);
@@ -958,6 +963,7 @@ namespace XPNet
 		internal XPLMGetDatab XPLMGetDatab;
 		internal XPLMSetDatab XPLMSetDatab;
 		internal XPLMRegisterDataAccessor XPLMRegisterDataAccessor;
+		internal XPLMUnregisterDataAccessor XPLMUnregisterDataAccessor;
 
 		// Commands
 		internal XPLMFindCommand XPLMFindCommand;

@@ -104,6 +104,9 @@ XPLM_API XPLMDataRef XPHarnessRegisterDataAccessor(
 	void *               inReadRefcon = nullptr,
 	void *               inWriteRefcon = nullptr);
 
+XPLM_API void          XPLMUnregisterDataAccessor(
+	XPLMDataRef          inDataRef);
+
 XPLM_API void XPHarnessSetCommandCallback(const char* commandName, CommandCallback cb);
 
 XPLM_API void XPHarnessInvokeFlightLoop(float elapsedSinceLastCall, float elapsedTimeSinceLastFlightLoop, int counter);

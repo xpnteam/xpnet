@@ -642,6 +642,19 @@ XPLM_API XPLMDataRef          XPLMRegisterDataAccessor(
 	return dref;
 }
 
+XPLM_API void          XPLMUnregisterDataAccessor(
+	XPLMDataRef          inDataRef)
+{
+	for (auto i = customDataRefs.begin(), end = customDataRefs.end(); i != end; ++i)
+	{
+		if (i->second == inDataRef) 
+		{
+			customDataRefs.erase(i);
+			return;
+		}
+	}
+}
+
 #define DEFINE_XPHARNESSADDDATAREF(CODE, XPLMTYPE) \
 	XPLM_API void XPHarnessAddDataRef(const char * n, XPLMGetData##CODE##_f getData_f, void* readRefcon) \
 	{ auto dref = customdataref(n, ##XPLMTYPE##, 0, readRefcon); dref.getData##CODE##_f = getData_f; dref.readRefcon  = readRefcon; customDataRefs.emplace(n, dref); } \
