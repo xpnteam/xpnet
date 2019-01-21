@@ -26,7 +26,7 @@ namespace XPNet.CLR.Tests
         public void TailNumber()
         {
             //arrange
-            var target = new SimDatarefs(mockData.Object);
+            var target = new SimDataRefs(mockData.Object);
             mockData.Setup(m => m.GetString(It.IsAny<string>()))
                 .Returns(mockDataString.Object);
 
@@ -35,7 +35,7 @@ namespace XPNet.CLR.Tests
 
             //assert
             Assert.Equal(tailNum, result.Value);
-            mockData.Verify(m => m.GetString(It.IsAny<string>()));
+            mockData.Verify(m => m.GetString("sim/aircraft/view/acf_tailnum"));
         }
     }
 }

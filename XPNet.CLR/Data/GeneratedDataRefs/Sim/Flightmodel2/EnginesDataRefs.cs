@@ -4,16 +4,16 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_flightmodel2_enginesDatarefs
+    public class sim_flightmodel2_enginesDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_flightmodel2_enginesDatarefs(IXPlaneData data)
+        internal sim_flightmodel2_enginesDataRefs(IXPlaneData data)
         {
             m_data = data;
-            prop_disc = new sim_flightmodel2_engines_prop_discDatarefs(data);
+            prop_disc = new sim_flightmodel2_engines_prop_discDataRefs(data);
         }
-        public sim_flightmodel2_engines_prop_discDatarefs prop_disc { get; }
+        public sim_flightmodel2_engines_prop_discDataRefs prop_disc { get; }
 
         /// <summary>
         ///  Engine location, meters x, y, z, with respect to the default center of gravity.. Units:meters

@@ -18,7 +18,7 @@ namespace XPNet
     /// in XPNet, do something like the following:
     /// </para>
     /// <code>
-    /// var refY = api.Data.Sim.FlightModel.Position.LocalY;
+    /// var refSimDatarefsY = api.Data.Sim.FlightModel.Position.LocalY;
     /// // - or, for any generic dataref -
     /// var refY = api.Data.GetFloat("sim/flightmodel/position/local_y");
     /// </code>
@@ -162,7 +162,7 @@ namespace XPNet
         /// <summary>
         /// Gets the set of 'sim' named datarefs.
         /// </summary>
-        SimDatarefs Sim { get; }
+        SimDataRefs Sim { get; }
     }
 
     internal class XPlaneData : IXPlaneData
@@ -194,14 +194,14 @@ namespace XPNet
 
         private unsafe delegate IXPDataRef<T> DataRefFactory<T>(string dataRefName, void* dataref);
 
-        private readonly SimDatarefs m_sim;
+        private readonly SimDataRefs m_sim;
 
         public XPlaneData()
         {
-            m_sim = new SimDatarefs(this);
+            m_sim = new SimDataRefs(this);
         }
 
-        public SimDatarefs Sim => m_sim;
+        public SimDataRefs Sim => m_sim;
 
         public unsafe IXPDataRef<int> GetInt(string dataRefName) =>
             GetDataRef(dataRefName, m_intRefs, CreateDataRefInt, XPDataTypes.Int) ?? throw InvalidDataRefException(dataRefName);

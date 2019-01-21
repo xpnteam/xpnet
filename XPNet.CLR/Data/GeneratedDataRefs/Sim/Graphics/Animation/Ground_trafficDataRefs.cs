@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_graphics_animation_ground_trafficDatarefs
+    public class sim_graphics_animation_ground_trafficDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_graphics_animation_ground_trafficDatarefs(IXPlaneData data)
+        internal sim_graphics_animation_ground_trafficDataRefs(IXPlaneData data)
         {
             m_data = data;
         }

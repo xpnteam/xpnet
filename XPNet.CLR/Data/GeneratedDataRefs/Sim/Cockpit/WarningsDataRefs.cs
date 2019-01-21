@@ -4,16 +4,16 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_cockpit_warningsDatarefs
+    public class sim_cockpit_warningsDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_cockpit_warningsDatarefs(IXPlaneData data)
+        internal sim_cockpit_warningsDataRefs(IXPlaneData data)
         {
             m_data = data;
-            annunciators = new sim_cockpit_warnings_annunciatorsDatarefs(data);
+            annunciators = new sim_cockpit_warnings_annunciatorsDataRefs(data);
         }
-        public sim_cockpit_warnings_annunciatorsDatarefs annunciators { get; }
+        public sim_cockpit_warnings_annunciatorsDataRefs annunciators { get; }
 
         /// <summary>
         ///  Time master caution will go out.  (Use command-system instead of this dataref.). Units:seconds

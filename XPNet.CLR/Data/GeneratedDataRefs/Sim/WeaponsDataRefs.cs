@@ -4,16 +4,16 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_weaponsDatarefs
+    public class sim_weaponsDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_weaponsDatarefs(IXPlaneData data)
+        internal sim_weaponsDataRefs(IXPlaneData data)
         {
             m_data = data;
-            shell = new sim_weapons_shellDatarefs(data);
+            shell = new sim_weapons_shellDataRefs(data);
         }
-        public sim_weapons_shellDatarefs shell { get; }
+        public sim_weapons_shellDataRefs shell { get; }
 
         /// <summary>
         ///  This is the number of weapons available via datarefs.. Units:int

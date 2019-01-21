@@ -70,12 +70,13 @@ namespace XPNet.CLR.CodeGen
 
             node.ClassDef = template
                 .Replace("{item}", node.Name.Replace('/', '_'))
-                .Replace("{childInits}", string.Join("", node.Children.Values.Select(c => $"\n{initsIndent}{c.Name.LastElementOfPath().fixupSpecialKeywords()} = new {c.Name.Replace('/', '_')}Datarefs(data);")))
-                .Replace("{childProps}", string.Join("", node.Children.Values.Select(c => $"\n{propsIndent}public {c.Name.Replace('/', '_')}Datarefs {c.Name.LastElementOfPath().fixupSpecialKeywords()} {{ get; }}")))
+                .Replace("{childInits}", string.Join("", node.Children.Values.Select(c => $"\n{initsIndent}{c.Name.LastElementOfPath().FixupSpecialKeywords()} = new {c.Name.Replace('/', '_')}DataRefs(data);")))
+                .Replace("{childProps}", string.Join("", node.Children.Values.Select(c => $"\n{propsIndent}public {c.Name.Replace('/', '_')}DataRefs {c.Name.LastElementOfPath().FixupSpecialKeywords()} {{ get; }}")))
                 .Replace("{members}", string.Join("", node.Members.Select(m =>
                     {
                         string result = string.Empty;
-                        if (m.Units == null) return result;
+                        if (m.Units == null) 
+                            return result;
 
                         if (m.Units.Equals("string", StringComparison.OrdinalIgnoreCase))
                             return  CreateDataProperty<string>(m);
@@ -126,7 +127,7 @@ namespace XPNet.CLR.CodeGen
             var name = typeof(T).Name;
             if(!typeMapping.ContainsKey(name))
                 throw new Exception($"unknown type: {name}. Path={m.ParentPath}");
-            return $"{m.Description.CreateSummaryComment(propsIndent, m.ParentPath, m.Units)}\n{propsIndent}public IXPDataRef<{typeMapping[name].TypeName}> {m.Name.fixupSpecialKeywords()} {{ get {{ return m_data.{typeMapping[name].MethodName}(\"{m.ParentPath.ToLower()}\");}} }}";
+            return $"{m.Description.CreateSummaryComment(propsIndent, m.ParentPath, m.Units)}\n{propsIndent}public IXPDataRef<{typeMapping[name].TypeName}> {m.Name.FixupSpecialKeywords()} {{ get {{ return m_data.{typeMapping[name].MethodName}(\"{m.ParentPath.ToLower()}\");}} }}";
         }
 
         private static Dictionary<string, TypeData> typeMapping = new Dictionary<string, TypeData>()
@@ -150,11 +151,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class {item}Datarefs
+    public class {item}DataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal {item}Datarefs(IXPlaneData data)
+        internal {item}DataRefs(IXPlaneData data)
         {
             m_data = data;{childInits}
         }{childProps}{members}
@@ -175,6 +176,7 @@ namespace XPNet.Data
         public Dictionary<string, DictionaryTree<T>> Children;
         public string ClassDef { get; set; }
     }
+
     public class DataRef
     {
         public string ParentPath { get; set; }
@@ -224,7 +226,7 @@ namespace XPNet.Data
             return path.Substring(path.LastIndexOf('/') + 1);
         }
 
-        public static string fixupSpecialKeywords(this string name)
+        public static string FixupSpecialKeywords(this string name)
         {
             if(name.Contains('['))
                 return bracketsRegex.Replace(name, "_$1");

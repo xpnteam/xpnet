@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_world_winchDatarefs
+    public class sim_world_winchDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_world_winchDatarefs(IXPlaneData data)
+        internal sim_world_winchDataRefs(IXPlaneData data)
         {
             m_data = data;
         }

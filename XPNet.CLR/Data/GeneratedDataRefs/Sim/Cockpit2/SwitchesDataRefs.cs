@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_cockpit2_switchesDatarefs
+    public class sim_cockpit2_switchesDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_cockpit2_switchesDatarefs(IXPlaneData data)
+        internal sim_cockpit2_switchesDataRefs(IXPlaneData data)
         {
             m_data = data;
         }

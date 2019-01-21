@@ -4,16 +4,16 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_operation_prefsDatarefs
+    public class sim_operation_prefsDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_operation_prefsDatarefs(IXPlaneData data)
+        internal sim_operation_prefsDataRefs(IXPlaneData data)
         {
             m_data = data;
-            misc = new sim_operation_prefs_miscDatarefs(data);
+            misc = new sim_operation_prefs_miscDataRefs(data);
         }
-        public sim_operation_prefs_miscDatarefs misc { get; }
+        public sim_operation_prefs_miscDataRefs misc { get; }
 
         /// <summary>
         ///  Start up with the plane running?. Units:boolean

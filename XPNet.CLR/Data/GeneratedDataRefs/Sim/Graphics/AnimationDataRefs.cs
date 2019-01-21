@@ -4,22 +4,22 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_graphics_animationDatarefs
+    public class sim_graphics_animationDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_graphics_animationDatarefs(IXPlaneData data)
+        internal sim_graphics_animationDataRefs(IXPlaneData data)
         {
             m_data = data;
-            birds = new sim_graphics_animation_birdsDatarefs(data);
-            deer = new sim_graphics_animation_deerDatarefs(data);
-            lights = new sim_graphics_animation_lightsDatarefs(data);
-            ground_traffic = new sim_graphics_animation_ground_trafficDatarefs(data);
+            birds = new sim_graphics_animation_birdsDataRefs(data);
+            deer = new sim_graphics_animation_deerDataRefs(data);
+            lights = new sim_graphics_animation_lightsDataRefs(data);
+            ground_traffic = new sim_graphics_animation_ground_trafficDataRefs(data);
         }
-        public sim_graphics_animation_birdsDatarefs birds { get; }
-        public sim_graphics_animation_deerDatarefs deer { get; }
-        public sim_graphics_animation_lightsDatarefs lights { get; }
-        public sim_graphics_animation_ground_trafficDatarefs ground_traffic { get; }
+        public sim_graphics_animation_birdsDataRefs birds { get; }
+        public sim_graphics_animation_deerDataRefs deer { get; }
+        public sim_graphics_animation_lightsDataRefs lights { get; }
+        public sim_graphics_animation_ground_trafficDataRefs ground_traffic { get; }
 
         /// <summary>
         ///  X position in cartesian space of currently drawn object. Units:float

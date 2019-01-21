@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_joystickDatarefs
+    public class sim_joystickDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_joystickDatarefs(IXPlaneData data)
+        internal sim_joystickDataRefs(IXPlaneData data)
         {
             m_data = data;
         }

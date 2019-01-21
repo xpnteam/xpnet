@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_graphics_colorsDatarefs
+    public class sim_graphics_colorsDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_graphics_colorsDatarefs(IXPlaneData data)
+        internal sim_graphics_colorsDataRefs(IXPlaneData data)
         {
             m_data = data;
         }

@@ -4,15 +4,15 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_aircraft2Datarefs
+    public class sim_aircraft2DataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_aircraft2Datarefs(IXPlaneData data)
+        internal sim_aircraft2DataRefs(IXPlaneData data)
         {
             m_data = data;
-            engine = new sim_aircraft2_engineDatarefs(data);
+            engine = new sim_aircraft2_engineDataRefs(data);
         }
-        public sim_aircraft2_engineDatarefs engine { get; }
+        public sim_aircraft2_engineDataRefs engine { get; }
     }
 }

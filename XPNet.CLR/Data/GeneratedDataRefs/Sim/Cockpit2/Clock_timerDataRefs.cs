@@ -4,11 +4,11 @@ using System.Text;
 
 namespace XPNet.Data
 {
-    public class sim_cockpit2_clock_timerDatarefs
+    public class sim_cockpit2_clock_timerDataRefs
     {
         private readonly IXPlaneData m_data;
 
-        internal sim_cockpit2_clock_timerDatarefs(IXPlaneData data)
+        internal sim_cockpit2_clock_timerDataRefs(IXPlaneData data)
         {
             m_data = data;
         }
