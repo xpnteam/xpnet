@@ -97,7 +97,6 @@ Global
 		{249C55B9-487D-45EA-A9A0-521B30FF7586}.Release|x64.Build.0 = Release|Any CPU
 		{249C55B9-487D-45EA-A9A0-521B30FF7586}.Release|x86.ActiveCfg = Release|Any CPU
 		{249C55B9-487D-45EA-A9A0-521B30FF7586}.Release|x86.Build.0 = Release|Any CPU
-<<<<<<< HEAD
 		{EDB21500-D543-4735-8DE3-23CE0D0F7B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EDB21500-D543-4735-8DE3-23CE0D0F7B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDB21500-D543-4735-8DE3-23CE0D0F7B55}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -122,7 +121,6 @@ Global
 		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|x64.Build.0 = Release|Any CPU
 		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|x86.ActiveCfg = Release|Any CPU
 		{DACA0FDC-34AA-42E6-BEDF-C273B927D84C}.Release|x86.Build.0 = Release|Any CPU
-=======
 		{9F5338B1-B48B-4D44-8DCA-C7AA07731BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9F5338B1-B48B-4D44-8DCA-C7AA07731BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F5338B1-B48B-4D44-8DCA-C7AA07731BAF}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -147,7 +145,6 @@ Global
 		{7E50E875-2CAC-4D53-8AAB-EE56310CFC88}.Release|x64.Build.0 = Release|Any CPU
 		{7E50E875-2CAC-4D53-8AAB-EE56310CFC88}.Release|x86.ActiveCfg = Release|Any CPU
 		{7E50E875-2CAC-4D53-8AAB-EE56310CFC88}.Release|x86.Build.0 = Release|Any CPU
->>>>>>> xpnteam/master
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
