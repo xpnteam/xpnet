@@ -66,9 +66,8 @@ namespace XPNet.CLR.CodeGen
             {
                 BuildClassDefs(child);
             }
-            //if (node.Name == "sim") return;
 
-            node.ClassDef = template
+            node.ClassDef = (node.Name == "Sim" ? simTemplate : nonSimTemplate)
                 .Replace("{item}", node.Name.Replace('/', '_'))
                 .Replace("{childInits}", string.Join("", node.Children.Values.Select(c => $"\n{initsIndent}{c.Name.LastElementOfPath().FixupSpecialKeywords()} = new {c.Name.Replace('/', '_')}DataRefs(data);")))
                 .Replace("{childProps}", string.Join("", node.Children.Values.Select(c => $"\n{propsIndent}public {c.Name.Replace('/', '_')}DataRefs {c.Name.LastElementOfPath().FixupSpecialKeywords()} {{ get; }}")))
@@ -109,7 +108,6 @@ namespace XPNet.CLR.CodeGen
                             return  CreateDataProperty<string[]>(m);
 
                         throw new Exception($"Unhandled type: {m.Type}, Units={m.Units}");
-                        return result;
                     })
                 ));
             if (node.Name == "View")
@@ -145,7 +143,24 @@ namespace XPNet.CLR.CodeGen
 
         const string initsIndent = "            ";
         const string propsIndent = "        ";
-        const string template = @"using System;
+
+        const string simTemplate = @"using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace XPNet.Data
+{
+    public partial class SimDataRefs
+    {
+        partial void Init()
+        {
+            {childInits}
+        }
+
+        {childProps}{members}
+    }
+}";
+        const string nonSimTemplate = @"using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -157,7 +172,8 @@ namespace XPNet.Data
 
         internal {item}DataRefs(IXPlaneData data)
         {
-            m_data = data;{childInits}
+            m_data = data;
+            {childInits}
         }{childProps}{members}
     }
 }";

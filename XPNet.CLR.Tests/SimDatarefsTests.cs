@@ -1,7 +1,6 @@
 using System;
 using Xunit;
 using Moq;
-using XPNet.Data;
 
 namespace XPNet.CLR.Tests
 {
@@ -26,20 +25,24 @@ namespace XPNet.CLR.Tests
         // we test all of the code generation paths.  We've got a test for the string
         // path here so far.
 
-        [Fact]
-        public void TailNumber()
-        {
-            //arrange
-            var target = new SimDataRefs(mockData.Object);
-            mockData.Setup(m => m.GetString(It.IsAny<string>()))
-                .Returns(mockDataString.Object);
+        // TODO: Tests commented out until the automatic generation is part of the
+        // build process; the properties we want to access won't exist at runtime
+        // if you haven't generated the files otherwise.
 
-            //act
-            var result = target.aircraft.view.acf_tailnum;
+        // [Fact]
+        // public void TailNumber()
+        // {
+        //     //arrange
+        //     var target = new SimDataRefs(mockData.Object);
+        //     mockData.Setup(m => m.GetString(It.IsAny<string>()))
+        //         .Returns(mockDataString.Object);
 
-            //assert
-            Assert.Equal(tailNum, result.Value);
-            mockData.Verify(m => m.GetString("sim/aircraft/view/acf_tailnum"));
-        }
+        //     //act
+        //     var result = target.aircraft.view.acf_tailnum;
+
+        //     //assert
+        //     Assert.Equal(tailNum, result.Value);
+        //     mockData.Verify(m => m.GetString("sim/aircraft/view/acf_tailnum"));
+        // }
     }
 }
