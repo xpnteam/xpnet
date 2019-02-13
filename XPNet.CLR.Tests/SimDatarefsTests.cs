@@ -22,6 +22,10 @@ namespace XPNet.CLR.Tests
         public void Dispose()
         { }
 
+        // TODO: We should have at least one test here per type of DataRef, so that
+        // we test all of the code generation paths.  We've got a test for the string
+        // path here so far.
+
         [Fact]
         public void TailNumber()
         {
