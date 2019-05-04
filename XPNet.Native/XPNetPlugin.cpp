@@ -65,6 +65,11 @@ typedef int(*PXPLMLookupObjects)(const char*, float, float, XPLMLibraryEnumerato
 typedef void(*PXPLMWorldToLocal)(double, double, double, double*, double*, double*);
 typedef void(*PXPLMLocalToWorld)(double, double, double, double*, double*, double*);
 
+// Instance - X-Plane API Function Pointer Types
+typedef XPLMInstanceRef(*PXPLMCreateInstance)(XPLMObjectRef, const char**);
+typedef void(*PXPLMDestroyInstance)(XPLMInstanceRef);
+typedef void(*PXPLMInstanceSetPosition)(XPLMInstanceRef, const XPLMDrawInfo_t*, const float*);
+
 // Function types for calling into XPNet.PluginBridge in the CLR.
 typedef int (STDMETHODCALLTYPE *PXPluginStart)(void*, void*);
 typedef void (STDMETHODCALLTYPE *PXPluginStop)();
@@ -142,10 +147,14 @@ typedef struct
 	PXPLMUnloadObject XPLMUnloadObject;
 	PXPLMLookupObjects XPLMLookupObjects;
 
-
 	// Graphics
 	PXPLMWorldToLocal XPLMWorldToLocal;
 	PXPLMLocalToWorld XPLMLocalToWorld;
+
+	// Instance
+	PXPLMCreateInstance XPLMCreateInstance;
+	PXPLMDestroyInstance XPLMDestroyInstance;
+	PXPLMInstanceSetPosition XPLMInstanceSetPosition;
 
 } ApiFunctions;
 
@@ -306,7 +315,12 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 
 		// Graphics
 		XPLMWorldToLocal,
-		XPLMLocalToWorld
+		XPLMLocalToWorld,
+
+		// Instance
+		XPLMCreateInstance,
+		XPLMDestroyInstance,
+		XPLMInstanceSetPosition
 	};
 	
 	auto ret = ClrPluginStart(&sp, &api);

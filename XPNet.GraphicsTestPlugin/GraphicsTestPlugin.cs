@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace XPNet
 {
 	/// <summary>
-	/// This is a testbed for getting the graphics going.
+	/// This is a testbed for checking graphics functions
 	/// </summary>
 	[XPlanePlugin(
 		name: "GraphicsTestPlugin",
@@ -14,20 +15,22 @@ namespace XPNet
 	public class GraphicsTestPlugin : IXPlanePlugin
 	{
 		private const string TUGPATH = "lib/airport/vehicles/pushback/tug.obj";
-		//private const string TUGPATH = "lib/airport/vehicles/pushback/*.obj";
 		private readonly IXPlaneApi m_api;
 		private readonly IXPProbe m_probe;
 		private readonly IXPDrawingLoopHook m_drawingLoopHook;
-		private IXPFlightLoopHook m_flightLoopHook;
-		private IXPSceneryObject testTug;
+		private float m_tireAngle = 0;
+		private IXPFlightLoopHook m_firstFlightLoopHook;
+		private IXPFlightLoopHook m_tireTurning;
+		private IXPSceneryObject m_testTug;
+		private List<IXPInstance> m_testTugInstances;
 
 		public GraphicsTestPlugin(IXPlaneApi api)
 		{
 			m_api = api ?? throw new ArgumentNullException(nameof(api));
 
 			m_api.Log.Log("GraphicsTestPlugin: Displaytest started");
-			m_drawingLoopHook = m_api.Display.RegisterDrawHook(DrawingHook, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);
-			m_flightLoopHook = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), SimLoaded);
+			m_drawingLoopHook = m_api.Display.RegisterDrawHook(DrawingHook, XPDrawingPhase.Airplanes, 0);
+			m_firstFlightLoopHook = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), SimLoaded);
 			m_api.Log.Log("GraphicsTestPlugin: And now create a probe");
 			m_probe = m_api.Scenery.CreateProbe();
 			m_api.Log.Log("GraphicsTestPlugin: Probe created");
@@ -36,13 +39,12 @@ namespace XPNet
 		public void Dispose()
 		{
 			// Clean up whatever we attached / registered for / etc.
-
-			m_drawingLoopHook.Dispose();
-			testTug.Dispose();
-			m_probe.Dispose();
-
-            if (m_flightLoopHook != null)
-                m_flightLoopHook.Dispose();
+			m_drawingLoopHook?.Dispose();
+			m_testTug?.Dispose();
+			m_testTugInstances.ForEach(instance => instance?.Dispose());
+			m_tireTurning?.Dispose();
+			m_probe?.Dispose();
+			m_firstFlightLoopHook?.Dispose();
 		}
 
 		/// <summary>
@@ -54,22 +56,61 @@ namespace XPNet
 		/// </summary>
 		private FlightLoopTime SimLoaded(TimeSpan elapsedTimeSinceLastCall, TimeSpan elapsedTimeSinceLastFlightLoop, int counter)
 		{
-			m_api.Log.Log($"GraphicsTestPlugin: Loading objects with path {TUGPATH}");
+			m_api.Log.Log($"GraphicsTestPlugin: Entered SimLoaded flightloop (just called once)");
 
+			m_api.Log.Log($"GraphicsTestPlugin: Loading objects with path {TUGPATH}");
 			var tugs = m_api.Scenery.LookupObjects(TUGPATH, 0, 0);
 			foreach (var p in tugs)
 				m_api.Log.Log($"GraphicsTestPlugin: Filename: {p}");
 
-			testTug = m_api.Scenery.LoadObject(tugs.First());
-			m_api.Log.Log($"GraphicsTestPlugin: Loaded and still living, reference is {testTug}");
+			m_testTug = m_api.Scenery.LoadObject(tugs.First());
+			m_testTugInstances = Enumerable.Range(0,10).Select(_ => m_api.Instance.Create(m_testTug, new string[]
+			{
+				"sim/graphics/animation/ground_traffic/tire_steer_deg"
+			})).ToList();
 
-			m_flightLoopHook.Dispose();
-            m_flightLoopHook = null;
+			m_tireTurning = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), TurnTheWheel);
+
+			m_api.Log.Log($"Loaded and still living, reference is {m_testTug}");
+			m_firstFlightLoopHook.Dispose();
+			m_firstFlightLoopHook = null;
+			m_api.Log.Log($"GraphicsTestPlugin: Leaving SimLoaded flightloop");
 
 			return FlightLoopTime.Unscheduled;
 		}
 
-		private int DrawingHook(XPLMDrawingPhase inPhase, int inIsBefore)
+		private FlightLoopTime TurnTheWheel(TimeSpan elapsedTimeSinceLastCall, TimeSpan elapsedTimeSinceLastFlightLoop, int counter)
+		{
+			m_api.Log.Log($"GraphicsTestPlugin: Entering TurnTheWheel flightloop");
+			var (x, y, z) = m_api.Graphics.WorldToLocal(47.437644, 19.259498, 0);
+			var res = m_probe.ProbeTerrainXYZ((float)x, 0, (float)z);
+			m_api.Log.Log($"Probed terrain, got result {res.LocationY} with code {res.Result}");
+
+			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
+
+			int height = 0;
+			foreach (var instance in m_testTugInstances)
+			{
+				instance.SetPosition(new XPDrawInfo((float)res.LocationX, (float)res.LocationY+(10*height++), (float)res.LocationZ, (float)0, (float)0, (float)0),
+					new float[] { m_tireAngle });
+			}
+
+			m_tireAngle++;
+			if (m_tireAngle > 45)
+			{
+				m_tireAngle -= 90;
+			}
+			m_api.Log.Log($"GraphicsTestPlugin: Leaving TurnTheWheel flightloop");
+
+			return FlightLoopTime.FromCycles(1);
+		}
+
+		/// <summary>
+		/// This hook is called for drawing an object. Be aware that this
+		/// is a deprecated way of drawing, but we still support it as long 
+		/// as the SDK supports it.
+		/// </summary>
+		private int DrawingHook(XPDrawingPhase inPhase, int inIsBefore)
 		{
 			m_api.Log.Log("GraphicsTestPlugin: Entering drawing hook");
 
@@ -78,8 +119,13 @@ namespace XPNet
 			m_api.Log.Log($"Probed terrain, got result {res.LocationY} with code {res.Result}");
 
 			var (lat, lon, alt) = m_api.Graphics.LocalToWorld(res.LocationX, res.LocationY, res.LocationZ);
+			var positions = Enumerable
+				.Range(0, 10)
+				.Select(i => new XPDrawInfo(res.LocationX, res.LocationY+i*10, res.LocationZ, 0.0f, 0.0f, 0.0f))
+				.ToArray();
+			m_testTug.Draw(0, 0, positions );
 
-			testTug.Draw(0, 0, new XPLMDrawInfo_t[] { new XPLMDrawInfo_t(res.LocationX, res.LocationY, res.LocationZ, 0.0f, 0.0f, 0.0f) });
+			m_api.Log.Log("GraphicsTestPlugin: Leaving drawing hook");
 			return 1;
 		}
 

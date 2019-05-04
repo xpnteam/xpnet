@@ -11,6 +11,7 @@ extern "C" {
 #  include "XPLMDisplay.h"
 #  include "XPLMScenery.h"
 #  include "XPLMGraphics.h"
+#  include "XPLMInstance.h"
 #  include "XPLMUtilities.h"
 }
 

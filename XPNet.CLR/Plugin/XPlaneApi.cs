@@ -61,7 +61,10 @@ namespace XPNet
 		/// </summary>
 		IXPlaneGraphics Graphics { get; }
 
-
+		/// <summary>
+		/// Gets the instance API.
+		/// </summary>
+		IXPlaneInstance Instance { get; }
 	}
 
 	internal class XPlaneApi : IXPlaneApi, IDisposable
@@ -79,6 +82,7 @@ namespace XPNet
 			Display = new XPlaneDisplay();
 			Scenery = new XPlaneScenery();
 			Graphics = new XPlaneGraphics();
+			Instance = new XPlaneInstance();
 		}
 
 		public void Dispose()
@@ -162,6 +166,17 @@ namespace XPNet
 		}
 
 		public IXPlaneGraphics Graphics
+		{
+			get;
+		}
+
+		IXPlaneInstance IXPlaneApi.Instance
+		{
+
+			get { return Instance; }
+		}
+
+		public IXPlaneInstance Instance
 		{
 			get;
 		}

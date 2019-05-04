@@ -20,6 +20,7 @@
 #include "XPLMDataAccess.h"
 #include "XPLMProcessing.h"
 #include "XPLMDisplay.h"
+#include "XPLMInstance.h"
 #include "XPLMUtilities.h"
 
 typedef enum {

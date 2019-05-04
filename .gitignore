@@ -13,6 +13,7 @@ PublishProfiles
 plugin
 package
 .DS_Store
+*.user
+/XPNetPluginTestHost/xpnetcfg.json
 /XPNet.Native/obj_core
 .vscode
-*.user

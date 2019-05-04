@@ -513,7 +513,7 @@ namespace XPNet
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate int XPLMRegisterDrawCallback(
 		XPLMDrawCallback_f inCallback,
-		XPLMDrawingPhase inPhase,
+		XPDrawingPhase inPhase,
 		int inWantsBefore,
 		void* inRefcon
 	);
@@ -521,33 +521,14 @@ namespace XPNet
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate int XPLMUnregisterDrawCallback(
 		XPLMDrawCallback_f inCallback,
-		XPLMDrawingPhase inPhase,
+		XPDrawingPhase inPhase,
 		int inWantsBefore,
 		void* inRefcon
 	);
 
-	public enum XPLMDrawingPhase : int
-	{
-		xplm_Phase_FirstScene = 0,
-		xplm_Phase_Terrain = 5,
-		xplm_Phase_Airports = 10,
-		xplm_Phase_Vectors = 15,
-		xplm_Phase_Objects = 20,
-		xplm_Phase_Airplanes = 25,
-		xplm_Phase_LastScene = 30,
-		xplm_Phase_FirstCockpit = 35,
-		xplm_Phase_Panel = 40,
-		xplm_Phase_Gauges = 45,
-		xplm_Phase_Window = 50,
-		xplm_Phase_LastCockpit = 55,
-		xplm_Phase_LocalMap3D = 100,
-		xplm_Phase_LocalMap2D = 101,
-		xplm_Phase_LocalMapProfile = 102
-	}
-
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate int XPLMDrawCallback_f(
-		XPLMDrawingPhase inPhase,
+		XPDrawingPhase inPhase,
 		int inIsBefore,
 		void* inRefcon
 	);
@@ -559,13 +540,6 @@ namespace XPNet
 	internal enum XPLMProbeType : int
 	{
 		xplm_ProbeY = 0,
-	}
-
-	public enum XPLMProbeResult : int
-	{
-		xplm_ProbeHitTerrain = 0,
-		xplm_ProbeError = 1,
-		xplm_ProbeMissed = 2
 	}
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
@@ -615,41 +589,12 @@ namespace XPNet
 	internal unsafe delegate void XPLMDestroyProbe(void* inProbe);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	internal unsafe delegate XPLMProbeResult XPLMProbeTerrainXYZ(
+	internal unsafe delegate XPProbeResult XPLMProbeTerrainXYZ(
 								   void* inProbe,
 								   float inX,
 								   float inY,
 								   float inZ,
 								   [In, Out] XPLMProbeInfo_t outInfo);
-
-	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
-	public class XPLMDrawInfo_t
-	{
-		private static readonly int m_structSizeInit;
-		private readonly int m_structSize;
-		public float x;
-		public float y;
-		public float z;
-		public float pitch;
-		public float heading;
-		public float roll;
-
-		static XPLMDrawInfo_t()
-		{
-			m_structSizeInit = Marshal.SizeOf(typeof(XPLMDrawInfo_t));
-		}
-
-		public XPLMDrawInfo_t(float x = default(float), float y = default(float), float z = default(float), float pitch = default(float), float heading = default(float), float roll = default(float))
-		{
-			m_structSize = m_structSizeInit;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.pitch = pitch;
-			this.heading = heading;
-			this.roll = roll;
-		}
-	};
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	internal unsafe delegate int XPLMObjectLoaded_f(
@@ -673,7 +618,7 @@ namespace XPNet
 	internal unsafe delegate void XPLMDrawObjects(
 		void* inObject,
 		int inCount,
-		XPLMDrawInfo_t inLocations,
+		XPDrawInfo* inLocations,
 		int lighting,
 		int earth_relative
 	);
@@ -703,8 +648,7 @@ namespace XPNet
 	#region X-Plane Graphics API
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	internal unsafe delegate int XPLMWorldToLocal
-	(
+	internal unsafe delegate int XPLMWorldToLocal(
 		double inLatitude,
 		double inLongitude,
 		double inAltitude,
@@ -714,8 +658,7 @@ namespace XPNet
 	);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	internal unsafe delegate int XPLMLocalToWorld
-	(
+	internal unsafe delegate int XPLMLocalToWorld(
 		double inX,
 		double inY,
 		double inZ,
@@ -725,6 +668,22 @@ namespace XPNet
 	);
 
 	#endregion X-Plane Graphics API
+	#region X-Plane Instance API
+	internal unsafe delegate void* XPLMCreateInstance(
+		void* inObj,
+		[MarshalAs(UnmanagedType.LPArray, ArraySubType=UnmanagedType.LPStr)] string[] inDataRefs
+	);
+
+	internal unsafe delegate void XPLMDestroyInstance(
+		void* instance
+	);
+
+	internal unsafe delegate void XPLMInstanceSetPosition(
+		void* instance,
+		XPDrawInfo inNewPosition,
+		float* data
+	);
+	#endregion X-Plane Instance API
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
 	public struct ApiFunctionPointers
@@ -779,6 +738,10 @@ namespace XPNet
 		internal IntPtr XPLMWorldToLocal;
 		internal IntPtr XPLMLocalToWorld;
 
+		// Instance
+		internal IntPtr XPLMCreateInstance;
+		internal IntPtr XPLMDestroyInstance;
+		internal IntPtr XPLMInstanceSetPosition;
 	}
 
 	public unsafe struct ApiFunctions
@@ -833,10 +796,14 @@ namespace XPNet
 			XPLMUnloadObject = Marshal.GetDelegateForFunctionPointer<XPLMUnloadObject>(p.XPLMUnloadObject);
 			XPLMLookupObjects = Marshal.GetDelegateForFunctionPointer<XPLMLookupObjects>(p.XPLMLookupObjects);
 
-
 			// Graphics
 			XPLMWorldToLocal = Marshal.GetDelegateForFunctionPointer<XPLMWorldToLocal>(p.XPLMWorldToLocal);
 			XPLMLocalToWorld = Marshal.GetDelegateForFunctionPointer<XPLMLocalToWorld>(p.XPLMLocalToWorld);
+
+			// InstanceDrawing
+			XPLMCreateInstance = Marshal.GetDelegateForFunctionPointer<XPLMCreateInstance>(p.XPLMCreateInstance);
+			XPLMDestroyInstance = Marshal.GetDelegateForFunctionPointer<XPLMDestroyInstance>(p.XPLMDestroyInstance);
+			XPLMInstanceSetPosition = Marshal.GetDelegateForFunctionPointer<XPLMInstanceSetPosition>(p.XPLMInstanceSetPosition);
 		}
 
 		// Data
@@ -889,6 +856,10 @@ namespace XPNet
 		internal XPLMWorldToLocal XPLMWorldToLocal;
 		internal XPLMLocalToWorld XPLMLocalToWorld;
 
+		// Instance
+		internal XPLMCreateInstance XPLMCreateInstance;
+		internal XPLMDestroyInstance XPLMDestroyInstance;
+		internal XPLMInstanceSetPosition XPLMInstanceSetPosition;
 	}
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 2)]
