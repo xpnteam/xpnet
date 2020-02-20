@@ -26,8 +26,11 @@ namespace XPNet
 			m_api = api ?? throw new ArgumentNullException(nameof(api));
 
 			m_api.Log.Log("GraphicsTestPlugin: Displaytest started");
-			m_drawingLoopHook = m_api.Display.RegisterDrawHook(DrawingHook, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);
+			//TODO: Make it work again and activate
+			//m_drawingLoopHook = m_api.Display.RegisterDrawHook(DrawingHook, XPLMDrawingPhase.xplm_Phase_Airplanes, 0);
 			m_flightLoopHook = m_api.Processing.RegisterFlightLoopHook(FlightLoopTime.FromCycles(1), SimLoaded);
+			m_api.Data.RegisterDataAccessor("BSUB/CounterDataRef",
+				getDataf: () => 3);
 			m_api.Log.Log("GraphicsTestPlugin: And now create a probe");
 			m_probe = m_api.Scenery.CreateProbe();
 			m_api.Log.Log("GraphicsTestPlugin: Probe created");

@@ -11,43 +11,38 @@ class MessagesTests : public PluginTestsBase
 TEST_F(MessagesTests, ReceivesPlaneLoaded)
 {
 	int planeNumber = 2;
+	int counter = 0;
 	string dr = DataRefBase "msg/plane_loaded/" + std::to_string(planeNumber) + "/count";
-
-	XPMock.SetInt(dr.c_str(), 0);
+	XPHarnessAddDataRef(dr.c_str(), XPMock.GetAccessor<int>, XPMock.SetAccessor<int>, &counter, &counter);
 
 	RunPlugin("MessageTestPlugin", [planeNumber] {
 		int64_t lParam = planeNumber;
 		XPluginReceiveMessage(0, XPLM_MSG_PLANE_LOADED, reinterpret_cast<void*>(lParam));
 	});
 
-	int ret = XPMock.GetInt(dr.c_str());
-	ASSERT_EQ(ret, 1);
+	ASSERT_EQ(counter, 1);
 }
 
 TEST_F(MessagesTests, ReceivesPlaneCrashed)
 {
-	string dr = DataRefBase "msg/plane_crashed/count";
-
-	XPMock.SetInt(dr.c_str(), 0);
+	int counter = 0;
+	XPHarnessAddDataRef(DataRefBase "msg/plane_crashed/count", XPMock.GetAccessor<int>, XPMock.SetAccessor<int>, &counter, &counter);
 
 	RunPlugin("MessageTestPlugin", [] {
 		XPluginReceiveMessage(0, XPLM_MSG_PLANE_CRASHED, nullptr);
 	});
 
-	int ret = XPMock.GetInt(dr.c_str());
-	ASSERT_EQ(ret, 1);
+	ASSERT_EQ(counter, 1);
 }
 
 TEST_F(MessagesTests, ReceivesCustomMessage)
 {
-	string dr = DataRefBase "msg/42/count";
-
-	XPMock.SetInt(dr.c_str(), 0);
+	int counter = 0;
+	XPHarnessAddDataRef(DataRefBase "msg/42/count", XPMock.GetAccessor<int>, XPMock.SetAccessor<int>, &counter, &counter);
 
 	RunPlugin("MessageTestPlugin", [] {
 		XPluginReceiveMessage(0, 42, nullptr);
 	});
 
-	int ret = XPMock.GetInt(dr.c_str());
-	ASSERT_EQ(ret, 1);
+	ASSERT_EQ(counter, 1);
 }

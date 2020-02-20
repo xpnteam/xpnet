@@ -88,13 +88,6 @@ void WriteXPNetLoggerPluginConfig(XPNetConfigFlags flags)
 
 	cfg.close();
 
-	XPMock.SetString("sim/aircraft/view/acf_tailnum", "N90U");
-	XPMock.SetInt("sim/aircraft/electrical/num_buses", 2);
-	XPMock.SetBoolArray("sim/cockpit/engine/fadec_on", { true, false, true });
-	XPMock.SetFloat("sim/cockpit/electrical/instrument_brightness", 0.8f);
-	XPMock.SetBool("sim/cockpit/engine/inverter_eq", true);
-	XPMock.SetFloatArray("sim/joystick/joystick_axis_values", { 0.1f, 0.0f, 0.8f });
-	XPMock.SetFloatArray("sim/joystick/joystick_axis_minimum", std::vector<float>()); // Intentionally of Length zero to test handling zero-length arrays.
 }
 
 void RunPluginImpl(const string& name)

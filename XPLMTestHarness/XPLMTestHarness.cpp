@@ -25,6 +25,76 @@ static int idSource;
 // E.g., int is 'i' and int array is 'iv'.  But I defined 'data' as 'bv' (byte vector) instead
 // of 'b' like X-Plane does b/c resolving that inconsistency made writing the macros easier.
 
+struct customdataref
+{
+	customdataref(const string n, XPLMDataTypeID inDataType, int inIsWritable, 
+		XPLMGetDatai_f inReadInt, XPLMSetDatai_f inWriteInt,
+		XPLMGetDataf_f inReadFloat, XPLMSetDataf_f inWriteFloat,
+		XPLMGetDatad_f inReadDouble, XPLMSetDatad_f inWriteDouble,
+		XPLMGetDatavi_f inReadIntArray, XPLMSetDatavi_f inWriteIntArray,
+		XPLMGetDatavf_f inReadFloatArray, XPLMSetDatavf_f inWriteFloatArray,
+		XPLMGetDatab_f inReadData, XPLMSetDatab_f inWriteData,
+		void* inReadRefcon, void* inWriteRefcon
+	)
+		: id(++idSource), name(n), dataType(inDataType), isWritable(inIsWritable), 
+		getDatai_f(inReadInt), setDatai_f(inWriteInt),
+		getDataf_f(inReadFloat), setDataf_f(inWriteFloat),
+		getDatad_f(inReadDouble), setDatad_f(inWriteDouble),
+		getDatavi_f(inReadIntArray), setDatavi_f(inWriteIntArray),
+		getDatavf_f(inReadFloatArray), setDatavf_f(inWriteFloatArray),
+		getDatab_f(inReadData), setDatab_f(inWriteData),
+		readRefcon(inReadRefcon), writeRefcon(inWriteRefcon)
+	{ }
+
+	customdataref(const string n, XPLMDataTypeID inDataType, int inIsWritable,
+		void* inReadRefcon, void* inWriteRefcon = nullptr
+	)
+		: id(++idSource), name(n), dataType(inDataType), isWritable(inIsWritable),
+		readRefcon(inReadRefcon), writeRefcon(inWriteRefcon)
+	{ }
+
+	customdataref(const customdataref& other)
+		: id(other.id), name(other.name), dataType(other.dataType), isWritable(other.isWritable), 
+		getDatai_f(other.getDatai_f), setDatai_f(other.setDatai_f),
+		getDataf_f(other.getDataf_f), setDataf_f(other.setDataf_f),
+		getDatad_f(other.getDatad_f), setDatad_f(other.setDatad_f),
+		getDatavi_f(other.getDatavi_f), setDatavi_f(other.setDatavi_f),
+		getDatavf_f(other.getDatavf_f), setDatavf_f(other.setDatavf_f),
+		getDatab_f(other.getDatab_f), setDatab_f(other.setDatab_f),
+		readRefcon(other.readRefcon), writeRefcon(other.writeRefcon)
+	{ }
+
+	int id;
+	string name;
+	XPLMDataTypeID       dataType;
+	int                  isWritable;
+	XPLMGetDatai_f       getDatai_f;
+	XPLMSetDatai_f       setDatai_f;
+	XPLMGetDataf_f       getDataf_f;	
+	XPLMSetDataf_f       setDataf_f;
+	XPLMGetDatad_f       getDatad_f;
+	XPLMSetDatad_f       setDatad_f;
+	XPLMGetDatavi_f      getDatavi_f;
+	XPLMSetDatavi_f      setDatavi_f;
+	XPLMGetDatavf_f      getDatavf_f;
+	XPLMSetDatavf_f      setDatavf_f;
+	XPLMGetDatab_f       getDatab_f;
+	XPLMSetDatab_f       setDatab_f;
+	void *               readRefcon;
+	void *               writeRefcon;
+
+
+	operator XPLMDataRef ()
+	{
+		return reinterpret_cast<XPLMDataRef>(static_cast<uintptr_t>(id));
+	}
+
+	bool operator == (XPLMDataRef id)
+	{
+		return static_cast<XPLMDataRef>(*this) == id;
+	}
+};
+
 template <typename T>
 struct dataref
 {
@@ -108,6 +178,9 @@ static datarefmap<vector<float>> fvData;
 static datarefmap<double> dData;
 static datarefmap<vector<BYTE>> bvData;
 
+using customdatarefmap = map<string, customdataref>;
+static customdatarefmap customDataRefs;
+
 using commandmap = map<string, command>;
 static commandmap configuredCommands;
 
@@ -126,7 +199,7 @@ XPLM_API void XPHarnessSetPluginPath(const char* pluginPath)
 
 XPLM_API void XPHarnessClearDataRefs()
 {
-	iData.clear();
+	customDataRefs.clear();
 	ivData.clear();
 	fData.clear();
 	fvData.clear();
@@ -147,6 +220,11 @@ XPLM_API void XPHarnessClearFlightLoops()
 XPLM_API void XPHarnessClearDrawCallbacks()
 {
 	registeredDrawCallbacks.clear();
+}
+
+XPLM_API XPLMDataRef XPHarnessFindDataRef(const char * inDataRefName)
+{
+	return XPLMFindDataRef(inDataRefName);
 }
 
 template <typename T>
@@ -182,6 +260,18 @@ dataref<T>* FindDataRef(XPLMDataRef id, datarefmap<T>& container)
 	return nullptr;
 }
 
+
+customdataref* FindCustomDataRef(XPLMDataRef id)
+{
+	for (auto i = customDataRefs.begin(), end = customDataRefs.end(); i != end; ++i)
+	{
+		if (i->second == id)
+			return &i->second;
+	}
+
+	return nullptr;
+}
+
 command* FindCommand(XPLMCommandRef id, commandmap& container)
 {
 	for (auto i = container.begin(), end = container.end(); i != end; ++i)
@@ -194,13 +284,13 @@ command* FindCommand(XPLMCommandRef id, commandmap& container)
 }
 
 #define DEFINE_DATA_SET(code, type) \
-	XPLM_API void XPHarnessSetDataRef##code (const char* dataRefName, type data) { SetDataRef(dataRefName, data, code##Data); }
+	XPLM_API void XPHarnessSetDataRef##code (XPLMDataRef dataRef, type data) { XPLMSetData##code(dataRef, data); }
 
 #define DEFINE_DATA_SET_VECTOR(code, type) \
 	XPLM_API void XPHarnessSetDataRef##code##v (const char* dataRefName, type* data, int size) { SetDataRef(dataRefName, vector<type>(data, data + size), code##vData); }
 
 #define DEFINE_DATA_GET(code, type) \
-	XPLM_API bool XPHarnessGetDataRef##code (const char* dataRefName, type* data) { return GetDataRef(dataRefName, *data, code##Data); }
+	XPLM_API bool XPHarnessGetDataRef##code (XPLMDataRef dataRef, type& data) { data = XPLMGetData##code(dataRef); return true; }
 
 #define DEFINE_DATA_GET_VECTOR(code, type) \
 	XPLM_API bool XPHarnessGetDataRef##code##v (const char* dataRefName, type* data, int size) { \
@@ -224,6 +314,31 @@ DEFINE_DATA_GET(f, float)
 DEFINE_DATA_GET_VECTOR(f, float)
 DEFINE_DATA_GET(d, double)
 DEFINE_DATA_GET_VECTOR(b, BYTE)
+
+XPLM_API XPLMDataRef XPHarnessRegisterDataAccessor(
+	const char *         inDataName,
+	XPLMDataTypeID       inDataType,
+	int                  inIsWritable,
+	XPLMGetDatai_f       inReadInt,
+	XPLMSetDatai_f       inWriteInt,
+	XPLMGetDataf_f       inReadFloat,
+	XPLMSetDataf_f       inWriteFloat,
+	XPLMGetDatad_f       inReadDouble,
+	XPLMSetDatad_f       inWriteDouble,
+	XPLMGetDatavi_f      inReadIntArray,
+	XPLMSetDatavi_f      inWriteIntArray,
+	XPLMGetDatavf_f      inReadFloatArray,
+	XPLMSetDatavf_f      inWriteFloatArray,
+	XPLMGetDatab_f       inReadData,
+	XPLMSetDatab_f       inWriteData,
+	void *               inReadRefcon,
+	void *               inWriteRefcon)
+{
+	return XPLMRegisterDataAccessor(inDataName, inDataType, inIsWritable, inReadInt,
+		inWriteInt, inReadFloat, inWriteFloat, inReadDouble,
+		inWriteDouble, inReadIntArray, inWriteIntArray, inReadFloatArray,
+		inWriteFloatArray, inReadData, inWriteData, inReadRefcon, inWriteRefcon);
+}
 
 XPLM_API XPLMPluginID         XPLMGetMyID(void)
 {
@@ -303,13 +418,17 @@ XPLM_API XPLMDataRef          XPLMFindDataRef(
 	TryReturnDataRef(inDataRefName, fvData);
 	TryReturnDataRef(inDataRefName, dData);
 	TryReturnDataRef(inDataRefName, bvData);
-
+	TryReturnDataRef(inDataRefName, customDataRefs);
 	return nullptr;
 }
 
 XPLM_API XPLMDataTypeID       XPLMGetDataRefTypes(
 	XPLMDataRef          inDataRef)
 {
+	auto customDataRef = FindCustomDataRef(inDataRef);
+	if (customDataRef)
+		return customDataRef->dataType;
+
 	XPLMDataTypeID types = 0;
 
 	if (FindDataRef(inDataRef, iData))
@@ -331,35 +450,41 @@ XPLM_API XPLMDataTypeID       XPLMGetDataRefTypes(
 XPLM_API int                  XPLMGetDatai(
 	XPLMDataRef          inDataRef)
 {
-	auto d = FindDataRef(inDataRef, iData);
-	return d ? d->value : 0;
+	if (auto c = FindCustomDataRef(inDataRef))
+		return c->getDatai_f(c->readRefcon);
+	else
+		return 0;
 }
 
 XPLM_API void                 XPLMSetDatai(
 	XPLMDataRef          inDataRef,
 	int                  inValue)
 {
-	auto d = FindDataRef(inDataRef, iData);
-	if (!d)
-		return; // Dataref isn't defined, can't set it.
-	d->value = inValue;
+	if (auto c = FindCustomDataRef(inDataRef))
+	{
+		c->setDatai_f(c->writeRefcon, inValue);
+		return;
+	}
 }
 
 XPLM_API float                XPLMGetDataf(
 	XPLMDataRef          inDataRef)
 {
-	auto d = FindDataRef(inDataRef, fData);
-	return d ? d->value : 0;
+	if (auto c = FindCustomDataRef(inDataRef))
+		return c->getDataf_f(c->readRefcon);
+	else
+		return 0;
 }
 
 XPLM_API void                 XPLMSetDataf(
 	XPLMDataRef          inDataRef,
 	float                inValue)
 {
-	auto d = FindDataRef(inDataRef, fData);
-	if (!d)
-		return; // Dataref isn't defined, can't set it.
-	d->value = inValue;
+	if (auto c = FindCustomDataRef(inDataRef))
+	{
+		c->setDataf_f(c->writeRefcon, inValue);
+		return;
+	}
 }
 
 XPLM_API double               XPLMGetDatad(
@@ -385,6 +510,9 @@ XPLM_API int                  XPLMGetDatavi(
 	int                  inOffset,
 	int                  inMax)
 {
+	if (auto c = FindCustomDataRef(inDataRef))
+		return c->getDatavi_f(c->readRefcon, outValues, inOffset, inMax);
+
 	auto d = FindDataRef(inDataRef, ivData);
 	if (!d)
 		return 0;
@@ -401,6 +529,9 @@ XPLM_API void                 XPLMSetDatavi(
 	int                  inoffset,
 	int                  inCount)
 {
+	if (auto c = FindCustomDataRef(inDataRef))
+		return c->setDatavi_f(c->writeRefcon, inValues, inoffset, inCount);
+
 	auto d = FindDataRef(inDataRef, ivData);
 	if (!d)
 		return; // Dataref isn't defined, can't set it.
@@ -413,6 +544,9 @@ XPLM_API int                  XPLMGetDatavf(
 	int                  inOffset,
 	int                  inMax)
 {
+	if (auto c = FindCustomDataRef(inDataRef))
+		return c->getDatavf_f(c->readRefcon, outValues, inOffset, inMax);
+
 	auto d = FindDataRef(inDataRef, fvData);
 	if (!d)
 		return 0;
@@ -429,6 +563,9 @@ XPLM_API void                 XPLMSetDatavf(
 	int                  inoffset,
 	int                  inCount)
 {
+	if (auto c = FindCustomDataRef(inDataRef))
+		return c->setDatavf_f(c->writeRefcon, inValues, inoffset, inCount);
+
 	auto d = FindDataRef(inDataRef, fvData);
 	if (!d)
 		return; // Dataref isn't defined, can't set it.
@@ -441,6 +578,11 @@ XPLM_API int                  XPLMGetDatab(
 	int                  inOffset,
 	int                  inMaxBytes)
 {
+	if (auto c = FindCustomDataRef(inDataRef))
+		return c->getDatab_f(c->readRefcon, outValue, inOffset, inMaxBytes);
+	else
+		return 0;
+
 	auto d = FindDataRef(inDataRef, bvData);
 	if (!d)
 		return 0;
@@ -457,12 +599,73 @@ XPLM_API void                 XPLMSetDatab(
 	int                  inOffset,
 	int                  inLength)
 {
+	if (auto c = FindCustomDataRef(inDataRef))
+	{
+		c->setDatab_f(c->writeRefcon, inValue, inOffset, inLength);
+		return;
+	}
+
 	auto d = FindDataRef(inDataRef, bvData);
 	if (!d)
 		return; // Dataref isn't defined, can't set it.
 	BYTE* inValueBytes = reinterpret_cast<BYTE*>(inValue);
 	d->value = vector<BYTE>(inValueBytes + inOffset, inValueBytes + inOffset + inLength);
 }
+
+XPLM_API XPLMDataRef          XPLMRegisterDataAccessor(
+	const char *         inDataName,
+	XPLMDataTypeID       inDataType,
+	int                  inIsWritable,
+	XPLMGetDatai_f       inReadInt,
+	XPLMSetDatai_f       inWriteInt,
+	XPLMGetDataf_f       inReadFloat,
+	XPLMSetDataf_f       inWriteFloat,
+	XPLMGetDatad_f       inReadDouble,
+	XPLMSetDatad_f       inWriteDouble,
+	XPLMGetDatavi_f      inReadIntArray,
+	XPLMSetDatavi_f      inWriteIntArray,
+	XPLMGetDatavf_f      inReadFloatArray,
+	XPLMSetDatavf_f      inWriteFloatArray,
+	XPLMGetDatab_f       inReadData,
+	XPLMSetDatab_f       inWriteData,
+	void *               inReadRefcon,
+	void *               inWriteRefcon)
+{
+	auto dref = customdataref(inDataName, inDataType, inIsWritable, inReadInt,
+		inWriteInt, inReadFloat, inWriteFloat, inReadDouble,
+		inWriteDouble, inReadIntArray, inWriteIntArray, inReadFloatArray,
+		inWriteFloatArray, inReadData, inWriteData, inReadRefcon, inWriteRefcon);
+	customDataRefs.emplace(inDataName, dref);
+	return dref;
+}
+
+XPLM_API void          XPLMUnregisterDataAccessor(
+	XPLMDataRef          inDataRef)
+{
+	for (auto i = customDataRefs.begin(), end = customDataRefs.end(); i != end; ++i)
+	{
+		if (i->second == inDataRef) 
+		{
+			customDataRefs.erase(i);
+			return;
+		}
+	}
+}
+
+#define DEFINE_XPHARNESSADDDATAREF(CODE, XPLMTYPE) \
+	XPLM_API void XPHarnessAddDataRef(const char * n, XPLMGetData##CODE##_f getData_f, void* readRefcon) \
+	{ auto dref = customdataref(n, ##XPLMTYPE##, 0, readRefcon); dref.getData##CODE##_f = getData_f; dref.readRefcon  = readRefcon; customDataRefs.emplace(n, dref); } \
+	XPLM_API void XPHarnessAddDataRef(const char * n, XPLMSetData##CODE##_f setData_f, void* writeRefcon) \
+	{ auto dref = customdataref(n, ##XPLMTYPE##, 1, writeRefcon); dref.setData##CODE##_f = setData_f; dref.writeRefcon  = writeRefcon; customDataRefs.emplace(n, dref); } \
+	XPLM_API void XPHarnessAddDataRef(const char * n, XPLMGetData##CODE##_f getData_f, XPLMSetData##CODE##_f setData_f, void* readRefcon, void* writeRefcon) \
+	{ auto dref = customdataref(n, ##XPLMTYPE##, 1, readRefcon, writeRefcon); dref.getData##CODE##_f = getData_f; dref.setData##CODE##_f = setData_f; dref.readRefcon = readRefcon; dref.writeRefcon = writeRefcon; customDataRefs.emplace(n, dref); }
+
+DEFINE_XPHARNESSADDDATAREF(i, xplmType_Int)
+DEFINE_XPHARNESSADDDATAREF(f, xplmType_Float)
+DEFINE_XPHARNESSADDDATAREF(d, xplmType_Double)
+DEFINE_XPHARNESSADDDATAREF(vi, xplmType_IntArray)
+DEFINE_XPHARNESSADDDATAREF(vf, xplmType_FloatArray)
+DEFINE_XPHARNESSADDDATAREF(b, xplmType_Data)
 
 XPLM_API void XPHarnessSetCommandCallback(const char* commandName, CommandCallback cb)
 {

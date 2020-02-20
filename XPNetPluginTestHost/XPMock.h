@@ -35,13 +35,17 @@ public:
 
 	void SetInt(const char* name, int value)
 	{
-		XPHarnessSetDataRefi(name, value);
+		XPLMDataRef d = XPHarnessFindDataRef(name);
+
+		XPHarnessSetDataRefi(d, value);
 	}
 
 	int GetInt(const char* name, int defaultValue = 0)
 	{
+		XPLMDataRef d = XPHarnessFindDataRef(name);
+
 		int value = defaultValue;
-		bool ret = XPHarnessGetDataRefi(name, &value);
+		bool ret = XPHarnessGetDataRefi(d, value);
 		return ret ? value : defaultValue;
 	}
 
@@ -58,13 +62,15 @@ public:
 
 	void SetBool(const char* name, bool value)
 	{
-		XPHarnessSetDataRefi(name, value ? 1 : 0);
+		XPLMDataRef d = XPHarnessFindDataRef(name);
+		XPHarnessSetDataRefi(d, value ? 1 : 0);
 	}
 
 	int GetBool(const char* name, bool defaultValue = false)
 	{
+		XPLMDataRef d = XPHarnessFindDataRef(name);
 		int value = defaultValue ? 1 : 0;
-		bool ret = XPHarnessGetDataRefi(name, &value);
+		bool ret = XPHarnessGetDataRefi(d, value);
 		return ret ? (value ? 1 : 0) : defaultValue;
 	}
 
@@ -94,13 +100,15 @@ public:
 
 	void SetFloat(const char* name, float value)
 	{
-		XPHarnessSetDataReff(name, value);
+		XPLMDataRef d = XPHarnessFindDataRef(name);
+		XPHarnessSetDataReff(d, value);
 	}
 
 	float GetFloat(const char* name, float defaultValue = 0)
 	{
+		XPLMDataRef d = XPHarnessFindDataRef(name);
 		float value = defaultValue;
-		bool ret = XPHarnessGetDataReff(name, &value);
+		bool ret = XPHarnessGetDataReff(d, value);
 		return ret ? value : defaultValue;
 	}
 
@@ -126,21 +134,40 @@ public:
 		return XPHarnessGetDataRefbv(name, pValue, static_cast<int>(arr.size()));
 	}
 
-	//void SetFloat(const char* name, double value)
-	//{
-	//	SetDataReff(name, value);
-	//}
+	template <class T>
+	static T GetAccessor(void* inRefcon)
+	{
+		return *(T*)inRefcon;
+	}
 
-	//void SetFloat(const char* name, std::vector<double> arr)
-	//{
-	//	std::vector<float> v(arr.size());
-	//	std::transform(
-	//		arr.begin(), arr.end(), v.begin(),
-	//		[](double b) -> float { static_cast<float>(b); }
-	//	);
-	//	SetDataReffv(name, v.data(), static_cast<int>(v.size()));
-	//}
 
+	template <class T>
+	static int GetArrayAccessorFromVector(void* inRefcon, T * outValues, int inOffset, int inMax)
+	{
+		std::vector<T>* d = (std::vector<T>*)inRefcon;
+		if (!outValues)
+			return (int)d->size();
+
+		int numElementsToCopy = min((int)d->size() - inOffset, inMax);
+		std::copy_n(d->data() + inOffset, numElementsToCopy, outValues);
+		return numElementsToCopy;
+	}
+
+	template <class T>
+	static void SetAccessor(void* inRefcon, T value)
+	{
+		*(T*)inRefcon = value;
+	}	
+
+	template <class T>
+	static void SetArrayAccessorFromVector(void* inRefcon, T * inValues, int inOffset, int inCount)
+	{
+		std::vector<T>* d = (std::vector<T>*)inRefcon;
+		int numElementsToWrite = min(inCount, (int)d->size()) - inOffset;
+		if (numElementsToWrite > 0)
+			std::copy_n(inValues, numElementsToWrite, d->data() + inOffset);
+	}
+	
 	void CreateCommand(const char* name, CommandCallback cb)
 	{
 		XPHarnessSetCommandCallback(name, cb);

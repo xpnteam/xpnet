@@ -30,6 +30,8 @@ typedef double(*PXPLMGetDatad)(XPLMDataRef);
 typedef void(*PXPLMSetDatad)(XPLMDataRef, double);
 typedef int(*PXPLMGetDatab)(XPLMDataRef, void*, int, int);
 typedef void(*PXPLMSetDatab)(XPLMDataRef, void*, int, int);
+typedef XPLMDataRef(*PXPLMRegisterDataAccessor)(const char*, XPLMDataTypeID, int, XPLMGetDatai_f, XPLMSetDatai_f, XPLMGetDataf_f, XPLMSetDataf_f, XPLMGetDatad_f, XPLMSetDatad_f, XPLMGetDatavi_f, XPLMSetDatavi_f, XPLMGetDatavf_f, XPLMSetDatavf_f, XPLMGetDatab_f, XPLMSetDatab_f, void*, void*);
+typedef void(*PXPLMUnregisterDataAccessor)(XPLMDataRef);
 
 // Commands - X-Plane API Function Pointer Types
 typedef XPLMCommandRef(*PXPLMFindCommand)(const char*);
@@ -113,7 +115,9 @@ typedef struct
 	PXPLMSetDatavf XPLMSetDatavf;
 	PXPLMGetDatab XPLMGetDatab;
 	PXPLMSetDatab XPLMSetDatab;
-
+	PXPLMRegisterDataAccessor XPLMRegisterDataAccessor;
+	PXPLMUnregisterDataAccessor XPLMUnregisterDataAccessor;
+	
 	// Commands
 	PXPLMFindCommand XPLMFindCommand;
 	PXPLMCommandBegin XPLMCommandBegin;
@@ -292,6 +296,8 @@ XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc)
 		XPLMSetDatavf,
 		XPLMGetDatab,
 		XPLMSetDatab,
+		XPLMRegisterDataAccessor,
+		XPLMUnregisterDataAccessor,
 
 		// Commands
 		XPLMFindCommand,
