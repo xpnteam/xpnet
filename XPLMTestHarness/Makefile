@@ -1,6 +1,4 @@
 
-# ENHANCE: Support building for both x32 and x64.  This does only a 64-bit build currently.
-
 # TODO: As soon as we can use C++17 std::filesystem on macOS with the compilers that come with Xcode,
 # remove the boost dependency here.  I didn't want to depend on boost for this, and we only need it
 # for its filesystem implementation.
@@ -13,7 +11,7 @@ CXX           :=g++
 RM            :=rm -f
 MKDIR         :=mkdir -p
 CPPFLAGS      :=-g -Wall -std=c++1z -m64 -c
-OUTDIR        :=../build
+OUTROOT       :=../build/test
 OBJDIR        :=obj
 BINDIR        :=bin
 SRCDIR        :=.
@@ -22,8 +20,7 @@ LDLIBS        :=
 
 Configuration :=Release
 
-INC           :=-I$(XPLANESDKPATH)/CHeaders/Widgets -I$(XPLANESDKPATH)/CHeaders/Wrappers -I$(XPLANESDKPATH)/CHeaders/XPLM
-
+INC           :=-I$(XPLANESDKPATH)/CHeaders/Widgets -I$(XPLANESDKPATH)/CHeaders/Wrappers -I$(XPLANESDKPATH)/CHeaders/XPLM -I../XPNet.Native
 
 ifeq ($(UNAME),Linux)
   
@@ -33,8 +30,9 @@ ifeq ($(UNAME),Linux)
   # not quite be there yet; needs someone to tweak it until it works and contribute that back.
 
   PLATFORM    :=Linux
-  DEFINES     :=-DAPL=0 -DIBM=0 -DLIN=1
-  XPLNAME     :=lin.xpl
+  DEFINES     :=-DAPL=0 -DIBM=0 -DLIN=1 -DPLATX64=1
+  LIBNAME     :=XPLM_64
+  OUTNAME     :=$(LIBNAME).so
 
 endif
 
@@ -42,10 +40,12 @@ endif
 ifeq ($(UNAME),Darwin)
 
   PLATFORM    :=macOS
-  DEFINES     :=-DAPL=1 -DIBM=0 -DLIN=0
-  XPLNAME     :=mac.xpl
-  PKGPROJ     :=../XPNet.Native.Packages/XPNet.Native.NuSpec.macOS.csproj
-  FRAMEWORKS  :=-F$(XPLANESDKPATH)/Libraries/Mac -framework XPLM -install_name @executable_path/64/$(XPLNAME)
+  DEFINES     :=-DAPL=1 -DIBM=0 -DLIN=0 -DPLATX64=1
+  LIBNAME     :=XPLM
+  OUTNAME     :=$(LIBNAME)
+  MOCKRESROOT :=$(OUTROOT)/Resources
+  OUTPATH     :=$(MOCKRESROOT)/plugins/XPLM.framework
+  FRAMEWORKS  :=-install_name @executable_path/../XPLM.framework/XPLM
   LDFLAGS     :=$(LDFLAGS) $(BOOSTLIB)/libboost_system.a $(BOOSTLIB)/libboost_filesystem.a
 
 endif
@@ -54,27 +54,27 @@ endif
 
 # ================================================
 
-SRCS          =Platform.cpp xpnetclrhost.cpp XPNetPlugin.cpp
+SRCS          =XPLMTestHarness.cpp
 
 _OBJS         =$(subst .cpp,.o,$(SRCS))
-OBJS          =$(patsubst %,$(OBJDIR)/%,$(_OBJS))
+OBJS          =$(patsubst %,$(OBJDIR)/%,$(_OBJS)) $(OBJDIR)/Platform.o
 
-XPL           =$(OUTDIR)/$(XPLNAME)
+XPLMLIB       =$(OUTPATH)/$(OUTNAME)
 
 # ================================================
 
-all: plugin package
+all: harness
 
-plugin: $(OUTDIR)/$(XPLNAME)
+harness: $(XPLMLIB)
 
-$(OUTDIR)/$(XPLNAME): buildprep $(OBJS)
-	$(CXX) $(LDFLAGS) -shared -o $(OUTDIR)/$(XPLNAME) $(OBJS) $(LDLIBS) $(FRAMEWORKS)
+$(XPLMLIB): buildprep $(OBJS)
+	$(CXX) $(LDFLAGS) -shared -o $(XPLMLIB) $(OBJS) $(LDLIBS) $(FRAMEWORKS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CPPFLAGS) $(DEFINES) $(INC) -o $@ $<
 
-package: plugin
-	dotnet pack $(PKGPROJ) -c $(Configuration)
+$(OBJDIR)/Platform.o: ../XPNet.Native/Platform.cpp
+	$(CXX) $(CPPFLAGS) $(DEFINES) $(INC) -o $@ $<
 
 depend: .depend
 
@@ -84,7 +84,7 @@ depend: .depend
 
 clean:
 	$(RM) $(OBJS)
-	$(RM) -r $(OUTDIR) $(OBJDIR) $(BINDIR)
+	$(RM) -r $(OUTPATH)/$(OUTNAME) $(MOCKRESROOT) $(OBJDIR) $(BINDIR)
 
 distclean: clean
 	$(RM) *~ .depend
@@ -102,6 +102,6 @@ endif
 
 
 buildprep:
-	$(MKDIR) -p $(OUTDIR)
-	$(MKDIR) -p $(OBJDIR)
+	$(MKDIR) $(OUTPATH)
+	$(MKDIR) $(OBJDIR)
 

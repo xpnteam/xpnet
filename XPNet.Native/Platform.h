@@ -45,6 +45,9 @@ std::wstring GetEntrypointExecutablePath();
 
 #  define strcp(dest, str) strcpy_s(dest, strlen(str) + 1, str)
 
+#  define unlink _unlink
+#  define fileno _fileno
+
 #elif defined(__GNUC__) // GNU or a gnu-alike (like Clang)
 
 #  include <dlfcn.h>
@@ -70,11 +73,16 @@ std::wstring GetEntrypointExecutablePath();
 		return dlsym(hModule, name);
 	}
 
+	typedef unsigned char BYTE;
+
 #  define MAX_PATH PATH_MAX
 
 #  define PATH_ENTRY_SEP ":"
 
 #  define strcp(dest, str) strcpy(dest, str)
+
+#  define max(a,b) (((a) > (b)) ? (a) : (b))
+#  define min(a,b) (((a) < (b)) ? (a) : (b))
 
 #else
 

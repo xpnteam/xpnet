@@ -141,7 +141,7 @@ ClrToken LoadClr(wstring wCoreClrFolderPath, wstring wAppBase, wstring wAppPaths
 		return nullptr;
 	}
 
-	return new ClrTokenImp{ domainId, pCLRRuntimeHost, coreclr_initialize, coreclr_create_delegate, coreclr_shutdown_2 };
+	return new ClrTokenImp { domainId, pCLRRuntimeHost, coreclr_initialize, coreclr_create_delegate, coreclr_shutdown_2 };
 }
 
 void UnloadClr(ClrToken clrToken)

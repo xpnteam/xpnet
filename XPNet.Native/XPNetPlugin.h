@@ -43,11 +43,24 @@ extern "C" {
 
 extern "C" {
 
+	//
+	// The X-Plane API Plugin Interface (defined by X-Plane)
+	//
+
 	XPNETPLUGIN_API int XPluginStart(char* outName, char* outSig, char* outDesc);
 	XPNETPLUGIN_API void XPluginStop(void);
 	XPNETPLUGIN_API int XPluginEnable(void);
 	XPNETPLUGIN_API void XPluginDisable(void);
 	XPNETPLUGIN_API void XPluginReceiveMessage(XPLMPluginID inFrom, int inMsg, void * inParam);
 
+	//
+	// The XPNet API Plugin Interface (defined by us)
+	//
+	// - These functions are used to configure the API for testing.
+	//
+
+	XPNETPLUGIN_API bool XPNetPluginIsEnabled();
+	XPNETPLUGIN_API bool XPNetPluginIsStarted();
 	XPNETPLUGIN_API void XPNetPluginSetExternalLoggingHandle(void* externalLoggingHandle);
+	//XPNETPLUGIN_API void XPNetPluginSetPluginRoot(WCHAR* pluginRoot);
 }

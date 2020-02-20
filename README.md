@@ -133,8 +133,8 @@ With the help of contributors, I'd like to see XPNet grow in at least the follow
 - [ ] Expand to Linux.  (We already run on macOS, so we're most of the way to Linux, for someone with good C/C++ and relevant platform experience.)
 - [ ] Automatically find the plugin to load in simple cases based on naming convention rather than requiring a config entry.  I tried to do this from the start but it appears that System.Reflection.Metadata is just fundamentally broken in .NET Core, and things like Cecil don't work on Core (at least not in the effort I'm willing to put into it).  When the Core tooling gets better, or someone wants to contribute who can provide a solution, revisit this.
 - [x] Build out the Fluent Data API.  What we have so far is more a concept than anything.  Possibly this is a template/tool that creates the Fluent API from the DataRefs.txt that comes with X-Plane, instead of building the thing by hand.
-- [ ] Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
-- [x] 2018-11-27 Improve the native output directory structure for the C++ VS 2017 projects - by default, for backwards compatibility, MS makes project outputs inconsistent between x86 and x64 builds.  It all works...but is unnecessarily confusing.
+- [x] 2018-12-15 - Extend the test harness to be more generally useful for other plugins beyond the sample Logging plugin.
+- [x] 2018-11-27 - Improve the native output directory structure for the C++ VS 2017 projects - by default, for backwards compatibility, MS makes project outputs inconsistent between x86 and x64 builds.  It all works...but is unnecessarily confusing.
 - [x] 2018-07-25 - Publish a nuget package to make it easy to create a plugin.  The package should ideally be "fat", including binaries for Windows, macOS and Linux in appropriate arch subdirectories, so that you can easily create plugin projects that reference XPNet and which you can then just xcopy-deploy into X-Plane.
 - [x] 2018-02-25 - Expand to macOS.
 - [x] 2018-07-25 - Implement tooling or procedures to make it easier to create a plugin and get it installed or distributed.  ('dotnet new' template)
@@ -463,29 +463,38 @@ SDK directory are CHeaders, Delphi and Libraries.
 
 ### Building XPNet on Windows
 
-Use Visual Studio 2017 or above to open and build XPNet.sln.  To build for both 32-bit
-and 64-bit, you will build twice: once with the x64 configuration selected and once
-with the x86 configuration selected.  Gather the output files
-and drop them into a folder in X-Plane as described in "Installing Into X-Plane" above.
+To build on Windows, you'll need the following.
 
+1. [Visual Studio 2017 Community](https://visualstudio.microsoft.com/downloads/)
+2. [Vcpkg](https://docs.microsoft.com/en-us/cpp/vcpkg?view=vs-2017) _to install native libraries_
+3. Google Test (gtest) _recommend installing via Vcpkg - it's like magic_
+
+In the Visual Studio 2017 installer, you'll need "Desktop Development with C++"
+and ".NET Core" at least.  XPNet requires C# 7.2, which wasn't included in the
+very first release of Visual Studio 2017, so update to the latest version of
+Visual Studio 2017 to ensure you have what you need.
+
+From the x64 or x86 Native Tools Command Prompt, run the following:
+
+```cmd
+cd path/to/where/you/downloaded/xpnet
+nmake /f Makefile.vc
 ```
-"Gathering the output files" in Windows involves tracking down the several
-dependent DLLs that XPNet.CLR references, and grabbing the native and .NET
-outputs from a couple of different projects in the solution file.  It would be great to
-have a working 'dotnet publish' command for Windows (like how it
-works for macOS; see below), but the build includes native components so
-'dotnet publish' won't work on its own.  The likely improvement to make is
-to create an MSBuild target that could be invoked from
-the command line.  You _can_ do a Publish action from Visual Studio and have it
-gather all the files for you, but it's a more complicated and cumbersome process
-to set up than the command line version.  Now that we have the nuget packages,
-most people should be using them, so there are no immediate plans to further
-automate the process of building a Plugin folder in the Visual Studio workflow.
-If someone is interested, though, I would consider pull requests for better instruction
-text to place here, or tooling improvements for building on Windows, especially
-an MSBuild target that builds everything for both 32-bit and 64-bit and drops it
-all in a Plugin folder with the right structure.
-```
+
+Unit tests will be automatically run as part of the build process, and must succeed
+for the build to succeed.
+
+If all goes well, build outputs for both 32-bit and 64-bit will be in a directory
+named `build` when that completes, and the nuget packages will be in a directory
+named `package`.  You can copy those outputs to a directory structure as described in
+"Installing into X-Plane" above.
+
+You can also build the project from the IDE by opening XPNet.sln, and can manually create
+a plugin directory as described in "Installing Into X-Plane", but for running in X-Plane
+the command-line build is recommended.
+
+Further information on the structure of the project, and the unit tests, can be found
+in the [TESTING](TESTING.md) document.
 
 
 ### Building XPNet on macOS
@@ -499,13 +508,19 @@ cd path/to/where/you/downloaded/xpnet
 make
 ```
 
+Unit tests will be automatically run as part of the build process, and must succeed
+for the build to succeed.
+
 If all goes well, you'll have a bunch of .dll files and a mac.xpl file in a directory
-named `plugin` when that completes.  Create a plugin directory structure as described in
-"Installing into X-Plane" above, and copy everything from the `plugin`
-folder you just built.
+named `build` when that completes, and the nuget packages will be in a directory
+named `package`.  You can copy those outputs to a directory structure as described
+in "Installing into X-Plane" above.
 
 There is only a 64-bit build for macOS because the .NET Core Runtime does not
 support 32-bit MacOS.
+
+Further information on the structure of the project, and the unit tests, can be found
+in the [TESTING](TESTING.md) document.
 
 
 ### Building XPNet on Linux

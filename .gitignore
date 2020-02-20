@@ -1,10 +1,12 @@
 .vs
 */bin
 */obj
+*/lib
 */Win32
 */Debug
 */Release
 */.depend
+build/
 XPNet.Native/lib
 XPNet.Native/obj_core
 Debug

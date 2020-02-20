@@ -5,9 +5,4 @@
 
 #pragma once
 
-#include "targetver.h"
-
-#include <stdio.h>
-#include <tchar.h>
-
-// Reference additional headers your program requires here
+#include "Platform.h"

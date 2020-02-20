@@ -15,24 +15,15 @@ namespace XPNet
         private readonly IXPlaneApi m_api;
         private readonly IXPFlightLoopHook m_flightLoopHook;
 
-        private const int XPNET_MSG_PLUGIN_IDENT = (0x8000000 | 0x01);
-        private const int XPNET_MSG_PLUGIN_CMDTEST_BEGIN = (0x8000000 | 0x02);
-        private const int XPNET_MSG_PLUGIN_CMDTEST_END = (0x8000000 | 0x03);
-        private const int XPNET_MSG_PLUGIN_CMDTEST_ONCE = (0x8000000 | 0x04);
-
         private readonly List<Action> m_datarefLoggers = new List<Action>();
 
         public LoggerPlugin(IXPlaneApi api)
         {
-            m_api = api ?? throw new ArgumentNullException("api");
+            m_api = api ?? throw new ArgumentNullException(nameof(api));
 
             m_api.Log.Log("LoggerPlugin: Started");
 
             m_api.ConfigChanged += OnConfigurationChanged;
-
-            m_api.Messages.MessageReceived += Messages_MessageReceived;
-            m_api.Messages.PlaneCrashed += Messages_PlaneCrashed;
-            m_api.Messages.PlaneLoaded += Messages_PlaneLoaded;
 
             m_flightLoopHook = m_api.Processing.RegisterFlightLoopHook(
                 FlightLoopTime.FromSeconds(1.0f), OnFlightLoopHook
@@ -55,10 +46,6 @@ namespace XPNet
         {
             m_flightLoopHook.Dispose();
 
-            m_api.Messages.MessageReceived -= Messages_MessageReceived;
-            m_api.Messages.PlaneCrashed -= Messages_PlaneCrashed;
-            m_api.Messages.PlaneLoaded -= Messages_PlaneLoaded;
-
             m_api.ConfigChanged -= OnConfigurationChanged;
 
             m_api.Log.Log("LoggerPlugin: Stopped");
@@ -69,66 +56,6 @@ namespace XPNet
             ReloadDataRefs();
         }
 
-        private void Messages_MessageReceived(object sender, XPMessageEventArgs e)
-        {
-            switch (e.MessageId)
-            {
-                case XPNET_MSG_PLUGIN_IDENT:
-                    m_api.Log.Log("LoggerPlugin: IDENT");
-                    break;
-
-                    // TODO: The rest of what's in this plugin is generally useful, but this command stuff is
-                    // really just specific to the test harness.  It could also be made generally
-                    // useful I guess - we could define in the logger config file some way to identify
-                    // that a given (set of) command(s) should be invoked any time that some signal is
-                    // received, like say a custom message.  That's pushing the edge of the definition
-                    // of "generally useful", but it would at least be better than hardcoded commands
-                    // here.
-                    //
-                    // NOTE: See the TODO above - for test purposes, we don't cache the result of
-                    // GetCommand the way we normally would/should.
-
-                case XPNET_MSG_PLUGIN_CMDTEST_BEGIN:
-                    {
-                        var cmd = m_api.Commands.GetCommand("sim/autopilot/heading_up");
-                        cmd.Begin();
-                        break;
-                    }
-
-                case XPNET_MSG_PLUGIN_CMDTEST_END:
-                    {
-                        // NOTE: See the TODO above - for test purposes, we don't cache the result of
-                        // GetCommand the way we normally would/should.
-                        var cmd = m_api.Commands.GetCommand("sim/autopilot/heading_up");
-                        cmd.End();
-                        break;
-                    }
-
-                case XPNET_MSG_PLUGIN_CMDTEST_ONCE:
-                    {
-                        // NOTE: See the TODO above - for test purposes, we don't cache the result of
-                        // GetCommand the way we normally would/should.
-                        var cmd = m_api.Commands.GetCommand("sim/autopilot/heading_up");
-                        cmd.InvokeOnce();
-                        break;
-                    }
-
-                default:
-                    // Nothing to do.
-                    break;
-            }
-        }
-
-        private void Messages_PlaneLoaded(object sender, XPPlaneMessageEventArgs e)
-        {
-            Log(nameof(IXPlaneMessages.PlaneLoaded), e);
-        }
-
-        private void Messages_PlaneCrashed(object sender, XPMessageEventArgs e)
-        {
-            Log(nameof(IXPlaneMessages.PlaneCrashed), e);
-        }
-
         private void ReloadDataRefs()
         {
             m_datarefLoggers.Clear();
@@ -136,7 +63,7 @@ namespace XPNet
             LoadDataRefs<int>("XPNetLogger:IntData", (s) => m_api.Data.GetInt(s));
             LoadDataRefs<int[]>("XPNetLogger:IntArrayData", (s) => m_api.Data.GetIntArray(s));
             LoadDataRefs<bool>("XPNetLogger:BoolData", (s) => m_api.Data.GetBool(s));
-            LoadDataRefs<bool[]>("XPNetLogger:BoolArrayData", (s) => m_api.Data.GetBoolArray(s));
+            LoadDataRefs<XPBoolean[]>("XPNetLogger:BoolArrayData", (s) => m_api.Data.GetBoolArray(s));
             LoadDataRefs<float>("XPNetLogger:FloatData", (s) => m_api.Data.GetFloat(s));
             LoadDataRefs<float[]>("XPNetLogger:FloatArrayData", (s) => m_api.Data.GetFloatArray(s));
             LoadDataRefs<double>("XPNetLogger:DoubleData", (s) => m_api.Data.GetDouble(s));
@@ -179,7 +106,7 @@ namespace XPNet
                     return () => Log(d);
                 case IXPDataRef<bool> d:
                     return () => Log(d);
-                case IXPDataRef<bool[]> d:
+                case IXPDataRef<XPBoolean[]> d:
                     return () => Log(d);
                 case IXPDataRef<float> d:
                     return () => Log(d);
@@ -205,7 +132,7 @@ namespace XPNet
         private void Log(IXPDataRef<bool> dref) =>
             m_api.Log.Log($"LoggerPlugin: {dref.Name} = [{dref.Value}]");
 
-        private void Log(IXPDataRef<bool[]> dref) =>
+        private void Log(IXPDataRef<XPBoolean[]> dref) =>
             m_api.Log.Log($"LoggerPlugin: {dref.Name} = [{string.Join(", ", dref.Value)}]");
 
         private void Log(IXPDataRef<float> dref) =>

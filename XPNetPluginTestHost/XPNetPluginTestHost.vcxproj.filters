@@ -18,14 +18,17 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="XPMock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="XPNetPluginTestHost.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdCapture.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +36,39 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XPNetPluginTestHost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataRefTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PluginTestsBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GoogleTestRunner.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggingTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlightLoopTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LifecycleDeathTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LifecycleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

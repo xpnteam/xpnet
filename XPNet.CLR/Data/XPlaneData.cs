@@ -131,7 +131,7 @@ namespace XPNet
         /// <summary>
         /// Gets a bool array dataref accessor by name.
         /// </summary>
-        IXPDataRef<bool[]> GetBoolArray(string dataRefName);
+        IXPDataRef<XPBoolean[]> GetBoolArray(string dataRefName);
 
         /// <summary>
         /// Gets a float dataref accessor by name.
@@ -178,8 +178,8 @@ namespace XPNet
             = new Dictionary<string, IXPDataRef<int[]>>();
         private readonly Dictionary<string, IXPDataRef<bool>> m_boolRefs
             = new Dictionary<string, IXPDataRef<bool>>();
-        private readonly Dictionary<string, IXPDataRef<bool[]>> m_boolArrayRefs
-            = new Dictionary<string, IXPDataRef<bool[]>>();
+        private readonly Dictionary<string, IXPDataRef<XPBoolean[]>> m_boolArrayRefs
+            = new Dictionary<string, IXPDataRef<XPBoolean[]>>();
         private readonly Dictionary<string, IXPDataRef<float>> m_floatRefs
             = new Dictionary<string, IXPDataRef<float>>();
         private readonly Dictionary<string, IXPDataRef<float[]>> m_floatArrayRefs
@@ -211,7 +211,7 @@ namespace XPNet
         public unsafe IXPDataRef<bool> GetBool(string dataRefName) =>
             GetDataRef(dataRefName, m_boolRefs, CreateDataRefBool, XPDataTypes.Int) ?? throw InvalidDataRefException(dataRefName);
 
-        public unsafe IXPDataRef<bool[]> GetBoolArray(string dataRefName) =>
+        public unsafe IXPDataRef<XPBoolean[]> GetBoolArray(string dataRefName) =>
             GetDataRef(dataRefName, m_boolArrayRefs, CreateDataRefBoolArray, XPDataTypes.IntArray) ?? throw InvalidDataRefException(dataRefName);
 
         public unsafe IXPDataRef<float> GetFloat(string dataRefName) =>
@@ -284,7 +284,7 @@ namespace XPNet
         private unsafe IXPDataRef<int> CreateDataRefInt(string dataRefName, void* dataref) => new XPDataRefInt(dataRefName, dataref);
         private unsafe IXPDataRef<int[]> CreateDataRefIntArray(string dataRefName, void* dataref) => new XPDataRefIntArray(dataRefName, dataref);
         private unsafe IXPDataRef<bool> CreateDataRefBool(string dataRefName, void* dataref) => new XPDataRefBool(dataRefName, dataref);
-        private unsafe IXPDataRef<bool[]> CreateDataRefBoolArray(string dataRefName, void* dataref) => new XPDataRefBoolArray(dataRefName, dataref);
+        private unsafe IXPDataRef<XPBoolean[]> CreateDataRefBoolArray(string dataRefName, void* dataref) => new XPDataRefBoolArray(dataRefName, dataref);
         private unsafe IXPDataRef<float> CreateDataRefFloat(string dataRefName, void* dataref) => new XPDataRefFloat(dataRefName, dataref);
         private unsafe IXPDataRef<float[]> CreateDataRefFloatArray(string dataRefName, void* dataref) => new XPDataRefFloatArray(dataRefName, dataref);
         private unsafe IXPDataRef<double> CreateDataRefDouble(string dataRefName, void* dataref) => new XPDataRefDouble(dataRefName, dataref);
