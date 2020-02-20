@@ -57,6 +57,8 @@ clean:
 	$(RM) -r package
 	$(RM) -r build
 	cd XPNet.Native && $(MAKE) clean
+	cd XPLMTestHarness && $(MAKE) clean
+	cd XPNetPluginTestHost && $(MAKE) clean
 
 xpnetclr:
 	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) -o ../build && dotnet pack -c $(Configuration) -o ../package
