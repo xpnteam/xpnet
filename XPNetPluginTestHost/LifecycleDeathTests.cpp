@@ -9,6 +9,15 @@
 
 class LifecycleDeathTests : public PluginTestsBase
 {
+protected:
+	LifecycleDeathTests()
+	{
+		// This must be set to threadsafe to ensure that we actually do run each
+		// test in a child process on Unix - see above.  Otherwise gtest will try
+		// to just fork, which is much faster but won't work when we're testing
+		// initialization of .NET Core (again see above).
+		::testing::GTEST_FLAG(death_test_style) = "threadsafe";
+	}
 };
 
 void RunIsolatedLifecycleTest()

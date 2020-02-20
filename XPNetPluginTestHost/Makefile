@@ -10,6 +10,7 @@ UNAME         :=$(shell uname)
 CXX           :=g++
 RM            :=rm -f
 CP            :=cp
+MKDIR         :=mkdir -p
 CPPFLAGS      :=-g -Wall -std=c++1z -m64 -c
 OUTROOT       :=../build/test
 OBJDIR        :=obj
@@ -44,13 +45,11 @@ ifeq ($(UNAME),Darwin)
   PLATFORM    :=macOS
   DEFINES     :=-DAPL=1 -DIBM=0 -DLIN=0
   MOCKRESROOT :=$(OUTROOT)/Resources
-  OUTDIR      :=$(MOCKRESROOT)/plugins/64
+  OUTDIR      :=$(MOCKRESROOT)/plugins/XPNetPluginTest
   OUTNAME     :=XPNetPluginTestHost
 
   # NOTE: Important to note that we're pointing to our harness XPLM framework instead of the real one here.
-#  FRAMEWORKS  :=-F$(MOCKRESROOT)/plugins -framework XPLM -rpath @executable_path/
   FRAMEWORKS  :=-F$(MOCKRESROOT)/plugins -framework XPLM 
-  # FRAMEWORKS  :=-F$(XPLANESDKPATH)/Libraries/Mac # -framework XPLM
 
   LDFLAGS     :=$(LDFLAGS) -lgtest $(BOOSTLIB)/libboost_system.a $(BOOSTLIB)/libboost_filesystem.a
 
@@ -71,15 +70,20 @@ TESTEXE       =$(OUTDIR)/$(OUTNAME)
 
 all: testhost
 
-test: testhost testdeps
+test: testhost testprep
 	(cd $(OUTDIR) && ./$(OUTNAME))
 
 testhost: $(TESTEXE)
 
-testdeps:
+testprep:
 	# Need the .NET binaries (the test plugins, etc.)
-	$(CP) ../build/*.xpl $(OUTDIR)
-	$(CP) ../build/*.dll $(OUTDIR)
+	$(MKDIR) $(OUTDIR)/64/
+	$(CP) ../build/*.xpl $(OUTDIR)/64/
+	#$(CP) ../build/*.dll $(OUTDIR)
+	dotnet publish ../XPNet.CLR -c $(Configuration) -o "$(OUTDIR)"
+	dotnet publish ../XPNet.LoggerPlugin -c $(Configuration) -o "$(OUTDIR)"
+	dotnet publish ../XPNet.CLR.TestPlugins -c $(Configuration) -o "$(OUTDIR)"
+	dotnet publish ../XPNet.GraphicsTestPlugin -c $(Configuration) -o "$(OUTDIR)"
 	# Need a set of embedded .NET runtimes to run against.
 	dotnet install -i "$(OUTDIR)/64/dotnet-windows" -r dotnet -p win -a x64 -v 2.1
 	dotnet install -i "$(OUTDIR)/64/dotnet-macos" -r dotnet -p osx -a x64 -v 2.1

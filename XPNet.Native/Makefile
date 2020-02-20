@@ -11,6 +11,7 @@ UNAME         :=$(shell uname)
 
 CXX           :=g++
 RM            :=rm -f
+MKDIR         :=mkdir -p
 CPPFLAGS      :=-g -Wall -std=c++1z -m64 -c
 OUTDIR        :=../build
 OBJDIR        :=obj
@@ -44,7 +45,7 @@ ifeq ($(UNAME),Darwin)
   DEFINES     :=-DAPL=1 -DIBM=0 -DLIN=0
   XPLNAME     :=mac.xpl
   PKGPROJ     :=../XPNet.Native.Packages/XPNet.Native.NuSpec.macOS.csproj
-  FRAMEWORKS  :=-F$(XPLANESDKPATH)/Libraries/Mac -framework XPLM -install_name @executable_path/$(XPLNAME)
+  FRAMEWORKS  :=-F$(XPLANESDKPATH)/Libraries/Mac -framework XPLM -install_name @executable_path/64/$(XPLNAME)
   LDFLAGS     :=$(LDFLAGS) $(BOOSTLIB)/libboost_system.a $(BOOSTLIB)/libboost_filesystem.a
 
 endif
@@ -101,5 +102,5 @@ endif
 
 
 buildprep:
-	mkdir -p $(OUTDIR)
-	mkdir -p $(OBJDIR)
+	$(MKDIR) -p $(OUTDIR)
+	$(MKDIR) -p $(OBJDIR)

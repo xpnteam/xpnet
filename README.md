@@ -486,7 +486,7 @@ for the build to succeed.
 
 If all goes well, build outputs for both 32-bit and 64-bit will be in a directory
 named `build` when that completes, and the nuget packages will be in a directory
-named 'package'.  You can copy those outputs to a directory structure as described in
+named `package`.  You can copy those outputs to a directory structure as described in
 "Installing into X-Plane" above.
 
 You can also build the project from the IDE by opening XPNet.sln, and can manually create
@@ -511,12 +511,10 @@ make
 Unit tests will be automatically run as part of the build process, and must succeed
 for the build to succeed.
 
-- [ ] TODO: The tests do not yet run on macos and are skipped on that platform.  Fix.
-
 If all goes well, you'll have a bunch of .dll files and a mac.xpl file in a directory
-named `plugin` when that completes.  Create a plugin directory structure as described in
-"Installing into X-Plane" above, and copy everything from the `plugin`
-folder you just built.
+named `build` when that completes, and the nuget packages will be in a directory
+named `package`.  You can copy those outputs to a directory structure as described
+in "Installing into X-Plane" above.
 
 There is only a 64-bit build for macOS because the .NET Core Runtime does not
 support 32-bit MacOS.

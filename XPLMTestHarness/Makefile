@@ -9,6 +9,7 @@ UNAME         :=$(shell uname)
 
 CXX           :=g++
 RM            :=rm -f
+MKDIR         :=mkdir -p
 CPPFLAGS      :=-g -Wall -std=c++1z -m64 -c
 OUTROOT       :=../build/test
 OBJDIR        :=obj
@@ -101,6 +102,6 @@ endif
 
 
 buildprep:
-	mkdir -p $(OUTPATH)
-	mkdir -p $(OBJDIR)
+	$(MKDIR) $(OUTPATH)
+	$(MKDIR) $(OBJDIR)
 
