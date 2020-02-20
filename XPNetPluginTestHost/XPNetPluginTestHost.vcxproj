@@ -223,7 +223,6 @@ echo &gt; $(TargetPath).is_google_test</Command>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StdCapture.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="TestCore.h" />
     <ClInclude Include="XPMock.h" />
     <ClInclude Include="XPNetPluginTestHost.h" />

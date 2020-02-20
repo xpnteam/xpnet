@@ -10,7 +10,12 @@ void PluginTestsBase::SetUpPluginTest()
 
 	// By default for these tests, point XPNet logging to stdout
 	// and capture logging/stdout for tests to examine.
+#ifdef _MSC_VER
 	XPNetPluginSetExternalLoggingHandle(GetStdHandle(STD_OUTPUT_HANDLE));
+#else
+	XPNetPluginSetExternalLoggingHandle(reinterpret_cast<void*>(STDOUT_FILENO));
+#endif
+
 	StdCapture::Init();
 	StdCapture::BeginCapture();
 }

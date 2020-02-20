@@ -28,7 +28,7 @@ TEST_F(LoggingTests, CanLog)
 
 	if (file_exists(xpnetlog_path()))
 	{
-		int iRes = _unlink("xpnet.log");
+		int iRes = unlink("xpnet.log");
 		ASSERT_EQ(iRes, 0);
 	}
 

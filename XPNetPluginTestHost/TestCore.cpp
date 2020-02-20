@@ -19,7 +19,7 @@ void DeleteXPNetConfig()
 {
 	if (file_exists(xpnetcfg_path()))
 	{
-		int iRes = _unlink(xpnetcfg_path().c_str());
+		int iRes = unlink(xpnetcfg_path().c_str());
 		ASSERT_TRUE(iRes == 0);
 	}
 }

@@ -12,8 +12,6 @@
 #include <algorithm>
 #include <iostream>
 
-#include <Shlwapi.h>
-
 using std::map;
 using std::tuple;
 using std::make_tuple;
@@ -22,8 +20,6 @@ using std::vector;
 using std::remove;
 
 static int idSource;
-
-#  define strcp(dest, str) strcpy_s(dest, strlen(str) + 1, str)
 
 // NOTE: The data type naming conventions in this file match those used in the X-Plane API.
 // E.g., int is 'i' and int array is 'iv'.  But I defined 'data' as 'bv' (byte vector) instead
@@ -280,7 +276,8 @@ XPLM_API void                 XPLMGetPluginInfo(
 
 			hostPath += "plat.xpl";
 
-			GetFullPathNameA(hostPath.c_str(), MAX_PATH, outFilePath, NULL);
+			fs::path fp = hostPath;
+			strcp(outFilePath, fs::absolute(fp).c_str());
 		}
 		else
 		{

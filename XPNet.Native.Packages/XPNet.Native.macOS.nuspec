@@ -26,7 +26,7 @@ Platforms supported by this package:
   </metadata>
 
   <files>
-    <file src="lib/mac.xpl" target="contentFiles/any/any/64/mac.xpl" />
+    <file src="../XPNet.Native/lib/mac.xpl" target="contentFiles/any/any/64/mac.xpl" />
   </files>
 
 </package>

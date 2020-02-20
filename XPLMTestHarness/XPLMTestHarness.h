@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include "Platform.h"
+
 // If building the test harness itself, pretend for purposes of the X-Plane headers that
 // we're actually compiling XPLM itself, so that X-Plane will define XPLM_API to mean
 // export.

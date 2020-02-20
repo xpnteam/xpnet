@@ -9,7 +9,6 @@
 #define stat _stat 
 #define dup _dup
 #define dup2 _dup2
-//#define fileno _fileno
 #define close _close
 #define pipe _pipe
 #define read _read
@@ -20,9 +19,10 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <mutex>
+#include <thread>
 
-#define STD_OUT_FD (_fileno(stdout))
-#define STD_ERR_FD (_fileno(stderr))
+#define STD_OUT_FD (fileno(stdout))
+#define STD_ERR_FD (fileno(stderr))
 
 class StdCapture
 {
@@ -112,7 +112,7 @@ public:
 private:
 	enum PIPES { READ, WRITE };
 
-	static int StdCapture::secure_dup(int src)
+	static int secure_dup(int src)
 	{
 		int ret = -1;
 		bool fd_blocked = false;
@@ -125,7 +125,7 @@ private:
 		} while (ret < 0);
 		return ret;
 	}
-	static void StdCapture::secure_pipe(int * pipes)
+	static void secure_pipe(int * pipes)
 	{
 		int ret = -1;
 		bool fd_blocked = false;
@@ -141,7 +141,7 @@ private:
 				std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		} while (ret < 0);
 	}
-	static void StdCapture::secure_dup2(int src, int dest)
+	static void secure_dup2(int src, int dest)
 	{
 		int ret = -1;
 		bool fd_blocked = false;
@@ -154,7 +154,7 @@ private:
 		} while (ret < 0);
 	}
 
-	static void StdCapture::secure_close(int & fd)
+	static void secure_close(int & fd)
 	{
 		int ret = -1;
 		bool fd_blocked = false;

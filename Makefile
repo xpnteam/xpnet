@@ -2,10 +2,8 @@
 # Makefile
 #
 # Targets:
-#   plugin  - Creates a 'plugin' folder with all of the native and DLLs collected,
-#             ready to install by hand into X-Plane.
 #   package - Creates a 'package' folder with .nupkg files ready to publish to
-#             nuget.org or another gallery.
+#             nuget.org or another gallery.  Runs tests as part of the build.
 #
 # There are the following packages:
 #  XPNet.CLR            - The .NET assembly that you reference to write your plugin code.
@@ -57,17 +55,18 @@ clean:
 	$(RM) -r XPNet.GraphicsTestPlugin/obj XPNet.GraphicsTestPlugin/bin
 	$(RM) -r XPNet.CLR.Template/obj XPNet.CLR.Template/bin
 	$(RM) -r package
+	$(RM) -r build
 	cd XPNet.Native && $(MAKE) clean
 
 xpnetclr:
-	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) && dotnet pack -c $(Configuration) -o ../package
+	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) -o ../build && dotnet pack -c $(Configuration) -o ../package
 
 template:
 	cd XPNet.CLR.Template && nuget pack XPNet.CLR.Template.nuspec -OutputDirectory ../package
 
 native:
 	cd XPNet.Native && $(MAKE)
-	$(CP) XPNet.Native/bin/$(Configuration)/*.nupkg package
+	$(CP) XPNet.Native.Packages/bin/$(Configuration)/*.nupkg package
 
 prepare_package:
 	$(MKDIR) package
@@ -76,9 +75,10 @@ xpnetclr_test: xpnetclr
 	cd XPNet.CLR.Tests && dotnet test -c $(Configuration) -p:Platform=AnyCPU
 
 native_test: native
-# TODO: Run the Google Test output executable.  On Windows this looked like the following:
-#	build\x64\$(Configuration)\XPNetPluginTestHost.exe
+	cd XPLMTestHarness && $(MAKE)
+	cd XPNetPluginTestHost && $(MAKE) test
 
 test: xpnetclr_test native_test
 
 package: prepare_package test template
+

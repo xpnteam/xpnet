@@ -62,5 +62,5 @@ extern "C" {
 	XPNETPLUGIN_API bool XPNetPluginIsEnabled();
 	XPNETPLUGIN_API bool XPNetPluginIsStarted();
 	XPNETPLUGIN_API void XPNetPluginSetExternalLoggingHandle(void* externalLoggingHandle);
-	XPNETPLUGIN_API void XPNetPluginSetPluginRoot(WCHAR* pluginRoot);
+	//XPNETPLUGIN_API void XPNetPluginSetPluginRoot(WCHAR* pluginRoot);
 }
