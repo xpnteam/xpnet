@@ -48,14 +48,14 @@ xpnetclr:
 	cd XPNet.CLR && dotnet build -c $(Configuration) && dotnet publish -c $(Configuration) && dotnet pack -c $(Configuration) -o ../package
 
 native_x86:
-	msbuild XPNet.sln -t:Build -p:Configuration=$(Configuration) -p:Platform=x86
+	msbuild XPNet.sln -t:Restore;Build -p:Configuration=$(Configuration) -p:Platform=x86
 
 native_x86_test: native_x86
 #	cd build\Win32\$(Configuration) && XPNetPluginTestHost.exe
 # TODO: Enable the test above once I get the x86 tests working - they fail right now w/ some calling convention issue.
 
 native_x64:
-	msbuild XPNet.sln -t:Build -p:Configuration=$(Configuration) -p:Platform=x64
+	msbuild XPNet.sln -t:Restore;Build -p:Configuration=$(Configuration) -p:Platform=x64
 
 native_x64_test: native_x64
 	cd build\x64\$(Configuration) && XPNetPluginTestHost.exe
