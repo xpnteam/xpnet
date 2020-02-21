@@ -277,7 +277,7 @@ XPLM_API void                 XPLMGetPluginInfo(
 			hostPath += "plat.xpl";
 
 			fs::path fp = hostPath;
-			strcp(outFilePath, fs::absolute(fp).generic_u8string().c_str());
+			strcp(outFilePath, fs::absolute(fp).generic_string().c_str());
 		}
 		else
 		{
