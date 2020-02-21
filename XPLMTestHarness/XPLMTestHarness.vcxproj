@@ -101,7 +101,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>APL=0;IBM=1;PLATX64;_DEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -114,7 +114,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>APL=0;IBM=1;PLATX86;WIN32;_DEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -129,7 +129,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>APL=0;IBM=1;PLATX86;WIN32;NDEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,7 +146,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>APL=0;IBM=1;PLATX64;NDEBUG;_WINDOWS;_USRDLL;XPLMTESTHARNESS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(XPLANESDKPATH)\CHeaders\Widgets;$(XPLANESDKPATH)\CHeaders\Wrappers;$(XPLANESDKPATH)\CHeaders\XPLM;$(SolutionDir)XPNet.Native</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
